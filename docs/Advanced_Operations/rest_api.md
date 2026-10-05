@@ -152,8 +152,8 @@ For the installed runtime route profile, `POST` accepts these fixed operations:
   transaction generation and plan digest.
 - `switch` applies the preflighted GPIO4 or GPIO20 route in the current boot.
 - `remove` removes the exact active GPIO4 or GPIO20 route and restores the
-  prior Wsprry Pi service intent.
-- `recover` performs exceptional fail-closed cleanup and leaves Wsprry Pi
+  prior WsprryPi service intent.
+- `recover` performs exceptional fail-closed cleanup and leaves WsprryPi
   stopped and inhibited.
 
 `switch` requires the current generation; the service binds that generation to
@@ -161,7 +161,7 @@ the reviewed preflight digest.
 `remove` names the exact route being removed. A successful switch or removal
 response means the bounded operation was queued; clients must poll `GET` until
 the route reaches a terminal state. A temporary disconnect is not proof of
-success. Normal removal finishes as route neutral with Wsprry Pi either online
+success. Normal removal finishes as route neutral with WsprryPi either online
 and idle, or still stopped or masked because that was its prior state.
 
 The compatibility development profile retains `preflight`,

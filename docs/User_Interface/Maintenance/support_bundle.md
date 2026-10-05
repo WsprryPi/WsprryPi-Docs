@@ -1,6 +1,6 @@
 # Create and Share a Support Bundle
 
-A support bundle gathers diagnostic information that can help the Wsprry Pi maintainer investigate a problem. The Maintenance workflow creates a readable archive on your Raspberry Pi, lets you inspect it, encrypts the exact archive you approved, and then opens a private Dropbox upload page. Wsprry Pi never uploads the readable archive.
+A support bundle gathers diagnostic information that can help the WsprryPi maintainer investigate a problem. The Maintenance workflow creates a readable archive on your Raspberry Pi, lets you inspect it, encrypts the exact archive you approved, and then opens a private Dropbox upload page. WsprryPi never uploads the readable archive.
 
 :::{important}
 A support bundle may identify you, your station, equipment, or network. It can include callsigns, Maidenhead locators, host and user names, internal addresses, configuration values, logs, project paths, and service details. Automatic credential redaction is best-effort. Download and inspect the readable archive before approving encryption.
@@ -8,7 +8,7 @@ A support bundle may identify you, your station, equipment, or network. It can i
 
 ## Create the Bundle
 
-1. Open **Maintenance** in the Wsprry Pi web interface.
+1. Open **Maintenance** in the WsprryPi web interface.
 2. In **Support Bundle**, select **Start support bundle**.
 3. Choose how the bundle will be associated with your support request:
    - Enter the number of an existing WsprryPi GitHub issue.
@@ -33,7 +33,7 @@ The downloaded filename has this form:
 WsprryPi-support-HOST-UTC_TIMESTAMP.tar.gz
 ```
 
-Your browser chooses the save location. Wsprry Pi can report the filename, but it cannot reliably report the final folder on your computer.
+Your browser chooses the save location. WsprryPi can report the filename, but it cannot reliably report the final folder on your computer.
 
 ## Retention on the Raspberry Pi
 
@@ -54,15 +54,15 @@ The collector creates a top-level `bundle` directory containing `README.txt`, `N
 | --- | --- |
 | System identity and resources | Hostname, current user and groups, kernel and operating-system release, CPU and memory details, Raspberry Pi model, boot command line, architecture, uptime, mounted filesystems, disk space, and memory use. |
 | Raspberry Pi health | Firmware and bootloader version, throttling state, temperature, core voltage and clock, and ARM/GPU memory allocation when `vcgencmd` is available. |
-| Wsprry Pi project | Detected checkout path, project file inventory, Git remote/status/commit information, build files, service documentation, and configuration files found in the checkout. |
+| WsprryPi project | Detected checkout path, project file inventory, Git remote/status/commit information, build files, service documentation, and configuration files found in the checkout. |
 | Installed runtime | Installed release and debug executable versions, help output, file metadata, architecture, ELF header, SHA-256, shared-library dependencies, installed INI file, and systemd unit details. |
-| Services and logs | Wsprry Pi and Apache status, enablement, systemd properties, recent unit and identifier journals, recent system journal, kernel log, installer log, syslog/messages, and legacy Wsprry Pi logs when present. Normal collection limits the number of recent log lines. |
-| Processes and current resources | A point-in-time system process list, process tree, systemd control groups when available, and Wsprry Pi process details resolved from the service's systemd `MainPID`. The summary reports current RSS, virtual size, PSS when readable, threads, tasks, and open-file-descriptor count. Unavailable, stopped, permission, and process-race states are labeled instead of reported as zero. |
+| Services and logs | WsprryPi and Apache status, enablement, systemd properties, recent unit and identifier journals, recent system journal, kernel log, installer log, syslog/messages, and legacy WsprryPi logs when present. Normal collection limits the number of recent log lines. |
+| Processes and current resources | A point-in-time system process list, process tree, systemd control groups when available, and WsprryPi process details resolved from the service's systemd `MainPID`. The summary reports current RSS, virtual size, PSS when readable, threads, tasks, and open-file-descriptor count. Unavailable, stopped, permission, and process-race states are labeled instead of reported as zero. |
 | GPIO and hardware | GPIO/I²C device nodes, loaded hardware-related kernel modules, group membership, GPIO chip/line information, selected GPIO lookups, pinout data, kernel GPIO debug information when readable, and Raspberry Pi boot configuration files. Pi 5 RP1 diagnostics add scoped DKMS registration; kernel-specific filename, version, and `vermagic` for both RP1 modules; loaded-module state; running-kernel header availability; WsprryPi installation-record presence; endpoint and route-manager socket state; the persisted route; a route-journal inventory; and the runtime provider's read-only `inspect` result when available. Missing or inaccessible evidence is labeled. The installation record itself is not copied, and the bundle does not attest provider packages or overlay hashes. |
 | I²C | Passive interface status from Raspberry Pi configuration, available I²C adapters from `i2cdetect -l`, and whether the active scan was skipped, succeeded, failed, or unavailable. The bus 1 address table appears only when the user explicitly enables active probing. |
-| Web interface and Apache | Apache status, configuration test, sites, modules, listening TCP sockets, enabled/available Apache configuration, document-root and proxy declarations, web-root inventory, configured Wsprry Pi web/socket ports, and a local web-root probe. |
+| Web interface and Apache | Apache status, configuration test, sites, modules, listening TCP sockets, enabled/available Apache configuration, document-root and proxy declarations, web-root inventory, configured WsprryPi web/socket ports, and a local web-root probe. |
 | Network and time | Interface addresses, routes, local and UTC time, time-zone/synchronization status, and Chrony or NTP peer information when available. |
-| Packages | Installed Debian package list and policy information for selected Wsprry Pi build/runtime dependencies. |
+| Packages | Installed Debian package list and policy information for selected WsprryPi build/runtime dependencies. |
 
 Configuration-like text files and collected command lines are scanned for common credentials before the archive is created. URL-embedded credentials, common credential fields, and common command-line options such as `--password VALUE` and `--token VALUE` are replaced with `[REDACTED]`. Review is still necessary because process arguments, logs, and configuration formats can contain identifiers or sensitive values that the automatic patterns do not recognize.
 
@@ -97,7 +97,7 @@ Start with these files and directories:
 - `bundle/NEXT-STEPS.txt` for the generated handoff reminder.
 - `bundle/configs` for configuration and service files.
 - `bundle/logs` for application, Apache, installer, system, and kernel logs.
-- `bundle/processes` for the current system process views and Wsprry Pi resource summary.
+- `bundle/processes` for the current system process views and WsprryPi resource summary.
 - `bundle/project` for checkout and installed-runtime information.
 - `bundle/hardware`, `bundle/web`, `bundle/network`, and `bundle/commands` for their corresponding diagnostic reports.
 
@@ -134,11 +134,11 @@ The upload address comes from a signed, replaceable intake policy. This lets the
 3. On Dropbox, enter the requested name and valid email address. A Dropbox account is not required.
 4. Select the downloaded `.age` file—never the readable `.tar.gz` or receipt—and submit it.
 5. Wait until Dropbox displays **Finished uploading**.
-6. Return to Wsprry Pi, select the checkbox confirming that exact Dropbox result, and select **Record my upload report**.
+6. Return to WsprryPi, select the checkbox confirming that exact Dropbox result, and select **Record my upload report**.
 
-Dropbox cannot read the encrypted bundle contents, but it can observe upload metadata such as the filename, size, upload time, network information, and the name and email address entered on its form. The Wsprry Pi maintainer may also receive the submitted name and email as Dropbox metadata.
+Dropbox cannot read the encrypted bundle contents, but it can observe upload metadata such as the filename, size, upload time, network information, and the name and email address entered on its form. The WsprryPi maintainer may also receive the submitted name and email as Dropbox metadata.
 
-Opening the Dropbox page is not an upload. Dropbox displaying **Finished uploading** is provider-reported success. Recording that result in Wsprry Pi is your report of success. Neither is confirmation that the maintainer has received, decrypted, or accepted the bundle. Maintainer confirmation happens separately after receipt and validation.
+Opening the Dropbox page is not an upload. Dropbox displaying **Finished uploading** is provider-reported success. Recording that result in WsprryPi is your report of success. Neither is confirmation that the maintainer has received, decrypted, or accepted the bundle. Maintainer confirmation happens separately after receipt and validation.
 
 ![Private support upload workflow showing encryption and Dropbox disclosure](support_bundle_private_upload.png)
 
@@ -146,13 +146,13 @@ Opening the Dropbox page is not an upload. Dropbox displaying **Finished uploadi
 
 ### Existing GitHub issue
 
-After you record Dropbox success, Wsprry Pi prepares a safe public comment containing the case ID but no diagnostics or transfer address.
+After you record Dropbox success, WsprryPi prepares a safe public comment containing the case ID but no diagnostics or transfer address.
 
 1. Review and select **Copy public comment**.
 2. Select **Open existing GitHub issue**.
 3. Sign in to GitHub and post the prepared comment yourself.
 
-Wsprry Pi cannot post automatically and does not store maintainer GitHub credentials. If browser clipboard access is unavailable, the application selects the complete comment so you can copy it manually.
+WsprryPi cannot post automatically and does not store maintainer GitHub credentials. If browser clipboard access is unavailable, the application selects the complete comment so you can copy it manually.
 
 ### New GitHub issue
 

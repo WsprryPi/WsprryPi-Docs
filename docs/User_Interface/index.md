@@ -1,6 +1,6 @@
 # User Interface
 
-The web interface is the primary day-to-day control surface for Wsprry Pi. It provides configuration, status, logs, and recent spots in one responsive layout.
+The web interface is the primary day-to-day control surface for WsprryPi. It provides configuration, status, logs, and recent spots in one responsive layout.
 
 ```{toctree}
 :maxdepth: 1
@@ -16,7 +16,7 @@ View Reception Reports <Spots/index>
 Maintenance <Maintenance/index>
 ```
 
-![Wsprry Pi UI](WsprryPi_UI.png)
+![WsprryPi UI](WsprryPi_UI.png)
 
 Use the web UI in this order:
 
@@ -57,10 +57,10 @@ The antenna icon turns color depending on the status of the application:
 
 The **Spots** menu provides two reception-report destinations:
 
-- **WSPR spots:** Opens the Wsprry Pi Spots page in the current browser tab. This page shows recent WSPR reception reports for your callsign.
+- **WSPR spots:** Opens the WsprryPi Spots page in the current browser tab. This page shows recent WSPR reception reports for your callsign.
 - **QRSS Plus:** Opens the external [QRSS Plus](https://swharden.com/qrss/plus/) website in a new browser tab.
 
-#### Wsprry Pi Links Dropdown
+#### WsprryPi Links Dropdown
 
 ![WSPR Links](Links.png)
 
@@ -68,14 +68,14 @@ Three pages are available here:
 
 - **Documentation:** This documentation, hosted at Read The Docs.
 - **GitHub:** The main GitHub organization, containing all of the repositories supporting this project.
-- **TAPR:** TAPR is a non-profit 501(c)(3) organization of amateur radio (“ham”) operators who are interested in advancing the state of the radio art.  TAPR offers pre-built Pi HATs for Wsprry Pi in their store, among other items.
+- **TAPR:** TAPR is a non-profit 501(c)(3) organization of amateur radio (“ham”) operators who are interested in advancing the state of the radio art.  TAPR offers pre-built Pi HATs for WsprryPi in their store, among other items.
 - **WSPRNet Database:** The WSPRNet.or's database interface, where you may perform lookups on WSPR reports.
 
 ### Web Page Mode
 
 ![Web Page Mode](Mode_Switch.png)
 
-Wsprry Pi supports a light and dark presentation mode in the web interface.
+WsprryPi supports a light and dark presentation mode in the web interface.
 
 ![Light/Dark Mode](Split_Screen.png)
 

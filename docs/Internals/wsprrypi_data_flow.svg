@@ -21,27 +21,27 @@
   <!-- Nodes -->
   <!-- Executable (left) -->
   <ellipse class="oval" cx="270" cy="275" rx="230" ry="120"/>
-  <text x="270" y="260" text-anchor="middle" class="title">Wsprry Pi Executable</text>
+  <text x="270" y="260" text-anchor="middle" class="title">WsprryPi Executable</text>
   <text x="270" y="295" text-anchor="middle" class="sub">/usr/local/bin/wsprrypi</text>
 
   <!-- Service config (top-right) -->
   <ellipse class="oval" cx="930" cy="110" rx="310" ry="90"/>
-  <text x="930" y="100" text-anchor="middle" class="title">Wsprry Pi Service Configuration</text>
+  <text x="930" y="100" text-anchor="middle" class="title">WsprryPi Service Configuration</text>
   <text x="930" y="135" text-anchor="middle" class="sub">/lib/systemd/system/wsprrypi.service</text>
 
   <!-- Web UI (mid-right) -->
   <ellipse class="oval" cx="990" cy="335" rx="330" ry="95"/>
-  <text x="990" y="325" text-anchor="middle" class="title">Wsprry Pi Web UI</text>
+  <text x="990" y="325" text-anchor="middle" class="title">WsprryPi Web UI</text>
   <text x="990" y="360" text-anchor="middle" class="sub">http://{servername}.local/wsprrypi/</text>
 
   <!-- Logs (bottom-left) -->
   <ellipse class="oval" cx="350" cy="625" rx="260" ry="95"/>
-  <text x="350" y="615" text-anchor="middle" class="title">Wsprry Pi Logs</text>
+  <text x="350" y="615" text-anchor="middle" class="title">WsprryPi Logs</text>
   <text x="350" y="650" text-anchor="middle" class="sub2">(systemd-journald)</text>
 
   <!-- Configuration (bottom-mid/right) -->
   <ellipse class="oval" cx="820" cy="625" rx="300" ry="95"/>
-  <text x="820" y="615" text-anchor="middle" class="title">Wsprry Pi Configuration</text>
+  <text x="820" y="615" text-anchor="middle" class="title">WsprryPi Configuration</text>
   <text x="820" y="650" text-anchor="middle" class="sub">/usr/local/etc/wsprrypi.ini</text>
 
   <!-- Links -->

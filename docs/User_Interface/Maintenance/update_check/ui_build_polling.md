@@ -76,4 +76,4 @@ If `showConfirmationDialog()` fails to show the modal, it returns `false`; `uiRe
 
 After **Refresh**, the requested identity remains in the `ui_refresh` query parameter until the newly loaded page proves it has that identity. On success, the browser removes the parameter.
 
-If the page still has a different identity, Wsprry Pi stops prompting and displays a persistent consistency diagnostic. This prevents a refresh loop during an incomplete or continuously changing deployment. Wait for the installation to finish, then reload once.
+If the page still has a different identity, WsprryPi stops prompting and displays a persistent consistency diagnostic. This prevents a refresh loop during an incomplete or continuously changing deployment. Wait for the installation to finish, then reload once.

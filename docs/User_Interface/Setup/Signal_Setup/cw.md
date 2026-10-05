@@ -2,7 +2,7 @@
 
 Use this page to configure QRSS, FSKCW, or DFCW timing, frequency, scheduling, and message content. Return to the [Signal Setup overview](index.md) to choose WSPR. For direct shell operation, see [CW Mode Options](../../../Command_Line_Operations/cw_modes.md); for direct file editing, see [INI Configuration Reference](../../../Advanced_Operations/ini_configuration.md); for recoverable save failures, see [Configuration Troubleshooting](../../../Advanced_Operations/configuration_troubleshooting.md).
 
-CW Mode, using one of QRSS, FSKCW, or DFCW, was added as of version 3 of Wsprry Pi.  It offers some new exciting methods of QRP transmissions.
+CW Mode, using one of QRSS, FSKCW, or DFCW, was added as of version 3 of WsprryPi.  It offers some new exciting methods of QRP transmissions.
 
 ![CW Mode](CW_Mode.png)
 

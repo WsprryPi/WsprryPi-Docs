@@ -60,7 +60,7 @@ or an explicitly accepted network design. Select **Insecure disabled**, type
 The setting is not part of Setup autosave. When the insecure override is
 active, the page displays **NETWORK SAFETY OFF**.
 
-Applying either value validates the candidate Wsprry Pi and Apache
+Applying either value validates the candidate WsprryPi and Apache
 configuration, reloads Apache without rebooting, and confirms the active
 policy. If validation, reload, or confirmation fails, the page preserves your
 requested choice and reports that the requested, configured, and active values
@@ -160,7 +160,7 @@ processed.
 
 ## Update Checker
 
-The Wsprry Pi UI automatically checks the running build against eligible releases and its trusted upstream branch on GitHub. A newer tagged release is shown as an **Update available**. A non-main development build may instead show **Newer branch build available** when its upstream branch contains the running commit and has newer commits.
+The WsprryPi UI automatically checks the running build against eligible releases and its trusted upstream branch on GitHub. A newer tagged release is shown as an **Update available**. A non-main development build may instead show **Newer branch build available** when its upstream branch contains the running commit and has newer commits.
 
 Tagged-release notifications provide a link to the [Releases page](https://github.com/WsprryPi/WsprryPi/releases/). Branch-build notifications identify the target branch and commit and direct prerelease users to their designated update channel; they do not present an unrelated Releases link.
 
@@ -184,7 +184,7 @@ Technical information on the update check process is available in the [WsprryPi 
 
 ## Support Bundle
 
-Use **Support Bundle** when the Wsprry Pi maintainer asks for diagnostic information. The workflow records useful support context, creates a readable `.tar.gz` candidate locally, lets you inspect it, encrypts the exact bytes you approve, and hands only the encrypted `.age` file to a private Dropbox File Request.
+Use **Support Bundle** when the WsprryPi maintainer asks for diagnostic information. The workflow records useful support context, creates a readable `.tar.gz` candidate locally, lets you inspect it, encrypts the exact bytes you approve, and hands only the encrypted `.age` file to a private Dropbox File Request.
 
 Review the readable archive before encryption. See [Create and Share a Support Bundle](support_bundle.md) for privacy guidance, collection inventory, encrypted upload, receipt handling, truthful upload states, GitHub correlation, and cleanup.
 

@@ -2,7 +2,7 @@
 
 ![WsprryPi Logs](logs.png)
 
-The log page auto-refreshes as your Wsprry Pi server generates logs. It accesses them from the Debian systemd-journald system.
+The log page auto-refreshes as your WsprryPi server generates logs. It accesses them from the Debian systemd-journald system.
 
 If you need more than what is displayed, you can find the complete logs on the Pi with the command `journalctl -u wsprrypi.service`. By default, the Raspberry Pi retains only the current boot’s logs. You can make these persistent with:
 

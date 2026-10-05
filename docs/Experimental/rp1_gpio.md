@@ -11,7 +11,7 @@ installer-managed integration. For current operation, see
 [Raspberry Pi 5 RP1 GPCLK](../Advanced_Operations/rp1_gpclk.md).
 
 This page records an engineering workflow that is deliberately absent from the
-normal Wsprry Pi navigation and installation process. Raspberry Pi 5 RP1 GPIO
+normal WsprryPi navigation and installation process. Raspberry Pi 5 RP1 GPIO
 transmission is implemented for continued development, but ordinary operators
 are not offered this transmitter path. Use the supported Si5351 path unless you
 are maintaining the matching kernel, provider, and recovery procedure yourself.
@@ -23,7 +23,7 @@ kernel used by Raspberry Pi 5, Pi 500, and CM5 systems. The kernel image,
 provider modules, overlay, userspace UAPI, and running kernel release must be an
 exact matching set. A module that merely loads is not proof of compatibility.
 
-The normal Wsprry Pi installer does not install or select any of these
+The normal WsprryPi installer does not install or select any of these
 historical Issue 399 artifacts. Kernel, module, overlay, boot-file, service,
 GPIO, and reboot changes require a separately controlled maintenance window
 and a known-good boot selection retained for recovery.
@@ -90,7 +90,7 @@ check before further testing.
 
 Remove the experimental overlay from the next boot selection or restore the
 backed-up boot configuration. Select the known-good packaged kernel rather than
-overwriting it. Reboot and verify that the expected kernel and normal Wsprry Pi
+overwriting it. Reboot and verify that the expected kernel and normal WsprryPi
 services are active.
 
 ### Clock-disabled state
@@ -102,7 +102,7 @@ persist `live_output=1` in module configuration. Restore the provider to
 ### GPIO and service recovery
 
 After any controlled test, verify that the transmit GPIO is an input, GPCLK0
-prepare and enable counts are zero, and the Wsprry Pi service is active. If the
+prepare and enable counts are zero, and the WsprryPi service is active. If the
 service does not start, keep transmission disabled and review its status and
 journal before changing the provider or boot selection again.
 

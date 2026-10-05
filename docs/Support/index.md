@@ -1,13 +1,13 @@
 (support-gpt)=
-# Getting Help with the Wsprry Pi Support GPT
+# Getting Help with the WsprryPi Support GPT
 
-The Wsprry Pi Support GPT can help you troubleshoot Wsprry Pi by reviewing your description of the problem. A Wsprry Pi support bundle can also help a project developer investigate an issue.
+The WsprryPi Support GPT can help you troubleshoot WsprryPi by reviewing your description of the problem. A WsprryPi support bundle can also help a project developer investigate an issue.
 
-Start here: [Open the Wsprry Pi Support GPT](https://chatgpt.com/g/g-6a43dc71d1988191b16ead50e3bb707b-wsprrypi-support-assistant).
+Start here: [Open the WsprryPi Support GPT](https://chatgpt.com/g/g-6a43dc71d1988191b16ead50e3bb707b-wsprrypi-support-assistant).
 
 ## Quick Start
 
-1. Open the Wsprry Pi Support GPT.
+1. Open the WsprryPi Support GPT.
 2. Briefly describe what is going wrong.
 3. If you need developer help, [create and review a support bundle](../User_Interface/Maintenance/support_bundle.md).
 4. Keep the downloaded `.tar.gz` available in case the project developer requests it.
@@ -16,7 +16,7 @@ You can still start with the GPT even if you do not already have a bundle.
 
 ## What the GPT Can Help With
 
-Use the Wsprry Pi Support GPT for help with issues such as:
+Use the WsprryPi Support GPT for help with issues such as:
 
 - Configuration problems
 - Runtime errors
@@ -49,7 +49,7 @@ Create and download the readable candidate from the Maintenance page. Review it 
 
 You can ask questions such as:
 
-- "I expected Wsprry Pi to transmit on 20m, but I do not see any spots. Can you review this support bundle and suggest what to check?"
+- "I expected WsprryPi to transmit on 20m, but I do not see any spots. Can you review this support bundle and suggest what to check?"
 - "The application starts, but transmissions do not appear to run. What does this support bundle show?"
 - "Can you look for configuration problems that might prevent WSPR uploads?"
 - "Does this bundle show any runtime errors or environment problems?"
@@ -68,4 +68,4 @@ The support bundle is intended for diagnostics, but automatic redaction is best-
 
 ## If the GPT Cannot Solve the Issue
 
-If the Wsprry Pi Support GPT cannot identify the problem, keep the support bundle and the GPT's summary. That information can make it easier to ask for help from the Wsprry Pi project or community.
+If the WsprryPi Support GPT cannot identify the problem, keep the support bundle and the GPT's summary. That information can make it easier to ask for help from the WsprryPi project or community.

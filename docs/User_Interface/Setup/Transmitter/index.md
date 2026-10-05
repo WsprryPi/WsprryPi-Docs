@@ -19,7 +19,7 @@ stack without changing their order.
 
 ## GPIO
 
-GPIO-based transmissions are the typical method most people think of when they think of Wsprry Pi.  It uses a GPIO Pin attached to a clock generator on the Pi to transmit WSPR tones.
+GPIO-based transmissions are the typical method most people think of when they think of WsprryPi.  It uses a GPIO Pin attached to a clock generator on the Pi to transmit WSPR tones.
 
 On Pi 5-family systems, the normal installer supplies and validates the RP1
 GPCLK provider but leaves both routes unselected and output disabled.
@@ -35,7 +35,7 @@ There are only two choices when setting up the GPIO-based transmitter:
 
 ### Transmit Pin
 
-GPIO4 and GPIO20 are the supported direct RF output choices. The selected pin is reserved by the GPIO backend even when transmission is disabled, because Wsprry Pi must retain ownership of the configured RF path for startup and safe-state handling.
+GPIO4 and GPIO20 are the supported direct RF output choices. The selected pin is reserved by the GPIO backend even when transmission is disabled, because WsprryPi must retain ownership of the configured RF path for startup and safe-state handling.
 
 On Pi 5, the route panel distinguishes **Requested** from **Active**. Selecting
 the other pin or None creates a draft; it does not autosave or redirect
@@ -45,7 +45,7 @@ to restore the persisted selection without changing the Pi.
 
 Switching and removal happen in the current boot and do not require a reboot.
 The status dialog remains visible through the brief controller disconnect and
-checks the result without repeating the operation. If Wsprry Pi was running,
+checks the result without repeating the operation. If WsprryPi was running,
 successful removal brings it back online and idle. A service that was already
 stopped or administrator-masked remains stopped or masked.
 
@@ -53,11 +53,11 @@ The panel distinguishes checking, plan ready, switching, restoring, route
 selected, removing, route removed, service stopped, restoration failed, and
 recovery-required states. Transmission remains disabled during an unresolved
 transaction. **Recover to no route** is an exceptional fail-closed action: it
-leaves Wsprry Pi stopped and the controller inhibited for investigation. Use
+leaves WsprryPi stopped and the controller inhibited for investigation. Use
 **Remove route** for normal removal. See [Raspberry Pi 5 RP1 GPCLK](../../../Advanced_Operations/rp1_gpclk.md)
 for recovery guidance.
 
-Wsprry Pi permits RP1 transmission only when the route and eligibility
+WsprryPi permits RP1 transmission only when the route and eligibility
 evidence agrees exactly.
 
 The other pin remains available on the **Pi I/O** tab. Selecting the Si5351 backend releases both GPIO4 and GPIO20 for ordinary GPIO roles; the retained GPIO transmit-pin value is ignored while Si5351 is selected.
@@ -87,7 +87,7 @@ panel reports that the device was not detected.
 
 ### I2C Bus
 
-Choose one of the I2C buses detected on the Raspberry Pi. Wsprry Pi lists only
+Choose one of the I2C buses detected on the Raspberry Pi. WsprryPi lists only
 buses currently exposed by Linux with a corresponding I2C device. If the saved
 bus is no longer available, it remains identified as unavailable but cannot be
 selected; choose another listed bus explicitly. Enable or attach an I2C bus,
@@ -99,7 +99,7 @@ attached Si5351.
 
 ### I2C Address
 
-After a bus is selected, Wsprry Pi checks addresses `0x60` through `0x6F` and
+After a bus is selected, WsprryPi checks addresses `0x60` through `0x6F` and
 lists only addresses that respond to the Si5351 register-read check. The saved
 address remains selected only while it is detected on that bus. If it is
 missing, the menu has no selection; choose a detected address explicitly.
@@ -118,7 +118,7 @@ attached hardware before transmitting.
 
 You must configure the reference frequency installed on the clock-generator board. QRP Labs synthesizer kits are supplied with a 27 MHz crystal and support optional TCXO configurations; Adafruit breakout boards use a 25 MHz crystal. Either reference can generate many supported frequencies.
 
-For qualified 2 m WSPR operation, use a 27 MHz reference. [QRP Labs selected 27 MHz](https://qrp-labs.com/images/synth/synth_assembly6.pdf) because its synthesis calculations preserve WSPR tone spacing through 145 MHz, while its 25 MHz configuration does not. Wsprry Pi's current planner can calculate the four 2 m tones from a 25 MHz reference, but Wsprry Pi has physically qualified only its 27 MHz reference configuration on 2 m. A 25 MHz reference therefore remains unqualified for 2 m rather than proven incompatible.
+For qualified 2 m WSPR operation, use a 27 MHz reference. [QRP Labs selected 27 MHz](https://qrp-labs.com/images/synth/synth_assembly6.pdf) because its synthesis calculations preserve WSPR tone spacing through 145 MHz, while its 25 MHz configuration does not. WsprryPi's current planner can calculate the four 2 m tones from a 25 MHz reference, but WsprryPi has physically qualified only its 27 MHz reference configuration on 2 m. A 25 MHz reference therefore remains unqualified for 2 m rather than proven incompatible.
 
 Enter the frequency that corresponds to the installed reference hardware.
 

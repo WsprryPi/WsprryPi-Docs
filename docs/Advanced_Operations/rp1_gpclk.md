@@ -1,6 +1,6 @@
 # Raspberry Pi 5 RP1 GPCLK
 
-On Raspberry Pi 5-family systems, the Wsprry Pi installer resolves, installs,
+On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs,
 and validates a compatible RP1-GPCLK-DKMS provider and its route-management
 service. Installation establishes neutral administration: neither GPIO4 nor
 GPIO20 is selected, the transmission consumer remains absent, and output is
@@ -9,7 +9,7 @@ selects and applies a route. Si5351 remains a separate backend choice.
 
 ## Installation and ownership
 
-Use the normal Wsprry Pi installer. Do not manually install an additional RP1
+Use the normal WsprryPi installer. Do not manually install an additional RP1
 provider over an installer-managed one. A repeat installation verifies exact
 ownership and identity, safely recovers an existing owned route or neutral
 runtime, updates or validates the provider and application, and restores neutral
@@ -32,10 +32,10 @@ the application does not authorize transmission.
 ## Route identities
 
 GPIO4 (header pin 7) and GPIO20 (header pin 38) are separate controller-managed
-routes. Wsprry Pi tracks five distinct facts:
+routes. WsprryPi tracks five distinct facts:
 
 - **Requested**: the operator's current draft or transaction request.
-- **Persisted**: the route saved in Wsprry Pi configuration.
+- **Persisted**: the route saved in WsprryPi configuration.
 - **Configured**: the route reported by the managed route service.
 - **Active**: the route reported by the loaded provider.
 - **Eligible**: runtime protocol, capability, route, exclusive ownership, and
@@ -52,26 +52,26 @@ confirmed. There is no automatic route or backend fallback.
 2. Open **Setup > Transmitter** and review Requested and Active.
 3. Select GPIO4 or GPIO20 and choose **Switch route**, or select None and
    choose **Remove route**. Choose **Cancel** to discard the draft.
-4. Keep the status dialog open while Wsprry Pi briefly disconnects. Confirm it
+4. Keep the status dialog open while WsprryPi briefly disconnects. Confirm it
    reports the selected route as Active, or reports **Route removed**.
 
 The application delegates route changes to the managed route service through
 its bounded interface. Route switching and removal happen in the current boot;
-they do not require a reboot. Wsprry Pi checks transaction generations and
+they do not require a reboot. WsprryPi checks transaction generations and
 reconciles the reported route before it permits transmission.
 
 **Remove route** returns the controller to a verified neutral state, removes
 the transmission consumer endpoint, keeps output disabled, and releases only
-the inhibitor owned by the route manager. If Wsprry Pi was running before the
+the inhibitor owned by the route manager. If WsprryPi was running before the
 operation, the manager restarts it online and idle. If the service was already
 stopped or administrator-masked, it remains stopped or masked.
 
 The separate recovery action is for an incomplete or inconsistent route
-transaction. Recovery is intentionally fail-closed: it stops Wsprry Pi and
+transaction. Recovery is intentionally fail-closed: it stops WsprryPi and
 leaves the controller inhibited for operator investigation. It is not the
 normal way to remove a route.
 
-If the route is removed but Wsprry Pi cannot be restored, transmission remains
+If the route is removed but WsprryPi cannot be restored, transmission remains
 disabled and the panel reports **Route removed; service unavailable**. Correct
 the reported service error, then retry the removal with the installed client,
 substituting the route that was removed:

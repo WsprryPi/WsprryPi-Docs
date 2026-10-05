@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('_ext'))
 
 # -- Project information -----------------------------------------------------
 
-project = u'Wsprry Pi'
+project = u'WsprryPi'
 copyright = u'2023 - 2026, Lee C. Bussy (and others)'
 author = u'Lee C. Bussy'
 
@@ -165,21 +165,21 @@ htmlhelp_basename = 'WsprryPidoc'
 latex_elements = {}
 
 latex_documents = [
-    (master_doc, 'WsprryPi.tex', u'Wsprry Pi Documentation',
+    (master_doc, 'WsprryPi.tex', u'WsprryPi Documentation',
      u'Lee C. Bussy (and others)', 'manual'),
 ]
 
 # -- Options for manual page output ------------------------------------------
 
 man_pages = [
-    (master_doc, 'wsprrypi', u'Wsprry Pi Documentation',
+    (master_doc, 'wsprrypi', u'WsprryPi Documentation',
      [author], 1)
 ]
 
 # -- Options for Texinfo output ----------------------------------------------
 
 texinfo_documents = [
-    (master_doc, 'WsprryPi', u'Wsprry Pi Documentation',
+    (master_doc, 'WsprryPi', u'WsprryPi Documentation',
      author, 'WsprryPi', 'One line description of project.',
      'Miscellaneous'),
 ]

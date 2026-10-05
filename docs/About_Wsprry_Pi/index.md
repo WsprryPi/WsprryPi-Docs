@@ -1,11 +1,11 @@
-# About Wsprry Pi
+# About WsprryPi
 
 WsprryPi creates a simple WSPR beacon on your Raspberry Pi by generating a Pulse-Width Modulation (PWM) square-wave signal through a General-Purpose Input/Output (GPIO) pin. As of version 3.0.0, support for the inexpensive Si5351 clock generator was added, allowing use of the more capable Raspberry Pi 5.
 
 You connect the generated output through a [Low-Pass Filter to remove harmonics](https://www.nutsvolts.com/magazine/article/making\_waves\_) and then to an appropriate antenna.
 
 :::{warning}
-Do not use Wsprry Pi without an appropriate low-pass filter. Unfiltered output can create harmonic interference on other bands.
+Do not use WsprryPi without an appropriate low-pass filter. Unfiltered output can create harmonic interference on other bands.
 :::
 
 ## Attribution
@@ -20,7 +20,7 @@ In late 2024, George [K9TRV] of TAPR contacted me with questions about using Wsp
 
 As of Version 2.0+, all of the original code has been replaced with my own; it is no longer derivative work, and I have released it under the MIT license.
 
-My goal, and where you will validate my success, is to let you execute one command on your Pi to install and run the Wsprry Pi software. If you are lucky and have been living right, a radio wave will hit the cosmos and be received [somewhere else](https://wsprnet.org).
+My goal, and where you will validate my success, is to let you execute one command on your Pi to install and run the WsprryPi software. If you are lucky and have been living right, a radio wave will hit the cosmos and be received [somewhere else](https://wsprnet.org).
 
 ## Raspberry Pi model compatibility
 
@@ -107,7 +107,7 @@ In the table, **SoC** means system on chip and **CM** means Compute Module. Cloc
 
 - <span class="qualification-status qualification-status--qualified">Qualified</span>: The transmitter type produced usable output on that band during qualification testing.
 - <span class="qualification-status qualification-status--partial">Partial</span>: At least one supported mode is qualified on that band and at least one other mode is not. Check the numbered note before transmitting.
-- <span class="qualification-status qualification-status--unqualified">Unqualified</span>: The backend and mode combination did not meet the applicable carrier or decode gate. Wsprry Pi blocks the combination by default. An operator with appropriate authorization may enable it with the explicit experimental override and remains responsible for RF-path safety, filtering, and compliance with applicable rules.
+- <span class="qualification-status qualification-status--unqualified">Unqualified</span>: The backend and mode combination did not meet the applicable carrier or decode gate. WsprryPi blocks the combination by default. An operator with appropriate authorization may enable it with the explicit experimental override and remains responsible for RF-path safety, filtering, and compliance with applicable rules.
 - <span class="qualification-status qualification-status--unavailable">Unavailable</span>: The backend cannot safely construct this output. Experimental overrides do not enable it.
 
 For local qualification testing, use a conducted, suitably attenuated and filtered path into a receiver or SDR. Begin and end with a known-qualified control, verify the requested carrier and mode behavior, and confirm that RF output is disabled afterward. Use [`--allow-unqualified-frequency`](../Command_Line_Operations/transmitter_backends.md) only for a controlled test of an Untested or Unqualified combination; it cannot enable an Unavailable combination.

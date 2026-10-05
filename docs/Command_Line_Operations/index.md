@@ -1,6 +1,6 @@
 # Command Line Options
 
-Wsprry Pi normally runs as a `systemd` service. Use these pages when you need shell-based testing, calibration, direct WSPR or CW transmissions, hardware backend selection, or service controls.
+WsprryPi normally runs as a `systemd` service. Use these pages when you need shell-based testing, calibration, direct WSPR or CW transmissions, hardware backend selection, or service controls.
 
 Start with [Command-Line Quick Start](quick_start.md) before running a manual command. It explains how to stop the managed service safely and shows the supported command forms. For ordinary day-to-day configuration, use the [User Interface](../User_Interface/index.md).
 

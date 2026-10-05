@@ -38,7 +38,7 @@ are intentionally not exposed in the Web UI, and both default to disabled.
   an **Unavailable** output that the selected backend cannot safely construct.
 
 - `--allow-non-amateur-frequency`, `--no-allow-non-amateur-frequency`
-  Allow or deny a frequency outside Wsprry Pi's recognized US and international
+  Allow or deny a frequency outside WsprryPi's recognized US and international
   amateur-band ranges. Outside-band transmission requires both allow options.
 
 These options do not grant permission to transmit. The operator remains
@@ -47,7 +47,7 @@ applicable rules.
 
 ### Precedence
 
-When `--ini-file` is present, Wsprry Pi loads the INI file first and then
+When `--ini-file` is present, WsprryPi loads the INI file first and then
 applies these CLI switches to the current process. A CLI switch therefore
 overrides the corresponding `[Experimental]` INI value at startup without
 rewriting the INI file. Switches are processed from left to right; if a switch
@@ -63,7 +63,7 @@ recognized amateur band for the current process:
 sudo wsprrypi --allow-unqualified-frequency --test-tone 137500Hz --backend gpio
 ```
 
-A frequency outside Wsprry Pi's recognized amateur-band ranges requires both
+A frequency outside WsprryPi's recognized amateur-band ranges requires both
 positive switches:
 
 ```bash
@@ -202,7 +202,7 @@ USB or network connection, discovery advertisement, or completed job does not
 qualify RF output.
 
 Review [Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery)
-before operation. Closing a connection or exiting Wsprry Pi does not prove the
+before operation. Closing a connection or exiting WsprryPi does not prove the
 Pico has stopped. An unresolved job blocks further work; recovery must
 establish the current device state without resuming or taking another owner's
 job.

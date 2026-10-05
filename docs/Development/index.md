@@ -1,6 +1,6 @@
-# Wsprry Pi Development
+# WsprryPi Development
 
-Wsprry Pi is developed as a modular Raspberry Pi application with a native C++ backend and a separate Bootstrap-based web UI.
+WsprryPi is developed as a modular Raspberry Pi application with a native C++ backend and a separate Bootstrap-based web UI.
 
 ```{toctree}
 :maxdepth: 1
@@ -52,7 +52,7 @@ synchronization targets.
 
 ### Web UI
 
-- [WsprryPi-UI](https://github.com/WsprryPi/WsprryPi-UI): The Bootstrap-based Wsprry Pi web UI.
+- [WsprryPi-UI](https://github.com/WsprryPi/WsprryPi-UI): The Bootstrap-based WsprryPi web UI.
 
 ### Core Support Libraries
 

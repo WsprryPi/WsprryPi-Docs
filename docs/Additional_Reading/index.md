@@ -1,6 +1,6 @@
 # Additional Reading
 
-## Raspberry Pi and Wsprry Pi Related
+## Raspberry Pi and WsprryPi Related
 
 - ["BCM2835 ARM Peripherals"](http://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf)
 - ["BCM2835 Audio Clocks"](http://www.scribd.com/doc/127599939/BCM2835-Audio-clocks)

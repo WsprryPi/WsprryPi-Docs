@@ -1,7 +1,7 @@
 (faq-and-known-errors)=
 # FAQ and Known Errors
 
-This section collects common installation issues, compatibility notes, and hardware questions that come up repeatedly when running Wsprry Pi.
+This section collects common installation issues, compatibility notes, and hardware questions that come up repeatedly when running WsprryPi.
 
 ```{toctree}
 :maxdepth: 1

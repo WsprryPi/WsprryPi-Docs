@@ -1,11 +1,11 @@
-# Wsprry Pi System Internals
+# WsprryPi System Internals
 
 The system consists of the following:
 
 - `wsprrypi` (executable): Installed to `/usr/local/bin/wsprrypi`
 - `wsprrypi.ini` (configuration): Installed to `/usr/local/etc/wsprrypi.ini`
 - `wsprrypi.service` (service control file): Installed to `/lib/systemd/system/wsprrypi.service`
-- Wsprry Pi Web UI: Installed to `/var/www/html/wsprrypi`
+- WsprryPi Web UI: Installed to `/var/www/html/wsprrypi`
 
 The primary data flow is as follows:
 

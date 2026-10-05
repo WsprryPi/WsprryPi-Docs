@@ -2,7 +2,7 @@
 
 Use this page for WSPR station identity, transmission planning, frequency, power reporting, and calibration. Return to the [Signal Setup overview](index.md) to choose another mode. For calibration procedures, see [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md); for output hardware, see [Configure Transmitter](../Transmitter/index.md).
 
-WSPR or Weak Signal Propagation Reporting is the original mode for Wsprry Pi.
+WSPR or Weak Signal Propagation Reporting is the original mode for WsprryPi.
 The controls described below appear in the **WSPR** half of the signal-mode
 selector. Configuration saves automatically after each valid change.
 
@@ -114,7 +114,7 @@ a positive integral USB dial frequency inside the corresponding correlation
 envelope before using either bare name. Configured values then participate in
 scheduling and the effective WSPR/Test Tone catalog.
 
-Wsprry Pi does not infer a country. See [Canonical Bands and WSPR Frequency
+WsprryPi does not infer a country. See [Canonical Bands and WSPR Frequency
 Presets](../../../Advanced_Operations/canonical_bands.md) for the complete band
 and preset tables, country/locality guidance, configuration precedence, and
 examples.

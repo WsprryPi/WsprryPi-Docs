@@ -24,7 +24,7 @@ Here you may enable a pin to be monitored for a shutdown event without requiring
 
 ![Shutdown Pin](Shutdown_Pin.png)
 
-This is an active-low input, meaning the pin is held high with an internal pull-up resistor, and when grounded (pulled low) the Wsprry Pi daemon will initiate a shutdown.
+This is an active-low input, meaning the pin is held high with an internal pull-up resistor, and when grounded (pulled low) the WsprryPi daemon will initiate a shutdown.
 
 ## Activate Amp
 

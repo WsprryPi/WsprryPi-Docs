@@ -1,6 +1,6 @@
 ---
-name: Wsprry Pi Documentation
-description: A restrained technical reference for installing, configuring, and operating Wsprry Pi.
+name: WsprryPi Documentation
+description: A restrained technical reference for installing, configuring, and operating WsprryPi.
 colors:
   content-background: "#ffffff"
   content-surface: "#fdfeff"
@@ -51,7 +51,7 @@ components:
     rounded: "{rounded.container}"
 ---
 
-# Design System: Wsprry Pi Documentation
+# Design System: WsprryPi Documentation
 
 ## 1. Overview
 
@@ -127,7 +127,7 @@ The documentation is flat by default. Structure comes from the navigation/conten
 ### Navigation
 
 - Preserve the Read the Docs sidebar, search field, breadcrumbs, next/previous links, sticky behavior, and mobile menu.
-- Keep top-level navigation task-oriented: Start Here, Operate Wsprry Pi, and Reference.
+- Keep top-level navigation task-oriented: Start Here, Operate WsprryPi, and Reference.
 - Place new detail on the narrowest relevant existing page; add a page only when the material represents a distinct reader task.
 
 ### Configuration Tables and Examples

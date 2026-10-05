@@ -57,7 +57,7 @@ validation still apply, but this is not a substitute for LAN peer restriction.
 
 Changing an interface address, prefix, or active Ethernet/Wi-Fi connection does
 not silently regenerate Apache policy. Return to **Maintenance**, select the
-intended state, and apply it again so Wsprry Pi can discover the current
+intended state, and apply it again so WsprryPi can discover the current
 eligible subnets, validate the complete Apache configuration, reload Apache,
 and confirm the policy.
 
@@ -68,7 +68,7 @@ configured or active state. The UI preserves the draft so you can see what was
 attempted, but it does not claim success.
 
 1. Record the requested, configured, and active values shown on Maintenance.
-2. Inspect Wsprry Pi and Apache logs for interface discovery, Host or Origin,
+2. Inspect WsprryPi and Apache logs for interface discovery, Host or Origin,
    candidate validation, Apache configuration test, reload, or confirmation
    errors.
 3. Correct the reported network or configuration problem.
@@ -77,7 +77,7 @@ attempted, but it does not claim success.
 
 If the status remains unknown, do not assume the peer restriction is active.
 Use local console or SSH access from an already trusted administrative path to
-diagnose Apache and Wsprry Pi. Do not repeatedly disable protection to work
+diagnose Apache and WsprryPi. Do not repeatedly disable protection to work
 around a validation failure.
 
 ## Direct backend clients

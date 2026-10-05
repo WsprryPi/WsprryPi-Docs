@@ -1,4 +1,4 @@
-# Wsprry Pi Documentation
+# WsprryPi Documentation
 
 The documents are written in Markdown with Sphinx and hosted on Read the Docs (RTD) and accessible via [wsprdocs.aa0nt.net](http://wsprdocs.aa0nt.net/).
 

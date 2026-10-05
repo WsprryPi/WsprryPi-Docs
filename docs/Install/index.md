@@ -1,4 +1,4 @@
-# Installing Wsprry Pi
+# Installing WsprryPi
 
 ## Gather Hardware
 
@@ -13,8 +13,8 @@ generator. While I have provided a KiCad design for a Pi HAT with a
 purpose-built circuit surrounding the Si5351, you may also use one of the
 common breakout boards:
 
-- [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal. Wsprry Pi has not qualified a 25 MHz reference for 2 m WSPR.
-- [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations. Wsprry Pi's qualified 2 m configuration uses a 27 MHz reference.
+- [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal. WsprryPi has not qualified a 25 MHz reference for 2 m WSPR.
+- [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations. WsprryPi's qualified 2 m configuration uses a 27 MHz reference.
 
 The Si5351 is controlled through the Pi's [I2C bus](https://pinout.xyz/pinout/i2c), requiring a connection to GPIO2 and GPIO3 for this communication.
 
@@ -26,15 +26,15 @@ This section may be the most challenging part of the whole installation.  *You m
 
 I am only testing the current [`stable` versions](https://www.debian.org/releases/stable/).  Testing everything on more than one release, 32 and 64-bit, and now GPIO and Si5153, with WSPR 1, 2 and 3, plus three CW modes, takes more time than I have right now.  In theory it will compile and run on [`oldstable`](https://www.debian.org/releases/oldstable/) but I won't support issues there.
 
-You can use a full-featured desktop version with all the bells and whistles, or Wsprry Pi will run just fine on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
+You can use a full-featured desktop version with all the bells and whistles, or WsprryPi will run just fine on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
 
-Whatever you do, you will need command-line access to your Pi to proceed via SSH or the console.  Once you are up and running and connected to the Internet, you may proceed with Wsprry Pi installation.  Each time I update this documentation, the Raspberry Pi Imager has changed the workflow.  Use Internet resources to find your best path.  You will only need command line (SSH) access to the Pi, but you are welcome to use any other configuration.
+Whatever you do, you will need command-line access to your Pi to proceed via SSH or the console.  Once you are up and running and connected to the Internet, you may proceed with WsprryPi installation.  Each time I update this documentation, the Raspberry Pi Imager has changed the workflow.  Use Internet resources to find your best path.  You will only need command line (SSH) access to the Pi, but you are welcome to use any other configuration.
 
 ## System Changes
 
-Aside from the obvious, installing Wsprry Pi, the install script will do the following:
+Aside from the obvious, installing WsprryPi, the install script will do the following:
 
-- **Install Apache2**, a popular open-source, cross-platform web server that is the most popular web server by the numbers.  The [Apache Software Foundation](https://www.apache.org/) maintains Apache.  Apache is used to control Wsprry Pi from an easy-to-use web page.  Additionally, if you have not previously used the Apache installation, a redirect from the root of the web server to `/wsprrypi/` will be created for ease of use.  Finally, the script creates proxy mappings and a managed access policy for communication between the web page and application:
+- **Install Apache2**, a popular open-source, cross-platform web server that is the most popular web server by the numbers.  The [Apache Software Foundation](https://www.apache.org/) maintains Apache.  Apache is used to control WsprryPi from an easy-to-use web page.  Additionally, if you have not previously used the Apache installation, a redirect from the root of the web server to `/wsprrypi/` will be created for ease of use.  Finally, the script creates proxy mappings and a managed access policy for communication between the web page and application:
   - `http://127.0.0.1:31415/config` to `/wsprrypi/config` for getting/setting the configuration
   - `http://127.0.0.1:31415/version` to `/wsprrypi/version` to retrieve the running version.
   - `ws://127.0.0.1:31416/socket` to `/wsprrypi/socket` for Web Socket communications.
@@ -45,18 +45,18 @@ Aside from the obvious, installing Wsprry Pi, the install script will do the fol
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
 - **Install Raspberry Pi development libraries and other Packages**, `git`, and `libgpiod`.
-- **Compile and configure Wsprry Pi**
+- **Compile and configure WsprryPi**
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPCLK-DKMS provider, verifies its
   source and installed artifacts, and establishes route-neutral administration.
   It does not select GPIO4 or GPIO20, enable clock output, or authorize a
   transmission.
-- **Disable the Raspberry Pi's built-in sound card.** Wsprry Pi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission will interfere with the WSPR transmission.
+- **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission will interfere with the WSPR transmission.
 
 (install-wspr)=
-## Install Wsprry Pi
+## Install WsprryPi
 
-You may use this command to install Wsprry Pi (one line):
+You may use this command to install WsprryPi (one line):
 
 ```bash
 curl -fsSL installwspr.aa0nt.net | sudo bash
@@ -133,7 +133,7 @@ You may see:
 ```text
 *Important Note:*
 
-Wsprry Pi uses the same hardware as the sound system to generate
+WsprryPi uses the same hardware as the sound system to generate
 radio frequencies.  This soundcard has been disabled.  You must
 reboot the Pi with the following command after install for this
 to take effect:
@@ -146,9 +146,9 @@ Press any key to continue.
 The installation will finish with:
 
 ```text
-Installation successful: Wsprry Pi.
+Installation successful: WsprryPi.
 
-To configure Wsprry Pi, open the following URL in your browser:
+To configure WsprryPi, open the following URL in your browser:
 
  http://wspr3.local/wsprrypi/
  http://10.0.0.52/wsprrypi/
@@ -158,7 +158,7 @@ Ensure your device is on the same network and that mDNS is
 supported by your system.
 ```
 
-If the script prompts you to reboot, do that now.  At this point (and if you rebooted if prompted), Wsprry Pi is installed and running.
+If the script prompts you to reboot, do that now.  At this point (and if you rebooted if prompted), WsprryPi is installed and running.
 
 Note the URL for the configuration UI, listed as `{name}.local`, and the IP address choice.  You can access your system using the `{name}.local` name without needing to remember the IP address.  The `{name}.local` is convenient for automatically assigned IP addresses in most home networks.  The IP address of your Raspberry Pi may change over time, but its name will remain the same.
 
@@ -166,7 +166,7 @@ Some Windows systems can use this naming standard without additional work, but o
 
 Connect to your new web page from your favorite computer or cell phone using the IP address or the `{name}.local` name, and you can begin setting things up.  See Operations for more information.
 
-## Uninstall Wsprry Pi
+## Uninstall WsprryPi
 
 Run the normal installer in uninstall mode:
 
@@ -174,10 +174,10 @@ Run the normal installer in uninstall mode:
 curl -fsSL installwspr.aa0nt.net | sudo env ACTION=uninstall bash
 ```
 
-Uninstall removes the Wsprry Pi application, service, configuration, and web
+Uninstall removes the WsprryPi application, service, configuration, and web
 files while retaining shared operating-system packages. On Pi 5-family
 systems, it also removes the RP1 provider and runtime administration when the
-installer can prove that the installed identity is still the one Wsprry Pi
+installer can prove that the installed identity is still the one WsprryPi
 owns. Foreign, modified, mixed, or unproven provider state is preserved, and
 the uninstall reports a failure instead of deleting it.
 
@@ -185,11 +185,11 @@ the uninstall reports a failure instead of deleting it.
 
 While the TAPR Hat is optional, an antenna is not. Choosing an antenna is beyond the scope of this documentation. The direct GPIO backend can use GPIO4 (header pin 7) or GPIO20 (header pin 38), but its square-wave output requires the filtering, DC blocking, and protection described in the [RF and Electrical Reference](../Advanced_Operations/rf_electrical.md). Do not connect an antenna directly to an unfiltered GPIO pin.
 
-On Raspberry Pi 5-family systems, the Wsprry Pi installer installs and validates
+On Raspberry Pi 5-family systems, the WsprryPi installer installs and validates
 the compatible [RP1 GPCLK provider](../Advanced_Operations/rp1_gpclk.md) and
 route-management service. Installation leaves both GPIO routes unselected and
 output disabled. Choose and apply GPIO4 or GPIO20 from **Setup > Transmitter**
 only after installation. A route change
-is complete only after Wsprry Pi confirms the same requested, persisted,
+is complete only after WsprryPi confirms the same requested, persisted,
 configured, and active route after startup. You may instead use Si5351 without
 selecting an RP1 route.

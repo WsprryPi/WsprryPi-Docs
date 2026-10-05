@@ -1,10 +1,10 @@
 (canonical-bands-and-wspr-presets)=
 # Canonical Bands and WSPR Frequency Presets
 
-Wsprry Pi uses two related frequency concepts:
+WsprryPi uses two related frequency concepts:
 
 - A **canonical band** correlates a numeric frequency with one stable band name.
-  Wsprry Pi uses that result for Band GPIO/filter selection and transmitter
+  WsprryPi uses that result for Band GPIO/filter selection and transmitter
   qualification decisions in WSPR, QRSS, FSKCW, and DFCW modes.
 - A **WSPR preset** converts a WSPR-only name such as `20m` or `60m:wrc15`
   into a USB dial frequency.
@@ -46,7 +46,7 @@ not available in a particular country.
 All envelope endpoints are inclusive. Exactly 54 MHz correlates to `6m`; `5m`
 begins at the next integral hertz so one frequency cannot have two identities.
 The compatibility aliases `lf` and `mf` are accepted for `2200m` and `630m`,
-but Wsprry Pi reports the canonical names. `22m` is not an amateur-band
+but WsprryPi reports the canonical names. `22m` is not an amateur-band
 identity and is rejected rather than remapped.
 
 The catalog does not imply that the entire envelope was tested. Qualification
@@ -66,7 +66,7 @@ by spaces or commas:
   preset does not represent the required local convention.
 - Use `0` to skip that position in a multi-frequency plan.
 
-WSPR presets and numbers entered here are USB dial frequencies. Wsprry Pi adds
+WSPR presets and numbers entered here are USB dial frequencies. WsprryPi adds
 the WSPR audio offset when it plans the RF tones. A **Custom RF frequency** in
 Test Tone is different: it is the emitted carrier frequency and receives no
 WSPR offset.
@@ -89,7 +89,7 @@ canonical `60m` band.
 
 | Preset | USB dial frequency | Purpose |
 | --- | ---: | --- |
-| `60m:legacy` | 5,287,200 Hz | Retains Wsprry Pi's established bare-`60m` behavior |
+| `60m:legacy` | 5,287,200 Hz | Retains WsprryPi's established bare-`60m` behavior |
 | `60m:wrc15` | 5,364,700 Hz | Selects the WRC-15-oriented WSPR convention |
 
 The **Frequency profile** control determines the meaning of a bare `60m`:
@@ -194,7 +194,7 @@ operating authorization.
 
 ## Country and locality guidance
 
-Wsprry Pi does not infer a country from an IP address, callsign, or locator, and
+WsprryPi does not infer a country from an IP address, callsign, or locator, and
 it does not currently provide country-named profiles. Select the closest
 built-in convention, then use a named preset or numeric per-band preference for
 the locality-specific exceptions that should follow a bare band name.
@@ -212,7 +212,7 @@ fall within that continuous allocation.
 **Use:** **Existing/Common**, or explicit `60m:legacy`.
 
 Use this where the applicable WSPR plan specifically identifies the 5,287,200
-Hz USB dial convention. It preserves Wsprry Pi's established behavior; the
+Hz USB dial convention. It preserves WsprryPi's established behavior; the
 name `legacy` is not a country authorization.
 
 ### United States

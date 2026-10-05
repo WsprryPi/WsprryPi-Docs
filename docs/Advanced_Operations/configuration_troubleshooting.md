@@ -44,7 +44,7 @@ provider files, unload modules, or try to select a route manually.
 
 The normal installer supplies and validates the RP1 provider and route manager
 on Pi 5-family systems. Re-run the
-[Wsprry Pi installer](../Install/index.md#install-wsprry-pi) first. It can
+[WsprryPi installer](../Install/index.md#install-wsprrypi) first. It can
 recover and update an exact installer-owned runtime, but it refuses foreign,
 modified, mixed, or unproven provider state rather than overwriting it.
 
@@ -53,14 +53,14 @@ selected. Route switching and removal happen in the current boot. For a
 selected route, requested, persisted, configured, and active routes must all be
 GPIO4 or all be GPIO20. For a removed route, configured and active must both be
 None and the transmission consumer endpoint must be absent. Eligibility and
-cleanup must also be accepted; Wsprry Pi does not fall back to another route or
+cleanup must also be accepted; WsprryPi does not fall back to another route or
 backend.
 
 For **Restoration failed**, correct the reported service error and follow the
 command shown in the route panel. For **Mismatch** or **Recovery required**,
 preserve the displayed state and collect a support bundle before making manual
 changes. The exceptional **Recover to no route** action intentionally leaves
-Wsprry Pi stopped and inhibited; use **Remove route** for normal removal. The
+WsprryPi stopped and inhibited; use **Remove route** for normal removal. The
 RP1 diagnostics include endpoint, route-manager socket, persisted-route, and
 journal-inventory observations when readable. If the installer reports an
 ownership, identity, or recovery refusal, preserve that state and the retained

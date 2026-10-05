@@ -13,13 +13,13 @@ appliance built around a Raspberry Pi and companion radio hardware. They are
 technically capable, comfortable with experimental transmission modes, and
 willing to use precise controls rather than heavily simplified abstractions.
 
-Their main jobs are to install Wsprry Pi; configure and operate transmit-only
+Their main jobs are to install WsprryPi; configure and operate transmit-only
 WSPR, QRSS, FSKCW, and DFCW workflows; select and calibrate transmitter
 hardware; review logs and maintenance state; and inspect reception reports.
 
 ## Product Purpose
 
-Wsprry Pi makes a low-cost, low-complexity amateur-radio beacon practical to
+WsprryPi makes a low-cost, low-complexity amateur-radio beacon practical to
 install, configure, and operate on common Raspberry Pi hardware. Success means
 an operator can move from installation through a correctly configured
 transmission, understand the system's current state, and find the detail needed
@@ -31,7 +31,7 @@ troubleshooting, and reference workflows.
 
 ## Positioning
 
-Wsprry Pi is a low-cost, self-contained Raspberry Pi transmitter appliance
+WsprryPi is a low-cost, self-contained Raspberry Pi transmitter appliance
 supporting WSPR plus QRSS, FSKCW, and DFCW through both a web UI and command
 line. That combination of appliance-oriented installation, multiple
 weak-signal transmission modes, and parallel browser and shell workflows is
@@ -39,7 +39,7 @@ the product's distinguishing position.
 
 ## Operating Context
 
-Operators use Wsprry Pi with Raspberry Pi hardware, an appropriate transmitter
+Operators use WsprryPi with Raspberry Pi hardware, an appropriate transmitter
 backend and radio-frequency filtering, and command-line access through SSH or
 a local console. The system may run headless after installation. Normal
 configuration and operation happen through the web UI; command-line and INI
@@ -56,7 +56,7 @@ maintenance controls, reception reports, and troubleshooting material.
 
 - Supported transmission modes are WSPR, QRSS, FSKCW, and DFCW.
 - WSPR includes the documented Type 1, Type 2, and Type 3 message workflows.
-- Wsprry Pi supports Raspberry Pi GPIO transmission and documented external
+- WsprryPi supports Raspberry Pi GPIO transmission and documented external
   clock-generator backends, including Si5351-based operation.
 - The system is transmit-only; reception reports come from external services
   such as WSPRnet rather than a local receive path.
@@ -72,13 +72,13 @@ maintenance controls, reception reports, and troubleshooting material.
 
 ## Brand Commitments
 
-The product name is **Wsprry Pi**. Its voice is precise, clean, technical,
+The product name is **WsprryPi**. Its voice is precise, clean, technical,
 direct, and pragmatic. It should feel trustworthy and utilitarian rather than
 promotional or decorative. Product language should respect technically
 capable operators while keeping installation and routine operation
 approachable.
 
-The Wsprry Pi name, existing logo, real product screenshots, amateur-radio
+The WsprryPi name, existing logo, real product screenshots, amateur-radio
 terminology, and exact visible control labels are established assets and
 commitments.
 

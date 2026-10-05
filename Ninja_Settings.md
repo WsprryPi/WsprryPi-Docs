@@ -72,7 +72,7 @@ Fade Slice Ms = 2
 mode combination whose recorded state is **Untested** or **Unqualified**. It
 cannot enable an **Unavailable** output that the selected backend cannot safely
 construct. `Allow Non-Amateur Frequency` additionally permits a frequency
-outside Wsprry Pi's recognized US and international amateur-band ranges, but
+outside WsprryPi's recognized US and international amateur-band ranges, but
 only when both settings are `true`.
 
 These settings do not grant permission to transmit. The operator remains

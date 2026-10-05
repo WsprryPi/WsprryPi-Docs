@@ -61,13 +61,13 @@ The `[Experimental]` section provides advanced CLI/INI-only controls for operato
 `Allow Unqualified Frequency` permits a backend, hardware profile, band, and
 mode combination whose recorded state is **Untested** or **Unqualified**. It
 cannot make an **Unavailable** hardware plan usable. `Allow Non-Amateur
-Frequency` additionally permits a frequency outside Wsprry Pi's recognized
+Frequency` additionally permits a frequency outside WsprryPi's recognized
 amateur-band ranges, but only when `Allow Unqualified Frequency` is also
 `true`.
 
 These controls do not grant permission to transmit. The operator remains responsible for authorization, RF-path safety, filtering, and compliance with applicable rules.
 
-When the process starts with `--ini-file`, Wsprry Pi loads these INI values
+When the process starts with `--ini-file`, WsprryPi loads these INI values
 before processing the remaining CLI switches. A CLI `--allow-*` or `--no-*`
 switch overrides the corresponding INI value at startup and does not rewrite
 this file. Repeated switches are processed from left to right, so the last

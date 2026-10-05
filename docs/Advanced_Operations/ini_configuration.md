@@ -1,6 +1,6 @@
 # INI Configuration Reference
 
-The daemon reads `wsprrypi.ini` for its execution parameters. In normal use, configure Wsprry Pi through the [web interface](../User_Interface/Setup/index.md); edit the INI file directly only when a setting is not exposed there or a development workflow requires it.
+The daemon reads `wsprrypi.ini` for its execution parameters. In normal use, configure WsprryPi through the [web interface](../User_Interface/Setup/index.md); edit the INI file directly only when a setting is not exposed there or a development workflow requires it.
 
 The installer stores the configuration in the user data directory:
 
@@ -14,7 +14,7 @@ drwxr-xr-x 10 root root 4096 Sep 21 19:02 ..
 
 The file uses standard INI syntax with ten sections: `Meta`, `Security`, `Operation`, `Experimental`, `Calibration`, `GPIO`, `Si5351`, `WSPR`, `CW`, and `Band GPIO`. Blank lines and extra whitespace are ignored. Each setting is a key/value pair separated by an equals sign, and comments begin with a semicolon (`;`).
 
-After editing, confirm the syntax and values before restarting Wsprry Pi or relying on the configuration for transmission.
+After editing, confirm the syntax and values before restarting WsprryPi or relying on the configuration for transmission.
 
 ```{toctree}
 :maxdepth: 1

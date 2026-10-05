@@ -4,9 +4,9 @@ Use these procedures when transmission timing or RF frequency accuracy needs dir
 
 ## Transmission Timing
 
-Wsprry Pi uses wall-clock time to determine the start of WSPR transmissions, so keep the system clock synchronized to within one second. A WSPR transmission starts on an even UTC minute and runs for about two minutes.
+WsprryPi uses wall-clock time to determine the start of WSPR transmissions, so keep the system clock synchronized to within one second. A WSPR transmission starts on an even UTC minute and runs for about two minutes.
 
-Wall-clock synchronization and GPIO frequency calibration are related but distinct. Synchronization keeps UTC time correct. A system clock frequency estimate describes the rate error of the Raspberry Pi clock in parts per million (PPM). Wsprry Pi can use that rate estimate to correct GPIO RF frequency.
+Wall-clock synchronization and GPIO frequency calibration are related but distinct. Synchronization keeps UTC time correct. A system clock frequency estimate describes the rate error of the Raspberry Pi clock in parts per million (PPM). WsprryPi can use that rate estimate to correct GPIO RF frequency.
 
 ## Frequency Calibration
 
@@ -14,7 +14,7 @@ Wall-clock synchronization and GPIO frequency calibration are related but distin
 
 The GPIO backend has three separate calibration values in **Setup > Transmitter > GPIO Output > Frequency calibration**:
 
-- **System clock estimate** enables a provider-derived estimate of Raspberry Pi clock-rate error. Wsprry Pi currently supports chrony.
+- **System clock estimate** enables a provider-derived estimate of Raspberry Pi clock-rate error. WsprryPi currently supports chrony.
 - **Residual PPM** is the remaining conducted RF error measured while the provider estimate is active.
 - **Fixed/manual PPM** is the fallback used when the provider estimate is disabled or cannot be used.
 
@@ -26,16 +26,16 @@ effective GPIO PPM = system clock estimate PPM + residual PPM
 
 The residual is not a replacement for the provider estimate. Measure it through a conducted, suitably attenuated RF path after the provider estimate has qualified. Provider qualification confirms the clock-rate estimate is usable; it does not prove that the transmitted RF is calibrated.
 
-Wsprry Pi qualifies the estimate before using it:
+WsprryPi qualifies the estimate before using it:
 
-- **Qualified** means current samples are stable and meet the provider checks. Wsprry Pi uses the current estimate plus **Residual PPM**.
-- **Converging** means the current estimate is not yet stable. If a previously qualified estimate is available, Wsprry Pi latches that value and adds **Residual PPM**; otherwise it uses **Fixed/manual PPM** when nonzero.
-- **Stale** means the last qualified estimate is older than the current-sample limit but remains within the permitted stale window. Wsprry Pi uses that latched estimate plus **Residual PPM**.
-- **Unavailable** means no usable provider sample is available. Wsprry Pi uses **Fixed/manual PPM** when nonzero; otherwise it transmits without a frequency correction and reports the uncalibrated state.
+- **Qualified** means current samples are stable and meet the provider checks. WsprryPi uses the current estimate plus **Residual PPM**.
+- **Converging** means the current estimate is not yet stable. If a previously qualified estimate is available, WsprryPi latches that value and adds **Residual PPM**; otherwise it uses **Fixed/manual PPM** when nonzero.
+- **Stale** means the last qualified estimate is older than the current-sample limit but remains within the permitted stale window. WsprryPi uses that latched estimate plus **Residual PPM**.
+- **Unavailable** means no usable provider sample is available. WsprryPi uses **Fixed/manual PPM** when nonzero; otherwise it transmits without a frequency correction and reports the uncalibrated state.
 
-Chrony may use NTP servers, GNSS, PPS, or a mixture of sources. The administrator owns that source configuration outside Wsprry Pi. See the official [chronyc documentation](https://chrony-project.org/doc/4.4/chronyc.html) for the `tracking` data that supplies the current frequency estimate, residual frequency, source identity, age, and uncertainty information.
+Chrony may use NTP servers, GNSS, PPS, or a mixture of sources. The administrator owns that source configuration outside WsprryPi. See the official [chronyc documentation](https://chrony-project.org/doc/4.4/chronyc.html) for the `tracking` data that supplies the current frequency estimate, residual frequency, source identity, age, and uncertainty information.
 
-Existing configurations that contain the retired `GPIO.Use NTP` key are actively migrated when saved. Wsprry Pi maps the legacy value to `GPIO.Use System Clock Frequency Estimate`, adds the new GPIO calibration keys when absent, and removes `GPIO.Use NTP`. New configuration writes and web requests must use the new keys.
+Existing configurations that contain the retired `GPIO.Use NTP` key are actively migrated when saved. WsprryPi maps the legacy value to `GPIO.Use System Clock Frequency Estimate`, adds the new GPIO calibration keys when absent, and removes `GPIO.Use NTP`. New configuration writes and web requests must use the new keys.
 
 #### GPIO calibration workflow
 
@@ -77,7 +77,7 @@ around the requested WSPR RF frequency.
 The Si5351 reference is independent of the Raspberry Pi system clock estimate
 and GPIO calibration values. Switch **Setup > Transmitter > RF Output Path** to
 Si5351, then configure **Reference calibration (PPM)** in the same RF Output
-panel. Wsprry Pi applies that value only to Si5351 synthesis planning.
+panel. WsprryPi applies that value only to Si5351 synthesis planning.
 
 Measure the Si5351 correction against its actual crystal or external reference through a suitable conducted RF path. Do not copy the GPIO estimate, GPIO residual, or GPIO fixed/manual value into the Si5351 setting.
 
