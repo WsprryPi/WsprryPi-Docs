@@ -121,7 +121,24 @@ operator consent and never silently retargets. Configured manual endpoints
 retain their normal direct connection behavior; failed discovery does not
 disable them.
 
-See [Pico development controls](../../User_Interface/Setup/Transmitter/index.md#pico-development-controls)
-for the Fleet workflow and recovery. Keep transmission disabled until the
+### Pico standalone configuration
+
+The `[WTP]` INI settings select how this Pi connects to a device; Pico's saved
+standalone station, Wi-Fi, and schedule settings are managed separately. When
+Fleet development controls are visible, **Pico standalone settings and Wi-Fi**
+uses the selected Network (TLS) connection while the host and Pico are idle.
+USB and Plain LAN do not provide this configuration-management workflow.
+
+An ordinary settings save preserves supported settings outside the form,
+including pins and advanced frequency-policy settings. Older firmware is used
+only when its saved settings can be preserved safely; incompatible settings
+cause refusal. Standalone settings may be saved before all changes are active,
+and the reported restart requirement determines the next step.
+
+See [Pico standalone settings and Wi-Fi](../../User_Interface/Setup/Transmitter/index.md#pico-standalone-settings-and-wi-fi)
+for loading, password preservation, schedule-only saves, and recovery after a
+conflicting or unconfirmed result. See
+[Pico development controls](../../User_Interface/Setup/Transmitter/index.md#pico-development-controls)
+for the Fleet workflow and job recovery. Keep transmission disabled until the
 configuration, clock evidence, and intended RF path have been checked.
 <!-- endif-wsprrypico -->

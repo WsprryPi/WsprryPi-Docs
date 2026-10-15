@@ -231,4 +231,93 @@ foreign ownership, or unresolved output blocks further work. Restarting the
 host creates a new session and does not adopt the old session's job. Closing
 USB or a network connection, or exiting the host application, is not proof of
 RF shutdown.
+
+### Pico standalone settings and Wi-Fi
+
+Open **Pico standalone settings and Wi-Fi** in Fleet when the selected Pico
+uses **Network (TLS)**. These controls manage settings saved on Pico for its
+own standalone scheduler. They are separate from this Pi's schedule, output
+assignments, and saved connection profile. USB and Plain LAN do not provide
+this settings panel.
+
+Keep WsprryPi transmission disabled while editing. Management requires an idle
+host and confirmed Pico state, with no pending, owned, active, or unresolved
+work. Use [Pico status and recovery](#pico-status-and-recovery) to resolve that
+work first. Disabling transmission on the Pi does not disable Pico's standalone
+scheduler: leave **Enable Pico standalone schedule** cleared until you intend
+Pico to transmit autonomously and its clock and RF path are ready.
+
+#### Load and save settings
+
+1. Confirm the selected Pico and its **Device / boot** observation, then choose
+   **Load saved Pico settings**. A normal load replaces the form's draft and
+   clears any entered password. Status polling preserves the draft.
+2. Edit the required fields. **WSPR power metadata (dBm)** is the reported WSPR
+   power, not an RF output-drive control. **Time server** accepts an IPv4 address
+   or a hostname supported by the Pico firmware.
+3. Choose **Save Pico settings** and read the result below the controls. Saving
+   applies the changed settings together. An unchanged form reports that no
+   settings changed and performs no save.
+
+Ordinary saves preserve settings outside this form, including Pico pin
+assignments and advanced frequency-policy settings. On supported older firmware,
+WsprryPi preserves the settings it understands when saving. If the firmware or
+saved settings cannot be handled safely, it refuses the operation and keeps the
+draft. Use compatible firmware or Pico's supported configuration workflow;
+repeated saves do not bypass the refusal. If feedback says Pico setup owns the
+station or Wi-Fi values, change them through Pico setup.
+
+Reset individual values explicitly. For example, set **Schedule expiry (UTC
+epoch seconds)** to `0` to remove expiry, or clear **Enable Pico standalone
+schedule** and choose **Save Pico settings** to disable standalone scheduling.
+The form has no whole-configuration reset or replacement control, and does not
+edit pins or advanced frequency-policy settings.
+
+#### Schedules and passwords
+
+In **Standalone schedule periods and phases (seconds)**, enter one period and
+phase per line, separated by a space, such as `120 0`. Use up to eight
+nonoverlapping schedules. The period must divide 86400 seconds (one day), and
+both values must be multiples of 120 seconds; the phase must be smaller than the
+period. An enabled standalone schedule requires at least one entry.
+
+**Save schedules only** changes the saved schedule entries while preserving
+other saved settings and all unrelated form drafts, including an entered
+password. It does not apply a draft enable/disable checkbox or expiry change;
+use **Save Pico settings** for those changes.
+
+For an already configured Pico, leave **New Wi-Fi password** blank to preserve
+the saved credential. A blank entry does not erase it, and Pico never returns
+the saved password to the form. Enter a new password only when changing it;
+complete the credentials explicitly when configuring Pico for the first time.
+A confirmed **Save Pico settings** clears the password entry. A failed or
+unconfirmed save, or **Save schedules only**, keeps it. Keep this draft page
+open during recovery; browser reload or navigation does not preserve the draft.
+
+#### Saved changes and restart feedback
+
+A confirmed save means Pico accepted the settings. Station and schedule changes
+can apply to later transmissions without a restart. Saved network or pin changes
+may still await a Pico restart, with the previous settings active in the current
+boot. Read the reported restart requirement; saving does not request a restart.
+If restart requirements are unconfirmed, check Pico status before operating.
+
+**Read Pico Wi-Fi status** observes the current network state. **Disable Pico
+Wi-Fi** disconnects network control and is a temporary switch, separate from
+saved standalone settings. Re-enable it using the physical USB Console or a
+restart; changing the saved Wi-Fi fields is not a reconnect control.
+
+#### Conflicting or unconfirmed saves
+
+A conflict means the saved settings changed since they were loaded. A timeout,
+lost reply, or interrupted connection can leave a save's outcome unconfirmed:
+the change may already have been saved. WsprryPi keeps the draft and password
+entry, disables further saves, and does not automatically repeat the operation.
+
+Confirm the intended Pico, resolve any busy or unresolved job state, then choose
+**Load saved Pico settings**. After a conflicting or unconfirmed save, this load
+keeps the draft and entered password and displays saved values beside the fields.
+Compare them, adjust the draft as needed, and choose another Save only after
+review. The redacted saved password cannot be compared with the retained entry;
+review that entry separately before deciding to submit it again.
 <!-- endif-wsprrypico -->
