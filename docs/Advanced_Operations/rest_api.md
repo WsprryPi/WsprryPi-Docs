@@ -313,6 +313,37 @@ checks the common saved revision. Live recurrence/active observations may change
 independently. Preserve decimal uint64 strings as strings. Hardware
 `active_revision` is an observation digest, never the save ETag.
 
+### Versioned Pico station formats
+
+The Pi browser paths above remain stable. The native adapter requires the exact
+advertised `application_resources_v2` descriptor, together with its legacy
+foundation, before selecting `transmitter-application/2`,
+`transmitter-station/2` and `wspr_type123_auto`. It then uses Pico's exact
+`/api/v1/application/2`, `/api/v1/station/2`, `/api/v1/config/2` and
+`/api/v1/config/update/2` routes. Hardware remains `/api/v1/hardware`.
+Unknown or malformed descriptors are refused without retrying legacy routes.
+Old firmware keeps the frozen application/1, station/1 and `wspr_type1`
+contract. Selected unsupported new formats return
+`unsupported_station_encoding`, without identity substitution or mutation.
+Preserve the returned error code and endpoint-specific HTTP status.
+
+Application/2 includes `wspr_plan` (`wspr-plan/1`): supported state, frame types
+and count, 120-second slot separation, rationale and ambiguity/alternate call.
+A null station has a null plan. Plans describe encodability, not clock quality,
+readiness, enablement, live output or transmission. See
+[Pico automatic planning](../User_Interface/Setup/Transmitter/index.md#pico-automatic-wspr-planning)
+for ordinary-six, compound, brackets, ambiguity and pair behavior.
+
+Use the loaded station schema unchanged in a complete scoped PUT. For example,
+a versioned station body uses `"schema": "transmitter-station/2"` with
+`"station": {"callsign": "W1A/AA0NT", "locator": "EM18IG", "power_dbm": 0}`
+and the exact loaded target. Zero is a valid reported-power value, not a request
+to disable RF. Profile-owned station identity still requires transactional setup.
+Config v1 content and config-update/1 omission/null/false/zero semantics,
+credentials, flags, schedules, pins and consumed-slot watermark retain their
+existing meaning. Partial updates must produce a complete valid configuration;
+there is no per-field partial success or durable incomplete draft.
+
 ### Read, review and send one scoped operation
 
 1. Select/authenticate the management carrier and explicitly GET a member
@@ -326,9 +357,11 @@ independently. Preserve decimal uint64 strings as strings. Hardware
    before another save. Changing carrier or attempting a save invalidates other
    resource/legacy editor contexts. Preview and field edits never autosave.
 
-For example, this complete station body illustrates the closed write schema.
-Replace the example target with the exact loaded target; review every station
-field together. These IDs and values are synthetic, not a device to contact.
+This **legacy station/1** example illustrates the closed complete-station body.
+For versioned firmware, replace its schema with the exact loaded
+`transmitter-station/2` schema before sending; the station/1 body is refused
+when station/2 is negotiated. Replace the example target with the exact loaded
+target and review every station field together. These IDs and values are synthetic, not a device to contact.
 
 ```json
 {
@@ -373,8 +406,9 @@ Scoped PUT bodies are limited to 1,024 UTF-8 bytes; preview to 2,048. Unknown
 fields, duplicate keys, wrong targets and unsupported schemas are refused.
 Application is read-only; station/hardware PUT are complete scoped replacements,
 not arbitrary merge patches. A successful PUT is confirmed by authoritative
-application readback. Profile-owned station fields remain read-only. Current
-station writes retain the Type 1 encoder restriction; dBm is WSPR metadata.
+application readback. Profile-owned station fields remain read-only. Match the
+loaded station schema and negotiated format support; dBm is WSPR metadata,
+separate from measured RF output, drive and calibration.
 
 ### Conflicts, uncertainty and ownership
 

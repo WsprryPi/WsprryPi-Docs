@@ -6,6 +6,15 @@ WSPR or Weak Signal Propagation Reporting is the original mode for WsprryPi.
 The controls described below appear in the **WSPR** half of the signal-mode
 selector. Configuration saves automatically after each valid change.
 
+<!-- if-wsprrypico -->
+The planning preferences on this page belong to the **Pi host**. Pico member
+station defaults use [Pico automatic planning](../Transmitter/index.md#pico-automatic-wspr-planning),
+which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for
+a supported compound with six characters, and a single Type 3 for explicit
+brackets with six characters. No Pi preference selector changes that automatic
+member plan. Prepared WTP jobs retain their supplied finite plan.
+<!-- endif-wsprrypico -->
+
 ## Station Identity
 
 Within the Station identity section, you will set your callsign and locator. For normal Type 1 WSPR messages, the callsign is any valid 6-character or fewer. The Grid Locator is the four- character Maidenhead locator for where you are transmitting.

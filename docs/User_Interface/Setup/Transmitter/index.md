@@ -411,10 +411,9 @@ authority and workflow.
 1. Load the member resources explicitly while the host/member are idle.
 2. For station changes, review callsign, locator and **Reported WSPR power (dBm)**
    together, then choose **Save member station**. This replaces the complete
-   scoped station object. Current writes require a Type 1 encodable station;
-   stored extended callsigns remain visible. Six-character locators are retained
-   and Type 1 encoding uses their first four characters. Consumer profile-owned station
-   fields are read-only and must be changed through Pico transactional setup.
+   scoped station object. Loaded firmware determines supported station formats;
+   see the automatic planning rules below. Consumer profile-owned station fields
+   are read-only and must be changed through Pico transactional setup.
 3. For hardware, select **Direct RF output**, optional **Active-low button**,
    and onboard, external or disabled indicator. Choices use Pico **GP** numbers,
    not Pi BCM/header numbers. Preserve the intended external indicator polarity.
@@ -424,6 +423,56 @@ authority and workflow.
    choose **Save member hardware** separately.
 5. Read the result, then load resources again before any further save. Each save
    invalidates other editor contexts; unrelated drafts remain available for review.
+
+### Pico automatic WSPR planning
+
+These rules describe Pico's autonomous station defaults. Pi host **WSPR
+Transmission Plan** preferences and prepared WTP jobs have their own planning
+workflow; changing one does not select a Pico preference or re-encode a prepared
+job.
+
+With firmware advertising versioned Type 2/3 resources, Pico selects the plan
+from the complete station tuple:
+
+| Callsign and locator | Automatic Pico plan |
+| --- | --- |
+| Ordinary encodable call, four characters | Type 1 single |
+| Ordinary call, six characters | Type 1 single, first four on air; all six retained |
+| Supported compound, four characters | Type 2 single; that frame carries no locator |
+| Supported compound, six characters | Type 2 followed by Type 3 |
+| Explicit `<CALL>`, six characters | Type 3 single; brackets are excluded from the hash |
+| Explicit `<CALL>`, four characters, or unsupported syntax | Refused; correct the complete station before saving |
+
+Supported compound prefixes contain one to three alphanumeric characters before
+an encodable base call; suffixes contain one alphanumeric or two decimal digits
+after the base call. `W1A/AA0NT` is a supported prefix form even though `W1A`
+is also a valid base call. `<W1A/AA0NT>` explicitly requests a single Type 3
+frame. The complete station token is limited to 3–12 ASCII characters, including
+brackets; malformed brackets, whitespace, multiple slashes and out-of-range
+affixes are refused without truncation or substitution. Locators use A–R, two
+digits and, when present, an A–X subsquare.
+
+Two-digit suffixes `/00`–`/09` have an intrinsic Type 2 alternate spelling (for
+example `/09` and `/Z`). Review the displayed ambiguity. A paired Type 3 hashes
+the **requested full callsign**, not its alternate spelling. Type 3 carries a
+hash rather than a full callsign; receiver context is needed to resolve it.
+A valid plan or save does not prove receiver identification or RF decoding.
+
+A two-frame plan starts its second frame 120 seconds after the first. Pico
+reserves both slots before the first frame and holds one ownership lease across
+the pair. Intersecting schedule occurrences are consumed conservatively. STOP,
+reboot, changed configuration, lost clock/ownership or failure cannot resume a
+stray second half or replay the first. There is no catch-up or automatic retry.
+A failed output cutoff requires explicit recovery; saved or matching values
+alone never establish inactive output.
+
+Older firmware retains Type 1 station-write guidance and explicitly refuses
+selected new formats. Unknown or malformed advertised support is refused with
+no carrier or route fallback. An unchanged readable unsupported identity can
+remain stored during unrelated settings saves; readability does not establish
+that it can transmit. Station/configuration saves remain complete and atomic;
+this editor does not save incomplete station drafts or accept valid fields
+independently.
 
 Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
 I2C pairs are inspection-only. I2C RF, amplifier, LPF, drive, calibration and
