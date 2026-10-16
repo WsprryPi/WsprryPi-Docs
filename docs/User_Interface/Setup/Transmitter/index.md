@@ -353,6 +353,10 @@ may still await a Pico restart, with the previous settings active in the current
 boot. Read the reported restart requirement; saving does not request a restart.
 If restart requirements are unconfirmed, check Pico status before operating.
 
+To change the Pico's own network name, use
+[Change the Pico hostname](#change-the-pico-hostname) below. This Pi's settings
+form preserves that name during ordinary saves; it has no hostname editor.
+
 **Read Pico Wi-Fi status** observes the current network state. **Disable Pico
 Wi-Fi** disconnects network control and is a temporary switch, separate from
 saved standalone settings. Re-enable it using the physical USB Console or a
@@ -399,6 +403,89 @@ Management remains subject to idle admission and confirmed output state.
 A reachable WTP endpoint, public advertisement or built-in host capability
 flag does not establish authenticated management support. There is no automatic
 carrier, endpoint or mutation fallback after failure.
+
+### Change the Pico hostname
+
+On supported consumer firmware, open the Pico's own **Station control** page
+at `http://<current-Pico-IP>/` or its current `.local` address. Use the password
+for the Wi-Fi network saved on that Pico to sign in. When its temporary setup
+Wi-Fi is available, join it and open `http://192.168.4.1/radio` for the same
+controls. The hostname editor is on this Pico page, rather than WsprryPi's
+Fleet settings form. Renaming a saved device profile in Fleet changes only
+that profile's label.
+
+Disable Pico's standalone schedule and resolve any pending, owned or active
+job before changing the name. Turning off WsprryPi transmission alone does
+not disable Pico's own schedule. A hostname change does not require changing
+the callsign, locator or message.
+
+1. In **Device hostname**, enter the **Full local hostname**, such as
+   `pico-a.local`. Use one label of 1–63 ASCII letters, digits or hyphens,
+   followed by `.local`. Start and end the label with a letter or digit.
+   Spaces, underscores, additional labels, IP addresses and URLs are refused.
+   Letters are stored in lowercase; one final root dot is accepted and removed.
+2. Choose **Save hostname**. Read **Active** and **Saved** separately:
+   **Active** is the name used by the current boot; **Saved** is the name the
+   next boot will use. Saving does not restart the Pico or immediately change
+   its reachable address.
+3. A changed name can end existing logins. Sign in again and choose **Refresh**
+   to confirm the saved result. If the reply was lost, the save may already
+   have succeeded. Compare the saved name before considering another save;
+   when offered, choose **I reviewed the saved hostname; enable a new save**
+   only after reviewing it.
+4. Copy any unsaved drafts you need before leaving this tab. Choose
+   **Restart device** once and confirm. The page checks the returning device;
+   its countdown describes the next connection check, not a guaranteed
+   restart time. A lost reply never causes an automatic second restart.
+5. Use **Continue at pico-a.local (sign in again)**, with your chosen name,
+   when ready to leave the old address. Sign in again and refresh. The page
+   confirms success only after observing the same full Pico device ID, a new
+   boot, and the intended name as both **Active** and **Saved**. A returning
+   page or a finished countdown alone does not confirm the change.
+
+```{figure} pico_hostname_saved.png
+:alt: Pico Station control showing the old active hostname and pico-a.local saved pending restart
+:width: 390px
+
+Example: the saved name is waiting for a restart; the old active name still
+belongs to the current boot.
+```
+
+**Cancel reconnect checks** stops this tab's checks. It does not undo the saved
+name or cancel a restart already requested. Checks end after about 90 seconds
+if the restart cannot be confirmed. Keep the tab open to retain its drafts,
+or copy them before following the continuation link: drafts and login state
+are not carried to the new address. See
+[Hostname and restart troubleshooting](../../../Advanced_Operations/configuration_troubleshooting.md#pico-hostname-or-restart-is-unconfirmed)
+for current-IP, setup-Wi-Fi, duplicate-name and certificate recovery.
+
+```{figure} pico_hostname_reconnect.png
+:alt: Pico restart countdown with Cancel reconnect checks and a link to continue at pico-a.local
+:width: 390px
+
+Example: the countdown offers cancellation and manual continuation while the
+restart outcome is still unconfirmed.
+```
+
+To return to the stable hardware-derived name, choose **Use default hostname**,
+confirm the choice, and then choose **Save hostname**. This first fills the
+editor; the choice is not saved until you save it. Restart to apply a changed
+name. Renaming preserves the Pico's device ID, setup Wi-Fi name, Wi-Fi password,
+retained clients and unrelated settings.
+
+The browser tab title begins with the confirmed active hostname, even when
+opened by IP. It marks a pending rename or a last-confirmed observation;
+typing an unsaved name does not change the title. Use these titles to help
+distinguish multiple Pico tabs, and still check the intended device before
+signing in or changing settings.
+
+If setup has saved only a Wi-Fi network, complete station commissioning before
+using hostname management. An engineering deployment with provisioned
+certificates requires matching replacement credentials through its existing
+provisioning workflow; its certified name is read-only here. Consumer renames
+preserve the established certificate authority and retained client trust.
+See [Updating Pi connection settings after a rename](../../../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change)
+if WsprryPi also connects to this Pico.
 
 ### Shared Pico member resources
 

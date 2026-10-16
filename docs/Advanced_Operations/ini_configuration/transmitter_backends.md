@@ -135,6 +135,31 @@ operator consent and never silently retargets. Configured manual endpoints
 retain their normal direct connection behavior; failed discovery does not
 disable them.
 
+### After a Pico hostname change
+
+Change the Pico's saved hostname through its own
+[Station control page](../../User_Interface/Setup/Transmitter/index.md#change-the-pico-hostname),
+then restart and verify the applied name. Editing `[WTP] Hostname` changes
+only the destination used by this Pi; it does not rename the Pico. Renaming
+a Fleet profile changes only the profile label. Ordinary supported Pico
+settings saves from WsprryPi preserve the Pico's saved hostname.
+
+With transmission disabled and outstanding WTP work resolved, review the saved
+network profile and active endpoint separately:
+
+| Value | After a Pico rename |
+| --- | --- |
+| `Hostname` / `TCP Port` | Use the new reachable name, or a verified current IP, and the actual listener port. The browser's HTTP address is not the WTP port. |
+| `TLS Server Identity` | For Network (TLS), use the expected name in the new server certificate. An IP destination does not remove this identity check. |
+| `TLS CA File` / `TLS Client Certificate` / `TLS Client Key` | A supported consumer rename preserves the existing CA and retained client trust. Engineering name changes require matching replacement credentials through provisioning. |
+| `Device ID` | Keep the intended Pico's full 32-character ID; a rename does not change it. A changed observed ID requires investigation. |
+
+Edit and freshly identify a changed saved profile before **Use this device**.
+That action applies it to the active endpoint; editing the catalog alone does
+not. Review any schedule assignment that also uses the old destination. A
+changed advertisement is not consent to follow another name, device or
+transport. Keep TLS verification and explicit Plain LAN selection intact.
+
 ### Pico standalone configuration
 
 The `[WTP]` INI settings select how this Pi connects to a device; Pico's saved

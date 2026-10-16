@@ -90,3 +90,35 @@ client headers never grant access.
 
 For endpoint details, see [REST API](../../Advanced_Operations/rest_api.md) and
 [WebSocket Interface](../../Advanced_Operations/websocket.md).
+
+<!-- if-wsprrypico -->
+## Pico hostname and management access
+
+Changing a Pico hostname does not change the Pi's directly connected LAN
+policy or Apache configuration. Keep **Privileged network safety** enforced;
+disabling it does not fix `.local` discovery, a wrong destination or a
+certificate mismatch. Use the intended Pico's current IP or available setup
+Wi-Fi to recover access, following
+[Change the Pico hostname](../Setup/Transmitter/index.md#change-the-pico-hostname).
+
+A hostname, advertisement or browser-tab title helps locate a Pico but does
+not authenticate it. Consumer Station control uses the Wi-Fi password saved
+on that Pico and does not require a browser CA or client certificate. This
+HTTP workflow retains its existing trust limits: use a trusted network and
+endpoint, and do not treat a shared password as proof of unique device
+identity. A renamed page requires a fresh login; it does not transfer a login
+from the old address.
+
+Engineering HTTPS browser addresses require a certificate valid for the URL's
+hostname or IP address. Network (TLS) WTP separately checks its configured
+expected certificate identity, including when the connection destination is
+an IP address. A consumer rename preserves its existing
+CA and retained clients while replacing the server certificate for the new
+name. Engineering deployments instead require matching replacement
+credentials through their provisioning workflow. Do not accept a certificate
+error or silently change transport to make a renamed endpoint connect.
+
+Keep the connection destination, expected TLS identity and full WTP device ID
+separate when updating a Pi connection profile. See
+[After a Pico hostname change](../../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).
+<!-- endif-wsprrypico -->
