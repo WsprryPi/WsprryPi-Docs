@@ -1,9 +1,9 @@
 # Item 11: documentation performance and Impeccable housekeeping
 
-Date: 2026-10-16. Outcome: item 11's repository work is complete; the checklist
-owner can close it after accepting this record and the separately reported
-push/build result. Items 12–14, integrated application review #423 and 4.0
-release readiness remain open. This file is outside Sphinx's source tree.
+Date: 2026-10-16. Outcome: item 11 is complete, including the verified devel
+build and publication of `dad196e` recorded below. The checklist owner can close
+item 11. Items 12–14, integrated application review #423 and 4.0 release
+readiness remain open. This file is outside Sphinx's source tree.
 
 ## Identity and scope
 
@@ -218,7 +218,7 @@ workflows or check runs, and no commit statuses on the starting SHA. The final
 report must distinguish push parity, the triggered RTD build and publication
 verification. This issue does not undo the locally validated repository work.
 
-## Post-push verification
+## Initial post-push verification
 
 At 2026-10-16 11:39 CDT, implementation commit
 `bb42bc93129b9673a176fa72fcf85a03c9687475` was successfully pushed to
@@ -235,9 +235,52 @@ for the pushed commit**: latest devel build remained successful 35195553 at
 repository. No automatic build or new publication is verified, and no cause
 beyond those observations is asserted. No hosting configuration was changed.
 
-Checklist handback: item 11's implementation, dispositions, review and local
-validation are complete. Keep hosted-publication verification pending until the
-owner runs/confirms a devel RTD build for the final pushed revision or restores
-the push integration in separately authorized hosting work. Preserve the separate
-host-update and custom-domain administration follow-ups; keep items 12–14 open.
-This task does not edit the WsprryPi checklist or RP1 roadmap.
+## Hosted build and publication verification
+
+On the owner's explicit follow-up request, **Rebuild version** was invoked for
+`devel` through the existing authenticated Firefox RTD session. No hosting,
+integration, version, alias or build settings were changed.
+
+[Build 35197280](https://app.readthedocs.org/projects/wsprry-pi/builds/35197280/)
+checked out exactly `dad196e706968d48b045c84a550ec4342130196b` and succeeded.
+It started on 2026-10-16 at 12:06:36 CDT and finished at 12:07:34 CDT (58 seconds).
+The public build API reports `finished`, `success: true`, and no error. The
+[raw build log](https://app.readthedocs.org/api/v2/build/35197280.txt) records
+Python 3.11.15 / Sphinx 9.0.4, all 16 commands exiting zero, and no Sphinx
+`WARNING:` diagnostics. HTML, single-page HTML, PDF compilation and EPUB all
+completed successfully. This closes the hosted-environment verification gap.
+
+Publication was independently checked after success at the canonical
+[devel documentation](https://wsprry-pi.readthedocs.io/en/devel/): the landing,
+[Setup](https://wsprry-pi.readthedocs.io/en/devel/User_Interface/Setup/index.html)
+and [Logs](https://wsprry-pi.readthedocs.io/en/devel/User_Interface/Logs/index.html)
+pages returned HTTP 200. The served Setup HTML contains its eager first image
+and two lazy subsequent images; Logs contains its eager first image. All four
+content-image instances retain async decoding, dimensions and nonempty alt text.
+
+Independent HTTPS downloads with cache revalidation also returned HTTP 200
+and matched the repository's SHA-256 values byte-for-byte:
+
+| Published asset, relative to `/en/devel/` | Delivered bytes | Identity |
+| --- | ---: | --- |
+| `_images/Setup.png` | 517,239 | Exact match to `dad196e` and image inventory |
+| `_images/invalid_callsign.png` | 133,472 | Exact match to `dad196e` and image inventory |
+| `_images/logs.png` | 731,525 | Exact match to `dad196e` and image inventory |
+| `_static/css/custom.css` | 16,133 | Exact match to `dad196e` and source hash in measurements |
+
+The successful build's revision and the independently served page/asset results
+verify publication of the requested `dad196e` candidate. This subsequent
+completion-record commit changes no Sphinx source, asset, test, dependency or
+configuration; no publication of that newer record-only commit is claimed.
+No local implementation tests were repeated for this maintainer-only update.
+Validation used the actual hosted build, served HTML/asset checks, local record
+links and staged whitespace/diff review. API results, the raw log, verification
+JSON and screenshots are retained locally under ignored
+`docs/_build/item11-publication/`; none of those runtime artifacts is committed.
+
+Checklist handback: item 11's implementation, dispositions, review, local
+validation and hosted publication verification are complete; item 11 can close.
+The separately dispositioned all-host Impeccable update and custom-domain
+certificate follow-ups remain outside this task. Items 12–14 remain open and
+were not started. Only this documentation-repository completion record is
+updated; the WsprryPi checklist and RP1 roadmap are not edited here.
