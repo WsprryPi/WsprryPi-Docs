@@ -27,14 +27,15 @@ replacement or visibility-gating change is required. P15.9 is not implemented
 or documented as available. No schema, protocol or application code is changed
 in this repository.
 
-Still required: documentation disposition on release devel and, if authorized,
-actual hosted publication verification. This feature branch is not a claim of
-hosted correction. The application handoff records the eventual promotion
-status; no manual publication action is authorized by this documentation record.
+The operator subsequently authorized promotion to Docs devel and its automatic
+Read the Docs publication. Final promotion/parity and exact-content hosted build
+verification are required after this record commit; their actual results belong
+in the Pi item 14 acceptance record and final handoff. No manual publication,
+release, tag or announcement is introduced by this record.
 
 ## Validation
 
-Used the repository's existing `docs/.venv` (linked only as ignored local tooling
+Used the repository's existing `docs/.venv` (linked only for local tooling
 in the isolated worktree). Commands from repository root:
 
 ```sh
@@ -62,7 +63,8 @@ Actual default/Pico PDFs compile with `latexmk -pdf -interaction=nonstopmode
 -halt-on-error WsprryPi.tex` in disposable Debian container
 `wsprrypi-step14-pdf` based on `wsprrypi-item10:local`; tools are installed only
 inside that container. Default is 134 pages; Pico is 146 pages. No TeX error or
-LaTeX/package warning occurs. Existing whole-book box advisories remain; this
+LaTeX/package warning occurs. Whole-book advisories are default 54 overfull / 68 underfull hboxes and Pico
+54 / 90, plus incumbent vertical-box advisories; this
 is affected-page review rather than full-book print reflow. Affected table,
 planning prose, versioned API and JSON pages (PDF indices 40, 41, 112, 113) were
 rendered with Poppler and visually inspected for clipping/overlap.
