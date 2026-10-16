@@ -1,0 +1,1285 @@
+{
+  "environment": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "cache": "Network.setCacheDisabled=true",
+    "network": {
+      "latency_ms": 80,
+      "download_bytes_per_second": 200000,
+      "upload_bytes_per_second": 100000
+    },
+    "cpu_throttle": 4,
+    "server": "Python http.server, loopback, HTTP/1.0, no response compression",
+    "sampling": "Cold navigation, eager load event plus 1200 ms; completed resource entries from ResourceTiming plus the document, explicitly excluding favicon URLs. CDP event-buffer counts were inconsistent and are not used.",
+    "limits": "Single-run lab samples; no field Core Web Vitals, real devices, INP or production CDN timing. final-* is the image candidate before the breadcrumb repair; confirmed-* includes the final CSS repair."
+  },
+  "samples": [
+    {
+      "name": "baseline-landing-desktop",
+      "page": "item11-baseline-default/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 16,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2268,
+      "lab_lcp_ms": 5292,
+      "lab_cls": 4.888396086516203e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "baseline-setup-desktop",
+      "page": "item11-baseline-default/User_Interface/Setup/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 18,
+      "image_requests": 4,
+      "image_body_bytes": 1298380,
+      "image_transfer_bytes": 1299580,
+      "fcp_ms": 2860,
+      "lab_lcp_ms": 10360,
+      "lab_cls": 5.1688865379050934e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/Setup.png",
+        "../../_images/invalid_callsign.png",
+        "../../_images/parameters_saved.png"
+      ]
+    },
+    {
+      "name": "baseline-logs-desktop",
+      "page": "item11-baseline-default/User_Interface/Logs/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 16,
+      "image_requests": 2,
+      "image_body_bytes": 1057605,
+      "image_transfer_bytes": 1058205,
+      "fcp_ms": 2872,
+      "lab_lcp_ms": 9148,
+      "lab_cls": 5.137012622974538e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/logs.png"
+      ]
+    },
+    {
+      "name": "baseline-landing-mobile",
+      "page": "item11-baseline-default/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 16,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2288,
+      "lab_lcp_ms": 2288,
+      "lab_cls": 8.580137892468204e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "baseline-setup-mobile",
+      "page": "item11-baseline-default/User_Interface/Setup/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 18,
+      "image_requests": 4,
+      "image_body_bytes": 1298380,
+      "image_transfer_bytes": 1299580,
+      "fcp_ms": 2852,
+      "lab_lcp_ms": 10360,
+      "lab_cls": 0.00010180961828406819,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/Setup.png",
+        "../../_images/invalid_callsign.png",
+        "../../_images/parameters_saved.png"
+      ]
+    },
+    {
+      "name": "baseline-logs-mobile",
+      "page": "item11-baseline-default/User_Interface/Logs/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 16,
+      "image_requests": 2,
+      "image_body_bytes": 1057605,
+      "image_transfer_bytes": 1058205,
+      "fcp_ms": 2864,
+      "lab_lcp_ms": 9144,
+      "lab_cls": 0.00010001669547581694,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/logs.png"
+      ]
+    },
+    {
+      "name": "baseline-reference-desktop",
+      "page": "item11-baseline-default/Advanced_Operations/ini_configuration/runtime.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 15,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2288,
+      "lab_lcp_ms": 2288,
+      "lab_cls": 5.533311631944445e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "baseline-maintenance-desktop",
+      "page": "item11-baseline-default/User_Interface/Maintenance/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 19,
+      "image_requests": 5,
+      "image_body_bytes": 586472,
+      "image_transfer_bytes": 587972,
+      "fcp_ms": 2788,
+      "lab_lcp_ms": 2788,
+      "lab_cls": 5.2751329210069446e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/maintenance.png",
+        "../../_images/repair.png",
+        "../../_images/repaired.png",
+        "../../_images/reset.png"
+      ]
+    },
+    {
+      "name": "baseline-pico-mobile",
+      "page": "item11-baseline-pico/User_Interface/Setup/Transmitter/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 15,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2356,
+      "lab_lcp_ms": 2356,
+      "lab_cls": 0.11168347979214578,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../../_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "final-landing-desktop",
+      "page": "item11-default/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 16,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2296,
+      "lab_lcp_ms": 5228,
+      "lab_cls": 4.888396086516203e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "final-setup-desktop",
+      "page": "item11-default/User_Interface/Setup/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 18,
+      "image_requests": 4,
+      "image_body_bytes": 966807,
+      "image_transfer_bytes": 968007,
+      "fcp_ms": 2860,
+      "lab_lcp_ms": 8716,
+      "lab_cls": 5.1688865379050934e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/Setup.png",
+        "../../_images/invalid_callsign.png",
+        "../../_images/parameters_saved.png"
+      ]
+    },
+    {
+      "name": "final-logs-desktop",
+      "page": "item11-default/User_Interface/Logs/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 16,
+      "image_requests": 2,
+      "image_body_bytes": 1021379,
+      "image_transfer_bytes": 1021979,
+      "fcp_ms": 2892,
+      "lab_lcp_ms": 8976,
+      "lab_cls": 5.137012622974538e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/logs.png"
+      ]
+    },
+    {
+      "name": "final-landing-mobile",
+      "page": "item11-default/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 16,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2264,
+      "lab_lcp_ms": 2264,
+      "lab_cls": 8.580137892468204e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "final-setup-mobile",
+      "page": "item11-default/User_Interface/Setup/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 18,
+      "image_requests": 4,
+      "image_body_bytes": 966807,
+      "image_transfer_bytes": 968007,
+      "fcp_ms": 2864,
+      "lab_lcp_ms": 8724,
+      "lab_cls": 0.00010180961828406819,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/Setup.png",
+        "../../_images/invalid_callsign.png",
+        "../../_images/parameters_saved.png"
+      ]
+    },
+    {
+      "name": "final-logs-mobile",
+      "page": "item11-default/User_Interface/Logs/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 16,
+      "image_requests": 2,
+      "image_body_bytes": 1021379,
+      "image_transfer_bytes": 1021979,
+      "fcp_ms": 2852,
+      "lab_lcp_ms": 8968,
+      "lab_cls": 0.00010001669547581694,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/logs.png"
+      ]
+    },
+    {
+      "name": "final-reference-desktop",
+      "page": "item11-default/Advanced_Operations/ini_configuration/runtime.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 15,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2292,
+      "lab_lcp_ms": 2292,
+      "lab_cls": 5.533311631944445e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "final-maintenance-desktop",
+      "page": "item11-default/User_Interface/Maintenance/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 19,
+      "image_requests": 5,
+      "image_body_bytes": 586472,
+      "image_transfer_bytes": 587972,
+      "fcp_ms": 2756,
+      "lab_lcp_ms": 2756,
+      "lab_cls": 5.2751329210069446e-05,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/maintenance.png",
+        "../../_images/repair.png",
+        "../../_images/repaired.png",
+        "../../_images/reset.png"
+      ]
+    },
+    {
+      "name": "final-pico-mobile",
+      "page": "item11-pico/User_Interface/Setup/Transmitter/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 15,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2356,
+      "lab_lcp_ms": 2356,
+      "lab_cls": 0.11168347979214578,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../../_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "confirmed-pico-mobile",
+      "page": "item11-pico/User_Interface/Setup/Transmitter/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 15,
+      "image_requests": 1,
+      "image_body_bytes": 289854,
+      "image_transfer_bytes": 290154,
+      "fcp_ms": 2332,
+      "lab_lcp_ms": 2332,
+      "lab_cls": 0,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../../_static/WsprryPi_Logo.png"
+      ]
+    },
+    {
+      "name": "confirmed-setup-desktop",
+      "page": "item11-default/User_Interface/Setup/index.html",
+      "viewport": [
+        1440,
+        900
+      ],
+      "requests": 18,
+      "image_requests": 4,
+      "image_body_bytes": 966807,
+      "image_transfer_bytes": 968007,
+      "fcp_ms": 2880,
+      "lab_lcp_ms": 8720,
+      "lab_cls": 0,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/Setup.png",
+        "../../_images/invalid_callsign.png",
+        "../../_images/parameters_saved.png"
+      ]
+    },
+    {
+      "name": "confirmed-setup-mobile",
+      "page": "item11-default/User_Interface/Setup/index.html",
+      "viewport": [
+        390,
+        844
+      ],
+      "requests": 18,
+      "image_requests": 4,
+      "image_body_bytes": 966807,
+      "image_transfer_bytes": 968007,
+      "fcp_ms": 2848,
+      "lab_lcp_ms": 8700,
+      "lab_cls": 0,
+      "page_overflow": false,
+      "image_sources_requested": [
+        "../../_static/WsprryPi_Logo.png",
+        "../../_images/Setup.png",
+        "../../_images/invalid_callsign.png",
+        "../../_images/parameters_saved.png"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "docs/_ext/image_delivery.py": "0365c5d6fc0664bdff8ca53d3a72a30bff752b2684dd5d565385687fe08c2bcf",
+    "docs/_static/css/custom.css": "4e9ea76be25ec2e760d2d77cfe747dcb4b7a25a9caf2ab3585a0a45db30bddc1",
+    "tests/test_image_delivery.py": "6d32f70b03ae2623dc361c38997f630d108cd76af8067e7cf2e44e452d74d046"
+  },
+  "lossless_algorithm": {
+    "operation": "Recompress concatenated PNG IDAT with zlib.compress(scanlines, 9); keep every non-IDAT chunk byte-for-byte in original order. No image resampling, refiltering, metadata conversion or color conversion.",
+    "verification": "Original/rewritten scanlines, Pillow size/mode/raw decoded pixels/info and RGBA hashes compared; hashes and bytes in image inventory.",
+    "pillow": "12.3.0",
+    "verification_python": "3.12.14",
+    "zlib_runtime": "1.2.12"
+  },
+  "screenshots": {
+    "baseline-landing-desktop.png": "8d9871961fb7b266f7250e660c8a8ed576ba6262f7a2d04a54fc7071bc62f74d",
+    "baseline-landing-mobile.png": "602e481b30c3219680642d1c58caf3cf578fe79a3949a424b5dc76f72f275c20",
+    "baseline-logs-desktop.png": "5d1be35cf4ab13a22c4ef34d3fcb9acd38ef31baf02123929201a916499a5944",
+    "baseline-logs-mobile.png": "85db1f8fb50ae151bf90247568a4d19bd74c32691013db180ccd5073590e9ab1",
+    "baseline-maintenance-desktop.png": "46733528d3cbe7810d7ac2982252613ab8fcb5b6c6f04e638f0a600474b8bff6",
+    "baseline-pico-mobile.png": "b39740f39915f48973f44ff43d3833053a430c75c7cf7a5555bb974205a03daa",
+    "baseline-reference-desktop.png": "6b7fde480732240f728198090edc6026b74854f0f670ac82cc53fb6512c50947",
+    "baseline-setup-desktop.png": "950cf583bcb0f1c40ff2ce89109460ac0ca06f6c77dc96cf6e2834869eb11c2b",
+    "baseline-setup-mobile.png": "40d81ded737f6cfd013901317a6442ce93a454e84d235677015c3e1ead85c24a",
+    "confirmed-pico-mobile.png": "9c750332ffd004810e5dae01f81eb58d884c97a685047b67a08565f8ddfd3635",
+    "confirmed-setup-desktop.png": "97a9a36b7ac731c36987f92f68c17746339392ecd054587bc59c3dcec65dfa53",
+    "confirmed-setup-mobile.png": "dfbbf93c6e2e9474131bf295da87fb066eb7d84746f5ed1b471e7a2717dcfd89",
+    "final-landing-desktop.png": "8d9871961fb7b266f7250e660c8a8ed576ba6262f7a2d04a54fc7071bc62f74d",
+    "final-landing-mobile.png": "602e481b30c3219680642d1c58caf3cf578fe79a3949a424b5dc76f72f275c20",
+    "final-logs-desktop.png": "5d1be35cf4ab13a22c4ef34d3fcb9acd38ef31baf02123929201a916499a5944",
+    "final-logs-mobile.png": "85db1f8fb50ae151bf90247568a4d19bd74c32691013db180ccd5073590e9ab1",
+    "final-maintenance-desktop.png": "46733528d3cbe7810d7ac2982252613ab8fcb5b6c6f04e638f0a600474b8bff6",
+    "final-pico-mobile.png": "b39740f39915f48973f44ff43d3833053a430c75c7cf7a5555bb974205a03daa",
+    "final-reference-desktop.png": "6b7fde480732240f728198090edc6026b74854f0f670ac82cc53fb6512c50947",
+    "final-setup-desktop.png": "950cf583bcb0f1c40ff2ce89109460ac0ca06f6c77dc96cf6e2834869eb11c2b",
+    "final-setup-mobile.png": "40d81ded737f6cfd013901317a6442ce93a454e84d235677015c3e1ead85c24a",
+    "maintenance-after-scroll.png": "b3c2b3f92342ae9674c0a5a0936d69762100e86f9297fbbefbc05fd3014edb59",
+    "mobile-navigation-escape.png": "8ecace2f31306b222280f7af26621524fb202ab034eee3c95ebdf85271e8d365",
+    "mobile-navigation-open.png": "725c7dc775543fe34912dbbd5ae883804ce0b01ab31c8ca37af3f43ba3fd83ef",
+    "mobile-search.png": "563b5359f338e035b350da127c8135267fa0e8c96f7de570297137e290167bf4",
+    "mobile-tables.png": "58839e0a3b994f5e656f39de6454b7912415009b1f68579dd0c4335188e94d19",
+    "reference-200-percent-text.png": "5c7997b0f23f0a52cbe43ceafcbd684204ef1cd071e1d981bad59f6aca2fa590",
+    "reference-dark-preference.png": "77b3b79edd0a1dc5b5754181d27e5c5c4f8d0ae88d7db8a25b373237394071c0",
+    "setup-full-resolution.png": "7af55e58a1f0de3d8f22b02a752e7547df08b27127b4abea05647fa52f946b63"
+  },
+  "screenshots_directory": "docs/_build/item11-evidence (local, ignored)",
+  "lazy_scroll": {
+    "before": [
+      {
+        "alt": "Logo",
+        "complete": true
+      },
+      {
+        "alt": "Maintenance Page",
+        "complete": true
+      },
+      {
+        "alt": "Repair Configuration",
+        "complete": true
+      },
+      {
+        "alt": "Configuration Repaired",
+        "complete": true
+      },
+      {
+        "alt": "Reset Configuration",
+        "complete": true
+      },
+      {
+        "alt": "Reset Confirmation",
+        "complete": false
+      },
+      {
+        "alt": "Reset Complete",
+        "complete": false
+      },
+      {
+        "alt": "Test Tone",
+        "complete": false
+      },
+      {
+        "alt": "Test Tone frequency-source controls with Custom RF frequency selected",
+        "complete": false
+      },
+      {
+        "alt": "Disable Transmissions",
+        "complete": false
+      },
+      {
+        "alt": "Update Available Modal",
+        "complete": false
+      },
+      {
+        "alt": "Force Update Check",
+        "complete": false
+      },
+      {
+        "alt": "Update Available Footer",
+        "complete": false
+      },
+      {
+        "alt": "About - Never Check",
+        "complete": false
+      }
+    ],
+    "after": [
+      {
+        "alt": "Logo",
+        "complete": true
+      },
+      {
+        "alt": "Maintenance Page",
+        "complete": true
+      },
+      {
+        "alt": "Repair Configuration",
+        "complete": true
+      },
+      {
+        "alt": "Configuration Repaired",
+        "complete": true
+      },
+      {
+        "alt": "Reset Configuration",
+        "complete": true
+      },
+      {
+        "alt": "Reset Confirmation",
+        "complete": true
+      },
+      {
+        "alt": "Reset Complete",
+        "complete": true
+      },
+      {
+        "alt": "Test Tone",
+        "complete": true
+      },
+      {
+        "alt": "Test Tone frequency-source controls with Custom RF frequency selected",
+        "complete": true
+      },
+      {
+        "alt": "Disable Transmissions",
+        "complete": false
+      },
+      {
+        "alt": "Update Available Modal",
+        "complete": false
+      },
+      {
+        "alt": "Force Update Check",
+        "complete": false
+      },
+      {
+        "alt": "Update Available Footer",
+        "complete": false
+      },
+      {
+        "alt": "About - Never Check",
+        "complete": false
+      }
+    ]
+  },
+  "rendered_geometry": {
+    "columns": [
+      "src",
+      "rendered [x,y,width,height]",
+      "decoded [width,height]",
+      "HTML [width,height]",
+      "complete",
+      "loading",
+      "decoding",
+      "linked original"
+    ],
+    "samples": {
+      "final-landing-desktop": [
+        [
+          "_static/WsprryPi_Logo.png",
+          [
+            18.9375,
+            47.03125,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ]
+      ],
+      "final-logs-desktop": [
+        [
+          "../../_static/WsprryPi_Logo.png",
+          [
+            18.9375,
+            -200.96875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ],
+        [
+          "../../_images/logs.png",
+          [
+            351.7734375,
+            214.40625,
+            605.09375,
+            458.625
+          ],
+          [
+            2454,
+            1860
+          ],
+          [
+            "2454",
+            "1860"
+          ],
+          true,
+          "eager",
+          "async",
+          true
+        ]
+      ],
+      "final-landing-mobile": [
+        [
+          "_static/WsprryPi_Logo.png",
+          [
+            -281.0625,
+            47.03125,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ]
+      ],
+      "final-logs-mobile": [
+        [
+          "../../_static/WsprryPi_Logo.png",
+          [
+            -281.0625,
+            -260.46875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ],
+        [
+          "../../_images/logs.png",
+          [
+            25.8828125,
+            274.25,
+            338.234375,
+            256.359375
+          ],
+          [
+            2454,
+            1860
+          ],
+          [
+            "2454",
+            "1860"
+          ],
+          true,
+          "eager",
+          "async",
+          true
+        ]
+      ],
+      "final-reference-desktop": [
+        [
+          "../../_static/WsprryPi_Logo.png",
+          [
+            18.9375,
+            -361.96875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ]
+      ],
+      "final-maintenance-desktop": [
+        [
+          "../../_static/WsprryPi_Logo.png",
+          [
+            18.9375,
+            -256.96875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ],
+        [
+          "../../_images/maintenance.png",
+          [
+            351.7734375,
+            307.1875,
+            605.09375,
+            438.0703125
+          ],
+          [
+            1268,
+            918
+          ],
+          [
+            "1268",
+            "918"
+          ],
+          true,
+          "eager",
+          "async",
+          true
+        ],
+        [
+          "../../_images/repair.png",
+          [
+            351.7734375,
+            933.875,
+            605.09375,
+            382.9921875
+          ],
+          [
+            1226,
+            776
+          ],
+          [
+            "1226",
+            "776"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/repaired.png",
+          [
+            351.7734375,
+            1451.2421875,
+            605.09375,
+            194.0859375
+          ],
+          [
+            954,
+            306
+          ],
+          [
+            "954",
+            "306"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/reset.png",
+          [
+            351.7734375,
+            1824.3515625,
+            605.09375,
+            385.0546875
+          ],
+          [
+            1232,
+            784
+          ],
+          [
+            "1232",
+            "784"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/confirmation.png",
+          [
+            351.7734375,
+            2385.375,
+            605.09375,
+            345.9296875
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1060",
+            "606"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/reset_complete.png",
+          [
+            351.7734375,
+            2788.8984375,
+            605.09375,
+            147.4140625
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1256",
+            "306"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/test_tone.png",
+          [
+            351.7734375,
+            4094.171875,
+            605.09375,
+            217.75
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1256",
+            "452"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/test_tone_frequency_source.jpg",
+          [
+            351.7734375,
+            4682.2578125,
+            605.09375,
+            353.1171875
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1316",
+            "768"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/disable_transmissions.png",
+          [
+            351.7734375,
+            5566.46875,
+            605.09375,
+            270.6640625
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1082",
+            "484"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/update_avail.png",
+          [
+            351.7734375,
+            6968.765625,
+            605.09375,
+            328.9765625
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1030",
+            "560"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/manual_update_check.png",
+          [
+            351.7734375,
+            7380.9296875,
+            605.09375,
+            236.1328125
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "984",
+            "384"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/update_footer.png",
+          [
+            351.7734375,
+            7700.25,
+            605.09375,
+            43.546875
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "1834",
+            "132"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/about_update.png",
+          [
+            351.7734375,
+            7826.984375,
+            602,
+            260
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            "602",
+            "260"
+          ],
+          false,
+          "lazy",
+          "async",
+          true
+        ]
+      ],
+      "confirmed-pico-mobile": [
+        [
+          "../../../_static/WsprryPi_Logo.png",
+          [
+            -281.0625,
+            -260.46875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ]
+      ],
+      "confirmed-setup-desktop": [
+        [
+          "../../_static/WsprryPi_Logo.png",
+          [
+            18.9375,
+            -200.96875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ],
+        [
+          "../../_images/Setup.png",
+          [
+            351.7734375,
+            374.375,
+            605.09375,
+            370.734375
+          ],
+          [
+            3026,
+            1854
+          ],
+          [
+            "3026",
+            "1854"
+          ],
+          true,
+          "eager",
+          "async",
+          true
+        ],
+        [
+          "../../_images/invalid_callsign.png",
+          [
+            351.7734375,
+            828.296875,
+            605.09375,
+            536.4296875
+          ],
+          [
+            1322,
+            1172
+          ],
+          [
+            "1322",
+            "1172"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/parameters_saved.png",
+          [
+            351.7734375,
+            1422.3203125,
+            602,
+            316
+          ],
+          [
+            602,
+            316
+          ],
+          [
+            "602",
+            "316"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ]
+      ],
+      "confirmed-setup-mobile": [
+        [
+          "../../_static/WsprryPi_Logo.png",
+          [
+            -281.0625,
+            -260.46875,
+            262.125,
+            262.125
+          ],
+          [
+            600,
+            600
+          ],
+          [
+            null,
+            null
+          ],
+          true,
+          null,
+          null,
+          true
+        ],
+        [
+          "../../_images/Setup.png",
+          [
+            25.8828125,
+            511,
+            338.234375,
+            207.2265625
+          ],
+          [
+            3026,
+            1854
+          ],
+          [
+            "3026",
+            "1854"
+          ],
+          true,
+          "eager",
+          "async",
+          true
+        ],
+        [
+          "../../_images/invalid_callsign.png",
+          [
+            25.8828125,
+            827.0078125,
+            338.234375,
+            299.8515625
+          ],
+          [
+            1322,
+            1172
+          ],
+          [
+            "1322",
+            "1172"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ],
+        [
+          "../../_images/parameters_saved.png",
+          [
+            25.8828125,
+            1210.046875,
+            338.234375,
+            177.5390625
+          ],
+          [
+            602,
+            316
+          ],
+          [
+            "602",
+            "316"
+          ],
+          true,
+          "lazy",
+          "async",
+          true
+        ]
+      ]
+    }
+  },
+  "stylesheet_bytes": {
+    "before": 15981,
+    "after": 16133,
+    "increase": 152
+  }
+}

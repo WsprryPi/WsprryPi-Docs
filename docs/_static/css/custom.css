@@ -55,6 +55,12 @@
     max-width: var(--wsprrypi-docs-content-width);
 }
 
+/* Reserve the breadcrumb icon's slot before the theme icon font arrives. */
+.wy-breadcrumbs .icon-home {
+    display: inline-block;
+    width: 1em;
+}
+
 .wy-side-nav-search,
 .wy-nav-side,
 .wy-nav-top {

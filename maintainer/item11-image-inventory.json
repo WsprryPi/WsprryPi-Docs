@@ -1,0 +1,984 @@
+{
+  "baseline": "e212ef7a5572cb32cf8e1a38075dd81ec26169bc",
+  "assets": [
+    {
+      "path": "docs/Advanced_Operations/Health_Check.png",
+      "dimensions": [
+        1124,
+        682
+      ],
+      "format": "PNG",
+      "before_bytes": 155177,
+      "after_bytes": 155177,
+      "sha256": "8ff6552c64ae77c3da096fd2fdc0902c1b65ba1121c03d92357cb3b9bc6e0f56",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/Install/Raspberry_Pi_Imager.png",
+      "dimensions": [
+        1584,
+        1188
+      ],
+      "format": "PNG",
+      "before_bytes": 336431,
+      "after_bytes": 336431,
+      "sha256": "d645029b71bc128491898c18e2d69dc472a765ec7db9d324854a63e0ec54258a",
+      "pages": [
+        "Install/index"
+      ],
+      "delivered_url": "_images/Raspberry_Pi_Imager.png"
+    },
+    {
+      "path": "docs/Install/rpi_imager.png",
+      "dimensions": [
+        1490,
+        1088
+      ],
+      "format": "JPEG",
+      "before_bytes": 159928,
+      "after_bytes": 159928,
+      "sha256": "8b4e094249024c8f08270014ea928bd695f62b743f0d659e2d261239193286b1",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/Internals/wsprrypi_data_flow.svg",
+      "dimensions": null,
+      "format": "SVG",
+      "before_bytes": 2794,
+      "after_bytes": 2794,
+      "sha256": "e8a578af39b6037e7cc2f09eb7443360f1913c3cc392386af89b2dd79d078ce5",
+      "pages": [
+        "Internals/index"
+      ],
+      "delivered_url": "_images/wsprrypi_data_flow.svg"
+    },
+    {
+      "path": "docs/User_Interface/Clock.png",
+      "dimensions": [
+        232,
+        74
+      ],
+      "format": "PNG",
+      "before_bytes": 5850,
+      "after_bytes": 5850,
+      "sha256": "d6c5e0ee22ba1e6652f0df0907d29a7a0010a2f0b9b2acb6eddaa13d622b05da",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Clock.png"
+    },
+    {
+      "path": "docs/User_Interface/Links.png",
+      "dimensions": [
+        252,
+        328
+      ],
+      "format": "PNG",
+      "before_bytes": 15224,
+      "after_bytes": 15224,
+      "sha256": "685bf5f4047209fd4951ad2bcc98b77cea88b1ff33b0ed26049f5546fe4907a3",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Links.png"
+    },
+    {
+      "path": "docs/User_Interface/Logs/logs.png",
+      "dimensions": [
+        2454,
+        1860
+      ],
+      "format": "PNG",
+      "before_bytes": 767751,
+      "after_bytes": 731525,
+      "sha256": "712d35986f5929b2b420a4761fb5592aa351241c38a79fd6b641fb523bb3939d",
+      "pages": [
+        "User_Interface/Logs/index"
+      ],
+      "delivered_url": "_images/logs.png",
+      "equivalence": {
+        "path": "docs/User_Interface/Logs/logs.png",
+        "before": 767751,
+        "after": 731525,
+        "saving": 36226,
+        "before_sha256": "a82446e69605136ea2d5ab54541108da3135ef93605a6271f3e8f50ddf3374bf",
+        "after_sha256": "712d35986f5929b2b420a4761fb5592aa351241c38a79fd6b641fb523bb3939d",
+        "rgba_sha256": "0a6b33e8afbce75d20f8e703bb0f00d97e03313b9115874555f2ddf4fcc12320",
+        "non_idat_chunks_unchanged": true,
+        "scanlines_unchanged": true
+      }
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/about_update.png",
+      "dimensions": [
+        602,
+        260
+      ],
+      "format": "PNG",
+      "before_bytes": 37288,
+      "after_bytes": 37288,
+      "sha256": "94ce58855405ff3c603e354a546ef9d4be96df4772e7ec1ac236afbafe123bbb",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/about_update.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/confirmation.png",
+      "dimensions": [
+        1060,
+        606
+      ],
+      "format": "PNG",
+      "before_bytes": 58633,
+      "after_bytes": 58633,
+      "sha256": "99c7f90d960e57affa5d1a0aaf6b71a0f570480321d926ae0207d7e406b2839b",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/confirmation.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/disable_transmissions.png",
+      "dimensions": [
+        1082,
+        484
+      ],
+      "format": "PNG",
+      "before_bytes": 38764,
+      "after_bytes": 38764,
+      "sha256": "7e918b4f843dfcf96aa60411720fa9243bf8de3a47d7fad22a499e441af4580e",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/disable_transmissions.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/maintenance.png",
+      "dimensions": [
+        1268,
+        918
+      ],
+      "format": "JPEG",
+      "before_bytes": 91843,
+      "after_bytes": 91843,
+      "sha256": "b43439ef3f31a01aaf15108160ee62a9f131f249d9a50331adf67438a5e6d1a9",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/maintenance.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/manual_update_check.png",
+      "dimensions": [
+        984,
+        384
+      ],
+      "format": "PNG",
+      "before_bytes": 22135,
+      "after_bytes": 22135,
+      "sha256": "602a9d25be4c73e8ea86746cc56d0ec082541ff47b7c82edadbf805cb516a8c5",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/manual_update_check.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/repair.png",
+      "dimensions": [
+        1226,
+        776
+      ],
+      "format": "PNG",
+      "before_bytes": 83383,
+      "after_bytes": 83383,
+      "sha256": "464a96d4795d2f598496d9e7439f3561f776fa5d8b3e609d9c038e6b6a9951f2",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/repair.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/repaired.png",
+      "dimensions": [
+        954,
+        306
+      ],
+      "format": "PNG",
+      "before_bytes": 35062,
+      "after_bytes": 35062,
+      "sha256": "f7d85c21c52e3ece202879d354598a1d740cf56624b42710bcede858d8449c91",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/repaired.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/reset.png",
+      "dimensions": [
+        1232,
+        784
+      ],
+      "format": "PNG",
+      "before_bytes": 86330,
+      "after_bytes": 86330,
+      "sha256": "b4e0bbd81e065bf96d151fb0afe4edab75758f48f9f650ebe44568d94c538414",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/reset.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/reset_complete.png",
+      "dimensions": [
+        1256,
+        306
+      ],
+      "format": "PNG",
+      "before_bytes": 47244,
+      "after_bytes": 47244,
+      "sha256": "ac94055f5308d8e9847137a77d7102955786b042e0fdd2ef0a0f5083da865369",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/reset_complete.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/support_bundle_private_upload.png",
+      "dimensions": [
+        1440,
+        1100
+      ],
+      "format": "PNG",
+      "before_bytes": 147180,
+      "after_bytes": 147180,
+      "sha256": "26447c66759c3dc56f3eefc29d2fe9aeab1fae2d1ec6d1a1a912adbde9d2dba0",
+      "pages": [
+        "User_Interface/Maintenance/support_bundle"
+      ],
+      "delivered_url": "_images/support_bundle_private_upload.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/test_tone.png",
+      "dimensions": [
+        1256,
+        452
+      ],
+      "format": "PNG",
+      "before_bytes": 49262,
+      "after_bytes": 49262,
+      "sha256": "3099f23eb9c9f7cf9dd527853ab271c7c3076543a8b178734096f11aa07c5035",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/test_tone.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/test_tone_cw_modal.png",
+      "dimensions": [
+        1096,
+        702
+      ],
+      "format": "PNG",
+      "before_bytes": 61804,
+      "after_bytes": 61804,
+      "sha256": "6e69d2f545e35fed1c86847d2ca878a1366da975eda38132a6d53ee459f94387",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/test_tone_frequency_source.jpg",
+      "dimensions": [
+        1316,
+        768
+      ],
+      "format": "JPEG",
+      "before_bytes": 125240,
+      "after_bytes": 125240,
+      "sha256": "4f94014df8380b2915980c75ae55684b40abc5941c71caf8cf9ea14b288c2c87",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/test_tone_frequency_source.jpg"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/test_tone_wspr_modal.png",
+      "dimensions": [
+        1060,
+        782
+      ],
+      "format": "PNG",
+      "before_bytes": 87863,
+      "after_bytes": 87863,
+      "sha256": "42d9195c3ae8a529e4b70db275b9b4d8177486774280644895e17f5b6cdb707e",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/update_avail.png",
+      "dimensions": [
+        1030,
+        560
+      ],
+      "format": "PNG",
+      "before_bytes": 57131,
+      "after_bytes": 57131,
+      "sha256": "139053a3a636f356675c325e9907cca05b24b09a9bc6cf24f4275bb08bf46e7e",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/update_avail.png"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/update_footer.png",
+      "dimensions": [
+        1834,
+        132
+      ],
+      "format": "PNG",
+      "before_bytes": 38469,
+      "after_bytes": 38469,
+      "sha256": "4a206d3c3c28e75ff2a53e7b7950e0e7dcc92b105ae47ffd3266e5f4c120fc0a",
+      "pages": [
+        "User_Interface/Maintenance/index"
+      ],
+      "delivered_url": "_images/update_footer.png"
+    },
+    {
+      "path": "docs/User_Interface/Mode_Switch.png",
+      "dimensions": [
+        316,
+        106
+      ],
+      "format": "PNG",
+      "before_bytes": 3739,
+      "after_bytes": 3739,
+      "sha256": "9aed50993adc5022f471116bf4b5363bbe25d09d8cb48ae22e52769e1d2d4df8",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Mode_Switch.png",
+      "working_tree_spelling": "docs/User_Interface/Mode_switch.png"
+    },
+    {
+      "path": "docs/User_Interface/Navbar.png",
+      "dimensions": [
+        2070,
+        128
+      ],
+      "format": "PNG",
+      "before_bytes": 36218,
+      "after_bytes": 36218,
+      "sha256": "5a646c8e0d615330f778a1b7c4fea1f6f985b7614138c7c8178b92aa467785f8",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Navbar.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/Initial_Ops.png",
+      "dimensions": [
+        2538,
+        1298
+      ],
+      "format": "PNG",
+      "before_bytes": 379836,
+      "after_bytes": 379836,
+      "sha256": "c81dbe29a0e626443a5d03cf01dda173d83142a1a0fb129a08e358ff48b87d01",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/Initial_Ops.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/Pi5_GPIO.png",
+      "dimensions": [
+        2444,
+        1638
+      ],
+      "format": "PNG",
+      "before_bytes": 373790,
+      "after_bytes": 373790,
+      "sha256": "4b26f60814b62f6e2e643a2ca76deaad44c8a366fec8aa06b0e9d77dc589d6ab",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/Pi5_GPIO.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/current_mode.png",
+      "dimensions": [
+        540,
+        170
+      ],
+      "format": "PNG",
+      "before_bytes": 7737,
+      "after_bytes": 7737,
+      "sha256": "a5550c10d03cd69c1ee9a2c62436122659af199422f0566866b0ff7d8478db3b",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Operations/current_plan.png",
+      "dimensions": [
+        788,
+        164
+      ],
+      "format": "PNG",
+      "before_bytes": 10636,
+      "after_bytes": 10636,
+      "sha256": "578fe8969d4296f821690585f6eac4a5ac722e4716e8d5d98832479d2c6bb617",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/current_plan.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/frequency.png",
+      "dimensions": [
+        620,
+        156
+      ],
+      "format": "PNG",
+      "before_bytes": 6745,
+      "after_bytes": 6745,
+      "sha256": "fe8f07eef5748cbb74ec23333eef1c07e0fd8f9ff451f4f3096f1c8f70199e12",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/frequency.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/frequency_gpio.png",
+      "dimensions": [
+        636,
+        166
+      ],
+      "format": "PNG",
+      "before_bytes": 10179,
+      "after_bytes": 10179,
+      "sha256": "64ab2979b483e246e9063e4dbec23b1212bd33ad2a7515260825555d71c7f9ba",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/frequency_gpio.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/message_progression.png",
+      "dimensions": [
+        308,
+        178
+      ],
+      "format": "PNG",
+      "before_bytes": 6226,
+      "after_bytes": 6226,
+      "sha256": "0c4d7259e2f43e3d9046eb176f0266a4376cda2a7db0713ba9080e80e0529bbd",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/message_progression.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/ready.png",
+      "dimensions": [
+        462,
+        242
+      ],
+      "format": "PNG",
+      "before_bytes": 13592,
+      "after_bytes": 13592,
+      "sha256": "e98d477162d9770185879c0eb323a90c07af71588d6d95092e7f32ca8cdcef28",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/ready.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/reboot_behavior.png",
+      "dimensions": [
+        664,
+        298
+      ],
+      "format": "PNG",
+      "before_bytes": 26978,
+      "after_bytes": 26978,
+      "sha256": "446c5694fba5ebdef70e87a5b6932ad4ef1e424248a462dc198c07cedbb4778b",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/reboot_behavior.png"
+    },
+    {
+      "path": "docs/User_Interface/Operations/transmission_controls.png",
+      "dimensions": [
+        490,
+        262
+      ],
+      "format": "PNG",
+      "before_bytes": 10276,
+      "after_bytes": 10276,
+      "sha256": "0d62249b56902bdd3802360a563ef618609d798ea61eda7e980fbd9cb8a58f50",
+      "pages": [
+        "User_Interface/Operations/index"
+      ],
+      "delivered_url": "_images/transmission_controls.png"
+    },
+    {
+      "path": "docs/User_Interface/Save_Error.png",
+      "dimensions": [
+        640,
+        254
+      ],
+      "format": "PNG",
+      "before_bytes": 31056,
+      "after_bytes": 31056,
+      "sha256": "057d18ccb74b72ca81a46b7b4a54bcb7e9d5a49b1ffddb55c115b19d8b056ebe",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Save_Error.png"
+    },
+    {
+      "path": "docs/User_Interface/Save_OK.png",
+      "dimensions": [
+        560,
+        370
+      ],
+      "format": "PNG",
+      "before_bytes": 25797,
+      "after_bytes": 25797,
+      "sha256": "2ee70ebf0497df105112bf737a56102abded51cdeb1c32cb62938e785bc10e32",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Save_OK.png"
+    },
+    {
+      "path": "docs/User_Interface/Server_Control.png",
+      "dimensions": [
+        124,
+        74
+      ],
+      "format": "PNG",
+      "before_bytes": 2435,
+      "after_bytes": 2435,
+      "sha256": "90099c719fe1b427423ecd26765f01d8b677c292fe5b1f1ed5eaa18cc3625fd3",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Server_Control.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Conditional_GPIO/GPIO_RF_Conflict.png",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "format": "PNG",
+      "before_bytes": 103920,
+      "after_bytes": 103920,
+      "sha256": "4e23bf4c2526976cbfd0f291033551d4c299027df83b660778266cd3b66946aa",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Setup/Conditional_GPIO/TX_LED_RF_Conflict.png",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "format": "PNG",
+      "before_bytes": 129781,
+      "after_bytes": 129781,
+      "sha256": "98b5e1551cbd1b34f0ad5aa055a48ec247c2a2ee89926d0f694ee5823dc06810",
+      "pages": [
+        "User_Interface/Setup/Pi_IO/index"
+      ],
+      "delivered_url": "_images/TX_LED_RF_Conflict.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Activate_Amp.png",
+      "dimensions": [
+        1468,
+        182
+      ],
+      "format": "PNG",
+      "before_bytes": 38905,
+      "after_bytes": 38905,
+      "sha256": "df7529b4dddbe010f15388223b2aca2d7967da702f88dd4c94399121d697b1cb",
+      "pages": [
+        "User_Interface/Setup/Pi_IO/index"
+      ],
+      "delivered_url": "_images/Activate_Amp.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Band_GPIO.png",
+      "dimensions": [
+        1750,
+        620
+      ],
+      "format": "PNG",
+      "before_bytes": 79654,
+      "after_bytes": 79654,
+      "sha256": "ed2cf0ca0d6b7bc1e6dc115d13aace9f2b83d47cc08faef4642b6e2a38d92e78",
+      "pages": [
+        "User_Interface/Setup/Pi_IO/index"
+      ],
+      "delivered_url": "_images/Band_GPIO.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Pi_IO_Setup.png",
+      "dimensions": [
+        2086,
+        1578
+      ],
+      "format": "PNG",
+      "before_bytes": 259694,
+      "after_bytes": 259694,
+      "sha256": "bd110bcfdb6b60e908bd4be414bc64b946cc91f7fc1b4eafca294d213cf0558c",
+      "pages": [
+        "User_Interface/Setup/Pi_IO/index"
+      ],
+      "delivered_url": "_images/Pi_IO_Setup.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Shutdown_Pin.png",
+      "dimensions": [
+        936,
+        212
+      ],
+      "format": "PNG",
+      "before_bytes": 33762,
+      "after_bytes": 33762,
+      "sha256": "a1af578906e66b505acc9e79f3490e61f6a1200597a9c8db536ee7153aae018d",
+      "pages": [
+        "User_Interface/Setup/Pi_IO/index"
+      ],
+      "delivered_url": "_images/Shutdown_Pin.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/TX_LED.png",
+      "dimensions": [
+        946,
+        206
+      ],
+      "format": "PNG",
+      "before_bytes": 26246,
+      "after_bytes": 26246,
+      "sha256": "7779e4c0c43395d78008b1a442943be1ba5083c1f5ad18d41ffc5f462ce9694f",
+      "pages": [
+        "User_Interface/Setup/Pi_IO/index"
+      ],
+      "delivered_url": "_images/TX_LED.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Setup.png",
+      "dimensions": [
+        3026,
+        1854
+      ],
+      "format": "PNG",
+      "before_bytes": 812254,
+      "after_bytes": 517239,
+      "sha256": "7f0ced5953bb4b37adb4d2c16467a4634e12e5c51982de5966e0a889e4e82015",
+      "pages": [
+        "User_Interface/Setup/index"
+      ],
+      "delivered_url": "_images/Setup.png",
+      "equivalence": {
+        "path": "docs/User_Interface/Setup/Setup.png",
+        "before": 812254,
+        "after": 517239,
+        "saving": 295015,
+        "before_sha256": "b7379265c7e648de03ecdb04a8e59dc8750ef6069fbb52a143b7c59b5b708d38",
+        "after_sha256": "7f0ced5953bb4b37adb4d2c16467a4634e12e5c51982de5966e0a889e4e82015",
+        "rgba_sha256": "169c0366521fcfd61363fef062ffd3f621361d59fa550fff201e665da7bc020b",
+        "non_idat_chunks_unchanged": true,
+        "scanlines_unchanged": true
+      }
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/CW_Mode.png",
+      "dimensions": [
+        1248,
+        1584
+      ],
+      "format": "PNG",
+      "before_bytes": 214882,
+      "after_bytes": 214882,
+      "sha256": "316dc929d36781379abc7a29c718e35c1711493da3a34d8387e059c8b9fec9f9",
+      "pages": [
+        "User_Interface/Setup/Signal_Setup/cw"
+      ],
+      "delivered_url": "_images/CW_Mode.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/WSPR_CW.png",
+      "dimensions": [
+        348,
+        122
+      ],
+      "format": "PNG",
+      "before_bytes": 10036,
+      "after_bytes": 10036,
+      "sha256": "ae710b8a7e01c5e198487d655b5ac30cd6b75ad9b41e050b5d2a006525a0cdfa",
+      "pages": [
+        "User_Interface/Setup/Signal_Setup/index"
+      ],
+      "delivered_url": "_images/WSPR_CW.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/WSPR_Mode.png",
+      "dimensions": [
+        1966,
+        1278
+      ],
+      "format": "PNG",
+      "before_bytes": 224565,
+      "after_bytes": 224565,
+      "sha256": "35fe9533bba168b28359038a86e1fe1aa2f27730d182bfe821283ec3c767ea85",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/signal_setup_wspr.png",
+      "dimensions": [
+        2450,
+        1710
+      ],
+      "format": "PNG",
+      "before_bytes": 463447,
+      "after_bytes": 463447,
+      "sha256": "8f84cd0f003cbb0562635f979494108f945083883ec415270850ff31142ac773",
+      "pages": [
+        "User_Interface/Setup/Signal_Setup/index"
+      ],
+      "delivered_url": "_images/signal_setup_wspr.png"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Transmitter/GPIO.png",
+      "dimensions": [
+        1740,
+        1056
+      ],
+      "format": "PNG",
+      "before_bytes": 122578,
+      "after_bytes": 122578,
+      "sha256": "525ec7e90844086fb88d0fe4ceaebe6eb4dafdacf9be5b4586167d55cbd41d56",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Setup/Transmitter/Si5351.png",
+      "dimensions": [
+        1952,
+        838
+      ],
+      "format": "PNG",
+      "before_bytes": 154420,
+      "after_bytes": 154420,
+      "sha256": "abf17c2609d73115040790e6ffeea104f7de51b881c73f8feeef19041dc142db",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Setup/Transmitter/Signal_Setup_Transmitter.png",
+      "dimensions": [
+        2474,
+        1976
+      ],
+      "format": "PNG",
+      "before_bytes": 515334,
+      "after_bytes": 515334,
+      "sha256": "c3e586d644956d69ca24f3083dc4fbe8610845407b9dc25a7a7e830f85331bdd",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Setup/Transmitter/select_output.png",
+      "dimensions": [
+        566,
+        354
+      ],
+      "format": "PNG",
+      "before_bytes": 39690,
+      "after_bytes": 39690,
+      "sha256": "305fca9ea9fcbf77f44270d5491f55a6b5d34d63ccde060ba4a8bf2667c7b6e3",
+      "pages": [],
+      "delivered_url": null
+    },
+    {
+      "path": "docs/User_Interface/Setup/invalid_callsign.png",
+      "dimensions": [
+        1322,
+        1172
+      ],
+      "format": "PNG",
+      "before_bytes": 170030,
+      "after_bytes": 133472,
+      "sha256": "b68348d96f60e5349d016c16136159bd324d261e535e3582ea59cdf4cea72369",
+      "pages": [
+        "User_Interface/Setup/index"
+      ],
+      "delivered_url": "_images/invalid_callsign.png",
+      "equivalence": {
+        "path": "docs/User_Interface/Setup/invalid_callsign.png",
+        "before": 170030,
+        "after": 133472,
+        "saving": 36558,
+        "before_sha256": "ec75937b2ca2745c86a866e6b5f9fdec32a30dddb38216c1c22987f09ac5e2b7",
+        "after_sha256": "b68348d96f60e5349d016c16136159bd324d261e535e3582ea59cdf4cea72369",
+        "rgba_sha256": "0cb37863945e92a25407b6e8b8836d0357e5859dce214a1c19b46cea315889ae",
+        "non_idat_chunks_unchanged": true,
+        "scanlines_unchanged": true
+      }
+    },
+    {
+      "path": "docs/User_Interface/Setup/parameters_saved.png",
+      "dimensions": [
+        602,
+        316
+      ],
+      "format": "PNG",
+      "before_bytes": 26242,
+      "after_bytes": 26242,
+      "sha256": "d6f4c7b7bc978289e64a434536883a3c319e7ac2fe34580674fbb44680dee082",
+      "pages": [
+        "User_Interface/Setup/index"
+      ],
+      "delivered_url": "_images/parameters_saved.png"
+    },
+    {
+      "path": "docs/User_Interface/Split_Screen.png",
+      "dimensions": [
+        1509,
+        1042
+      ],
+      "format": "PNG",
+      "before_bytes": 589662,
+      "after_bytes": 589662,
+      "sha256": "ffba7f17460feb8751009dc0becbca92d54ee091ce6f8943ebe6acc3d6c611a3",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Split_Screen.png"
+    },
+    {
+      "path": "docs/User_Interface/Spots/Spots.png",
+      "dimensions": [
+        2452,
+        1826
+      ],
+      "format": "PNG",
+      "before_bytes": 478172,
+      "after_bytes": 478172,
+      "sha256": "5f55838cff7b26610d2fe9b43bcfa0d286b23d976360f472cf19c3d4e81c49ce",
+      "pages": [
+        "User_Interface/Spots/index"
+      ],
+      "delivered_url": "_images/Spots.png"
+    },
+    {
+      "path": "docs/User_Interface/Spots/download_selector.png",
+      "dimensions": [
+        440,
+        290
+      ],
+      "format": "PNG",
+      "before_bytes": 29707,
+      "after_bytes": 29707,
+      "sha256": "06aa02533983c5f038a2ddf27e382699cd366d4d9108f4890ca9a9db387ca3ed",
+      "pages": [
+        "User_Interface/Spots/index"
+      ],
+      "delivered_url": "_images/download_selector.png"
+    },
+    {
+      "path": "docs/User_Interface/Spots_Menu.png",
+      "dimensions": [
+        422,
+        330
+      ],
+      "format": "PNG",
+      "before_bytes": 19413,
+      "after_bytes": 19413,
+      "sha256": "ae35369ff172161daab346e4a7d27c2e6f3f452cf3defeb783eca928748d2fe6",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Spots_Menu.png"
+    },
+    {
+      "path": "docs/User_Interface/Transmission_Indicator.png",
+      "dimensions": [
+        362,
+        98
+      ],
+      "format": "PNG",
+      "before_bytes": 8219,
+      "after_bytes": 8219,
+      "sha256": "c52236795019a5574c409dcd5a6e3c893a0d2b8edda6413064dbb4849c7d9937",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/Transmission_Indicator.png"
+    },
+    {
+      "path": "docs/User_Interface/WsprryPi_UI.png",
+      "dimensions": [
+        2538,
+        1298
+      ],
+      "format": "PNG",
+      "before_bytes": 379836,
+      "after_bytes": 379836,
+      "sha256": "c81dbe29a0e626443a5d03cf01dda173d83142a1a0fb129a08e358ff48b87d01",
+      "pages": [
+        "User_Interface/index"
+      ],
+      "delivered_url": "_images/WsprryPi_UI.png"
+    },
+    {
+      "path": "docs/_static/WsprryPi_Logo.png",
+      "dimensions": [
+        600,
+        600
+      ],
+      "format": "PNG",
+      "before_bytes": 289854,
+      "after_bytes": 289854,
+      "sha256": "8f996e62ed43d1f03414ab375f05d7aad156455b05f7f916642a057047b5bf95",
+      "pages": [
+        "theme (all HTML pages)"
+      ],
+      "delivered_url": "_static/WsprryPi_Logo.png"
+    },
+    {
+      "path": "docs/_static/antenna.svg",
+      "dimensions": null,
+      "format": "SVG",
+      "before_bytes": 2725,
+      "after_bytes": 2725,
+      "sha256": "7ee6eeaa984e0833bc1770119f50e5cb87fbc0cf412d48692635c2671971baac",
+      "pages": [],
+      "delivered_url": "_static/antenna.svg"
+    },
+    {
+      "path": "docs/_static/favicon.ico",
+      "dimensions": [
+        48,
+        48
+      ],
+      "format": "ICO",
+      "before_bytes": 15406,
+      "after_bytes": 15406,
+      "sha256": "1b783462a82fc344b01efbc79f168f1075986d8d5b88d0d28540ad1cc8acb3cc",
+      "pages": [
+        "theme (all HTML pages)"
+      ],
+      "delivered_url": "_static/favicon.ico"
+    }
+  ]
+}
