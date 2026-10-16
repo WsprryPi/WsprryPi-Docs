@@ -218,7 +218,26 @@ workflows or check runs, and no commit statuses on the starting SHA. The final
 report must distinguish push parity, the triggered RTD build and publication
 verification. This issue does not undo the locally validated repository work.
 
-Checklist handback: item 11 can close within this recorded scope and limitations
-once its push/build result is accepted. Preserve the separate host-update and
-custom-domain administration follow-ups; keep items 12–14 open. This task does
-not edit the WsprryPi checklist or RP1 roadmap.
+## Post-push verification
+
+At 2026-10-16 11:39 CDT, implementation commit
+`bb42bc93129b9673a176fa72fcf85a03c9687475` was successfully pushed to
+`origin/devel`. Independent `git ls-remote`, a fresh fetch, HEAD, `origin/devel`
+and upstream all agreed on that full SHA, with 0 ahead/behind and a clean tree.
+The source hashes in the evidence describe that implementation; this subsequent
+record update changes no Sphinx source or test behavior.
+
+GitHub reported zero workflows, check runs and commit statuses; its combined
+`pending` value with an empty status list is not a queued check. The repository
+webhook listing was empty. Fresh, uncached public RTD queries showed **no build
+for the pushed commit**: latest devel build remained successful 35195553 at
+`e212ef7`. RTD's public project metadata points at the correct documentation
+repository. No automatic build or new publication is verified, and no cause
+beyond those observations is asserted. No hosting configuration was changed.
+
+Checklist handback: item 11's implementation, dispositions, review and local
+validation are complete. Keep hosted-publication verification pending until the
+owner runs/confirms a devel RTD build for the final pushed revision or restores
+the push integration in separately authorized hosting work. Preserve the separate
+host-update and custom-domain administration follow-ups; keep items 12–14 open.
+This task does not edit the WsprryPi checklist or RP1 roadmap.
