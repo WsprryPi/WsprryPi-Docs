@@ -1,33 +1,49 @@
 # Raspberry Pi 5 RP1 GPCLK
 
-On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs,
-and validates a compatible RP1-GPCLK-DKMS provider and its route-management
-service. Installation establishes neutral administration: neither GPIO4 nor
-GPIO20 is selected, the transmission consumer remains absent, and output is
-disabled. The `/dev/rp1-gpclk` endpoint normally appears only after an operator
-selects and applies a route. Si5351 remains a separate backend choice.
+On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs
+and validates the RP1-GPCLK-DKMS provider and route administration. Fresh setup
+establishes neutral administration with no GPIO route and output disabled.
+After that step, an explicitly saved `rp1-gpclk` GPIO4/GPIO20 selection can be
+restored with transmission disabled. A retained pin for another backend is not
+route consent. The `/dev/rp1-gpclk` execution endpoint normally appears only
+when a route is selected. Si5351 remains a separate backend choice.
 
 ## Installation and ownership
 
-Use the normal WsprryPi installer. Do not manually install an additional RP1
-provider over an installer-managed one. A repeat installation verifies exact
-ownership and identity, safely recovers an existing owned route or neutral
-runtime, updates or validates the provider and application, and restores neutral
-administration. Foreign, modified, mixed, or unproven provider state is
-preserved and reported as a failure for operator review.
+Use the normal WsprryPi installer. **Passive package installation** installs
+files without loading modules, applying overlays, operating services or enabling
+output. **Neutral activation** is the separate managed step establishing runtime
+administration. **Route selection/restoration** is another explicit transaction.
+These steps do not establish live-output authorization.
 
-Normal uninstall removes the RP1 provider and runtime administration only when
-the ownership record and installed identity still match. It does not remove or
-adopt an unproven provider. Retained installer failure details and a support
-bundle are the preferred evidence when recovery is refused.
+Published provider software is **v1.0.0**, Debian **1.0.0-1**. Production/main
+`auto` selection uses an eligible published release; development `auto` selects
+an exact development source. The explicit `RP1_GPCLK_DKMS_SOURCE=release`
+installer selection uses the published path on devel too. An explicit
+`INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
 
-Installing the provider does not select a route, change GPIO state, or start a
-transmission.
+A repeat installation verifies exact ownership/identity, prepares an owned
+runtime for update, installs or validates the provider/application, activates
+neutral administration and restores an explicit saved RP1 route when eligible.
+Transmission stays disabled. Foreign, modified, mixed or unproven state is
+preserved and reported as failure. Do not install another provider over managed
+state or remove ownership evidence to bypass a refusal.
 
-Runtime checks establish application compatibility, not qualification of a
-transmitter, band, power level, filter, or RF chain. RP1 development output
-requires a current, bounded operation confirmation; saving a route or starting
-the application does not authorize transmission.
+Development-to-release migration and version changes require the owning
+cleanup-first update/removal workflow, followed by absence verification and
+installation. Direct package upgrade/downgrade is not a recovery procedure.
+Retain exact predecessor recovery inputs. Normal uninstall removes only
+attributable, unchanged installer-owned state; failed preparation/removal stops
+before application teardown. Preserve the error and support evidence when
+refused. The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
+defines the owning recovery boundaries.
+
+RP1 plans use nominal **200 MHz pll_sys**, with intrinsic `-46.245 ppm` plus
+separately selected additional correction. That default is not a board-specific
+calibration or a new qualification result. See [calibration accounting](timing_calibration.md).
+Runtime readiness, exclusive ownership and the application's bounded operation
+confirmation remain necessary. Saving a route or starting the application does
+not authorize transmission.
 
 ## Route identities
 
@@ -48,17 +64,31 @@ confirmed. There is no automatic route or backend fallback.
 ## Understand the status
 
 Use the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification)
-for the accepted operating scope. The RP1 panel reports separate facts:
+and its numbered notes as the accepted application band/mode statement. Keep
+these facts independent when reading API/diagnostic output:
 
-- **Resource compatibility**: `Compatible-unqualified` means the RP1
-  compatibility checks passed. Accepted band qualification still applies.
-- **Route evidence**: describes testing for the selected GPIO route and its
-  scope. A TONE result does not replace the broader band table. `Evidence missing`
-  or `Evidence invalid` means this information could not be verified; it does
-  not make qualified bands unavailable.
-- **Operational readiness** and **Output inhibition**: describe whether the
-  route can operate now. If it reports **Not ready** or inhibition is **Enabled**,
-  follow the reported route or recovery instructions before transmitting.
+- **Structural compatibility**: `Compatible-unqualified` means the provider's
+  structural resource checks passed. It does not overwrite application qualification.
+- **External scoped evidence**: `qualification-v1.0.0-r1` supplements software
+  1.0.0 / package 1.0.0-1. GPIO4 and GPIO20 have independent finite conducted
+  TONE evidence at 14,097,100 Hz, 2 mA and nominal 200 MHz pll_sys. Seven accepted
+  lifecycle cases per route do not prove every band, mode, board or kernel.
+- **Application eligibility**: the requested band/mode/plan has its own policy.
+  `not-evaluated` means no application plan was assessed. An observational route
+  `eligible=false` is not a band-unavailability verdict.
+- **Operational readiness, inhibition, ownership and cleanup**: current state
+  determines whether work can be admitted now. Unknown output is not off.
+
+The original immutable provider compatibility manifest remains empty with
+`defaultState=Unavailable`. The separate supplement does not rewrite it, erase
+the accepted application band table, enroll a target or grant transmission
+permission. Pi 5's accepted table retains 2200 m through 10 m including 12 m;
+6 m and 4 m remain unqualified, and 2 m/1.25 m/70 cm unavailable. Follow the
+full table's mode/scope notes rather than extending finite TONE evidence.
+
+The normal Setup UI shows compact route actions and state. The detailed RP1
+fact panel is intentionally hidden; use diagnostics/API or a support bundle
+for the additional evidence below.
 
 ## Change or remove a route
 
@@ -115,7 +145,58 @@ available. Missing, inaccessible, unsafe, timed-out, or nonzero inspection
 results remain in the bundle as diagnostic evidence instead of stopping
 collection.
 
-The collector does not copy the WsprryPi installation record, attest the Debian
-provider package or overlay hashes, change DKMS or route state, load a module,
-or authorize output. A support bundle does not establish hardware or RF
-qualification.
+The collector also includes the maintained qualification consumer's verified
+cache/evidence status. Missing, invalid, inaccessible or uninspected evidence
+remains explicit; collecting a bundle neither refreshes the cache nor grants
+output authority. It does not copy the private installation record, change DKMS
+or routes, load modules or establish new hardware/RF qualification.
+
+### Qualification cache and installed commands
+
+The application installs its maintained consumer, pinned reference and separate
+file receipt. The cache at `/var/cache/wsprrypi/rp1-qualification` must match the
+complete four-asset inventory and SHA-256 values. Refresh verifies the immutable
+metadata tag/source/tree, original software identity and authoritative assets
+against the pinned reference; it does not follow a latest-metadata selector.
+Status revalidates cached bytes. Helper/reference ownership is separately
+receipt-bound; a provider package version alone is insufficient attribution.
+
+After an application update that deliberately skips the unchanged provider,
+an administrator can explicitly refresh the installed evidence cache:
+
+```bash
+sudo python3 -B /usr/local/lib/wsprrypi/rp1_qualification.py refresh
+```
+
+Prerequisites are the matching installed application helper/reference and
+network access to the pinned publication. This command changes the evidence
+cache; it does not reinstall the provider, select a route or enable output.
+Provider-selected installation attempts this refresh, but refresh failure and
+provider installation success remain separate results.
+
+For a local diagnostic on an installed host, the maintained consumer supports:
+
+```bash
+python3 /usr/local/lib/wsprrypi/rp1_qualification.py status --route gpio4
+```
+
+Use `gpio20` when inspecting that selected route. This performs bounded passive
+provider inspection and reads the verified cache/ownership evidence; it never
+downloads or refreshes metadata. Read permissions must permit the installed
+provider and evidence inspection. Failure to inspect remains unknown; it is not
+permission to infer safe output. Route, exact source/package, both UAPIs,
+overlay/artifact inventory and both loaded module build notes must agree before
+attribution. Wrong-route/build evidence is refused independently for each route.
+
+- **Evidence missing**: the pinned cache is absent.
+- **Evidence invalid**: corrupt, substituted or stale cache cannot be verified.
+- **Not inspected**: this response did not collect supplemental evidence.
+- **Provider identity unverified** or unattributed evidence: available bytes
+  cannot be bound to this installed runtime; retain the detailed reason.
+
+These are evidence states, not substitutes for readiness or application policy.
+The old diagnostic executable frozen inside Debian 1.0.0-1 cannot interpret the
+new supplement; use the installed application consumer above. No package asset
+was replaced to add this reporting. See the [accepted item 10 scope](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/development/rp1-item10-production-integration.md)
+for retained installation/idle-runtime evidence, excluded rollback rehearsals
+and exact source/build limitations.

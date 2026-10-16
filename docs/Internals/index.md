@@ -9,7 +9,13 @@ The system consists of the following:
 
 The primary data flow is as follows:
 
+:::{only} not latex
 ![Data Flow Diagram](wsprrypi_data_flow.svg)
+:::
+
+:::{only} latex
+![Data Flow Diagram](wsprrypi_data_flow.pdf)
+:::
 
 ## Log Files
 

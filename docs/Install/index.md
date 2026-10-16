@@ -48,9 +48,11 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Compile and configure WsprryPi**
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPCLK-DKMS provider, verifies its
-  source and installed artifacts, and establishes route-neutral administration.
-  It does not select GPIO4 or GPIO20, enable clock output, or authorize a
-  transmission.
+  source and installed artifacts, and first establishes route-neutral
+  administration. Fresh setup has no selected route. An explicitly saved RP1
+  GPIO4/GPIO20 selection can then be restored, with transmission disabled.
+  Package installation, neutral activation and route restoration are separate;
+  none grants output authorization.
 - **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission will interfere with the WSPR transmission.
 
 (install-wspr)=
@@ -79,6 +81,14 @@ neutral, inhibited state before replacing provider or application files. It
 refuses foreign, modified, mixed, or otherwise unproven provider state instead
 of adopting or removing it. If an update is released, re-run the installer to
 take advantage of the new release.
+
+The published RP1 provider is v1.0.0 / Debian 1.0.0-1; development source
+selection remains separate. Qualification supplement `qualification-v1.0.0-r1`
+has its own pinned reference/cache and cannot authorize transmission. If an
+application update deliberately skips provider installation, use the
+[explicit evidence refresh](../Advanced_Operations/rp1_gpclk.md#qualification-cache-and-installed-commands)
+and inspect its result separately from installer success. Do not treat a missing
+or invalid evidence cache as a new band-unavailability result.
 
 ### Upgrading a customized web interface
 
@@ -187,9 +197,10 @@ While the TAPR Hat is optional, an antenna is not. Choosing an antenna is beyond
 
 On Raspberry Pi 5-family systems, the WsprryPi installer installs and validates
 the compatible [RP1 GPCLK provider](../Advanced_Operations/rp1_gpclk.md) and
-route-management service. Installation leaves both GPIO routes unselected and
-output disabled. Choose and apply GPIO4 or GPIO20 from **Setup > Transmitter**
-only after installation. A route change
+route-management service. Fresh installation leaves both GPIO routes unselected and output disabled;
+an update may restore an explicitly saved `rp1-gpclk` route while staying idle.
+For a new selection, choose and apply GPIO4 or GPIO20 from **Setup > Transmitter**
+after installation. A route change
 is complete only after WsprryPi confirms the same requested, persisted,
 configured, and active route after startup. You may instead use Si5351 without
 selecting an RP1 route.

@@ -79,13 +79,25 @@ of a running process.
 
 ### Startup transmitter safety
 
-`Enable on Boot` determines whether WsprryPi requests transmission after the daemon starts. Independently of that policy, every daemon start first attempts to place the configured transmitter backend in a disabled state. The Si5351 backend disables all clock outputs. The GPIO backend stops its DMA and clock path and returns the configured transmit GPIO to an input state.
+`Enable on Boot` determines whether WsprryPi requests transmission after the
+daemon starts. Independently of that policy, every daemon start first attempts
+to place the configured backend in a disabled state. Si5351 attempts immediate
+all-output inhibition before ordinary programming. Legacy GPIO stops DMA/clock
+and returns the configured transmit GPIO to input; RP1 uses its provider's
+ownership and route reconciliation. Software disable/write/readback evidence
+is distinct from an independent RF-off measurement.
 
 If that startup operation fails, WsprryPi keeps the web and socket services available but inhibits WSPR scheduling, CW scheduling, manual launches, startup tones, and test tones. The inhibition is latched for the lifetime of the process and does not change the saved `Transmit` or `Enable on Boot` values.
 
 To recover, correct the reported hardware or configuration problem and restart the WsprryPi service. A configuration reload or transmission toggle cannot clear the startup inhibition. See [Configuration Troubleshooting](../configuration_troubleshooting.md#startup-transmission-is-inhibited) for operator checks.
 
 This protection begins when the daemon runs. Use a separate hardware inhibit when the transmitter must remain disabled during the earlier power-up and operating-system boot interval.
+
+Saved edits and repair/reset can defer runtime application while a Test Tone
+owns its committed backend, mode, frequency and selectors. Saving does not
+replace that running snapshot or clear cleanup uncertainty. Read
+[Test Tone results and recovery](../../User_Interface/Maintenance/index.md#read-the-result)
+before treating saved settings as active.
 
 <!-- if-wsprrypico -->
 ## WTP Server

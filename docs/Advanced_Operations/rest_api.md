@@ -42,7 +42,8 @@ http://{servername}.local/wsprrypi/config
 
 Supported operations:
 
-- `GET`: Returns the active runtime configuration as JSON
+- `GET`: Returns host configuration and read-only platform observations as JSON;
+  committed work can still use an earlier runtime snapshot.
 - `PUT`: Replaces the configuration with a full JSON payload
 - `PATCH`: Updates selected configuration fields
 
@@ -63,10 +64,11 @@ The API exposes configuration for:
 - CW timing and fade configuration
 - Planner preferences and paired-frame behavior
 
-The read-only `Platform` section of `GET /config` includes the detected I2C bus
-inventory and the Si5351-compatible addresses found on the configured bus.
-These values describe current host state and are not persisted configuration or
-client authority.
+The read-only `Platform` section of `GET /config` includes host I2C adapters
+and cached compatible-address observations for the configured bus. Configuration
+and status reads do not start discovery, including for inactive backends.
+Unchecked presence remains unconfirmed. These observations are neither
+persisted configuration nor client authority.
 
 ```text
 GET /wsprrypi/config/si5351-addresses?bus=N
@@ -75,9 +77,15 @@ GET /wsprrypi/config/si5351-addresses?bus=N
 This read-only endpoint refreshes the compatible address list for a selected
 host-present bus. Its JSON response contains `I2C Bus`, `Addresses`, and
 `Discovery Error`. Address checks are limited to `0x60` through `0x6F` and do
-not program the clock generator or enable an output. Configuration updates
-independently rediscover and validate the submitted bus/address pair rather
-than trusting this response.
+not program the clock generator or enable an output. The isolated worker has
+a two-second scan deadline and at most 25 ms of cleanup attempts, with one worker
+outstanding. A kernel-blocked worker can remain pending after termination is
+requested; further scans report busy until it exits. Busy, timeout/error and
+confirmed no response are different outcomes. Failed inventory preserves a saved
+address as unconfirmed; it does not establish missing hardware. Retry explicitly
+after the worker/problem is resolved. Configuration updates independently perform
+fresh validation of a newly selected bus/address rather than trusting this list.
+A response establishes register compatibility, not definitive silicon identity.
 
 Configuration replacement and patch requests apply the same GPIO ownership validation as startup and INI reload. With the GPIO backend, the selected GPIO4 or GPIO20 RF output cannot also be used by an enabled Band GPIO, Transmit LED, Shutdown Button, or Amp Control, regardless of the `Operation.Transmit` value. A rejected request returns the conflict instead of clearing or moving either assignment.
 
@@ -87,52 +95,18 @@ available where practical. Repair/reset, stop-and-disable, support-bundle
 operations, and `POST /api/network-safety` are also protected. An off-LAN
 request is rejected before the operation is proxied.
 
-A typical payload resembles:
+A minimal host patch disabling transmission is:
 
 ```json
-{
-    "Operation": {
-        "Mode": "WSPR",
-        "Transmit": true,
-        "Transmit Backend": "gpio",
-        "Use LED": true,
-        "LED Pin": 18,
-        "Use Amp": false,
-        "Amp Pin": -1,
-        "Amp Pin Active High": false,
-        "Use Shutdown": true,
-        "Shutdown Button": 19,
-        "Web Port": 31415,
-        "Socket Port": 31416
-    },
-    "Common": {
-        "Call Sign": "AA0NT",
-        "Grid Square": "EM18",
-        "Power": 20,
-        "Frequencies": "20m"
-    },
-    "GPIO": {
-        "Transmit Pin": 4,
-        "Power Level": 7,
-        "Use NTP": true,
-        "PPM": 0.0
-    },
-    "Band GPIO": {
-        "20m": {
-            "Enabled": true,
-            "GPIO": 21,
-            "Active High": true
-        }
-    },
-    "Meta": {
-        "Use INI": true,
-        "INI Filename": "/usr/local/etc/wsprrypi.ini",
-        "Date Time Log": true,
-        "Loop TX": false,
-        "TX Iterations": 0
-    }
-}
+{"Operation":{"Transmit":false}}
 ```
+
+Read `GET /wsprrypi/config` first and send its exact quoted ETag in `If-Match`
+with `PATCH /wsprrypi/config`. The browser autosave does this; legacy clients
+without a condition retain compatibility. A stale revision rejects the write;
+preserve the draft and explicitly reload saved settings before another attempt.
+Use the [INI reference](ini_configuration.md) for canonical keys. A saved edit
+can await runtime application while a Test Tone owns the committed configuration.
 
 ## RP1 GPCLK Route Endpoint
 
@@ -145,6 +119,11 @@ POST /wsprrypi/api/rp1-gpclk-route
 
 `GET` is read-only and reports requested, persisted, configured, active,
 eligible, generation, journal, service-restoration status, and operator state.
+Detailed responses distinguish `qualificationEvidence`, `liveQualification` and
+`structuralCompatibility` from readiness, application eligibility and output
+inhibition. Evidence not collected is **Not inspected**; status does not download
+metadata. See [RP1 diagnostics](rp1_gpclk.md#diagnostic-evidence) for cache refresh
+and interpretation. The detailed diagnostic panel is hidden in the normal UI.
 
 For the installed runtime route profile, `POST` accepts these fixed operations:
 
@@ -308,4 +287,133 @@ See [Fleet setup](../User_Interface/Setup/index.md#pi-and-pico-fleet-setup)
 for operator actions and the
 [application Fleet reference](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-fleet.md)
 for persistence and request contracts.
+
+## Selected Pico application, station and hardware
+
+These management resources belong to the selected member. They do not edit Pi
+host settings or prepared jobs, and are separate from standalone schedule saves.
+Use the normal Apache proxy:
+
+```text
+GET  /wsprrypi/api/v1/member/application
+GET  /wsprrypi/api/v1/member/station
+GET  /wsprrypi/api/v1/member/hardware
+GET  /wsprrypi/api/v1/member/pins
+PUT  /wsprrypi/api/v1/member/station
+PUT  /wsprrypi/api/v1/member/hardware
+POST /wsprrypi/api/v1/member/pins/validate
+```
+
+Each GET returns the same reconciled `wsprrypi-member-resources/1` bundle:
+`target`, `carrier`, nullable `profile_generation`, `profile_owned_station`,
+complete `application`, advertised `pin_choices`, and opaque `member_context`.
+Application includes station, hardware, recurrence, capabilities and restart
+observations. The adapter brackets resource reads with application readback and
+checks the common saved revision. Live recurrence/active observations may change
+independently. Preserve decimal uint64 strings as strings. Hardware
+`active_revision` is an observation digest, never the save ETag.
+
+### Read, review and send one scoped operation
+
+1. Select/authenticate the management carrier and explicitly GET a member
+   resource. Keep its exact quoted ETag, target and opaque `member_context`.
+2. Send that ETag unchanged in `If-Match`, and the context unchanged in
+   `X-WsprryPi-Member-Context`. Do not derive either from a device ID or generation.
+3. All mutations also require matching `Origin`, `Content-Type: application/json`
+   and `X-WsprryPico-Request: 1`. `Sec-Fetch-Site` must be absent, `same-origin`
+   or `none`. Existing peer/Host/proxy guards still apply; no CORS grant is added.
+4. Send one complete station or supported hardware object. Read back explicitly
+   before another save. Changing carrier or attempting a save invalidates other
+   resource/legacy editor contexts. Preview and field edits never autosave.
+
+For example, this complete station body illustrates the closed write schema.
+Replace the example target with the exact loaded target; review every station
+field together. These IDs and values are synthetic, not a device to contact.
+
+```json
+{
+  "schema": "transmitter-station/1",
+  "target": {
+    "scope": "member",
+    "device_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "boot_id": "00000000000000000000000000000001"
+  },
+  "station": {"callsign": "K1ABC", "locator": "FN42", "power_dbm": 20}
+}
+```
+
+A complete supported hardware body has the same target and a complete pin plan:
+
+```json
+{
+  "schema": "transmitter-hardware/1",
+  "target": {
+    "scope": "member",
+    "device_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "boot_id": "00000000000000000000000000000001"
+  },
+  "pins": {
+    "engine": "direct", "rf_gp": 0, "i2c_pair": null,
+    "button_gp": null, "amplifier_gp": null, "lpf_gps": [],
+    "indicator": "onboard_led", "indicator_gp": null,
+    "indicator_active_high": true
+  }
+}
+```
+
+Select actual GP choices from the authenticated response and check role
+conflicts. The nonpersistent preview takes only the complete `pins` object
+above as its bare body, with the same host revision/context/intent headers.
+The adapter does not forward `If-Match` to Pico's preview, preserving its
+nonpersistent semantics. Preview distinguishes validity, conflicts and
+operational support and verifies unchanged configuration on readback. A valid
+structural I2C plan is not necessarily operationally supported.
+
+Scoped PUT bodies are limited to 1,024 UTF-8 bytes; preview to 2,048. Unknown
+fields, duplicate keys, wrong targets and unsupported schemas are refused.
+Application is read-only; station/hardware PUT are complete scoped replacements,
+not arbitrary merge patches. A successful PUT is confirmed by authoritative
+application readback. Profile-owned station fields remain read-only. Current
+station writes retain the Type 1 encoder restriction; dBm is WSPR metadata.
+
+### Conflicts, uncertainty and ownership
+
+Missing revisions return 428; stale remote revisions return 412. Changed or
+invalidated member context/selection can return 409 `member_read_required`.
+Other 409 refusals include busy/unresolved runtime or unsupported resources.
+Keep the actual error code: a lost/malformed reply after dispatch can be
+unconfirmed even if persistence succeeded. Preserve the draft, explicitly read
+saved/active state and review before a new deliberate save. Never automatically
+retry a mutation, substitute an endpoint or switch save strategy after failure.
+
+Saved hardware, active-at-boot hardware and null/unknown active state remain
+distinct. Changed pins latch restart/output inhibition for this boot; saving the
+old plan or station does not clear it. Storage faults differ from application
+faults. `output_disable_failed` can accompany a saved change with unconfirmed
+shutdown. No save restarts, reconnects WTP, enables recurrence, claims or transmits.
+
+Engineering mTLS and explicitly supported consumer station/AP management use
+the host's existing idle admission. Built-in route flags do not prove remote
+support. Missing shared-resource discovery preserves the compatible legacy
+editor; malformed/unsupported advertised discovery refuses without fallback.
+See [management and member controls](../User_Interface/Setup/Transmitter/index.md#management-connection-and-login)
+for login expiry and supported GP/adapters.
+
+### Similarly named configuration resources
+
+| Browser path | Owner and update contract |
+| --- | --- |
+| `/wsprrypi/config` | Legacy Pi host configuration; full PUT or PATCH; conditional writes supported, legacy unconditioned compatibility retained. |
+| `/wsprrypi/api/v1/host/config` | Explicit `wsprrypi-host-config/1` host envelope; PUT applies a merge patch under exact required host ETag. |
+| `/wsprrypi/api/v1/member/configuration` | Coordinated selected-Pico atomic editor; GET context then POST changed known fields with exact member target/revision. |
+| `/wsprrypi/api/v1/config` | Compatible remote Pico Config resource; GET/PUT retain remote revision and complete-config semantics. |
+
+The coordinated editor negotiates one supported save strategy before mutation.
+It preserves Pico-owned settings outside the form and safely refuses unknown
+configuration fields rather than losing them through an older full replacement.
+Null password means preserve; arrays replace atomically; explicit false/zero
+retain their meaning. Ordinary edits are not whole-configuration resets.
+Schedules-only saves preserve unrelated drafts. None of these resources gives
+the browser independent WTP CLAIM/LOAD/ARM authority: job submission stays with
+the host application. See the [compatibility contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-configuration-compatibility.md).
 <!-- endif-wsprrypico -->

@@ -12,9 +12,9 @@ installer-managed integration. For current operation, see
 
 This page records an engineering workflow that is deliberately absent from the
 normal WsprryPi navigation and installation process. Raspberry Pi 5 RP1 GPIO
-transmission is implemented for continued development, but ordinary operators
-are not offered this transmitter path. Use the supported Si5351 path unless you
-are maintaining the matching kernel, provider, and recovery procedure yourself.
+transmission in this historical custom-kernel path was not offered to ordinary
+operators. That restriction describes Issue 399, not the current installer-managed
+RP1 integration. Do not use the commands below as current deployment instructions.
 
 ## Scope and prerequisites
 
@@ -40,7 +40,7 @@ reported as transmitter output power.
 Implementation, clock-disabled hardware execution, live RF observation, decode
 evidence, and general product qualification are separate claims.
 
-| Cell | Current evidence |
+| Historical Issue 399 cell | Recorded evidence |
 |---|---|
 | Raspberry Pi 5, GPIO4, 20 m WSPR, 2 mA | Live output and independent decodes on the recorded Issue 399 kernel/provider build |
 | Raspberry Pi 5, GPIO4, QRSS, FSKCW, and DFCW, 2 mA | Live keyed intervals and relative SDR behavior on the recorded Issue 399 build |
@@ -112,8 +112,10 @@ version, artifact hashes, selected boot entry, and the failed operation.
 
 ## Promotion boundary
 
-This page must remain unlinked while RP1 GPIO is hidden from ordinary
-operators. Public promotion requires a supported installation and rollback
-workflow, documentation updates, and qualification sufficient for every claim
-made on the public compatibility, installation, configuration, and operation
-pages.
+This historical page remains outside normal navigation/search to preserve
+Issue 399 provenance. Its GPIO20 and installer limitations apply only to the
+recorded custom-kernel build. Current installation, both-route evidence and
+accepted application qualification are documented in the
+[RP1 operator guide](../Advanced_Operations/rp1_gpclk.md) and
+[band table](../About_Wsprry_Pi/index.md#band-qualification). The old measurements
+and their scope above have not been reclassified.

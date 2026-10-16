@@ -3,13 +3,16 @@
 ## Backend Selection
 
 <!-- if-wsprrypico -->
-- `--backend <gpio\|si5351\|wtp>`
+- `--backend <gpio\|si5351\|rp1-gpclk\|wtp>`
 <!-- else-wsprrypico -->
-- `--backend <gpio\|si5351>`
+- `--backend <gpio\|si5351\|rp1-gpclk>`
 <!-- endif-wsprrypico -->
   Select RF output method.  
   - `gpio`: Direct RF from Raspberry Pi GPIO (limited models).  
   - `si5351`: External clock generator via I2C.
+  - `rp1-gpclk`: Explicit Pi 5 RP1 backend with a reconciled installed route
+    and the existing operation-scoped development confirmation. It is never an
+    automatic fallback from `gpio`; see the [RP1 guide](../Advanced_Operations/rp1_gpclk.md).
 <!-- if-wsprrypico -->
   - `wtp`: WsprryPico over its dedicated USB WTP interface, Plain LAN, or
     authenticated TLS network connection on Linux. The binding comes from
@@ -137,18 +140,42 @@ for the underlying signal-quality findings.
 - `--transmit-pin <4\|20>`  
   Legacy alias for transmit GPIO.
 
-- `-n`, `--use-ntp`  
-  Enable NTP-based frequency calibration.
+- `-n`, `--use-system-clock-frequency-estimate`
+  Enable the qualified Chrony-derived system clock frequency estimate.
 
-- `--no-use-ntp`  
-  Disable NTP calibration and use manual PPM.
+- `--no-system-clock-frequency-estimate`
+  Disable the estimate and select GPIO manual PPM.
 
-- `-p`, `--ppm <value>`  
-  Apply manual frequency correction (-200 to 200 ppm).
+- `-p`, `--gpio-manual-ppm <value>`
+  Set additional manual correction (`-200` through `200 ppm`) and disable
+  the estimate. `--ppm` remains an accepted compatibility alias.
+
+- `--gpio-frequency-residual-ppm <value>`
+  Set the conducted residual added only to a usable current or bounded
+  prior-qualified estimate (`-200` through `200 ppm`).
+
+Positive GPIO PPM models a fast source. Intrinsic chipset compensation remains
+applied once even with manual zero. Manual is a fallback, not an additional term
+on top of the estimate. See [calibration accounting](../Advanced_Operations/timing_calibration.md)
+before reusing an older correction. The former `--use-ntp` and `--no-use-ntp`
+spellings are not current long options; retired INI `GPIO.Use NTP` has a separate
+migration path.
 
 ---
 
 ## Si5351 Backend
+
+Levels 1–4 select retained 2/4/6/8 mA drive, not calibrated RF power.
+Discovery, initialization, runtime readiness and successful cleanup are separate
+checks. Keep output disabled after a fault, establish ownership/quiescence and
+resolve any uncertain cleanup before another deliberate transmission. Recovery
+does not resume interrupted work automatically. See
+[Si5351 readiness and recovery](../User_Interface/Setup/Transmitter/index.md#readiness-and-recovery).
+
+- `--si5351-ppm <value>`
+  Set backend-local reference calibration (`-200` through `200 ppm`). The
+  modeled reference is `reference_hz * (1 - ppm / 1000000)`; GPIO's sign and
+  correction terms do not apply.
 
 - `--si5351-i2c-bus <bus>`  
   Select I2C bus (default: 1).

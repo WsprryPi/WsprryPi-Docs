@@ -2,7 +2,18 @@
 
 This card is where your normal day-to-day configuration changes happen. Several settings are intentionally not exposed in the web UI because they are reserved for development and experimental use.
 
-Settings will save, or throw an error in the indicator at the top of the page.  No special "Save" button is required or provided.
+Ordinary Pi host settings autosave after validation. Read the status beside the
+Setup title before leaving the page. A saved value may still await runtime
+application while committed work owns the transmitter.
+
+<!-- if-wsprrypico -->
+Fleet assignments and listener settings use explicit saves. Selected-member
+settings also use explicit controls: **Load member resources**, **Validate candidate
+pins**, **Save member station**, and **Save member hardware**. Editing those
+drafts never triggers host autosave. See
+[member resources](Transmitter/index.md#shared-pico-member-resources) before
+saving settings on a Pico.
+<!-- endif-wsprrypico -->
 
 ![Setup Card](Setup.png)
 

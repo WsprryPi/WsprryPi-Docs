@@ -6,6 +6,8 @@ Use these sections for frequency calibration and RF output-path settings. See [C
 ## Calibration
 
 The `[Calibration]` section supplies **Reference calibration (PPM)** for the Si5351 backend. GPIO calibration uses the separate values in `[GPIO]`.
+Si5351 models `reference_hz * (1 - PPM / 1000000)`; do not copy GPIO's
+correction sign or intrinsic/estimate terms into this setting.
 
 ```{literalinclude} default_wsprrypi.ini
 :language: ini
@@ -26,6 +28,13 @@ and its numbered notes for the current mode-specific status. See
 [GPIO Band Capabilities and Signal Quality](../../FAQ/why_12m_looks_noisy.md)
 for the measured signal-quality findings.
 
+The estimate/residual/manual values describe additional correction. The backend
+adds its intrinsic chipset compensation once, including when additional PPM is
+zero. A usable estimate selects estimate plus residual; otherwise manual applies.
+A prior-qualified estimate can remain usable within its bounded 900-second age
+window even when current qualification is unavailable. Saved inputs do not change
+already committed work. See [calibration accounting](../timing_calibration.md).
+
 ```{literalinclude} default_wsprrypi.ini
 :language: ini
 :start-at: [GPIO]
@@ -42,6 +51,11 @@ through `0x6F` inclusive. The web interface further limits its address menu to
 register-compatible devices detected on the selected, host-present I2C bus.
 Direct CLI and INI configuration still undergo range and transmission-readiness
 validation.
+
+Cached or failed discovery can retain a saved unconfirmed address. A fresh scan
+is explicit and bounded; see the [I2C address workflow](../../User_Interface/Setup/Transmitter/index.md#i2c-address).
+Drive levels 1–4 retain 2/4/6/8 mA, not calibrated RF power. CW fades are
+full-drive duty-cycle chopping with event deadlines, not analog amplitude control.
 
 For a passive crystal, `Crystal Load Capacitance` accepts only `6`, `8`, or `10` pF and defaults to `10`. WsprryPi programs this value only in crystal mode. It retains the setting without applying it in `external_tcxo` mode, so TCXO users should not treat it as a calibration control.
 
@@ -126,14 +140,21 @@ disable them.
 The `[WTP]` INI settings select how this Pi connects to a device; Pico's saved
 standalone station, Wi-Fi, and schedule settings are managed separately. When
 Fleet development controls are visible, **Pico standalone settings and Wi-Fi**
-uses the selected Network (TLS) connection while the host and Pico are idle.
-USB and Plain LAN do not provide this configuration-management workflow.
+uses the explicitly selected management carrier while the host and Pico are
+idle. Engineering HTTPS retains the selected Network (TLS) certificate policy;
+supported consumer station/AP management uses a separate volatile login. USB
+and Plain LAN WTP do not themselves provide JSON administration. No persistent
+management secret, new WTP authority or hardware-activation setting is added.
 
 An ordinary settings save preserves supported settings outside the form,
 including pins and advanced frequency-policy settings. Older firmware is used
 only when its saved settings can be preserved safely; incompatible settings
 cause refusal. Standalone settings may be saved before all changes are active,
 and the reported restart requirement determines the next step.
+Unknown fields refuse safely rather than being discarded. Explicit scoped
+station/hardware saves use complete resources under the selected member's
+revision/context, separately from the legacy atomic editor. They do not reset
+unrelated settings, restart, claim, reconnect WTP or transmit.
 
 See [Pico standalone settings and Wi-Fi](../../User_Interface/Setup/Transmitter/index.md#pico-standalone-settings-and-wi-fi)
 for loading, password preservation, schedule-only saves, and recovery after a

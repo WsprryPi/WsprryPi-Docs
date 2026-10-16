@@ -21,17 +21,23 @@ stack without changing their order.
 
 GPIO-based transmissions are the typical method most people think of when they think of WsprryPi.  It uses a GPIO Pin attached to a clock generator on the Pi to transmit WSPR tones.
 
-On Pi 5-family systems, the normal installer supplies and validates the RP1
-GPCLK provider but leaves both routes unselected and output disabled.
-Installation alone does not qualify either route or authorize transmission.
+On Pi 5-family systems, a fresh installation supplies and validates the RP1
+GPCLK provider and establishes neutral administration with no route selected.
+An update can restore an explicitly saved `rp1-gpclk` GPIO4 or GPIO20 route
+after neutral activation, with transmission disabled. A retained GPIO pin for
+another backend is not route consent. Installation alone does not qualify
+either route or authorize transmission.
 
-For the legacy GPIO backend, conducted testing qualifies 80 m, 20 m, 15 m, and 10 m with
-the production pacing value. WsprryPi rejects legacy GPIO requests in the 12 m, 6 m,
-and 2 m band ranges before transmitter activation. The restriction applies to
-scheduled operation and Test Tone and does not limit the Si5351 backend. See
-[GPIO Band Capabilities and Signal Quality](../../../FAQ/why_12m_looks_noisy.md).
+GPIO qualification depends on the processor clock profile, band and mode. Use
+the accepted [band qualification table and numbered notes](../../../About_Wsprry_Pi/index.md#band-qualification).
+Unqualified combinations are blocked by default in scheduled operation and
+Test Tone; an experimental override cannot enable an Unavailable plan.
+Si5351 has its own qualification. See
+[GPIO Band Capabilities and Signal Quality](../../../FAQ/why_12m_looks_noisy.md)
+for the retained signal-quality evidence.
 
-There are only two choices when setting up the GPIO-based transmitter:
+The output controls select the transmit pin and drive; frequency calibration
+is described [below](#gpio-frequency-correction-feedback).
 
 ### Transmit Pin
 
@@ -81,9 +87,11 @@ Actual output should be measured with the entire circuit and antenna.
 
 ## Si5351
 
-The Si5351 is selectable as an output device on all supported Pi versions. If
-the application cannot validate communication with the Si5351, the RF Output
-panel reports that the device was not detected.
+The Si5351 is selectable on all supported Pi versions. Discovery establishes
+register communication only. Unchecked or failed discovery leaves presence
+unconfirmed; a completed scan with no compatible response is a different result.
+Neither a responding address nor successful initialization proves RF readiness
+under every operating condition.
 
 ### I2C Bus
 
@@ -99,14 +107,22 @@ attached Si5351.
 
 ### I2C Address
 
-After a bus is selected, WsprryPi checks addresses `0x60` through `0x6F` and
-lists only addresses that respond to the Si5351 register-read check. The saved
-address remains selected only while it is detected on that bus. If it is
-missing, the menu has no selection; choose a detected address explicitly.
+Selecting Si5351 or loading it as the active backend requests fresh inventory
+after the saved bus/address is populated. WsprryPi checks only `0x60` through
+`0x6F`. Ordinary configuration and status reads use cached observations; they
+do not scan an inactive Si5351 merely to fill the form.
 
-The menu distinguishes discovery in progress, no compatible response, and a
-discovery error. Select the bus again or reload the page to retry after fixing
-wiring, power, permissions, or I2C configuration.
+The scan has a two-second deadline plus at most 25 ms of cleanup attempts.
+Unchecked, checking, busy, timeout/error, and confirmed no compatible response
+are distinct states. Busy or failed discovery keeps the saved address visible
+as **unconfirmed**; timeout does not mean missing hardware. A completed scan
+that does not find the saved address requires an explicit detected selection.
+
+Wait for an outstanding worker to exit before retrying a busy scan. After a
+communication failure, correct the reported bus, wiring, power or permissions
+problem, then select the bus again or reload to request another bounded scan.
+Saving a newly selected bus/address independently validates it on the server;
+the browser's cached list is not authority to use it.
 
 The standard Si5351 address is `0x60`; some boards support `0x61`, and
 compatible devices or clones may use another address in the supported range.
@@ -130,14 +146,47 @@ When **Passive crystal** is selected, the **Crystal Load Capacitance** menu appe
 
 ### Si 5351 Power Level
 
-The Si5351 has four configurable power levels:
+Levels **1, 2, 3, 4** retain **2, 4, 6, 8 mA** output drive respectively.
+These are drive settings, not calibrated RF power. Measure the complete filtered
+and loaded RF path independently; WSPR reported dBm does not set this drive.
 
-1. 2mA - ~0 to +3 dBm
-2. 4mA - ~+3 to +6 dBm
-3. 6mA - ~+6 to +8 dBm
-4. 8mA - ~+8 to +10 dBm
+### Readiness and recovery
 
-While these are technically feasible levels, the device is not intended to drive a load.  It should be followed by an amplifier of some sort.
+Initialization waits for the device's initialization status before ordinary
+programming. A later PLL/reference readiness fault or transport error during
+execution ends that work and attempts output inhibition. Read the reported phase
+and cleanup result: an I2C failure is different from a valid non-ready status.
+Failed disable/readback leaves output uncertain and further output inhibited.
+
+Keep transmission disabled, resolve the reported hardware or configuration
+problem and establish exclusive ownership before recovery. Use the existing
+stop/quiescence workflow; startup-inhibited processes require a service restart
+after repair. Verify the resulting status before deliberately starting new work.
+Recovery does not automatically resume the interrupted transmission. Startup
+attempts to inhibit all Si5351 outputs; accepted writes or register readback
+are not a measured RF-off guarantee.
+
+CW fades switch the selected output on and off at its retained full drive.
+They approximate an envelope by duty cycle; they do not vary analog amplitude.
+See [CW envelope control](../../../Command_Line_Operations/cw_modes.md#envelope-control)
+for slice/deadline limits and measurement boundaries.
+
+## GPIO frequency correction feedback
+
+**Frequency calibration** separates **System clock estimate**, **Residual PPM**
+and **Fixed/manual PPM**. Candidate correction describes what a future request
+would use. Committed correction belongs to the already prepared work and stays
+fixed even when a newer estimate arrives or settings are saved. Displayed
+effective/correction PPM is the additional term; chipset intrinsic compensation
+is applied separately once.
+
+Read the selected correction mode as well as estimate qualification. A currently
+unavailable or converging report can still use a bounded prior-qualified value.
+**age unknown** means freshness could not be established; it is different from
+**age 0 s**. Source provenance describes selected/combined Chrony records, not
+verified GNSS lock or measured RF accuracy. See
+[Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md)
+for intrinsic, residual, manual and zero-additional accounting.
 
 
 <!-- if-wsprrypico -->
@@ -234,11 +283,13 @@ RF shutdown.
 
 ### Pico standalone settings and Wi-Fi
 
-Open **Pico standalone settings and Wi-Fi** in Fleet when the selected Pico
-uses **Network (TLS)**. These controls manage settings saved on Pico for its
-own standalone scheduler. They are separate from this Pi's schedule, output
-assignments, and saved connection profile. USB and Plain LAN do not provide
-this settings panel.
+Open **Pico standalone settings and Wi-Fi** in the development Fleet pane.
+These controls manage settings saved on the selected Pico for its own
+standalone application. They are separate from this Pi's settings, prepared
+jobs, output assignments and saved connection profiles. Select management
+separately from WTP job transport: Engineering HTTPS uses the configured
+Network (TLS) credentials; supported consumer Wi-Fi or setup Wi-Fi uses an
+explicit login. USB and Plain LAN WTP do not themselves carry JSON management.
 
 Keep WsprryPi transmission disabled while editing. Management requires an idle
 host and confirmed Pico state, with no pending, owned, active, or unresolved
@@ -320,4 +371,77 @@ keeps the draft and entered password and displays saved values beside the fields
 Compare them, adjust the draft as needed, and choose another Save only after
 review. The redacted saved password cannot be compared with the retained entry;
 review that entry separately before deciding to submit it again.
+
+### Management connection and login
+
+Choose **Management connection** explicitly. Engineering HTTPS retains the
+provisioned certificate policy. Consumer Wi-Fi and setup Wi-Fi require the
+configured Pico's full device ID, reachable IPv4/local hostname and its saved
+Wi-Fi passphrase. Setup Wi-Fi uses `192.168.4.1`; the Pi must already have
+network reachability. Selection does not move the Pi between networks.
+
+Login input clears after an attempt. Consumer traffic keys remain only in RAM,
+with five-minute idle and fifteen-minute absolute expiry. Reauthenticate after
+expiry and explicitly load saved state before another save. No persistent
+management password is added to INI, device profiles or browser storage.
+Consumer authentication uses a shared passphrase; it does not establish unique
+device identity. Protect the Pi browser session and use a trusted endpoint.
+
+Supported firmware permits three consumer sessions and one pending login;
+older firmware may allow only one. Capacity, pending-login and pacing refusals
+are distinct. Wait for a pending login or expiry, disconnect the owning client,
+or use the panel's explicit occupied-login inspection/retirement workflow when
+advertised. Read connection state after a lost reply. Pi tabs share the native
+management session; retiring a login never retries a settings save. Unsupported
+retirement requires that login's own logout or expiry.
+
+Management remains subject to idle admission and confirmed output state.
+A reachable WTP endpoint, public advertisement or built-in host capability
+flag does not establish authenticated management support. There is no automatic
+carrier, endpoint or mutation fallback after failure.
+
+### Shared Pico member resources
+
+**Load member resources** reads application, station, saved/active hardware,
+recurrence and supported pin choices as one reconciled observation. Confirm the
+device, boot, carrier and observation time. Application/recurrence observations
+are read-only here; prepared jobs and standalone schedules keep their own
+authority and workflow.
+
+1. Load the member resources explicitly while the host/member are idle.
+2. For station changes, review callsign, locator and **Reported WSPR power (dBm)**
+   together, then choose **Save member station**. This replaces the complete
+   scoped station object. Current writes require a Type 1 encodable station;
+   stored extended callsigns remain visible. Six-character locators are retained
+   and Type 1 encoding uses their first four characters. Consumer profile-owned station
+   fields are read-only and must be changed through Pico transactional setup.
+3. For hardware, select **Direct RF output**, optional **Active-low button**,
+   and onboard, external or disabled indicator. Choices use Pico **GP** numbers,
+   not Pi BCM/header numbers. Preserve the intended external indicator polarity.
+   Button behavior also requires the member's button adapter to be enabled.
+4. Choose **Validate candidate pins** and review conflicts and operational support.
+   This preview never saves or activates pins. If the unchanged plan is supported,
+   choose **Save member hardware** separately.
+5. Read the result, then load resources again before any further save. Each save
+   invalidates other editor contexts; unrelated drafts remain available for review.
+
+Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
+I2C pairs are inspection-only. I2C RF, amplifier, LPF, drive, calibration and
+waveform controls are unavailable in this editor. Missing resource support
+leaves the compatible standalone editor available; malformed or unsupported
+advertised resources are refused without silently substituting another save.
+
+**Saved** hardware is the persisted plan; **Active** is the boot's observed
+plan. Null active state means unknown, even if another pin-choice display has a
+value. Changed pins require restart and latch output inhibition for the boot.
+Saving the old pins again or changing station does not clear that latch. Storage
+faults and hardware application faults are separate: `output_disable_failed`
+may mean new settings were stored while shutdown was unconfirmed. Resolve the
+fault and read back before another deliberate action.
+
+An explicit scoped save does not restart Pico, reconnect WTP, enable recurrence,
+claim ownership or transmit. A conflict, changed selection/context, timeout or
+lost reply blocks further saves until explicit readback and review. Keep drafts,
+compare fresh saved/active observations, validate hardware again and deliberately
+save only after resolving the uncertainty. Do not automatically repeat a write.
 <!-- endif-wsprrypico -->

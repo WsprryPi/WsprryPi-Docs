@@ -42,7 +42,8 @@ Examples of supported commands include:
 - Runtime control and synchronization requests used by the browser UI
 
 Privileged commands include `shutdown`, `reboot`, `stop`, `tone_start`,
-`tone_end`, and `bounded_tone`. Read-only protocol operations include
+and `tone_end`. The separate `bounded_tone` command is qualification-only and
+is not a normal browser capability. Read-only protocol operations include
 `get_tx_state`, `wspr_band_catalog`, `echo`, ping/pong, and server broadcasts.
 This classification does not make read-only commands available off-LAN through
 the protected browser-facing endpoint; the whole WebSocket connection is
@@ -120,20 +121,43 @@ Broadcast when a transmission is stopped before completion:
 
 ### Test Tone State
 
-Broadcast during transient RF test tone operations:
+Use the Maintenance [Test Tone workflow](../User_Interface/Maintenance/index.md#test-tone)
+for operator actions. A custom RF Start request is:
 
 ```json
-{
-    "state":"starting",
-    "type":"test_tone"
-}
+{"command":"tone_start","frequency_source":"custom_rf","frequency_hz":14097100,"client_request_id":"example-start-1"}
 ```
 
-Test Tone Start and End requests are transactionally serialized across client
-handler threads. Each lifecycle operation remains serialized through its result
-broadcast before the next request is processed. After a timeout or disconnect,
-the RF state may be unknown; clients must preserve access to End until the
-controller confirms that the tone has stopped.
+For a controller-authorized WSPR band, use `frequency_source: "wspr_band"`
+and `band` instead of `frequency_hz`. The controller resolves dial plus WSPR
+offset; a custom value already means RF. End uses:
+
+```json
+{"command":"tone_end","client_request_id":"example-end-1"}
+```
+
+`started=true` acknowledges acceptance and requested asynchronous startup, not
+observed RF. `test_tone_status` broadcasts and `get_tx_state` include additive
+`test_tone` metadata: process-local `generation`, increasing `revision`, `owned`,
+`state`, `message` and `restoration`. States include starting, active, completed,
+failed, cancelled, ended and unknown (idle before work). Active is controller
+runtime evidence, never a frequency/power measurement. A terminal observation
+can precede the Start reply; ignore older revisions and tolerate added fields.
+
+Optional `client_request_id` (up to 128 characters) is echoed for correlation.
+Reacquire evidence after reconnect; IDs/generations are not durable ownership.
+A legacy uncorrelated reply cannot reliably settle a newer request. Preserve
+conservative recovery controls after timeout, disconnect or uncertain cleanup.
+Do not automatically retry a Start or End whose result is unknown.
+
+End additionally reports `restoration_failed` and `output_inactive`.
+`stopped=true` describes Test Tone cleanup, not a promise that all output is off:
+restoration can return to scheduler flow, managed idle or a prior CLI direct
+tone. Preserve restoration failure even when cleanup succeeded. A recovery End
+can have `stopped=true`, `tone_was_active=false` without resuming prior work;
+an inert inactive End can have both false. Cleanup uncertainty keeps further
+output inhibited. Ordinary Stop fences restoration; saved edits/reload/repair
+can defer runtime application until tone cleanup.
 
 The browser UI relies heavily on these broadcasts for:
 

@@ -54,8 +54,19 @@ The `--cw-*` gap options are shared by QRSS and FSKCW. DFCW uses its own gap opt
 
 ## Envelope Control
 
+For Si5351, fades chop the output on/off at the retained full drive; duty cycle
+approximates the requested envelope. This is neither a measured analog amplitude
+envelope nor a spectral guarantee. I2C and scheduling time count against each
+event's absolute monotonic deadlines; expired slices are skipped rather than
+replayed. Slow transfers can consume a slice and shorten or omit pulses.
+
+Fade durations must be nonnegative and the slice duration positive. The last
+slice is limited to the remaining event time; overlapping fades use the lower
+envelope level. Smaller slices increase switching cost and do not prove smoother
+RF or extend the event. Measure the actual waveform and spectrum independently.
+
 - `--cw-fade-shape <none\|linear\|raised_cosine>`  
-  Shape of amplitude transitions.
+  Requested envelope shape (`none` disables fading).
 
 - `--cw-fade-in-ms <ms>`  
   Fade-in duration.
@@ -64,4 +75,4 @@ The `--cw-*` gap options are shared by QRSS and FSKCW. DFCW uses its own gap opt
   Fade-out duration.
 
 - `--cw-fade-slice-ms <ms>`  
-  Resolution of fade steps.
+  Maximum requested duty-cycle slice duration in milliseconds.

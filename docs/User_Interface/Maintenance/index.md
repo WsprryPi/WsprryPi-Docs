@@ -79,7 +79,11 @@ Connect the transmitter to a suitable dummy load or attenuated test path before
 starting. Keep the test brief, and select **End** as soon as the check is
 complete.
 
-![Test Tone](test_tone.png)
+[![Test Tone accepted while awaiting controller runtime confirmation](test_tone.png)](test_tone.png)
+
+This retained current-UI fixture shows acceptance before runtime confirmation.
+It uses synthetic responses and demonstrates feedback, not a live transmitter
+or measured RF state. Open the image for full resolution.
 
 Select **Test tone** to open the manual tone controls. This does not change the
 frequency saved in Setup.
@@ -140,23 +144,38 @@ including:
 - a rejected or failed start; and
 - whether **End** remains available for recovery.
 
-After the controller confirms a successful stop, the status reads **Test Tone
-ended.** **Start** becomes available again when the connection, catalog,
-selection, and interlocks still permit it.
+**Accepted** means asynchronous startup was requested. **Active** means the
+controller observed runtime activity; it is not an RF measurement. Startup or
+execution can fail after acceptance. Read the failure and cleanup status before
+another Start; failed startup does not automatically resume prior work.
+
+**End** feedback names cleanup and restoration separately. A successful Test
+Tone end can restore scheduler configuration, return to managed idle, or restore
+an earlier CLI direct tone. Ending this transaction therefore does not always
+mean all output is off. If restoration fails, the status retains that failure
+even when Test Tone cleanup succeeded. An ordinary **Stop** disables work and
+prevents later tone restoration from restarting it.
+
+Saved Setup edits and **Repair current configuration** / **Reset to defaults**
+can be stored while the tone owns runtime, but application is deferred until
+cleanup. They do not replace the running backend, mode, frequency or selectors.
+Review the resulting configuration and restoration feedback before re-enabling
+normal transmission.
 
 ### Recover from an uncertain result
 
-If a Start or End request times out, or the connection drops before the result
-is confirmed, the browser cannot safely claim whether RF is active. Follow the
-status guidance and reconnect if necessary. **End** remains available whenever
-the tone may still be active, including after reconnect or when the WSPR catalog
-is unavailable. Use **End** to request a confirmed stop before attempting
-another Start.
+If Start or End times out, or connection drops before a confirmed result, the
+outcome is uncertain. Reconnect and read current status; a lost connection does
+not establish output-off. While connected, **End** remains available whenever
+active or uncertain state requires recovery, even without the WSPR catalog.
+During a pending End it stays disabled to prevent duplicate requests.
 
-The controller serializes Test Tone **Start** and **End** requests. Each
-lifecycle action and its result broadcast complete before the next action is
-processed.
-
+Request End once and inspect its result before another Start. Cleanup uncertainty
+inhibits further output. A recovery End can confirm cleanup without restoring
+prior work; a repeated inactive End need not report a new stop. If uncertainty
+persists, keep transmission disabled and use the reported local/backend recovery
+procedure. Conservative feedback from an older controller may lack correlation
+or restoration evidence; do not infer a fresh success from an unattributed reply.
 
 ## Update Checker
 

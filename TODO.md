@@ -24,10 +24,10 @@
 
 ### Si5351 Backend
 
-- [ ] Document Si5351 configuration (I2C, reference, outputs)
+- [x] Document Si5351 configuration (I2C, reference, outputs) — item 12 reconciles bounded inventory, saved-state, drive and readiness in Setup, CLI and INI references.
 - [ ] Explain backend-specific behavior differences vs GPIO
 - [ ] Document unused output parking behavior
-- [ ] Clarify test-tone and direct CLI transmit behavior
+- [x] Clarify test-tone and direct CLI transmit behavior — item 12 documents acceptance, activity, cleanup/restoration and prior direct-tone restoration.
 
 ---
 
@@ -37,7 +37,7 @@
 
 - [ ] Document new Operation landing page and navigation changes
 - [ ] Update Setup vs Operation separation
-- [ ] Document autosave behavior and validation flow
+- [x] Document autosave behavior and validation flow — item 12 separates host autosave, Fleet saves and member Load/Validate/scoped saves.
 - [ ] Explain offline/online handling and retry logic
 - [ ] Document new runtime state model and status indicators
 - [ ] Update logs, spots, and maintenance UI behavior
