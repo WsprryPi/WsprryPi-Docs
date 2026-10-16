@@ -45,6 +45,21 @@ routes. WsprryPi tracks five distinct facts:
 Transmission is blocked unless all route identities match and eligibility is
 confirmed. There is no automatic route or backend fallback.
 
+## Understand the status
+
+Use the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification)
+for the accepted operating scope. The RP1 panel reports separate facts:
+
+- **Resource compatibility**: `Compatible-unqualified` means the RP1
+  compatibility checks passed. Accepted band qualification still applies.
+- **Route evidence**: describes testing for the selected GPIO route and its
+  scope. A TONE result does not replace the broader band table. `Evidence missing`
+  or `Evidence invalid` means this information could not be verified; it does
+  not make qualified bands unavailable.
+- **Operational readiness** and **Output inhibition**: describe whether the
+  route can operate now. If it reports **Not ready** or inhibition is **Enabled**,
+  follow the reported route or recovery instructions before transmitting.
+
 ## Change or remove a route
 
 1. Stop transmission and wait for committed work, cancellation, cleanup,
