@@ -1,7 +1,7 @@
 # Item 12: consolidated operator documentation
 
-Status: repository implementation/review accepted; hosted publication pending. This record is not release
-acceptance. Items 13–14, #412/#423 closeout and WsprryPi 4.0 publication remain
+Status: complete within item 12 documentation scope; exact hosted content
+revision verified below. This record is not release acceptance. Items 13–14, #412/#423 closeout and WsprryPi 4.0 publication remain
 outside this task.
 
 ## Baseline and source authority
@@ -268,3 +268,82 @@ certificate bypass. The separate custom-domain TLS mismatch and all-host
 Impeccable update are not undertaken. Full closure requires the hosted evidence
 below; repository success alone is not hardware qualification, integrated UI
 acceptance or Beta/stable release readiness.
+
+## Push, hosted build and publication
+
+Content commit **166639f21ba3e13f24db2fae97928069cc9069ab** was committed on
+`devel` and pushed without force. Independent `git ls-remote`, a fresh fetch,
+HEAD, `origin/devel` and upstream all matched that SHA, with 0 ahead/behind and
+a clean tree. GitHub reports zero workflows, check runs and commit statuses;
+its empty combined pending value is not pending CI.
+
+Fresh RTD inspection found no build for the new content revision (the newest
+build then covered older `8d6d037`). The existing authenticated Firefox session's
+**Rebuild version** action triggered devel; no hosting settings, integrations,
+credentials, aliases or version policy changed.
+
+[Build 35197867](https://app.readthedocs.org/projects/wsprry-pi/builds/35197867/)
+checked out exactly **166639f21ba3e13f24db2fae97928069cc9069ab** and succeeded,
+October 16, 2026, 12:44:33–12:45:32 CDT (59 seconds). Public API and
+[raw log](https://app.readthedocs.org/api/v2/build/35197867.txt) independently
+confirm finished/success, all 16 commands exiting zero, Python 3.11.15 and
+Sphinx 9.0.4. HTML, single HTML, actual PDF and EPUB completed. Unlike the older
+force-mode build, this log has zero Sphinx WARNING diagnostics and zero LaTeX
+error/unsupported-graphics markers. Full-book TeX box advisories remain the
+accepted typesetting limitation already described, not silent compilation errors.
+
+Canonical [devel publication](https://wsprry-pi.readthedocs.io/en/devel/) was
+independently fetched over verified HTTPS. Eleven representative HTML pages
+(landing, Setup, Transmitter, Maintenance, REST, timing/calibration, RP1,
+Install, Internals, backend CLI and WebSocket) returned 200; their published
+copied sources match the feature-filtered **166639f** Git objects exactly.
+Default navigation/search/copied sources contain no new Pico resource content;
+the historical page has no search hits. All 18 content images across these
+served samples retain nonempty alt, dimensions and loading/decoding hints;
+first content images remain eager.
+
+Six served assets match the accepted Git bytes exactly:
+
+| Asset | Bytes | Verified identity |
+| --- | ---: | --- |
+| `_images/test_tone.png` | 142,818 | New retained acceptance fixture, SHA-256 d23f11e942174e68fd750bd95617e14dfc2e851f2da6683698b02d525f88c95c |
+| `_images/Setup.png` | 517,239 | Item 11 optimized original unchanged |
+| `_images/invalid_callsign.png` | 133,472 | Item 11 optimized original unchanged |
+| `_images/logs.png` | 731,525 | Item 11 optimized original unchanged |
+| `_static/css/custom.css` | 16,133 | Item 11 stylesheet unchanged |
+| `_images/wsprrypi_data_flow.svg` | 2,794 | Original vector unchanged; explicit dimensions/link retained |
+
+The published [PDF](https://wsprry-pi.readthedocs.io/_/downloads/en/devel/pdf/)
+returns 200, is 5,841,912 bytes / 134 pages, SHA-256
+`a8245d6293d2d39525ff24455f27e05abf6718418f200b4bc69896925fcce0a1`.
+New calibration/cache/consumer-command text is present, gated member context
+absent, and the rendered RP1 command/evidence page is legible. The published
+[EPUB](https://wsprry-pi.readthedocs.io/_/downloads/en/devel/epub/) returns 200,
+is 6,511,357 bytes, SHA-256
+`22657f8d830cd84c56bf15b3f34e0fa94c1b060705fe0708cfa1e4719901f9c3`.
+Its ZIP integrity, new content and default visibility pass. Hosted PDF/EPUB are
+verified artifacts, not claims that their bytes equal a different local build.
+Both Pico-enabled exports were independently compiled/checked locally; the
+normal hosted version keeps its existing default flag.
+
+Local evidence includes public API/raw logs, source/asset comparisons,
+publication JSON, downloaded exports and the successful build screenshot, all
+under ignored build output. The new disposable export container is removed.
+No target was accessed or modified. All task writes are in WsprryPi-Docs;
+application checklist-only publication and ongoing Pico edits by other work are
+preserved, and the provider checkout remains untouched.
+
+This subsequent **maintainer-record-only** commit records verification of the
+accepted content revision. It changes no Sphinx source, asset, test, dependency
+or build configuration; publication of this newer record-only commit is not
+claimed and no evidence-commit rebuild loop is required.
+
+**Checklist handback:** item 12 can close. Its six subject areas, source/page
+matrix, examples, screenshot disposition, source review, adversarial repairs,
+local exports and exact-revision hosted publication are complete within the
+recorded limits. Items 13–14 remain open and were not executed. No merge to main,
+release tag, application packaging/publication, stable/latest alias change or
+issue closure occurred. Documentation completion is neither new hardware/RF
+qualification nor WsprryPi 4.0/Beta release readiness. The all-host Impeccable
+update, custom-domain TLS and full-parser/real-device accessibility limits remain
+separately recorded limitations and follow-ups.
