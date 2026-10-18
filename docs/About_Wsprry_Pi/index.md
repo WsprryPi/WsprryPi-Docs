@@ -55,7 +55,12 @@ Compute Modules retain the GPIO and I2C capabilities of their corresponding Rasp
 
 ## Raspberry Pi Pico incompatibility
 
-Raspberry Pi Pico boards are microcontrollers and do not run Linux, so they are incompatible with WsprryPi. WsprryPi cannot use either the GPIO or Si5351 transmitter backend on these boards.
+Raspberry Pi Pico boards are microcontrollers and cannot run the Linux
+WsprryPi application or its GPIO and Si5351 backends. A Pico 2 W running
+WsprryPico firmware can instead serve as an external output controlled by
+WsprryPi over USB or a network connection. The Pi remains the controller and
+can manage several outputs through Fleet. See
+[Add a Pico and manage outputs](../User_Interface/Setup/Transmitter/index.md#add-a-pico-and-manage-outputs).
 
 ## Transmitter qualification
 

@@ -2,22 +2,16 @@
 
 ## Backend Selection
 
-<!-- if-wsprrypico -->
 - `--backend <gpio\|si5351\|rp1-gpclk\|wtp>`
-<!-- else-wsprrypico -->
-- `--backend <gpio\|si5351\|rp1-gpclk>`
-<!-- endif-wsprrypico -->
   Select RF output method.  
   - `gpio`: Direct RF from Raspberry Pi GPIO (limited models).  
   - `si5351`: External clock generator via I2C.
   - `rp1-gpclk`: Explicit Pi 5 RP1 backend with a reconciled installed route
     and the existing operation-scoped development confirmation. It is never an
     automatic fallback from `gpio`; see the [RP1 guide](../Advanced_Operations/rp1_gpclk.md).
-<!-- if-wsprrypico -->
   - `wtp`: WsprryPico over its dedicated USB WTP interface, Plain LAN, or
     authenticated TLS network connection on Linux. The binding comes from
     `[WTP] Transport` in the selected INI file.
-<!-- endif-wsprrypico -->
 
 - `--power-level <level>`  
   Set transmit power for the active backend:  
@@ -197,7 +191,6 @@ does not resume interrupted work automatically. See
   Select output clock. This option is not exposed in the Web UI.
 
 
-<!-- if-wsprrypico -->
 ## Pico WTP Backend
 
 Select `--backend wtp` and supply the endpoint through `--ini-file` (`-i`).
@@ -210,15 +203,15 @@ certificate, and client-key files. Configure the
 first, with transmission and automatic startup disabled.
 
 There is no command-line option to browse DNS-SD services, edit the known-device
-catalog, or choose a saved Fleet profile. The Fleet development pane is hidden
-at every page load. When enabled for a session, **Use this device** explicitly
+catalog, or choose a saved Fleet profile. In **Setup → Fleet**, **Use this device** explicitly
 copies a selected profile into the active `[WTP]` configuration. Running
 `--backend wtp` by itself does not choose a catalog profile and does not
 override `Transmit = true` in an INI file. Direct and manual endpoints remain
 usable when discovery is unavailable.
 
 The host and Pico each need independently valid UTC. The default Pico start
-uncertainty budget is 1 ms; choose a larger value only with device clock
+uncertainty budget is 100 ms; existing configured limits are retained. Choose
+a larger value only with device clock
 evidence. Finite WSPR, QRSS, FSKCW, and DFCW jobs use the Pico's local timing.
 Continuous `--test-tone` is unavailable for WTP. Host PPM must be zero, and
 ancillary GPIO controls and CW fades must be disabled before selecting WTP.
@@ -233,9 +226,7 @@ before operation. Closing a connection or exiting WsprryPi does not prove the
 Pico has stopped. An unresolved job blocks further work; recovery must
 establish the current device state without resuming or taking another owner's
 job.
-<!-- endif-wsprrypico -->
 
-<!-- if-wsprrypico -->
 ## Pi WTP server capability
 
 A managed Pi can expose its local transmitter to a central Pi through Plain
@@ -284,4 +275,3 @@ endpoint and [reconcile local output](../User_Interface/index.md#local-control-a
 
 Protocol details are maintained in the
 [WsprryPico protocol documentation](https://github.com/WsprryPi/WsprryPico/tree/devel/docs/protocol).
-<!-- endif-wsprrypico -->

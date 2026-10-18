@@ -82,16 +82,12 @@ else:
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    'feature_flags',
     'image_delivery',
     'myst_parser',
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
-
-# Optional development documentation; also configurable with -D wsprrypico_docs=1.
-wsprrypico_docs = os.environ.get('WSPRRYPI_DOCS_INCLUDE_PICO', '0') == '1'
 
 templates_path = ['_templates']
 

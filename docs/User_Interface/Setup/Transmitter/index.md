@@ -11,11 +11,9 @@ stack without changing their order.
 - **GPIO** - Available on earlier Raspberry Pi models and on Pi 5 when the
   installer-managed RP1 GPCLK provider and selected route are eligible.
 - **Si5351** - If detected, the Si5351 may be used on any supported Raspberry Pi.
-<!-- if-wsprrypico -->
-- **Pico via WTP** - Development controls support USB, Plain LAN, and
-  authenticated network connections on Linux. Fleet remains hidden on every
-  page load.
-<!-- endif-wsprrypico -->
+- **Pico via WTP** - Fleet supports USB, Plain LAN, and
+  authenticated network connections on Linux. Open **Setup → Fleet** to add
+  and manage a Pico output.
 
 ## GPIO
 
@@ -189,26 +187,33 @@ verified GNSS lock or measured RF accuracy. See
 for intrinsic, residual, manual and zero-additional accounting.
 
 
-<!-- if-wsprrypico -->
-## Pico development controls
+## Add a Pico and manage outputs
 
-The **Fleet** tab is hidden and disabled on every page load. It is available
-only when enabled for the current development session; that choice is not saved
-as a browser preference. The instructions below apply only while Fleet is
-visible. Showing or hiding it does not change the active endpoint or start a
-transmission.
+Open **Setup → Fleet** to add a Pico to WsprryPi, select it for jobs from this
+Pi, or assign independent schedules to several outputs. Fleet is available on
+every page load. Opening the tab and browsing devices do not select an output,
+save settings or start transmission.
+
+Use a Pico 2 W running WsprryPico firmware. Connect its USB cable to the Pi
+that runs WsprryPi, or connect both devices to a reachable network. Start with
+the [device list](#known-and-nearby-devices), then choose either **Use this
+device** for the Pi's single selected output or
+[Assign a schedule](../index.md#assign-an-output-schedule) for an independent
+fleet output. These are separate choices.
 
 **Use Pico** selects the WTP backend in the saved host configuration. The
 **Connection** choice supports USB, Plain LAN, and Network (TLS). Keep
 transmission disabled while configuring a device. Disable TX LED, amplifier,
 shutdown-button, and band GPIO controls first; host GPIO calibration and CW
-fades do not apply. Set host PPM to zero. For USB, use the Pico's dedicated WTP
-interface, not its Console port. For network connections, enter the hostname
+fades do not apply. Set host PPM to zero. For USB, select the attached Pico from
+the device list; WsprryPi fills its dedicated WTP connection and identifiers.
+For network connections, enter the hostname
 and actual TCP port. TLS also needs host paths to the CA, client certificate,
 and client key. See the [WTP INI reference](../../../Advanced_Operations/ini_configuration/transmitter_backends.md#pico-wtp)
 for the individual settings.
 
-**Maximum start uncertainty (ns)** defaults to 1000000 (1 ms). The Pico's own
+**Maximum UTC uncertainty (ns)** defaults to 100000000 (100 ms). Existing saved
+limits are retained. The Pico's own
 clock evidence must meet this limit, and the host needs synchronized UTC.
 **Allow device frequency rounding** accepts reported realizable frequencies;
 it does not qualify RF accuracy. Continuous **Test Tone** is unavailable with
@@ -216,14 +221,22 @@ Pico; complete finite jobs use its local timing.
 
 ### Known and nearby devices
 
-The selector separates **Saved devices** from **Nearby advertisements**. A
-saved device stays listed when its advertisement disappears. An advertisement
+The selector includes saved devices, attached USB Picos and nearby network
+advertisements. A saved device stays listed when its advertisement disappears.
+An advertisement
 is a connection hint, not proof of device identity, an active listener, or RF
 readiness. If Avahi discovery is unavailable or no service appears, use
-**Add device** for a manual USB or network profile. Merely opening the selector
+**Add device** for a manual network profile. USB discovery is independent of
+Avahi: a connected Pico running supported firmware appears automatically and
+does not require entering a USB path, serial or vendor/product IDs. Its Console
+and Management ports are not listed as separate transmitters. A board in BOOTSEL
+mode does not expose the normal application connection. Merely opening the selector
 or highlighting an entry does not connect, identify, save, or switch devices.
 
-To add a nearby Pi or Pico, select its advertisement and choose **Add device**.
+To add an attached USB Pico, select its entry and choose **Add device**, give it
+a name, then review and save the supplied connection. Confirm the intended
+board before choosing **Use this device**. For a nearby network Pi or Pico,
+select its advertisement and choose **Add device**.
 Review its connection type and the advertised SRV target and port. Give the
 profile a name and enter the expected full 32-character WTP device ID. For
 Network (TLS), provision the device-specific trust files on the host and enter
@@ -260,6 +273,44 @@ for RP1's exact-operation development confirmation. The single-endpoint selectio
 and Pico status controls below
 remain separate from those assignments.
 
+### Install or update Pico firmware over USB
+
+Use this workflow for a selected USB Pico already running WsprryPico. Updates
+retain its saved settings. Keep the Pico connected to the Pi throughout
+programming and verification.
+
+1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
+   select the intended Pico. Open **Pico firmware over USB** in Fleet.
+2. Choose **main** or **devel** under **Firmware branch**. The default is
+   **main**, independently of the Pi's branch. **Latest verified CI image**
+   selects an available verified image from that branch; an unavailable image
+   is refused without substituting another branch. A specific CI version or
+   stable release can also be selected explicitly.
+3. Choose **Read firmware status**, then **Download and check image**. Review
+   the reported version, branch and source before choosing **Install checked
+   image** and confirming the selected USB Pico.
+4. Follow any BOOTSEL instructions shown by the tool. Older firmware needs a
+   one-time migration and its standalone schedule must be disabled or
+   unconfigured. When prompted, unplug that Pico, hold BOOTSEL while reconnecting
+   it to the same Pi USB port, release BOOTSEL, then choose **Continue after
+   BOOTSEL**. Preparation writes no firmware; continuation backs up and checks
+   the saved state before completing the update.
+5. Wait for **Verified** with confirmation that settings were preserved and
+   the Pi reconnected. Check the current Pico status before enabling a Pi job
+   or resuming its fleet schedule.
+
+During firmware work or unresolved maintenance, settings, device selection,
+transmission, reboot and shutdown controls are unavailable. **Read firmware
+status** remains available and shows when its read completes; an unchanged
+status can still be a successful read. Reading status never repeats the update.
+
+If firmware is verified but the Pi connection remains unconfirmed, keep the
+Pico connected and choose **Recover this update**. That state retries only the
+Pi connection without reflashing. Other failed or interrupted updates retain
+their recovery record and backup. Read the result before another attempt;
+follow a requested BOOTSEL reconnect or seek administrator help rather than
+clearing maintenance or choosing a different device.
+
 ### Pico status and recovery
 
 **Pico status** shows **Output observed**, **Host UTC**, **Device / boot**, and
@@ -283,13 +334,15 @@ RF shutdown.
 
 ### Pico standalone settings and Wi-Fi
 
-Open **Pico standalone settings and Wi-Fi** in the development Fleet pane.
+Open **Pico standalone settings and Wi-Fi** in Fleet when you need to manage
+the selected member's saved settings or network connection from WsprryPi.
 These controls manage settings saved on the selected Pico for its own
 standalone application. They are separate from this Pi's settings, prepared
-jobs, output assignments and saved connection profiles. Select management
-separately from WTP job transport: Engineering HTTPS uses the configured
+jobs, output assignments and saved connection profiles. A USB connection uses
+the Pico's paired USB management channel automatically. For network management,
+Engineering HTTPS uses the configured
 Network (TLS) credentials; supported consumer Wi-Fi or setup Wi-Fi uses an
-explicit login. USB and Plain LAN WTP do not themselves carry JSON management.
+explicit login. A network WTP connection alone does not provide that login.
 
 Keep WsprryPi transmission disabled while editing. Management requires an idle
 host and confirmed Pico state, with no pending, owned, active, or unresolved
@@ -404,18 +457,158 @@ A reachable WTP endpoint, public advertisement or built-in host capability
 flag does not establish authenticated management support. There is no automatic
 carrier, endpoint or mutation fallback after failure.
 
+### Save progress on the Pico's own page
+
+On consumer firmware, open the Pico's own page at
+`http://<current-Pico-IP>/` or its current `.local` address. Sign in with the
+password for the Wi-Fi network saved on that Pico. When its temporary setup
+Wi-Fi is available, join it and open `http://192.168.4.1/radio`. Choose
+**Station/Transmission** for station details, schedules, radio pins and message
+controls; **Wi-Fi/Host** contains network, hostname and restart controls. Moving
+between these two areas keeps edits in this tab. Engineering deployments use
+their provisioned HTTPS credentials and authorized access instead.
+
+The steps below apply when the page offers **Save valid station fields** or
+**Save valid fields** together with a separate **Apply saved…** action. Older
+firmware can require a complete configuration. WsprryPi's Fleet member editor
+still uses its own [complete, atomic saves](#shared-pico-member-resources); it
+does not acquire partial-save support from the Pico page.
+
+#### Save a callsign without completing everything
+
+1. Edit the callsign, locator or reported power that you want to keep. You can
+   save a callsign alone, a locator alone or reported power alone. Leave the
+   unrelated **Send a message** controls empty if you are not preparing QRSS,
+   FSKCW or DFCW; **Load and arm message** is a separate action.
+2. Choose **Save valid station fields**. Read the result beside each edited
+   field. Valid independent fields can be saved even when another field is
+   blank or invalid. An invalid entry stays visible and is labelled **Not
+   saved**; correct it when ready, then make another explicit save.
+3. Read the saved-progress summary. A saved callsign with a missing locator
+   or reported power is incomplete progress, not an applied station or a
+   transmitter ready to operate.
+
+```{figure} pico_progress_partial.png
+:alt: Pico station form showing callsign and zero dBm saved as draft while the invalid locator BAD remains unsaved
+:width: 390px
+
+Example: callsign and zero dBm were saved independently. The invalid locator
+remains in the browser; the applied station has not changed.
+```
+
+**0 dBm is a valid reported power.** A blank power choice means missing power,
+not zero. Choose the intended value explicitly; reported WSPR power is message
+metadata, not measured RF power or output drive. Fields you do not edit retain
+their previously saved values, so a station edit does not require re-entering
+Wi-Fi credentials. If you clear a callsign or locator and save it, that field
+is missing from saved progress; the previous applied value is not silently
+substituted into the cleared draft.
+
+Schedules are checked together as one complete set, and radio pins as one
+complete allocation. An invalid schedule set or conflicting pin plan remains
+unsaved as a unit while unrelated valid edits can be saved. In an engineering
+network editor, the network name and password also form one unit. Consumer
+**Save Wi-Fi network** and hostname controls retain their separate complete
+setup/save workflows; use their own result and restart instructions.
+
+#### Saved progress, applied settings and readiness
+
+| State | What it means |
+| --- | --- |
+| Unsaved edit | Text or a selection in this tab; it has not been confirmed saved on the Pico. |
+| Saved progress | Valid fields retained on the Pico, possibly incomplete. They survive page reload, a new login and a Pico restart. |
+| Applied settings | A complete, validated station or configuration selected through an explicit Apply action. |
+| Active settings | Settings used by this boot; saved network or pin changes can still require a restart. |
+| Ready for an operation | Current access, clock, frequency/pin support, scheduling, ownership, STOP and fault state admit that particular operation. |
+
+The WSPR plan in the saved-progress summary reports whether those saved station
+values can be encoded. Hints beside edited fields may describe unsaved text.
+Neither proves readiness, permission to transmit, measured power or successful
+reception. An incomplete WSPR locator does not by itself impose a locator requirement on
+QRSS, FSKCW, DFCW or a complete externally prepared job; those operations still
+need their own valid settings and current admission.
+
+**An already enabled schedule continues using the previously applied settings
+while you save progress.** Saving a draft does not stop that schedule, replace
+its station, resume STOP or clear a fault. Even saving an unchecked schedule
+box is only progress until you explicitly apply it. Confirm the Pico's own
+schedule state; disabling WsprryPi transmission alone does not disable Pico's
+standalone schedule.
+
+#### Apply the saved values deliberately
+
+Complete and save the intended station fields, then check the **Saved station**
+summary and its WSPR plan. Choose **Apply saved station** to apply those
+*device-saved values*. Invalid or newer unsaved text still visible in a control
+is not the value selected by Apply. Consumer pages keep Apply unavailable when
+saved station progress is incomplete or cannot be encoded for local WSPR. The
+Pico checks complete station values and current application access again when
+you apply; an available button does not establish transmit readiness.
+
+In **Schedules and radio pins**, use **Apply saved settings** after saving valid
+progress. Applying an enabled schedule can allow future autonomous transmissions
+when admitted; check the intended station, clock, frequency and RF path first.
+An incomplete station draft can remain saved while valid radio settings apply
+using the previous complete station. Changed network or pin settings can require
+**Restart device** in **Wi-Fi/Host** before becoming active. In an engineering
+network editor, choose **Save valid network fields**, then **Apply saved network
+settings**, and follow any restart instructions. Restarting alone does not apply
+a saved network draft. Restart and saving remain separate actions.
+
+Consumer station application uses the existing setup transaction and may
+reconnect or restart the Pico. Keep the tab open, follow its result instructions
+and use **Check saved result** when offered. A received request or returning
+page alone does not confirm application. Do not repeat Apply while its outcome
+is unknown. Completing a draft, logging in, refreshing status or restarting the
+Pico never applies that draft automatically.
+
+#### Save station progress during setup
+
+After Wi-Fi setup, the **Set your station details** page offers **Save valid
+fields** on supporting firmware. It can retain a callsign without a locator or
+reported power, without replacing the saved Wi-Fi network or creating a partial
+applied station. Later complete and save the missing fields, then choose
+**Apply saved station settings**. Read the setup result before trying again.
+
+```{figure} pico_progress_incomplete.png
+:alt: Pico setup showing a saved callsign, blank locator and unselected reported power, with Apply saved station settings unavailable
+:width: 390px
+
+Example: the callsign is saved on the Pico. Locator and reported power are
+still missing, so application is unavailable.
+```
+
+#### Recover an uncertain save without losing edits
+
+A conflict, timeout, expired login or interrupted reply can leave a save
+unconfirmed even if the Pico stored some values. Keep this tab open. The page
+preserves the edits and blocks another save; it does not automatically retry.
+
+On the normal Pico page, sign in again if necessary, choose **Read saved
+settings and keep draft**, compare the device's values with the retained edits,
+then choose **I reviewed saved settings; enable a new save** when ready. On the
+setup page, use **Read saved progress; keep edits** followed by **I reviewed
+saved progress; enable a new save**. Readback shows what is stored now; matching
+values alone do not identify which interrupted request committed.
+
+Use **Reload saved settings** only when you intend to discard unsaved edits and
+adopt device-saved progress. Copy any unsaved text before leaving or reloading
+the page; only confirmed device-saved progress survives that loss of the tab.
+Provisioning and full resets remove saved progress along with their documented
+reset consequences.
+
 ### Change the Pico hostname
 
-On supported consumer firmware, open the Pico's own **Station control** page
-at `http://<current-Pico-IP>/` or its current `.local` address. Use the password
-for the Wi-Fi network saved on that Pico to sign in. When its temporary setup
-Wi-Fi is available, join it and open `http://192.168.4.1/radio` for the same
-controls. The hostname editor is on this Pico page, rather than WsprryPi's
-Fleet settings form. Renaming a saved device profile in Fleet changes only
+On supported consumer firmware, open and sign in to the
+[Pico's own page](#save-progress-on-the-picos-own-page), then choose
+**Wi-Fi/Host**. The hostname editor is on this Pico page, rather than
+WsprryPi's Fleet settings form. Renaming a saved device profile in Fleet changes only
 that profile's label.
 
 Disable Pico's standalone schedule and resolve any pending, owned or active
-job before changing the name. Turning off WsprryPi transmission alone does
+job before changing the name. On a page with saved progress, save and apply the
+schedule change, then verify the resulting schedule state; saving the unchecked
+box alone does not disable it. Turning off WsprryPi transmission alone does
 not disable Pico's own schedule. A hostname change does not require changing
 the callsign, locator or message.
 
@@ -528,7 +721,7 @@ from the complete station tuple:
 | Supported compound, four characters | Type 2 single; that frame carries no locator |
 | Supported compound, six characters | Type 2 followed by Type 3 |
 | Explicit `<CALL>`, six characters | Type 3 single; brackets are excluded from the hash |
-| Explicit `<CALL>`, four characters, or unsupported syntax | Refused; correct the complete station before saving |
+| Explicit `<CALL>`, four characters, or unsupported syntax | Refused by complete station saves or local-WSPR application |
 
 Supported compound prefixes contain one to three alphanumeric characters before
 an encodable base call; suffixes contain one alphanumeric or two decimal digits
@@ -557,9 +750,11 @@ Older firmware retains Type 1 station-write guidance and explicitly refuses
 selected new formats. Unknown or malformed advertised support is refused with
 no carrier or route fallback. An unchanged readable unsupported identity can
 remain stored during unrelated settings saves; readability does not establish
-that it can transmit. Station/configuration saves remain complete and atomic;
-this editor does not save incomplete station drafts or accept valid fields
-independently.
+that it can transmit. WsprryPi's member station/configuration saves remain
+complete and atomic; that editor does not save incomplete drafts or accept valid
+fields independently. The [Pico's own page](#save-progress-on-the-picos-own-page)
+can separately retain valid fields as progress, without applying an incomplete
+or unencodable WSPR station.
 
 Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
 I2C pairs are inspection-only. I2C RF, amplifier, LPF, drive, calibration and
@@ -580,4 +775,3 @@ claim ownership or transmit. A conflict, changed selection/context, timeout or
 lost reply blocks further saves until explicit readback and review. Keep drafts,
 compare fresh saved/active observations, validate hardware again and deliberately
 save only after resolving the uncertainty. Do not automatically repeat a write.
-<!-- endif-wsprrypico -->

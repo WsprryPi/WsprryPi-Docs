@@ -2,14 +2,12 @@
 
 Use this section for WSPR station identity, reported power, frequency, transmission planning, and random offset. For the complete message-type and pairing workflow, see [Configure WSPR](../../User_Interface/Setup/Signal_Setup/wspr.md). Direct command-line users should also see [General and WSPR Options](../../Command_Line_Operations/wspr_options.md); frequency accuracy is covered in [Transmission Timing and Calibration](../timing_calibration.md).
 
-<!-- if-wsprrypico -->
 The planning preferences on this page belong to the **Pi host**. Pico member
 station defaults use [Pico automatic planning](../../User_Interface/Setup/Transmitter/index.md#pico-automatic-wspr-planning),
 which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for
 a supported compound with six characters, and a single Type 3 for explicit
 brackets with six characters. No Pi preference selector changes that automatic
 member plan. Prepared WTP jobs retain their supplied finite plan.
-<!-- endif-wsprrypico -->
 
 (wspr-section)=
 ## WSPR

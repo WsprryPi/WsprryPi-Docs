@@ -35,7 +35,6 @@ Complete Default INI File <ini_configuration/complete_example>
 - [CW and Band GPIO Settings](ini_configuration/cw_and_band_gpio.md) covers QRSS, FSKCW, DFCW, scheduling, fades, and band switching.
 - [Complete Default INI File](ini_configuration/complete_example.md) provides the full copyable example and downloadable source.
 
-<!-- if-wsprrypico -->
 ## Development WTP configuration
 
 Development builds also support `[WTP]` for the selected outbound endpoint and
@@ -44,4 +43,3 @@ Development builds also support `[WTP]` for the selected outbound endpoint and
 [listener settings](ini_configuration/runtime.md#wtp-server). Independent Fleet
 assignments are saved separately from the INI and from the device catalog.
 Local Enable, listener admission, and remote assignment Enable are independent.
-<!-- endif-wsprrypico -->

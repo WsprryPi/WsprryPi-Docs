@@ -217,10 +217,9 @@ This endpoint is used for:
 - Asset cache busting
 - GitHub update comparison logic
 
-<!-- if-wsprrypico -->
 ## Pi endpoint and Fleet resources
 
-Development Pi/Pico controls use the resources below. Paths are shown as the
+Pi/Pico Fleet controls use the resources below. Paths are shown as the
 backend receives them; browser requests prepend `/wsprrypi`, for example
 `/wsprrypi/api/v1/host/wtp-endpoint`. The existing peer, Host, Origin, and
 privileged-network guards apply. Browser writes use same-origin JSON intent
@@ -450,4 +449,3 @@ retain their meaning. Ordinary edits are not whole-configuration resets.
 Schedules-only saves preserve unrelated drafts. None of these resources gives
 the browser independent WTP CLAIM/LOAD/ARM authority: job submission stays with
 the host application. See the [compatibility contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-configuration-compatibility.md).
-<!-- endif-wsprrypico -->

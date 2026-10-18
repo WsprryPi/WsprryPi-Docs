@@ -6,14 +6,14 @@ Ordinary Pi host settings autosave after validation. Read the status beside the
 Setup title before leaving the page. A saved value may still await runtime
 application while committed work owns the transmitter.
 
-<!-- if-wsprrypico -->
 Fleet assignments and listener settings use explicit saves. Selected-member
 settings also use explicit controls: **Load member resources**, **Validate candidate
 pins**, **Save member station**, and **Save member hardware**. Editing those
 drafts never triggers host autosave. See
 [member resources](Transmitter/index.md#shared-pico-member-resources) before
-saving settings on a Pico.
-<!-- endif-wsprrypico -->
+saving settings on a Pico. For independent valid-field progress and explicit
+Apply on the Pico's own page, see
+[Save progress on the Pico's own page](Transmitter/index.md#save-progress-on-the-picos-own-page).
 
 ![Setup Card](Setup.png)
 
@@ -27,19 +27,22 @@ Or, it will indicate that the settings have been successfully saved:
 
 This contextual information is included on all sub-tabs and views within the Setup card.
 
-The Setup card is divided into three sub-pages:
+The Setup card is divided into four sub-pages:
 
 - [Configure WSPR and CW](Signal_Setup/index.md) for callsign, mode, and message-related settings.
 - [Configure Transmitter](Transmitter/index.md) for hardware output-path selection and related transmission settings.
 - [Configure Raspberry Pi I/O](Pi_IO/index.md) for Raspberry Pi pin assignments and indicator behavior.
+- [Manage Fleet outputs](Transmitter/index.md#add-a-pico-and-manage-outputs) to
+  add a Pico, select a remote output, update Pico firmware over USB, or assign
+  independent schedules to saved Pi and Pico devices.
 
-<!-- if-wsprrypico -->
 ## Pi and Pico Fleet setup
 
-The development **Fleet** tab is hidden and disabled on each page load until
-explicitly enabled for that browser session. Showing the tab does not start
-transmission. The [device catalog workflow](Transmitter/index.md#pico-development-controls)
-explains how to identify and save a profile. Pi servers use **Plain LAN**;
+Open **Setup → Fleet** to manage saved Pi and Pico devices and independent
+output schedules. No developer-console setting is required. The
+[device catalog workflow](Transmitter/index.md#add-a-pico-and-manage-outputs)
+explains how to identify and save a profile. Browsing Fleet does not start
+transmission. Pi servers use **Plain LAN**;
 this implementation does not provide inbound TLS on the Pi.
 
 ### Assign an output schedule
@@ -101,4 +104,3 @@ See [local takeover](../index.md#local-control-and-remote-ownership) before
 reclaiming an output from a remote controller, and the
 [listener INI reference](../../Advanced_Operations/ini_configuration/runtime.md#wtp-server)
 for interface and recovery details.
-<!-- endif-wsprrypico -->

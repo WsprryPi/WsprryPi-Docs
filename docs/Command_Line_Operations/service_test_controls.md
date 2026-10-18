@@ -58,7 +58,6 @@ For clock-error measurements and older GPIO tone records, see
 - Some advanced features are CLI-only.
 - Root privileges (`sudo`) are required for RF output.
 
-<!-- if-wsprrypico -->
 ## Managed WTP listener port
 
 - `--wtp-server-port <port>` overrides the managed Pi WTP listener's port for
@@ -71,4 +70,3 @@ remote assignment, or make a direct one-shot command start the managed server.
 See [WTP Server configuration](../Advanced_Operations/ini_configuration/runtime.md#wtp-server)
 for admission and interface selection. The Pi endpoint's finite remote TONE
 job is separate from the continuous local `--test-tone` control above.
-<!-- endif-wsprrypico -->

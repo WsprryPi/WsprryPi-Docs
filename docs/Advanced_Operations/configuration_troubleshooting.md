@@ -67,7 +67,6 @@ ownership, identity, or recovery refusal, preserve that state and the retained
 installer failure details; do not unload modules, delete journals, or edit
 provider files manually.
 
-<!-- if-wsprrypico -->
 ## Pico hostname or restart is unconfirmed
 
 Use the Pico's own **Station control** page for hostname changes. WsprryPi's
@@ -116,4 +115,3 @@ restart. After returning, sign in and refresh: success requires the same full
 device ID, a different boot and the intended name as both Active and Saved. Review
 [Pico network access](../User_Interface/Maintenance/network_safety.md#pico-hostname-and-management-access)
 before changing trust or connection settings.
-<!-- endif-wsprrypico -->

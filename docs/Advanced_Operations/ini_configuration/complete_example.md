@@ -8,7 +8,6 @@ This is the complete default configuration maintained by this documentation repo
 :language: ini
 ```
 
-<!-- if-wsprrypico -->
 ## Optional development listener
 
 The standard download above does not include development WTP sections. For a
@@ -27,4 +26,3 @@ it. Review the [listener and ownership reference](runtime.md#wtp-server)
 before changing these controls. For an outbound profile, use the
 [WTP endpoint reference](transmitter_backends.md#pico-wtp). Independent Fleet
 assignments are saved outside the INI.
-<!-- endif-wsprrypico -->

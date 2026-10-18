@@ -117,10 +117,9 @@ Any errors will be indicated there, with text directing you to the issue.
 
 Information related to each page follows.
 
-<!-- if-wsprrypico -->
 ## Local control and remote ownership
 
-In the development WTP workflow, this Pi can run its own schedule while
+From **Setup → Fleet**, this Pi can run its own schedule while
 controlling other Pi or Pico outputs. Local **Enable**, this Pi's inbound WTP
 listener, and each remote output's schedule are independent controls.
 
@@ -148,4 +147,3 @@ A direct HTTP configuration write explicitly setting `Operation.Transmit=true`,
 or an external enabled INI transaction, is noninteractive and immediately
 cancels remote work. It does not offer the browser's finish-current choice.
 See [Fleet and listener setup](Setup/index.md#pi-and-pico-fleet-setup).
-<!-- endif-wsprrypico -->

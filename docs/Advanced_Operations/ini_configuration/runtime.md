@@ -99,7 +99,6 @@ replace that running snapshot or clear cleanup uncertainty. Read
 [Test Tone results and recovery](../../User_Interface/Maintenance/index.md#read-the-result)
 before treating saved settings as active.
 
-<!-- if-wsprrypico -->
 ## WTP Server
 
 The managed Pi listener uses these defaults:
@@ -156,4 +155,3 @@ consumed slots, and unresolved dispatch state. It is separate from
 `[WTP]`, which selects the single-endpoint backend. Manage assignments through
 Fleet or its [HTTP resource](../rest_api.md#pi-endpoint-and-fleet-resources).
 After interrupted work, reconcile the affected output before resuming it.
-<!-- endif-wsprrypico -->

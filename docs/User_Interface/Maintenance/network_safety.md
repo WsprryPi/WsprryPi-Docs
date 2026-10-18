@@ -91,7 +91,6 @@ client headers never grant access.
 For endpoint details, see [REST API](../../Advanced_Operations/rest_api.md) and
 [WebSocket Interface](../../Advanced_Operations/websocket.md).
 
-<!-- if-wsprrypico -->
 ## Pico hostname and management access
 
 Changing a Pico hostname does not change the Pi's directly connected LAN
@@ -121,4 +120,3 @@ error or silently change transport to make a renamed endpoint connect.
 Keep the connection destination, expected TLS identity and full WTP device ID
 separate when updating a Pi connection profile. See
 [After a Pico hostname change](../../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).
-<!-- endif-wsprrypico -->

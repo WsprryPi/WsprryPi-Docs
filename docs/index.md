@@ -2,7 +2,10 @@
 
 WsprryPi is a Raspberry Pi-based transmitter for amateur radio operators who want to explore propagation with WSPR. The project focuses on making a low-cost, low-complexity beacon practical to install, configure, and operate on common Raspberry Pi hardware.
 
-WsprryPi supports two distinct transmitter paths. Qualification depends on
+WsprryPi can use local transmitter hardware or control external Pi and Pico
+outputs. To add a Pico 2 W running WsprryPico and manage output schedules, see
+[Pico and Fleet setup](User_Interface/Setup/Transmitter/index.md#add-a-pico-and-manage-outputs).
+Qualification depends on
 the backend, Raspberry Pi clock profile, band, and transmission mode. Check the
 [Band qualification](About_Wsprry_Pi/index.md#band-qualification) table before
 choosing hardware or a mode for a band. See

@@ -66,7 +66,6 @@ For a passive crystal, `Crystal Load Capacitance` accepts only `6`, `8`, or `10`
 ```
 
 
-<!-- if-wsprrypico -->
 (wtp-section)=
 ## Pico WTP
 
@@ -85,8 +84,8 @@ configuration.
 | `Hostname` / `TCP Port` | For either network binding, the connection name or address and its actual port. DNS-SD uses the SRV port, which may differ from 31417. |
 | `TLS Server Identity` | For TLS, the expected certificate name. Direct connections may use the configured hostname; a discovered TLS profile requires an explicit expected identity. |
 | `TLS CA File` / `TLS Client Certificate` / `TLS Client Key` | Absolute paths to provisioned files on the WsprryPi host for TLS. The INI and catalog retain file references, not key contents. |
-| `Device ID` | Expected 32-character lowercase hexadecimal WTP identity from HELLO. USB and TLS require it. A direct legacy Plain LAN endpoint may leave it blank and learn an identity for the current session, but a saved profile cannot be selected without a confirmed full ID. Plain LAN HELLO is not cryptographic authentication. |
-| `Start Uncertainty ns` | Maximum permitted start uncertainty, from 1 through 1000000000 nanoseconds. Default: 1000000 (1 ms). |
+| `Device ID` | Expected 32-character lowercase hexadecimal WTP identity from HELLO. TLS requires it. USB or a direct Plain LAN endpoint may leave it blank and learn an identity for the current session; a supplied ID is checked. A saved profile requires a confirmed full ID. Plain LAN HELLO is not cryptographic authentication. |
+| `Start Uncertainty ns` | Maximum permitted start uncertainty, from 1 through 1000000000 nanoseconds. Default: 100000000 (100 ms); existing configured limits are retained. |
 | `Allow Frequency Adjustment` | Default: `false`. Permits reported realizable frequency rounding; it does not establish RF accuracy. |
 
 Obtain identities from the intended device rather than copying another
@@ -107,7 +106,7 @@ resolved.
 
 ### Saved devices and the active endpoint
 
-When the hidden Fleet development pane is enabled for a session, it keeps a
+The **Setup → Fleet** tab keeps a
 private, versioned catalog at `<INI-path>.wtp-devices.json`. The catalog holds
 named USB, manual-network, and DNS-SD profiles with host-side TLS file
 references. First access imports the currently selected valid `[WTP]` settings
@@ -164,9 +163,10 @@ transport. Keep TLS verification and explicit Plain LAN selection intact.
 
 The `[WTP]` INI settings select how this Pi connects to a device; Pico's saved
 standalone station, Wi-Fi, and schedule settings are managed separately. When
-Fleet development controls are visible, **Pico standalone settings and Wi-Fi**
-uses the explicitly selected management carrier while the host and Pico are
-idle. Engineering HTTPS retains the selected Network (TLS) certificate policy;
+Fleet is open, **Pico standalone settings and Wi-Fi**
+uses the paired USB management channel automatically for USB, or the explicitly
+selected network management carrier, while the host and Pico are idle.
+Engineering HTTPS retains the selected Network (TLS) certificate policy;
 supported consumer station/AP management uses a separate volatile login. USB
 and Plain LAN WTP do not themselves provide JSON administration. No persistent
 management secret, new WTP authority or hardware-activation setting is added.
@@ -184,7 +184,6 @@ unrelated settings, restart, claim, reconnect WTP or transmit.
 See [Pico standalone settings and Wi-Fi](../../User_Interface/Setup/Transmitter/index.md#pico-standalone-settings-and-wi-fi)
 for loading, password preservation, schedule-only saves, and recovery after a
 conflicting or unconfirmed result. See
-[Pico development controls](../../User_Interface/Setup/Transmitter/index.md#pico-development-controls)
+[Pico connections and fleet outputs](../../User_Interface/Setup/Transmitter/index.md#add-a-pico-and-manage-outputs)
 for the Fleet workflow and job recovery. Keep transmission disabled until the
 configuration, clock evidence, and intended RF path have been checked.
-<!-- endif-wsprrypico -->

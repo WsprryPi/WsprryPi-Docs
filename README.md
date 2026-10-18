@@ -40,42 +40,18 @@ From here you can `make html` to create the docs in `./build/html`.
 
 You can also use the release script `copy_docs.sh` to copy the documentation to your local webserver at `wsprrypi/docs`.
 
-## Optional WsprryPico Documentation
+## Pico and Fleet operator documentation
 
-WsprryPico development documentation is **hidden by default** in all builds,
-including Read the Docs. The build flag controls the Pico backend entries,
-setup and recovery instructions, CLI reference, and WTP INI reference. Hidden
-content is omitted from rendered pages, navigation, search, and the published
-page sources. The general Raspberry Pi Pico incompatibility note remains visible.
-This flag changes documentation visibility only.
+The normal build includes Pico connections, USB firmware updates, fleet
+scheduling, recovery, command-line options and configuration references. No
+Pico-specific build flag is required, including on Read the Docs.
 
-From the repository root, build the default documentation with:
+These topics are written for a WsprryPi operator adding Pico outputs and
+managing a fleet. Dedicated WsprryPico documentation is separate work.
+
+Build from the repository root:
 
 ```bash
 source docs/.venv/bin/activate
 python -m sphinx -b html docs docs/_build/html
-```
-
-To include the Pico documentation for a development build:
-
-```bash
-source docs/.venv/bin/activate
-WSPRRYPI_DOCS_INCLUDE_PICO=1 python -m sphinx -b html docs docs/_build/html
-```
-
-Alternatively, pass `-D wsprrypico_docs=1` to Sphinx. For Read the Docs, set
-`WSPRRYPI_DOCS_INCLUDE_PICO=1` in the build environment to opt in; leave it unset
-or set it to `0` to hide the content. Rebuild and republish after changing the
-flag. Changing its value also refreshes an existing Sphinx build environment.
-
-When adding Pico content, enclose complete sections, labels, and their links in
-the following source markers. Blocks cannot be nested. An optional
-`<!-- else-wsprrypico -->` marker supplies text for the default build.
-
-```markdown
-<!-- if-wsprrypico -->
-## Pico development topic
-
-Pico-specific documentation goes here.
-<!-- endif-wsprrypico -->
 ```
