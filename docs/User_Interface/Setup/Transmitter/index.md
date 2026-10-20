@@ -693,7 +693,8 @@ authority and workflow.
    together, then choose **Save member station**. This replaces the complete
    scoped station object. Loaded firmware determines supported station formats;
    see the automatic planning rules below. Consumer profile-owned station fields
-   are read-only and must be changed through Pico transactional setup.
+   use Pico transactional setup for application. Independent saved drafts on
+   supported firmware are described below.
 3. For hardware, select **Direct RF output**, optional **Active-low button**,
    and onboard, external or disabled indicator. Choices use Pico **GP** numbers,
    not Pi BCM/header numbers. Preserve the intended external indicator polarity.
@@ -703,6 +704,36 @@ authority and workflow.
    choose **Save member hardware** separately.
 5. Read the result, then load resources again before any further save. Each save
    invalidates other editor contexts; unrelated drafts remain available for review.
+
+### Save station progress from Fleet
+
+On supporting firmware, **Read saved progress** reads the selected Pico's
+saved station draft and applied station separately. It works over the selected
+USB, Engineering HTTPS, Consumer Wi-Fi or Consumer setup Wi-Fi management
+connection. A complete station is not required to read or save progress.
+
+Edit **Callsign**, **Locator** and **Reported WSPR power (dBm)**, then choose
+**Save valid station fields**. Each field reports whether it was saved, cleared
+or invalid. Invalid fields and edits made while a request is in flight stay in
+your browser draft. **Unset** power clears the saved draft; **0** is a valid
+reported value. Saving progress does not replace applied configuration, start
+output, resume STOP or establish transmit readiness.
+
+Read progress again and compare device-saved values with your retained draft.
+**Discard station drafts and load progress** explicitly replaces your browser
+station draft with the selected Pico's saved progress. A draft belonging to
+another Pico or boot must be discarded before saving to the new selection.
+
+**Apply saved station progress** applies the device-saved station, rather than
+unsaved text in the form. It requires a complete saved station and a fresh read.
+Consumer profile-owned station application remains in Pico transactional setup;
+Fleet can retain independent drafts but does not bypass that authority. Read the
+result and member resources afterward to inspect applied state and restart needs.
+
+After a conflict, lost connection or unconfirmed reply, read saved progress and
+review it before one new deliberate save. No mutation is retried automatically.
+Older firmware without this capability retains **Save member station** and the
+complete settings workflow. Unknown advertised contracts refuse safely.
 
 ### Pico automatic WSPR planning
 
@@ -750,11 +781,10 @@ Older firmware retains Type 1 station-write guidance and explicitly refuses
 selected new formats. Unknown or malformed advertised support is refused with
 no carrier or route fallback. An unchanged readable unsupported identity can
 remain stored during unrelated settings saves; readability does not establish
-that it can transmit. WsprryPi's member station/configuration saves remain
-complete and atomic; that editor does not save incomplete drafts or accept valid
-fields independently. The [Pico's own page](#save-progress-on-the-picos-own-page)
-can separately retain valid fields as progress, without applying an incomplete
-or unencodable WSPR station.
+that it can transmit. WsprryPi's complete member station/configuration saves
+remain atomic. The separate [Fleet station-progress workflow](#save-station-progress-from-fleet)
+and [Pico's own page](#save-progress-on-the-picos-own-page) can retain valid fields
+without applying an incomplete or unencodable WSPR station.
 
 Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
 I2C pairs are inspection-only. I2C RF, amplifier, LPF, drive, calibration and
