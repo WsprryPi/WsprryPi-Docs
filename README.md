@@ -47,7 +47,16 @@ scheduling, recovery, command-line options and configuration references. No
 Pico-specific build flag is required, including on Read the Docs.
 
 These topics are written for a WsprryPi operator adding Pico outputs and
-managing a fleet. Dedicated WsprryPico documentation is separate work.
+managing a fleet. Start with [Add a WsprryPico](docs/Install/pico.md).
+The [WsprryPico operator manual](https://wsprrypico.readthedocs.io/en/devel/)
+covers standalone use, initial firmware installation, Pico browser controls,
+hardware limits and device recovery. Its
+[engineering guide](https://github.com/WsprryPi/WsprryPico/blob/devel/engineering/development/README.md)
+owns Pico architecture, protocols and implementation details.
+
+Keep Pi connection, Fleet, host scheduling, CLI/INI and Pi-managed update
+instructions here. Link to the Pico manual for device-side procedures instead
+of duplicating them. Both manuals link back to the relevant task in the other.
 
 Build from the repository root:
 

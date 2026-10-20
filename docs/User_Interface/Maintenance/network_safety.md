@@ -98,7 +98,7 @@ policy or Apache configuration. Keep **Privileged network safety** enforced;
 disabling it does not fix `.local` discovery, a wrong destination or a
 certificate mismatch. Use the intended Pico's current IP or available setup
 Wi-Fi to recover access, following
-[Change the Pico hostname](../Setup/Transmitter/index.md#change-the-pico-hostname).
+[Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname).
 
 A hostname, advertisement or browser-tab title helps locate a Pico but does
 not authenticate it. Consumer Station control uses the Wi-Fi password saved
@@ -107,6 +107,11 @@ HTTP workflow retains its existing trust limits: use a trusted network and
 endpoint, and do not treat a shared password as proof of unique device
 identity. A renamed page requires a fresh login; it does not transfer a login
 from the old address.
+
+The Pico's Plain LAN WTP port is separate from browser management and accepts
+reachable clients without that password. The Pi's Apache policy does not
+protect a listener on the Pico. See the Pico manual's
+[access and security boundaries](https://wsprrypico.readthedocs.io/en/devel/reference/security.html).
 
 Engineering HTTPS browser addresses require a certificate valid for the URL's
 hostname or IP address. Network (TLS) WTP separately checks its configured

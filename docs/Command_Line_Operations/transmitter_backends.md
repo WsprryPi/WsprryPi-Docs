@@ -274,4 +274,4 @@ process or closed connection does not confirm output-off; review the restored
 endpoint and [reconcile local output](../User_Interface/index.md#local-control-and-remote-ownership).
 
 Protocol details are maintained in the
-[WsprryPico protocol documentation](https://github.com/WsprryPi/WsprryPico/tree/devel/docs/protocol).
+[WTP/1 specification in WsprryPico](https://github.com/WsprryPi/WsprryPico/blob/devel/engineering/protocol/WTP.md).

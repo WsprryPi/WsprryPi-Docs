@@ -60,7 +60,9 @@ WsprryPi application or its GPIO and Si5351 backends. A Pico 2 W running
 WsprryPico firmware can instead serve as an external output controlled by
 WsprryPi over USB or a network connection. The Pi remains the controller and
 can manage several outputs through Fleet. See
-[Add a Pico and manage outputs](../User_Interface/Setup/Transmitter/index.md#add-a-pico-and-manage-outputs).
+[Add a WsprryPico](../Install/pico.md) for preparation and Pi setup. Standalone
+Pico use, hardware limits and firmware details are in the companion
+[WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).
 
 ## Transmitter qualification
 

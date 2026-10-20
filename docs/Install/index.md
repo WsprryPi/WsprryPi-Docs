@@ -8,6 +8,10 @@ You will need the following:
 - An SD card for the OS image
 - A power supply for the Pi.  Pay attention to potentially noisy power supplies here.  You will benefit from a well-regulated supply with sufficient ripple suppression.  You may see supply ripple as mixing products centered around the transmit carrier, typically at 120Hz (60Hz mains frequency) and 100Hz (50Hz mains frequency).
 
+To use a Pico 2 W as an external output, follow [Add a WsprryPico](pico.md).
+It covers connection and Fleet setup on an installed Pi and links to the
+Pico's firmware and hardware instructions.
+
 If you choose the Si5351 backend, you will additionally need an Si5351 clock
 generator. While I have provided a KiCad design for a Pi HAT with a
 purpose-built circuit surrounding the Si5351, you may also use one of the

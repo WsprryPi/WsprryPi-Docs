@@ -137,7 +137,7 @@ disable them.
 ### After a Pico hostname change
 
 Change the Pico's saved hostname through its own
-[Station control page](../../User_Interface/Setup/Transmitter/index.md#change-the-pico-hostname),
+[hostname editor](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname),
 then restart and verify the applied name. Editing `[WTP] Hostname` changes
 only the destination used by this Pi; it does not rename the Pico. Renaming
 a Fleet profile changes only the profile label. Ordinary supported Pico

@@ -69,49 +69,30 @@ provider files manually.
 
 ## Pico hostname or restart is unconfirmed
 
-Use the Pico's own **Station control** page for hostname changes. WsprryPi's
-settings form does not edit the Pico hostname, and renaming a Fleet device
-profile changes only that profile's label. See
-[Change the Pico hostname](../User_Interface/Setup/Transmitter/index.md#change-the-pico-hostname)
-for the save, restart and sign-in steps.
+Use [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname)
+for the device-side save, restart and sign-in procedure. WsprryPi's settings
+form does not rename the Pico; renaming a Fleet profile changes only its label.
+If a Pico save or restart reply is lost, read saved and active state before
+repeating it. A timeout does not prove the change failed or output stopped.
 
-If a save times out or the page disconnects, keep the tab open. Sign in again,
-choose **Refresh**, and compare **Active** with **Saved**. The save may already
-have succeeded. Review the saved hostname before enabling another save; do not
-repeat a save or restart merely because its reply was lost. Copy unsaved drafts
-before reloading the page or leaving for the new address.
+Keep Pi transmission and the affected Fleet assignment paused while reviewing
+the destination. Resolve pending, owned or uncertain jobs through
+[Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery).
+Disabling Pi transmission alone does not disable Pico's autonomous schedule.
 
 | What you see | What to do |
 | --- | --- |
-| Invalid hostname | Enter one 1–63 character label of ASCII letters, digits or hyphens plus `.local`, starting and ending with a letter or digit. Do not enter a URL, IP address or port. |
-| Busy or save unavailable | Disable Pico's standalone schedule and resolve pending, owned, active or failed work. Turning off the Pi's Transmit switch alone is insufficient. |
-| Saved differs from Active | The current boot still uses the old name. Confirm the saved value before one explicit restart. |
-| Original boot is still running | Restart has not been observed. A countdown or reachable old page does not prove a restart occurred. Read current state before a new explicit attempt. |
-| New name is unreachable | Try the Pico's current LAN IPv4 address on the same network. `.local` discovery may be unavailable even when IP access works. Use setup Wi-Fi if needed. |
-| Duplicate name or discovery conflict | Open by current IP or setup Wi-Fi, choose a unique name and repeat the explicit save/restart workflow. Pico does not automatically add a suffix. |
-| Different Pico or wrong device ID | Do not sign in or change settings there. Verify the intended board, address and saved connection profile first. |
-| Certificate or hostname-certificate error | For engineering HTTPS/TLS, verify the expected certificate identity and provisioned credentials. Do not bypass verification or switch to Plain LAN to hide the failure. |
+| Browser opens at the new name, but WsprryPi cannot connect | Review the saved profile, active `[WTP]` endpoint and independent assignment destinations. A browser HTTP address is not a WTP listener port. |
+| Fleet still shows the old destination | Edit and freshly identify the saved profile, then use **Use this device** if changing the single active endpoint. Editing a label or profile alone does not switch it. |
+| New name is unreachable | Try the current LAN IPv4 address and verify the full device ID. Follow the Pico manual for duplicate-name or setup-Wi-Fi recovery. |
+| Different full device ID | Verify the intended board and address before using it. Renaming does not change the stable ID. |
+| Certificate or hostname-certificate error | Check the expected TLS identity and provisioned credentials. Keep verification enabled and preserve the chosen transport. |
+| Pico restart remains unconfirmed | Follow the Pico manual's readback/reconnect procedure. A returning page or countdown alone does not establish a new boot or readiness. |
 
-For setup-Wi-Fi recovery on the standard button configuration, hold the
-configured button for at least nine seconds to request setup after output
-shutdown, then release it. The temporary access window lasts ten minutes from
-release; a saved custom or disabled button assignment takes precedence. Join
-the Pico's setup Wi-Fi and open `http://192.168.4.1/radio`. If saved Wi-Fi is
-unavailable, supported consumer firmware also requests automatic fallback
-after a minute; it can withdraw that fallback when the normal connection
-recovers. The setup Wi-Fi name and fixed address do not change with the
-hostname.
-
-If the editor is absent, confirm that the installed firmware supports it.
-Complete station commissioning if only Wi-Fi setup is saved. Engineering names
-remain bound to their provisioned certificates. If a consumer certificate
-update is refused, restore working time synchronization and read the reported
-error before trying again. A storage or recovery fault must be resolved through
-the existing recovery workflow; repeated saves do not clear it.
-
-**Cancel reconnect checks** cancels checking, not a saved change or an already
-requested restart. Checks stop after about 90 seconds and never resend the
-restart. After returning, sign in and refresh: success requires the same full
-device ID, a different boot and the intended name as both Active and Saved. Review
-[Pico network access](../User_Interface/Maintenance/network_safety.md#pico-hostname-and-management-access)
-before changing trust or connection settings.
+[After a Pico hostname change](ini_configuration/transmitter_backends.md#after-a-pico-hostname-change)
+explains which Pi settings to update. Keep
+[Privileged network safety](../User_Interface/Maintenance/network_safety.md#pico-hostname-and-management-access)
+enforced; disabling the Pi's LAN policy does not repair discovery or Pico
+credentials. Device-side reset and access recovery belong to the
+[Pico maintenance guide](https://wsprrypico.readthedocs.io/en/devel/maintain.html)
+and [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troubleshoot.html).

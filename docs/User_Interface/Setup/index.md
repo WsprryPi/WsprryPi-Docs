@@ -11,9 +11,10 @@ settings also use explicit controls: **Load member resources**, **Validate candi
 pins**, **Save member station**, and **Save member hardware**. Editing those
 drafts never triggers host autosave. See
 [member resources](Transmitter/index.md#shared-pico-member-resources) before
-saving settings on a Pico. For independent valid-field progress and explicit
-Apply on the Pico's own page, see
-[Save progress on the Pico's own page](Transmitter/index.md#save-progress-on-the-picos-own-page).
+saving settings on a Pico. For independent station drafts in Fleet, see
+[Save station progress from Fleet](Transmitter/index.md#save-station-progress-from-fleet).
+The Pico's own browser save/apply workflow is documented in
+[Configure your station in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#understand-what-was-saved).
 
 ![Setup Card](Setup.png)
 

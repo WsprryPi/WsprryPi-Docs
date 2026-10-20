@@ -4,7 +4,9 @@ WsprryPi is a Raspberry Pi-based transmitter for amateur radio operators who wan
 
 WsprryPi can use local transmitter hardware or control external Pi and Pico
 outputs. To add a Pico 2 W running WsprryPico and manage output schedules, see
-[Pico and Fleet setup](User_Interface/Setup/Transmitter/index.md#add-a-pico-and-manage-outputs).
+[Add a WsprryPico](Install/pico.md). The companion
+[WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/) covers standalone
+use, device-side setup and deeper Pico details.
 Qualification depends on
 the backend, Raspberry Pi clock profile, band, and transmission mode. Check the
 [Band qualification](About_Wsprry_Pi/index.md#band-qualification) table before
@@ -34,6 +36,7 @@ This documentation is organized to help you move through the project in a practi
 About_WSPR/index
 About_Wsprry_Pi/index
 Install/index
+Install/pico
 ```
 
 ```{toctree}
