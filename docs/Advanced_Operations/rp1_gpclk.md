@@ -35,7 +35,7 @@ installation. Direct package upgrade/downgrade is not a recovery procedure.
 Retain exact predecessor recovery inputs. Normal uninstall removes only
 attributable, unchanged installer-owned state; failed preparation/removal stops
 before application teardown. Preserve the error and support evidence when
-refused. The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
+refused. The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/v4.0.0-beta.1/docs/rp1-gpclk-dkms-installation.md)
 defines the owning recovery boundaries.
 
 RP1 plans use nominal **200 MHz pll_sys**, with intrinsic `-46.245 ppm` plus
@@ -146,33 +146,27 @@ results remain in the bundle as diagnostic evidence instead of stopping
 collection.
 
 The collector also includes the maintained qualification consumer's verified
-cache/evidence status. Missing, invalid, inaccessible or uninspected evidence
-remains explicit; collecting a bundle neither refreshes the cache nor grants
+local evidence status. Missing, invalid, inaccessible or uninspected evidence
+remains explicit; collecting a bundle neither changes the evidence nor grants
 output authority. It does not copy the private installation record, change DKMS
 or routes, load modules or establish new hardware/RF qualification.
 
-### Qualification cache and installed commands
+<span id="qualification-cache-and-installed-commands"></span>
+### Installed evidence and status
 
-The application installs its maintained consumer, pinned reference and separate
-file receipt. The cache at `/var/cache/wsprrypi/rp1-qualification` must match the
-complete four-asset inventory and SHA-256 values. Refresh verifies the immutable
-metadata tag/source/tree, original software identity and authoritative assets
-against the pinned reference; it does not follow a latest-metadata selector.
-Status revalidates cached bytes. Helper/reference ownership is separately
-receipt-bound; a provider package version alone is insufficient attribution.
+The application installs its maintained consumer, pinned reference and complete
+four-file evidence bundle under `/usr/local/lib/wsprrypi`. One application-owned
+receipt covers all six files. This also happens when an update skips an unchanged
+provider. Legacy helper/reference receipts can be upgraded or removed; foreign
+or modified files are retained and reported. Interrupted upgrades can be retried.
 
-After an application update that deliberately skips the unchanged provider,
-an administrator can explicitly refresh the installed evidence cache:
-
-```bash
-sudo python3 -B /usr/local/lib/wsprrypi/rp1_qualification.py refresh
-```
-
-Prerequisites are the matching installed application helper/reference and
-network access to the pinned publication. This command changes the evidence
-cache; it does not reinstall the provider, select a route or enable output.
-Provider-selected installation attempts this refresh, but refresh failure and
-provider installation success remain separate results.
+The bundle preserves evidence source `bb6815446beb9b96853ad5a353b0d355d4975710`
+and all four pinned SHA-256 identities. `qualification-v1.0.0-r1` identifies
+that evidence; it is not a separate download requirement. Installation and status
+need no evidence network refresh. The old network-populated cache is unused.
+The legacy `refresh` command now verifies local bundled bytes and optionally
+exports them; it does not fetch a release. A provider version alone is
+insufficient attribution.
 
 For a local diagnostic on an installed host, the maintained consumer supports:
 
@@ -181,15 +175,15 @@ python3 /usr/local/lib/wsprrypi/rp1_qualification.py status --route gpio4
 ```
 
 Use `gpio20` when inspecting that selected route. This performs bounded passive
-provider inspection and reads the verified cache/ownership evidence; it never
+provider inspection and reads the verified installed bundle/ownership evidence; it never
 downloads or refreshes metadata. Read permissions must permit the installed
 provider and evidence inspection. Failure to inspect remains unknown; it is not
 permission to infer safe output. Route, exact source/package, both UAPIs,
 overlay/artifact inventory and both loaded module build notes must agree before
 attribution. Wrong-route/build evidence is refused independently for each route.
 
-- **Evidence missing**: the pinned cache is absent.
-- **Evidence invalid**: corrupt, substituted or stale cache cannot be verified.
+- **Evidence missing**: the installed bundle is absent.
+- **Evidence invalid**: corrupt or substituted bundle bytes cannot be verified.
 - **Not inspected**: this response did not collect supplemental evidence.
 - **Provider identity unverified** or unattributed evidence: available bytes
   cannot be bound to this installed runtime; retain the detailed reason.
@@ -197,6 +191,6 @@ attribution. Wrong-route/build evidence is refused independently for each route.
 These are evidence states, not substitutes for readiness or application policy.
 The old diagnostic executable frozen inside Debian 1.0.0-1 cannot interpret the
 new supplement; use the installed application consumer above. No package asset
-was replaced to add this reporting. See the [accepted item 10 scope](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/development/rp1-item10-production-integration.md)
+was replaced to add this reporting. See the [provider acceptance scope](https://github.com/WsprryPi/WsprryPi/blob/v4.0.0-beta.1/docs/rp1-provider-acceptance.md)
 for retained installation/idle-runtime evidence, excluded rollback rehearsals
 and exact source/build limitations.

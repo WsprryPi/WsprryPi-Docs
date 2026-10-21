@@ -1,5 +1,14 @@
 # Installing WsprryPi
 
+For the explicit 4.0 Beta 1 testing procedure, see [Install 4.0 Beta 1](beta1.md).
+The normal installation commands below retain the stable channel.
+
+```{toctree}
+:hidden:
+
+beta1
+```
+
 ## Gather Hardware
 
 You will need the following:
@@ -87,12 +96,12 @@ of adopting or removing it. If an update is released, re-run the installer to
 take advantage of the new release.
 
 The published RP1 provider is v1.0.0 / Debian 1.0.0-1; development source
-selection remains separate. Qualification supplement `qualification-v1.0.0-r1`
-has its own pinned reference/cache and cannot authorize transmission. If an
-application update deliberately skips provider installation, use the
-[explicit evidence refresh](../Advanced_Operations/rp1_gpclk.md#qualification-cache-and-installed-commands)
-and inspect its result separately from installer success. Do not treat a missing
-or invalid evidence cache as a new band-unavailability result.
+selection remains separate. The tagged **4.0 Beta 1 installer** installs its
+pinned qualification evidence locally, including updates that skip an unchanged provider. No separate
+qualification-release download or cache refresh is needed. The evidence cannot
+authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status).
+Missing or corrupt evidence is an installation-integrity problem, rather than
+a new band-unavailability result.
 
 ### Upgrading a customized web interface
 
