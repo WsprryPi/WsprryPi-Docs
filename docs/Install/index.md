@@ -57,8 +57,8 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
     complete Apache configuration before reloading it.
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
-- **Install Raspberry Pi development libraries and other Packages**, `git`, and `libgpiod`.
-- **Compile and configure WsprryPi**
+- **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
+- **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPCLK-DKMS provider, verifies its
   source and installed artifacts, and first establishes route-neutral
@@ -128,11 +128,15 @@ sudo ./scripts/install.sh \
 
 This option leaves the existing UI in place instead of creating a replacement backup and publishing the new UI. Resolve or preserve the reported installation state, then run the installer again without the option when ready to replace it.
 
-Since the installation script compiles the application on your Pi to avoid any version errors, it will take some time on older Pis with fewer resources.  A Pi 3 with 1 GB of memory takes about 20 minutes.  If the script detects a system with fewer resources, it will intentionally use fewer resources, resulting in a slower installation time.  If that is the case, it will issue a warning:
+### Release binary or source build
 
-```text
-[WARN ] The compilation step may take from 10m (Pi 3) to up to 50m (Pi 1)
-```
+The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Bookworm and Trixie on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
+
+With a compatible release executable, installation skips application compilation and its compilation-time and parallelism estimates. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and build-resource checks.
+
+If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download or validation stops installation instead of triggering a source build. To request compilation explicitly, use `--binary-source build` with the [beta source-build command](beta1.md#build-from-source).
+
+Source builds can take longer on older or low-memory Pis. When compilation is needed, the installer reports available resources and planned parallelism before starting its progress steps.
 
 The installer reports progress for each operation. The following excerpt shows
 executable replacement during an update; other installation steps are omitted:

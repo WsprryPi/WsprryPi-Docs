@@ -6,11 +6,33 @@ To install the current WsprryPi beta, run this command on your Raspberry Pi thro
 curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo REPO_BRANCH=devel bash
 ```
 
-This selects the `devel` branch. Run the same command again to update to the current beta.
+This selects the current `devel` installer and supporting files. By default, the installer downloads the newest published executable for `devel` that matches your Pi's operating-system release and 32-bit or 64-bit userspace. Published prereleases are eligible. Run the same command again to update.
+
+WsprryPi 4.0 Beta 1 is published as [`v4.0.0-beta.1`](https://github.com/WsprryPi/WsprryPi/releases/tag/v4.0.0-beta.1). Its executable reports `4.0.0-beta.1+1e047a4`; the suffix identifies the source used to build it. The installer and supporting files follow `devel`, so they can be newer than the selected release executable. The installer stored in the frozen `v4.0.0-beta.1` tag still defaults to a source build; use the `devel` command above for automatic release downloads.
+
+## Release binary or source build
+
+Published executables cover Bookworm and Trixie on supported 32-bit and 64-bit Pis. The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published checksum when available. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
+
+When a compatible release executable is available, installation skips application compilation, its build dependencies, and its compilation-time and parallelism estimates. On Pi 5-family systems, RP1 GPIO driver preparation can still require a compiler, kernel headers and separate build-resource checks.
+
+If no compatible published executable exists for the selected branch and platform, the installer builds the application from source. A release lookup, download or validation failure stops installation; it does not silently switch to compilation. Correct the reported problem before retrying.
 
 Follow the installer's prompts, including a reboot if requested. When installation finishes, open the web address printed by the installer to configure WsprryPi.
 
 For Raspberry Pi setup and general installation guidance, see [Installing WsprryPi](index.md). For supported hardware and band limits, see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification) and [RP1 operating limits](../Advanced_Operations/rp1_gpclk.md).
+
+## Build from source
+
+To explicitly request application compilation instead of automatic release selection, use:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh |
+  sudo REPO_BRANCH=devel bash -s -- \
+    --binary-source build
+```
+
+Source builds can take longer on older or low-memory Pis. The installer reports the build resources and planned parallelism before starting its progress steps.
 
 ## Report beta problems
 
