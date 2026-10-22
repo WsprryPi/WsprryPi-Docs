@@ -1,113 +1,54 @@
 # Install 4.0 Beta 1
 
-WsprryPi 4.0 Beta 1 is an explicit testing opt-in. The normal installer and
-stable update channel continue to select stable software. Use this procedure
-after the [Beta release](https://github.com/WsprryPi/WsprryPi/releases/tag/v4.0.0-beta.1)
-and its assets are available. A missing download is a reason to stop.
-
-Before upgrading, stop scheduled transmissions and finish interrupted Pico
-firmware work. Preserve your configuration, executable, customized web files,
-provider recovery inputs and Pico recovery files. An executable-only rollback
-does not restore packages, configuration, drivers or firmware.
-
-## Select the complete Beta source and executable
-
-Use a new directory. The tagged checkout supplies the reviewed web interface,
-configuration templates, service files and helpers. The
-[publication manifest](https://github.com/WsprryPi/WsprryPi/releases/download/v4.0.0-beta.1/publication-manifest.json)
-records exact publication/supporting source, executable source and Docs
-identities. The executables were built at
-`1e047a44a44f07d2eb52dfd3c3537d2d24e60143`; later supporting-source repairs are
-included in the publication tag. Do not substitute `main` or moving `devel`.
-
-Select by Debian **userspace architecture** and OS codename, rather than kernel
-bitness:
-
-| `dpkg --print-architecture` | OS | Asset |
-| --- | --- | --- |
-| `armhf` | Bookworm | `wsprrypi-armv6-bookworm` |
-| `armhf` | Trixie | `wsprrypi-armv6-trixie` |
-| `arm64` | Bookworm | `wsprrypi-aarch64-bookworm` |
-| `arm64` | Trixie | `wsprrypi-aarch64-trixie` |
-
-ARMv6 hard-float builds also serve supported newer 32-bit Pis. These are
-dynamically linked executables; matching runtime libraries are required.
-
-## Install the checked packet
-
-The procedure requires Git, curl and the standard Debian checksum tools. It
-stops on a failed clone/download, an existing checkout directory, dirty or
-mismatched source, or a failed checksum. Run the complete block in a shell on
-the intended Pi after preparing your recovery set:
+To install the current WsprryPi beta, run this command on your Raspberry Pi through SSH or a local console:
 
 ```bash
-bash <<'BETA_INSTALL'
-set -euo pipefail
-release_tag=v4.0.0-beta.1
-checkout="$HOME/WsprryPi-beta1"
-test ! -e "$checkout"
-git clone --branch "$release_tag" --single-branch \
-  https://github.com/WsprryPi/WsprryPi.git "$checkout"
-cd "$checkout"
-actual_head=$(git rev-parse HEAD)
-tagged_head=$(git rev-parse "refs/tags/$release_tag^{commit}")
-source_status=$(git status --porcelain)
-[[ "$actual_head" =~ ^[0-9a-f]{40}$ ]]
-test "$actual_head" = "$tagged_head"
-test -z "$source_status"
-
-case "$(dpkg --print-architecture)" in
-  armhf) cpu=armv6 ;;
-  arm64) cpu=aarch64 ;;
-  *) echo "Unsupported userspace architecture"; exit 1 ;;
-esac
-. /etc/os-release
-case "$VERSION_CODENAME" in
-  bookworm|trixie) ;;
-  *) echo "Unsupported OS release"; exit 1 ;;
-esac
-asset="wsprrypi-$cpu-$VERSION_CODENAME"
-downloads=$(mktemp -d "$HOME/wsprrypi-beta1-downloads.XXXXXX")
-base="https://github.com/WsprryPi/WsprryPi/releases/download/$release_tag"
-curl --fail --location "$base/$asset" --output "$downloads/$asset"
-curl --fail --location "$base/SHA256SUMS" --output "$downloads/SHA256SUMS"
-(cd "$downloads" && grep "  ${asset}$" SHA256SUMS | sha256sum --check --strict)
-
-rm -f ~/finished
-sudo ./scripts/install.sh --binary-source local \
-  --binary-path "$downloads/$asset" && touch ~/finished
-BETA_INSTALL
+curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo REPO_BRANCH=devel bash
 ```
 
-The checksum must report `OK`. It checks agreement with the declared release
-packet, rather than authenticating the publisher by itself. Keep the downloads
-and recovery copies until installation and idle readiness have been checked.
-If an interrupted attempt leaves the checkout directory, inspect it before
-retrying; this procedure deliberately refuses to reuse it silently.
+This selects the `devel` branch. Run the same command again to update to the current beta.
 
-The installer installs runtime packages, including Avahi libraries for discovery,
-and web dependencies, while skipping application compilation. Pi 5 GPIO support
-has separate kernel-header, compiler and DKMS requirements. Pico USB maintenance
-requires Python and a separately installed picotool. On failure the installer
-attempts executable/service restoration; this is not a complete package or
-configuration rollback.
+Follow the installer's prompts, including a reboot if requested. When installation finishes, open the web address printed by the installer to configure WsprryPi.
 
-The alternative installer options `--binary-source release --release-tag v4.0.0-beta.1`
-select and download an executable for the host. `--release-tag` selects only the
-executable; the current checkout selects supporting files. The helper does not
-perform the independent checksum comparison in the procedure above.
+For Raspberry Pi setup and general installation guidance, see [Installing WsprryPi](index.md). For supported hardware and band limits, see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification) and [RP1 operating limits](../Advanced_Operations/rp1_gpclk.md).
 
-## Beta acceptance limits
+## Report beta problems
 
-The four builds passed software and build-environment checks. Bounded wspr5
-runtime acceptance used the AArch64 Trixie executable, with explicit reuse of
-unchanged installer/UI evidence. The later bundled-RP1 helper and Pico installer
-distribution changes have isolated installation, status, recovery and CI
-coverage; fresh target installation/status of those changed support files was
-not performed and is an explicitly accepted Beta limitation.
+If a problem relates to one of the issues listed below, please add your report as a comment on that issue so testing feedback stays together. For any other problem, [open a separate issue](https://github.com/WsprryPi/WsprryPi/issues/new/choose). Describe what you expected, what happened, and how to reproduce it.
 
-Fresh clean installation, physical acceptance of the other three exports,
-reboot, fresh GPIO4 selection and rollback rehearsal remain unperformed Beta
-checks. These results do not establish timing, electrical or RF qualification.
-Consult the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification)
-and the [RP1 operating limits](../Advanced_Operations/rp1_gpclk.md).
+Please send a support bundle (debug packet) with every problem report, whether you are commenting on an existing issue or opening a new one. Use the [private support-bundle reporting facility](https://github.com/WsprryPi/WsprryPi/issues/414) described below to send the diagnostic information to the maintainer.
+
+### Send a support bundle
+
+Open **Maintenance → Support Bundle** in the WsprryPi web interface and select **Start support bundle**. Enter the relevant issue number or choose to create a new issue. Follow the steps to review the collected information, encrypt it, and upload it privately. Post the prepared public comment with its case ID in the GitHub issue so the maintainer can connect your report to the packet. See [Create and Share a Support Bundle](../User_Interface/Maintenance/support_bundle.md) for the complete procedure.
+
+### Issues marked Ready for Release
+
+These issues are currently marked **Ready for Release**:
+
+- [#332: Define canonical band correlation and regional WSPR frequency presets](https://github.com/WsprryPi/WsprryPi/issues/332)
+- [#346: Add GPIO 26 and GPIO 27 to the UI safe-pin list](https://github.com/WsprryPi/WsprryPi/issues/346)
+- [#347: Actively reset/disable Si5351 on startup ?](https://github.com/WsprryPi/WsprryPi/issues/347)
+- [#348: Can we allow multiple bands to share a GPIO?](https://github.com/WsprryPi/WsprryPi/issues/348)
+- [#349: WebSocket client threads are not reaped after browser disconnects](https://github.com/WsprryPi/WsprryPi/issues/349)
+- [#352: Feature: Add UI workflow to create and download a support bundle](https://github.com/WsprryPi/WsprryPi/issues/352)
+- [#354: Feature Request: Expand "Spot" Menu Item](https://github.com/WsprryPi/WsprryPi/issues/354)
+- [#355: Web log viewer leaves journalctl processes running after navigation](https://github.com/WsprryPi/WsprryPi/issues/355)
+- [#361: Add band selector and custom frequency to Test Tone](https://github.com/WsprryPi/WsprryPi/issues/361)
+- [#364: Harden update detection contract for non-main branch builds](https://github.com/WsprryPi/WsprryPi/issues/364)
+- [#365: Make GPIO4 and GPIO20 conditionally available outside GPIO RF output](https://github.com/WsprryPi/WsprryPi/issues/365)
+- [#367: Frequencies and Offsets Not Legible on Mobile](https://github.com/WsprryPi/WsprryPi/issues/367)
+- [#368: Crash with Si5351 and 2m band](https://github.com/WsprryPi/WsprryPi/issues/368)
+- [#379: Qualify 2m WSPR on GPIO and Si5351 backends](https://github.com/WsprryPi/WsprryPi/issues/379)
+- [#382: Si5351 should set (and expose) XTAL loading capacitor](https://github.com/WsprryPi/WsprryPi/issues/382)
+- [#383: Apply Calibration.PPM to Si5351 synthesis planning](https://github.com/WsprryPi/WsprryPi/issues/383)
+- [#387: Combine system clock frequency estimate and manual residual for GPIO accuracy](https://github.com/WsprryPi/WsprryPi/issues/387)
+- [#390: Qualify remaining GPIO and Si5351 band combinations, excluding 70 cm](https://github.com/WsprryPi/WsprryPi/issues/390)
+- [#400: Add a hardware-free simulated backend for Debian development and CI](https://github.com/WsprryPi/WsprryPi/issues/400)
+- [#401: Add mode-aware band qualification and experimental frequency overrides](https://github.com/WsprryPi/WsprryPi/issues/401)
+- [#412: Integrate and release RP1 GPCLK DKMS support](https://github.com/WsprryPi/WsprryPi/issues/412)
+- [#414: Add encrypted private support-bundle intake](https://github.com/WsprryPi/WsprryPi/issues/414)
+- [#415: Absorb Git submodules into WsprryPi as ordinary tracked components](https://github.com/WsprryPi/WsprryPi/issues/415)
+- [#416: Protect privileged controls with directly connected LAN safety](https://github.com/WsprryPi/WsprryPi/issues/416)
+- [#422: Add immutable UI manifest, local-modification support, and refresh-safe upgrades](https://github.com/WsprryPi/WsprryPi/issues/422)
+- [#426: Research isolated-LAN / offline field operation with Web UI](https://github.com/WsprryPi/WsprryPi/issues/426)
