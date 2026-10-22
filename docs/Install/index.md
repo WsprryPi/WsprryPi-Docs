@@ -58,6 +58,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
 - **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
+- **Supply Pico USB firmware tools with the [current beta installer](beta1.md#pico-usb-firmware-tools).** It installs Python and libusb, and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPCLK-DKMS provider, verifies its
@@ -102,6 +103,12 @@ qualification-release download or cache refresh is needed. The evidence cannot
 authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status).
 Missing or corrupt evidence is an installation-integrity problem, rather than
 a new band-unavailability result.
+
+### Pico USB firmware tools
+
+The [current Beta/devel installer](beta1.md) keeps an existing USB-enabled picotool 2.3 or newer within the 2.x series. If no compatible copy is available, it downloads picotool 2.3.1 with its required support files. Prebuilt packages cover Bookworm and Trixie, each with 32-bit ARMv6 and 64-bit AArch64 userspace. The installer selects the matching package and verifies the download and packaged files before installing them.
+
+Picotool is never compiled on the Pi, including when you request a WsprryPi application source build. A missing or invalid picotool download stops installation without a compilation fallback. No separate picotool setup is needed with the current Beta installation command. The web firmware page uses the installed tool; it does not install picotool on demand.
 
 ### Upgrading a customized web interface
 

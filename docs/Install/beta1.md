@@ -14,13 +14,19 @@ WsprryPi 4.0 Beta 1 is published as [`v4.0.0-beta.1`](https://github.com/WsprryP
 
 Published executables cover Bookworm and Trixie on supported 32-bit and 64-bit Pis. The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published checksum when available. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
 
-When a compatible release executable is available, installation skips application compilation, its build dependencies, and its compilation-time and parallelism estimates. On Pi 5-family systems, RP1 GPIO driver preparation can still require a compiler, kernel headers and separate build-resource checks.
+When a compatible release executable is available, installation skips application compilation, its build dependencies, and its compilation-time and parallelism estimates. On Pi 5-family systems, the installer also supplies the RP1 GPIO driver and matching kernel headers; driver preparation can still require compilation and separate build-resource checks.
 
 If no compatible published executable exists for the selected branch and platform, the installer builds the application from source. A release lookup, download or validation failure stops installation; it does not silently switch to compilation. Correct the reported problem before retrying.
 
 Follow the installer's prompts, including a reboot if requested. When installation finishes, open the web address printed by the installer to configure WsprryPi.
 
 For Raspberry Pi setup and general installation guidance, see [Installing WsprryPi](index.md). For supported hardware and band limits, see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification) and [RP1 operating limits](../Advanced_Operations/rp1_gpclk.md).
+
+## Pico USB firmware tools
+
+The current Beta installer supplies Python, libusb and USB-enabled picotool for Pico USB firmware maintenance. It keeps an existing compatible picotool 2.3 or newer within the 2.x series; otherwise it downloads the prebuilt picotool 2.3.1 package matching your Pi's operating-system release and userspace architecture. Packages cover all four targets: ARMv6 Bookworm, ARMv6 Trixie, AArch64 Bookworm and AArch64 Trixie. Required support files are included, and the installer verifies the download and packaged files before installing them.
+
+No separate picotool installation is needed. Picotool is never compiled on the Pi, and a missing or invalid download stops installation without switching to a source build. The web firmware page uses the installed tool; it does not install picotool on demand.
 
 ## Build from source
 
@@ -32,7 +38,7 @@ curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/
     --binary-source build
 ```
 
-Source builds can take longer on older or low-memory Pis. The installer reports the build resources and planned parallelism before starting its progress steps.
+Source builds can take longer on older or low-memory Pis. The installer reports the build resources and planned parallelism before starting its progress steps. This option compiles the WsprryPi application; picotool still uses the prebuilt packages described above.
 
 ## Report beta problems
 
@@ -74,3 +80,4 @@ These issues are currently marked **Ready for Release**:
 - [#416: Protect privileged controls with directly connected LAN safety](https://github.com/WsprryPi/WsprryPi/issues/416)
 - [#422: Add immutable UI manifest, local-modification support, and refresh-safe upgrades](https://github.com/WsprryPi/WsprryPi/issues/422)
 - [#426: Research isolated-LAN / offline field operation with Web UI](https://github.com/WsprryPi/WsprryPi/issues/426)
+- [#453: Supply prebuilt picotool with the WsprryPi installer](https://github.com/WsprryPi/WsprryPi/issues/453)
