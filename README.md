@@ -10,6 +10,19 @@ Three labels are maintained and automatically built by RTD:
 - `latest`: Built from the default branch (`main`), but not guaranteed to be a release and can be ahead of `stable`.
 - `devel`: Build from the devel branch, and generally considered in development along side it's corresponding code.
 
+## Legacy `/en/` URL compatibility
+
+Read the Docs serves this project at `/<version>/<page>`. Preserve the following project-level rules in [Settings → Redirects](https://app.readthedocs.org/dashboard/wsprry-pi/redirects/) so existing English documentation links continue to work:
+
+| Type | From URL | To URL |
+| --- | --- | --- |
+| Exact Redirect | `/en` | `https://wsprry-pi.readthedocs.io/` |
+| Exact Redirect | `/en/*` | `https://wsprry-pi.readthedocs.io/:splat` |
+
+Both rules must be enabled, use **302 — Temporary Redirect**, and have **Force redirect** disabled. Read the Docs stores these rules in the project settings independently of Sphinx output and the build configuration in `readthedocs.yaml`; normal documentation builds preserve them. Retain or restore these settings when recreating the hosting project or changing its URL scheme.
+
+The wildcard preserves the requested version, page path, query parameters, and section anchor, including links to stylesheets, scripts, images, and page sources. The `/en` shorthand follows the project's current default version. After changing hosting settings, check `/en`, `/en/stable/`, `/en/latest/`, `/en/devel/`, and `/en/v4.0.0-beta.1/Install/beta1.html`, plus a search query and static assets. See the [Read the Docs redirect reference](https://docs.readthedocs.com/platform/stable/user-defined-redirects.html) for wildcard behavior.
+
 ## Working with the Docs
 
 First, create a virtual environment:
