@@ -2,16 +2,9 @@
 
 Use this page for WSPR station identity, transmission planning, frequency, power reporting, and calibration. Return to the [Signal Setup overview](index.md) to choose another mode. For calibration procedures, see [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md); for output hardware, see [Configure Transmitter](../Transmitter/index.md).
 
-WSPR or Weak Signal Propagation Reporting is the original mode for WsprryPi.
-The controls described below appear in the **WSPR** half of the signal-mode
-selector. Configuration saves automatically after each valid change.
+WSPR or Weak Signal Propagation Reporting is the original mode for WsprryPi. The controls described below appear in the **WSPR** half of the signal-mode selector. Configuration saves automatically after each valid change.
 
-The planning preferences on this page belong to the **Pi host**. Pico member
-station defaults use [Pico automatic planning](../Transmitter/index.md#pico-automatic-wspr-planning),
-which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for
-a supported compound with six characters, and a single Type 3 for explicit
-brackets with six characters. No Pi preference selector changes that automatic
-member plan. Prepared WTP jobs retain their supplied finite plan.
+The planning preferences on this page belong to the **Pi host**. Pico member station defaults use [Pico automatic planning](../Transmitter/index.md#pico-automatic-wspr-planning), which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for a supported compound with six characters, and a single Type 3 for explicit brackets with six characters. No Pi preference selector changes that automatic member plan. Prepared WTP jobs retain their supplied finite plan.
 
 ## Station Identity
 
@@ -42,8 +35,7 @@ If you need or desire to use callsign extensions, have a callsign longer than 6 
     AA0NT EM18
     ```
 
-- A normal callsign with a 6-character locator requires a **Type 1/3 pair** to
-  remain self-identifying.
+- A normal callsign with a 6-character locator requires a **Type 1/3 pair** to remain self-identifying.
 
     ```text
     AA0NT EM18
@@ -75,8 +67,7 @@ If you need or desire to use callsign extensions, have a callsign longer than 6 
     <AA0NT>
     ```
 
-This should not make pairing invalid. Instead, when paired transmission is
-required, the planner should choose the appropriate companion frame:
+This should not make pairing invalid. Instead, when paired transmission is required, the planner should choose the appropriate companion frame:
 
 - Standard inner callsign: **Type 1/3 pair**
 - Compound inner callsign: **Type 2/3 pair**
@@ -87,11 +78,7 @@ These settings govern the way that WSPR is transmitted or received.
 
 ### Frequencies
 
-The Frequencies setting accepts one value or a list separated by spaces or
-commas. Use a bare WSPR preset such as `20m`, a qualified preset such as
-`60m:legacy` or `60m:wrc15`, an integral numeric USB dial frequency, or `0` to
-skip a position. Optional `@GPIO`, `@GPIOH`, and `@GPIOL` suffixes select Band
-GPIO behavior for an entry.
+The Frequencies setting accepts one value or a list separated by spaces or commas. Use a bare WSPR preset such as `20m`, a qualified preset such as `60m:legacy` or `60m:wrc15`, an integral numeric USB dial frequency, or `0` to skip a position. Optional `@GPIO`, `@GPIOH`, and `@GPIOL` suffixes select Band GPIO behavior for an entry.
 
 They may also be listed in engineering notation where these are all the same:
 
@@ -104,27 +91,24 @@ Notice that there are no spaces between the number and `m` for meters, and none 
 
 The frequency may also be listed in pure integral Hz, such as `21094600`.
 
-Of note, WSPR is an Upper Side Band (USB) mode.  The frequency entered is a typical USB dial frequency.  You may note that the tones are shifted ~1,500Hz higher.
+The WSPR USB dial is `D`; the RF center is `C = D + 1500 + r`, where `r` is optional random placement. Tone `k` is `Fk = C + (k - 1.5) × 1.46484375 Hz`, for `k = 0, 1, 2, 3`. The fixed 1,500 Hz placement is the project convention. With the standard `20m` preset and no random placement:
 
-Using a bare band preset selects the current frequency profile's WSPR dial
-convention. **Frequency profile** defaults to **Existing/Common** for
-compatibility. The initial alternate profile is **WRC-15**; it changes only the
-meaning of a bare `60m`. Open **Band preferences** to choose **Default**,
-**Preset**, or **Custom** independently for every canonical band. Each row shows
-the effective USB dial and RF tone. **Clear** removes only that band's override.
-Valid edits save automatically; invalid custom values remain visible and block
-autosave until corrected or cleared. Explicit qualified presets and numeric
-values entered in **Frequencies** never change when the profile changes.
+| Reference | Frequency (Hz) |
+| --- | ---: |
+| USB dial | 14,095,600 |
+| RF center | 14,097,100 |
+| Tone 0 | 14,097,097.802734375 |
+| Tone 1 | 14,097,099.267578125 |
+| Tone 2 | 14,097,100.732421875 |
+| Tone 3 | 14,097,102.197265625 |
 
-The `8m` and `5m` rows have no built-in WSPR preset. Select **Custom** and enter
-a positive integral USB dial frequency inside the corresponding correlation
-envelope before using either bare name. Configured values then participate in
-scheduling and the effective WSPR/Test Tone catalog.
+Test Tone uses one steady carrier rather than four WSPR tones. The web **WSPR band → 20m** selection and CLI `--test-tone 20m` each target `14,097,100 Hz`. Numeric `--test-tone 14095600` targets exactly `14,095,600 Hz`; numeric and unit-suffixed Test Tone inputs specify the carrier directly. Test Tone never adds random placement. These are requested synthesis targets; measure RF independently.
 
-WsprryPi does not infer a country. See [Canonical Bands and WSPR Frequency
-Presets](../../../Advanced_Operations/canonical_bands.md) for the complete band
-and preset tables, country/locality guidance, configuration precedence, and
-examples.
+ Using a bare band preset selects the current frequency profile's WSPR dial convention. **Frequency profile** defaults to **Existing/Common** for compatibility. The initial alternate profile is **WRC-15**; it changes only the meaning of a bare `60m`. Open **Band preferences** to choose **Default**, **Preset**, or **Custom** independently for every canonical band. Each row shows the effective USB dial and RF center / Test Tone target without random placement. **Clear** removes only that band's override. Valid edits save automatically; invalid custom values remain visible and block autosave until corrected or cleared. Explicit qualified presets and numeric values entered in **Frequencies** never change when the profile changes.
+
+The `8m` and `5m` rows have no built-in WSPR preset. Select **Custom** and enter a positive integral USB dial frequency inside the corresponding correlation envelope before using either bare name. Configured values then participate in scheduling and the effective WSPR/Test Tone catalog.
+
+WsprryPi does not infer a country. See [Canonical Bands and WSPR Frequency Presets](../../../Advanced_Operations/canonical_bands.md) for the complete band and preset tables, country/locality guidance, configuration precedence, and examples.
 
 ### Random offset
 

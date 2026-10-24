@@ -58,17 +58,17 @@ Changing **Modulation** displays the corresponding spacing triplet; it does not 
 - **FSKCW** transmits its mode-specific dot and dash tones for `T` and `3T`. Its spacing also uses the QRSS/FSKCW triplet.
 - **DFCW** transmits every dot and dash for `T`. Frequency distinguishes the two elements, and its spacing uses the separate DFCW triplet.
 
-### Frequency offset
+### Positive shift
 
-This is the positive offset from the base that FSKCW or DFCW will shift to transmit characters.  This is in Hz and should be entered without any engineering notation.  This field is dithered and unavailable in QRSS mode.
+Enter a positive whole-number shift in Hz. FSKCW mark = space + shift; DFCW dash = dot + shift. This control is disabled in QRSS. FSKCW retains its space carrier between elements; QRSS and DFCW gaps have RF off. Timing and gap controls remain independent of the frequency reference.
 
-### Base frequency
+### Carrier, space or dot frequency
 
-This is the base frequency for transmissions.  For QRSS it is the exact frequency of the characters.  For FSKCW or DFCW it is the base from which the shift is made to transmit.  This is entered as a whole-number in Hz such as `14096900`, or include `Hz`, `kHz`, `MHz`, or `GHz` for decimal values such as `14.0969MHz`.
+The label follows the selected mode: **Carrier frequency** for QRSS, **Space frequency** for FSKCW, and **Dot frequency** for DFCW. Enter whole-number Hz, such as `14096900`, or use Hz, kHz, MHz or GHz units, such as `14.0969MHz`. WSPR band aliases are rejected. Changing the mode changes the reference label while preserving the entered frequency. Band correlation remains in use for filter selection, frequency policy and output limits.
 
 ### Frequency calibration
 
-This is the CW form of the PPM/NTP settings in WSPR.  Here you may calibrate your frequency (the actual tone frequency, as opposed to the SSB offset for WSPR) in PPM.  Your available range is +-200PPM.
+CW uses the selected transmitter backend's frequency-correction settings. Configure those settings under [Transmitter](../Transmitter/index.md); they correct reference-clock error and do not replace the carrier, space, dot or positive-shift values. A remote WTP transmitter owns its correction; supplied absolute RF targets do not receive Pi calibration again. Use an independently calibrated receiver when measuring RF. See [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md).
 
 ## Schedule
 

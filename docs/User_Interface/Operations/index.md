@@ -20,7 +20,7 @@ Within the Operations card are panels intended to be your quick reference to you
 
     ![Ready](ready.png)
 
-- **Reboot Behavior:** 
+- **Reboot Behavior:**
 
     ![Reboot Behavior](reboot_behavior.png)
 
@@ -44,7 +44,7 @@ Within the Operations card are panels intended to be your quick reference to you
   - *Transmit Enabled* switch enables or disables transmission the transmission scheduler.  When enabled, the transmitter will operate on the schedule you have configured.  If you disable it, the configuration will save immediately, however any in-progress transmissions will finish.
   - *Stop transmission* button allows you to halt an ongoing transmission immediately, and it wil disable future transmissions.  It is only enabled during a transmission.
 
-- **Frequency:** A panel that displays the current or next frequency configured.  Keep in mind that WSPR is an upper-side band mode, so the frequency displayed will be the center frequency (where you would set your radio to transmit) and the actual frequency WSPR uses will be ~1500Hz higher.  For CW modes, this is the actual frequency of the transmission.
+- **USB dial / Next USB dial:** The WSPR panel displays the current or next USB dial frequency. RF center = dial + 1500 Hz + optional random placement. The standard 20m dial is 14,095,600 Hz and its RF center without random placement is 14,097,100 Hz. **Random placement** shows the signed WSPR offset in Hz, separately from the fixed 1,500 Hz placement. CW labels identify **Carrier** for QRSS, **Space** for FSKCW and **Dot** for DFCW; **Positive shift** gives the mark or dash offset. These values describe requested frequencies, not measured RF.
 
     ![Frequency Panel](frequency.png)
 
@@ -59,7 +59,7 @@ Within the Operations card are panels intended to be your quick reference to you
   - *Type1Single* is a standard Type 1 WSPR frame.
   - *Type2Single* is a single Type 2 WSPR frame which sends a callsign with a prefix (`W0/`) or suffix (`/P`) as a hashed component.  The hash is not reversible.  Decoding relies on correlation over time by the receiver with previous full-message decodes from paired transmissions.
   - *Type1Type3Paired* is a paired frane transmission mode, alternating between Type 1 (shown as F1/2) and Type 3 (shown as F2/2) messages. This plan is to support paired transmission support for a long locator but a simple callsign.  This may be thought of as an automated means to assure the receiver can correlate all extended information.
-  - *Type3Single* is a single Type 3 frame which sends a reversible callsign as well as a reversible 6-character maidenhead locator.  
+  - *Type3Single* is a single Type 3 frame which sends a reversible callsign as well as a reversible 6-character maidenhead locator.
   - *Type2Type3Paired* is a paired frame transmission mode, alternating between Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages. This plan is to support paired transmission support for a complex or long callsign and a long locator. This may be thought of as an automated means to assure the receiver can correlate all extended information.
   - *Next Message At* is displayed when in one of the three CW modes, and the scheduler is waiting for a transmission window.  The time is displayed in the local time.
   - *Message Progression* is displayed in CW mode during a transmission. It will show a cursor on the current character.
