@@ -12,9 +12,11 @@ WsprryPi 4.0 Beta 1 is published as [`v4.0.0-beta.1`](https://github.com/WsprryP
 
 ## Release binary or source build
 
-Published executables cover Bookworm and Trixie on supported 32-bit and 64-bit Pis. The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published checksum when available. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
+Precompiled WsprryPi binaries are available again for Raspberry Pi OS, formerly Raspbian, supporting stable (Trixie) and oldstable (Bookworm) on supported 32-bit ARMv6 and 64-bit AArch64 installations. Avoiding application compilation can save up to an hour on older hardware such as the Pi 1 and Pi Zero.
 
-When a compatible release executable is available, installation skips application compilation, its build dependencies, and its compilation-time and parallelism estimates. On Pi 5-family systems, the installer also supplies the RP1 GPIO driver and matching kernel headers; driver preparation can still require compilation and separate build-resource checks.
+The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published SHA-256 checksum when available. Beta 1 supplies these checksums. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
+
+When a compatible release executable is available, installation skips application compilation, its build dependencies, its swap preparation and its compilation-time and parallelism estimates. On Pi 5-family systems, the installer also supplies the RP1 GPIO driver and matching kernel headers; driver preparation can still require compilation and separate build-resource checks.
 
 If no compatible published executable exists for the selected branch and platform, the installer builds the application from source. A release lookup, download or validation failure stops installation; it does not silently switch to compilation. Correct the reported problem before retrying.
 
@@ -39,6 +41,10 @@ curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/
 ```
 
 Source builds can take longer on older or low-memory Pis. The installer reports the build resources and planned parallelism before starting its progress steps. This option compiles the WsprryPi application; picotool still uses the prebuilt packages described above.
+
+## Explicit release downloads
+
+An explicit `--binary-source release --release-tag ...` download does not automatically acquire an expected checksum, and the installer in the frozen Beta tag does not compare download checksums. For an explicit download, verify the original asset against the release's [SHA256SUMS](https://github.com/WsprryPi/WsprryPi/releases/download/v4.0.0-beta.1/SHA256SUMS) independently before selecting it with `--binary-source local --binary-path /absolute/path/to/verified-executable`. Architecture, runtime-library and version checks do not replace checksum verification.
 
 ## Report beta problems
 

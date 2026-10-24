@@ -37,7 +37,9 @@ This section may be the most challenging part of the whole installation.  *You m
 
 ![Raspberry Pi Imager](Raspberry_Pi_Imager.png)
 
-I am only testing the current [`stable` versions](https://www.debian.org/releases/stable/).  Testing everything on more than one release, 32 and 64-bit, and now GPIO and Si5153, with WSPR 1, 2 and 3, plus three CW modes, takes more time than I have right now.  In theory it will compile and run on [`oldstable`](https://www.debian.org/releases/oldstable/) but I won't support issues there.
+WsprryPi 4.0 Beta supports Raspberry Pi OS, formerly Raspbian, on both stable (Trixie) and oldstable (Bookworm). Precompiled executables cover supported 32-bit ARMv6 and 64-bit AArch64 installations, including Pi 1 and Pi Zero systems.
+
+Use the [current Beta installer](beta1.md) for automatic binary downloads. The stable-channel commands on this page continue to build the current stable application from source. OS support does not qualify every transmitter or band; see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification).
 
 You can use a full-featured desktop version with all the bells and whistles, or WsprryPi will run just fine on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
 
@@ -137,9 +139,9 @@ This option leaves the existing UI in place instead of creating a replacement ba
 
 ### Release binary or source build
 
-The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Bookworm and Trixie on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
+The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover stable (Trixie) and oldstable (Bookworm) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
 
-With a compatible release executable, installation skips application compilation and its compilation-time and parallelism estimates. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and build-resource checks.
+With a compatible release executable, installation skips application compilation, its build dependencies, its swap preparation and its compilation-time and parallelism estimates. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and build-resource checks.
 
 If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download or validation stops installation instead of triggering a source build. To request compilation explicitly, use `--binary-source build` with the [beta source-build command](beta1.md#build-from-source).
 
