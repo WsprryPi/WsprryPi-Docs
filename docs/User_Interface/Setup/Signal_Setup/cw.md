@@ -17,7 +17,7 @@ The Mode panel allows configuring most of the metadata for CW modes.
 The actual CW mode is one of:
 
 - **QRSS** - QRSS is extreme slow speed CW, the name is derived from the Q-code QRS (reduce your speed).  This mode, when displayed on a grabber's screen, is the most "CW-looking" of all the modes, with familiar dots and dashes.
-- **FSKCW** - FSKCW means Frequency Shift Keying CW.  Instead of activate/deactivate the carrier, the carrier is always activated as long as the transmission lasts. During pauses between dots, dashes or characters the frequency is shifted downwards.  The upper trace shown on the screen contains the morse information, the lower trace is drawn during signal pauses.
+- **FSKCW** - FSKCW means Frequency Shift Keying CW. Dots and dashes use the mark frequency; internal gaps between elements, characters and words use the lower space frequency. Gaps between repeats and the final tail have RF off. The upper trace contains the Morse information, and the lower trace shows the internal gaps.
 - **DFCW** - DFCW means Dual Frequency CW.  DFCW mode was developed that enhances the average speed in LF transmissions (more impacted by QRN) by a factor of 2.5 to 3. In DFCW the element *duration* is replaced by the element *frequency*. Dots and dashes do not have a different length but they are transmitted on a different frequency. Due to this frequency shift there is no space needed between the dots/dashes and the character space can be reduced to the same dot length. The standard intra-element spacing multiplier is `0.333333`.
 
 ## CW Timing
@@ -54,7 +54,7 @@ Changing **Modulation** displays the corresponding spacing triplet; it does not 
 
 ### Modulation construction
 
-- **QRSS** transmits a dot for `T` and a dash for `3T` at the base frequency. Its spacing uses the QRSS/FSKCW triplet.
+- **QRSS** transmits a dot for `T` and a dash for `3T` at the carrier frequency. Its spacing uses the QRSS/FSKCW triplet.
 - **FSKCW** transmits its mode-specific dot and dash tones for `T` and `3T`. Its spacing also uses the QRSS/FSKCW triplet.
 - **DFCW** transmits every dot and dash for `T`. Frequency distinguishes the two elements, and its spacing uses the separate DFCW triplet.
 

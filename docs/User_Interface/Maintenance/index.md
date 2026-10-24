@@ -58,7 +58,7 @@ A test tone is useful for checking the transmit path, calibration, and tuning. C
 
 [![Test Tone accepted while awaiting controller runtime confirmation](test_tone.png)](test_tone.png)
 
-This retained current-UI fixture shows acceptance before runtime confirmation. It uses synthetic responses and demonstrates feedback, not a live transmitter or measured RF state. Open the image for full resolution.
+An accepted Test Tone request can still be waiting for runtime confirmation. Read the execution status before treating the tone as active. Open the image for full resolution.
 
 Select **Test tone** to open the manual tone controls. This does not change the frequency saved in Setup.
 
