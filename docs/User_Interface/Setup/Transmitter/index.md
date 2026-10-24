@@ -501,11 +501,7 @@ For a connection that remains unconfirmed, see
 
 ### Shared Pico member resources
 
-**Load member resources** reads application, station, saved/active hardware,
-recurrence and supported pin choices as one reconciled observation. Confirm the
-device, boot, carrier and observation time. Application/recurrence observations
-are read-only here; prepared jobs and standalone schedules keep their own
-authority and workflow.
+**Load member resources** reads application, station, saved/active hardware, recurrence and supported pin choices as one reconciled observation. The recurrence summary shows **WSPR dial** in Hz, or **not configured** when unset. Standalone WSPR centers its four tones 1,500 Hz above that saved dial without random placement. The Pico’s browser owns dial selection; Fleet WSPR inputs remain absolute RF centers. Confirm the device, boot, carrier and observation time. Application/recurrence observations are read-only here; prepared jobs and standalone schedules keep their own authority and workflow.
 
 1. Load the member resources explicitly while the host/member are idle.
 2. For station changes, review callsign, locator and **Reported WSPR power (dBm)**
