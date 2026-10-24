@@ -23,6 +23,8 @@ positive integral numeric USB dial frequency. A numeric preference changes the
 meaning of the bare band name; a number in `Frequency` changes only that plan
 entry. Preferences do not create aliases or replace canonical envelopes.
 
+`Use Random Offset = True` selects one uniform placement within ±80 Hz per prepared WSPR plan. Both frames of a pair retain the same placement and nominal RF center. Each independent plan receives a fresh draw, which may equal the preceding value. `False` selects zero placement. Test Tone does not use random placement. Placement is separate from calibration and measured RF.
+
 Examples:
 
 ```ini

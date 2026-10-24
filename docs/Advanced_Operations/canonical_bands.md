@@ -49,6 +49,8 @@ The WSPR USB dial is `D`; the RF center is `C = D + 1500 + r`, where `r` is opti
 | Tone 2 | 14,097,100.732421875 |
 | Tone 3 | 14,097,102.197265625 |
 
+Random placement is selected uniformly within ±80 Hz once per prepared WSPR plan. Both frames of a pair retain it; each independent plan receives a fresh draw, which may repeat the previous value. Disabled randomization selects zero. With dial `14,095,600 Hz` and placement `+37 Hz`, both frames have nominal RF center `14,097,137 Hz`. Calibration and measured RF remain separate.
+
 Test Tone uses one steady carrier rather than four WSPR tones. The web **WSPR band → 20m** selection and CLI `--test-tone 20m` each target `14,097,100 Hz`. Numeric `--test-tone 14095600` targets exactly `14,095,600 Hz`; numeric and unit-suffixed Test Tone inputs specify the carrier directly. Test Tone never adds random placement. These are requested synthesis targets; measure RF independently.
 
 ## Choose a WSPR frequency input

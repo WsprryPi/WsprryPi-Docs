@@ -112,7 +112,9 @@ WsprryPi does not infer a country. See [Canonical Bands and WSPR Frequency Prese
 
 ### Random offset
 
-Turning this switch on will add a positive or negative random offset to the transmitted frequency.  This can be handy when there is a lot of traffic on WSPR, and allow you to find a more clear slice of the available bandwidth.
+Enable **Random offset** to select a uniform placement within ±80 Hz once per prepared WSPR message plan. A two-frame plan keeps the same placement and nominal RF center for both frames. Each subsequent independent plan receives a fresh draw, which may equal the previous value. Turning the switch off selects zero placement. Test Tone does not use random placement.
+
+For a `14,095,600 Hz` USB dial and a `+37 Hz` placement, both frames use a nominal RF center of `14,097,137 Hz`. Placement is separate from calibration and measured RF output.
 
 ### Reported Power
 

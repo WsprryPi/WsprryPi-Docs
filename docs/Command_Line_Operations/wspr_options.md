@@ -38,11 +38,9 @@
   available. `require_paired` rejects a transmission if the supplied identity
   cannot be represented with the paired-message strategy.
 
-- `-o`, `--offset`  
-  Apply a small random frequency offset to reduce collisions.
+- `-o`, `--offset`<br />Select a uniform placement within ±80 Hz once per prepared WSPR plan. Both frames of a pair retain it. Each independent plan receives a fresh draw, which may repeat the previous value.
 
-- `--no-offset`  
-  Disable random offset.
+- `--no-offset`<br />Use zero random placement. Test Tone never uses random placement.
 
 ### WSPR Message Types
 
