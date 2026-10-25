@@ -448,12 +448,7 @@ configured Pico's full device ID, reachable IPv4/local hostname and its saved
 Wi-Fi passphrase. Setup Wi-Fi uses `192.168.4.1`; the Pi must already have
 network reachability. Selection does not move the Pi between networks.
 
-Login input clears after an attempt. Consumer traffic keys remain only in RAM,
-with five-minute idle and fifteen-minute absolute expiry. Reauthenticate after
-expiry and explicitly load saved state before another save. No persistent
-management password is added to INI, device profiles or browser storage.
-Consumer authentication uses a shared passphrase; it does not establish unique
-device identity. Protect the Pi browser session and use a trusted endpoint.
+Login input clears after an attempt. Consumer traffic keys remain only in RAM. With compatible Pi software and current Pico firmware, a login expires after **30 minutes without an authenticated Pico request** or **eight hours total**, even while actively used. Older Pico firmware retains five-minute idle and fifteen-minute absolute expiry. The Pi uses the policy reported by authenticated firmware; Pi software that does not recognize that policy refuses the connection and needs updating. Page visibility and field editing do not count as Pico requests. Reauthenticate after expiry and explicitly load saved state before another save. No persistent management password is added to INI, device profiles or browser storage. Consumer authentication uses a shared passphrase; it does not establish unique device identity. Protect the Pi browser session and use a trusted endpoint.
 
 Supported firmware permits three consumer sessions and one pending login;
 older firmware may allow only one. Capacity, pending-login and pacing refusals
