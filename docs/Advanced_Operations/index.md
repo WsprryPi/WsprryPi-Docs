@@ -4,6 +4,14 @@ Use this section when normal web UI operation is not enough and you need timing,
 
 Start with [Transmission Timing and Calibration](timing_calibration.md) when a transmission starts at the wrong time or RF frequency accuracy needs attention. For normal configuration and operation, use the [User Interface](../User_Interface/index.md).
 
+## Critical PHP2Shell security maintenance
+
+**I strongly recommend that every operator upgrade all of their WsprryPi devices promptly. Stable installations should move to v3.2.1, and every device must receive its distribution's PHP security updates. — Lee C. Bussy, maintainer**
+
+PHP2Shell includes two critical PHP vulnerabilities, [CVE-2026-109618](https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w) and [CVE-2026-109619](https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp), each rated CVSS v4.0 9.2/10. In susceptible configurations, an attacker who can reach the PHP web service can execute code without logging in, with the web worker's privileges.
+
+Use the [PHP2Shell audit and upgrade instructions](https://github.com/WsprryPi/WsprryPi/blob/v3.2.1/scripts/README.md#php2shell-configuration-audit-and-partial-mitigations) to review every device's PHP packages and web configuration. **Upgrading WsprryPi or applying partial configuration mitigations alone does not fix PHP2Shell.** Install the vendor PHP security updates, fully restart the serving PHP workers, and verify the actual serving PHP version and settings. Include private-LAN devices; development and Beta installations also need PHP updates without downgrading their WsprryPi application. See the [3.2.1 security release notes](https://github.com/WsprryPi/WsprryPi/releases/tag/v3.2.1).
+
 ```{toctree}
 :maxdepth: 1
 :hidden:
