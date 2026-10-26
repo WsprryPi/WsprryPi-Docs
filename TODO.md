@@ -1,97 +1,41 @@
-# TODO: Documentation Updates for Upcoming Release
+# Documentation TODO
 
-## High Priority
+Remaining work reconciled against WsprryPi `devel` at `5bc24e89` and operator documentation `devel` at `25455b4`. Completed topics are removed; partially covered topics are limited to the gaps below. The application [release punchlist](https://github.com/WsprryPi/WsprryPi/blob/devel/release_tools/Release%20Punchlist.md) owns release acceptance and qualification.
 
-### Core Transmission & Backend Changes
+## High priority
 
-- [ ] Document Raspberry Pi 5 support and GPIO limitations
-- [ ] Update backend selection (GPIO vs Si5351) behavior and constraints
-- [ ] Document GPIO resolver changes and multi-chip handling
-- [ ] Clarify transmission stop behavior improvements
-- [ ] Document CW/QRSS/FSKCW/DFCW execution and timing updates
-- [ ] Explain paired WSPR transmission contract and scheduler behavior
-- [ ] Add documentation for selector GPIO lifecycle and deterministic handling
+- [ ] **Align frequency references and paired WSPR behavior.** Reconcile [Operation](docs/User_Interface/Operations/index.md), [WSPR Setup](docs/User_Interface/Setup/Signal_Setup/wspr.md), [CW Setup](docs/User_Interface/Setup/Signal_Setup/cw.md), [canonical bands](docs/Advanced_Operations/canonical_bands.md), and the CLI references with the implemented dial-to-RF contract. Distinguish dial, RF center, tone 0, direct RF, FSKCW space/mark, and DFCW dot/dash; explain one random placement retained across both frames of a paired plan and RF-off QRSS/DFCW gaps. Sources: [frequency semantics](https://github.com/WsprryPi/WsprryPi/blob/devel/src/frequency_semantics.hpp) and [scheduler](https://github.com/WsprryPi/WsprryPi/blob/devel/src/scheduling.cpp).
 
-### Configuration & CLI
+- [ ] **Correct the Pi 5 Operation and development descriptions.** The [Operation guide](docs/User_Interface/Operations/index.md#initial-operations) still describes Pi 5 GPIO as unsupported and an automatic switch to Si5351; the [development guide](docs/Development/index.md#raspberry-pi-5-support) still suggests external hardware is required. Describe the installed RP1 provider, route eligibility, and actual unavailable-route workflow, and replace only screenshots made inaccurate by those corrections. Use the existing [RP1 operator guide](docs/Advanced_Operations/rp1_gpclk.md) and [backend selection implementation](https://github.com/WsprryPi/WsprryPi/blob/devel/src/WSPR-Transmitter/src/wspr_transmit.cpp).
 
-- [ ] Update canonical configuration schema (Operation vs Runtime, etc.)
-- [ ] Document new CLI options and planner preference behavior
-- [ ] Clarify frequency parsing and accepted formats
-- [ ] Document PPM limits and normalization behavior
-- [ ] Update CW defaults (shift, base frequency, timing gaps)
-- [ ] Document removal of deprecated/legacy config fields
-- [ ] Clarify Band GPIO explicit-only behavior
+- [ ] **Synchronize the complete INI example and extracted defaults.** Update [the included INI](docs/Advanced_Operations/ini_configuration/default_wsprrypi.ini) against the application's [canonical configuration](https://github.com/WsprryPi/WsprryPi/blob/devel/config/wsprrypi.ini). It currently omits `[WTP]`, `[WTP Server]`, and `GPIO.RP1 Drive mA`, lists `Previous` instead of canonical `Follow` for reboot behavior, and uses a different default CW message. Preserve useful explanatory annotations and check every page that includes this file.
 
-### Si5351 Backend
+- [ ] **Refresh CLI options and runnable examples.** Remove unsupported `--use-ntp` examples from [Quick Start](docs/Command_Line_Operations/quick_start.md); add `--cw-start-second` and the explicit QRSS/FSKCW/DFCW startup forms to [CW options](docs/Command_Line_Operations/cw_modes.md). Correct the Test Tone band-alias explanation in [service and test controls](docs/Command_Line_Operations/service_test_controls.md), and distinguish accepted frequency formats and scheduled versus transient options. Verify examples against the current [parser](https://github.com/WsprryPi/WsprryPi/blob/devel/src/arg_parser.cpp) and [help output source](https://github.com/WsprryPi/WsprryPi/blob/devel/src/arg_parser_reporting.cpp).
 
-- [x] Document Si5351 configuration (I2C, reference, outputs) — item 12 reconciles bounded inventory, saved-state, drive and readiness in Setup, CLI and INI references.
-- [ ] Explain backend-specific behavior differences vs GPIO
-- [ ] Document unused output parking behavior
-- [x] Clarify test-tone and direct CLI transmit behavior — item 12 documents acceptance, activity, cleanup/restoration and prior direct-tone restoration.
+- [ ] **Reconcile calibration help and value normalization.** Replace the old NTP-calibration descriptions in [WSPR Setup](docs/User_Interface/Setup/Signal_Setup/wspr.md) and [CW Setup](docs/User_Interface/Setup/Signal_Setup/cw.md) with the existing [calibration model](docs/Advanced_Operations/timing_calibration.md): system-clock estimate, conducted residual, fixed/manual fallback, intrinsic correction, and independent Si5351 correction. Explain finite-value and `-200..200` limits, GPIO rejection versus Si5351 clamping, and unusably small saved GPIO manual values using the actual [configuration parser](https://github.com/WsprryPi/WsprryPi/blob/devel/src/config_handler_deserialization.cpp) and [persistence handling](https://github.com/WsprryPi/WsprryPi/blob/devel/src/config_handler.cpp).
 
----
+- [ ] **Document GPIO line resolution and multi-chip failures.** Extend [Pi I/O](docs/User_Interface/Setup/Pi_IO/index.md) and [configuration troubleshooting](docs/Advanced_Operations/configuration_troubleshooting.md) with BCM numbering versus chip/line offsets, kernel-name lookup, equivalent views of one backing device, and refusal of genuinely ambiguous mappings. Explain how to interpret the reported chip path, offset, label, and mapping method without assuming a fixed `gpiochip0`. Source: [GPIO resolver](https://github.com/WsprryPi/WsprryPi/blob/devel/src/gpio_line_resolver.cpp).
 
-## Medium Priority
+- [ ] **Document selector GPIO lifecycle.** Existing [Band GPIO settings](docs/Advanced_Operations/ini_configuration/cw_and_band_gpio.md#band-gpio) cover explicit enablement, RF-pin conflicts, and shared polarity. Add when selectors are prepared, asserted, deasserted, and released during rotation, skipped/unconfigured bands, cancellation, and shutdown. Keep software cleanup status distinct from physical RF state. Sources: [selector implementation](https://github.com/WsprryPi/WsprryPi/blob/devel/src/band_gpio_selector.cpp) and [shutdown cleanup tests](https://github.com/WsprryPi/WsprryPi/blob/devel/src/tests/selector_shutdown_cleanup_test.cpp).
 
-### UI / Web Interface
+## Medium priority
 
-- [ ] Document new Operation landing page and navigation changes
-- [ ] Update Setup vs Operation separation
-- [x] Document autosave behavior and validation flow — item 12 separates host autosave, Fleet saves and member Load/Validate/scoped saves.
-- [ ] Explain offline/online handling and retry logic
-- [ ] Document new runtime state model and status indicators
-- [ ] Update logs, spots, and maintenance UI behavior
-- [ ] Document websocket-based control flow (Stop, status updates)
+- [ ] **Complete the spots operator and API contract.** Expand [Spots](docs/User_Interface/Spots/index.md) and [REST API](docs/Advanced_Operations/rest_api.md) beyond the existing source-selector overview. Cover required callsign/UTC-range inputs, optional receiver filtering, validation errors, `auto` versus explicit-source behavior, default 120-second TTL clamped to 30–900 seconds, normalized `data` rows and units, source/fallback metadata, rate limits, and upstream failures. Explicit source requests do not automatically fail over. Source: [fetch_spots.php](https://github.com/WsprryPi/WsprryPi/blob/devel/WsprryPi-UI/data/fetch_spots.php).
 
-### API / Backend Services
+- [ ] **Reconcile ordinary transmission state, Stop, and reconnect behavior.** Update [Operation](docs/User_Interface/Operations/index.md), the [UI overview](docs/User_Interface/index.md), and [WebSocket reference](docs/Advanced_Operations/websocket.md) for current status fields, Stop acknowledgement/persistence, per-frame versus overall paired-plan progress, and reconnect/retry behavior. The cancellation example currently says `cancelled`, while the scheduler emits `canceled`; explicit Stop also has its own result and `stopped` event. Preserve the already documented Test Tone uncertainty and recovery distinctions. Sources: [WebSocket commands](https://github.com/WsprryPi/WsprryPi/blob/devel/src/web_socket_commands.cpp), [runtime events](https://github.com/WsprryPi/WsprryPi/blob/devel/src/scheduling_runtime.cpp), [Stop implementation](https://github.com/WsprryPi/WsprryPi/blob/devel/src/scheduling_test_tone.cpp), and [browser connection handling](https://github.com/WsprryPi/WsprryPi/blob/devel/WsprryPi-UI/data/site.js).
 
-- [ ] Document fetch_spots API changes and validation requirements
-- [ ] Explain caching behavior and TTL handling
-- [ ] Document fallback behavior for wspr.live sources
-- [ ] Clarify normalized JSON response format
+- [ ] **Describe the current log-viewer controls and recovery.** The [Logs guide](docs/User_Interface/Logs/index.md) explains journald access and retention but omits Clear, Start/Refresh stream, connection/retry status, pausing auto-follow by scrolling, jumping back to the tail, and buffered entries while the tab is hidden. Document those operator actions and distinguish clearing the browser view from deleting journal records. Source: [log viewer](https://github.com/WsprryPi/WsprryPi/blob/devel/WsprryPi-UI/data/view_logs.js).
 
-### Logging & Diagnostics
+## Lower priority
 
-- [ ] Document logging changes and debug configuration
-- [ ] Explain improved error messaging and diagnostics
-- [ ] Document new debug and runtime observability improvements
+- [ ] **Refresh the developer build, architecture, and regression guide.** The [development guide](docs/Development/index.md) still presents target-only compilation and GCC 14 as the build model and gives an undifferentiated `make semantics-test` instruction. Reconcile it with the current [Makefile profiles](https://github.com/WsprryPi/WsprryPi/blob/devel/src/Makefile), [hardware-free simulated backend](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/simulated-backend.md), and [Debian CI workflow](https://github.com/WsprryPi/WsprryPi/blob/devel/.github/workflows/debian-non-hardware.yml). Document full versus portable coverage, hardware inhibition, focused regression commands, and the current WTP integration/endpoint modules while retaining the accurate component ownership map.
 
----
+- [ ] **Add practical accessibility instructions.** Extend the [UI overview](docs/User_Interface/index.md) with keyboard navigation, Skip to main content, visible focus, announced status/error changes, and text cues alongside color. General responsive layout and light/dark presentation are already described; the remaining work is the operator-facing accessibility workflow. Sources: [page shell](https://github.com/WsprryPi/WsprryPi/blob/devel/WsprryPi-UI/data/page_shell_start.php) and [UI accessibility conventions](https://github.com/WsprryPi/WsprryPi/blob/devel/WsprryPi-UI/DESIGN.md).
 
-## Lower Priority
+## Optional additions
 
-### UI Polish & Accessibility
+- [ ] **Add a scheduler/execution sequence diagram.** The existing [Internals diagram](docs/Internals/index.md) maps the executable, service, configuration, web UI, and journal. Add a separate sequence showing validation, planning, backend preparation, execution, status, cancellation, and cleanup, including local versus WTP ownership. Sources: [scheduler](https://github.com/WsprryPi/WsprryPi/blob/devel/src/scheduling.cpp) and [runtime](https://github.com/WsprryPi/WsprryPi/blob/devel/src/scheduling_runtime.cpp).
 
-- [ ] Document accessibility improvements (ARIA, semantics)
-- [ ] Update theming and layout behavior documentation
-- [ ] Document responsive behavior changes
+- [ ] **Add minimal everyday GPIO and Si5351 setup examples.** The [complete INI example](docs/Advanced_Operations/ini_configuration/complete_example.md) selects GPIO, and the [backend guide](docs/Command_Line_Operations/transmitter_backends.md) includes experimental-policy demonstrations. Add short, clearly separated normal setup examples for each backend with transmission disabled, the appropriate calibration fields, and matching current CLI syntax; link the existing qualification and electrical guidance.
 
-### Testing & Validation
-
-- [ ] Update documentation for new regression tests
-- [ ] Document expected behavior for edge cases (reloads, stop, planner errors)
-
-### Miscellaneous
-
-- [ ] Update installer behavior (Pi 5, reboot logic, I2C handling)
-- [ ] Document minor behavior changes and cleanup items
-- [ ] Update codebase map and developer documentation
-
----
-
-## Cleanup / Verification
-
-- [ ] Remove references to deprecated features in docs
-- [ ] Ensure consistency between CLI, UI, and backend documentation
-- [ ] Verify examples match current behavior
-- [ ] Update README and quick-start guides
-- [ ] Add release notes summary section
-
----
-
-## Optional Enhancements
-
-- [ ] Add diagrams for scheduler and execution flow
-- [ ] Add examples for common configurations (GPIO vs Si5351)
-- [ ] Provide troubleshooting section for common failures
-- [ ] Add migration guide from previous versions
+- [ ] **Consolidate a pre-4.0 upgrade and rollback checklist.** Collect the existing [Beta installation guidance](docs/Install/beta1.md), [calibration migration](docs/Advanced_Operations/timing_calibration.md), [RP1 migration limits](docs/Advanced_Operations/rp1_gpclk.md), and [release upgrade notes](https://github.com/WsprryPi/WsprryPi/blob/devel/release_tools/4.0-Beta-1-Release-Notes.md#before-upgrading) into one operator checklist. Link the maintained procedures for backups, retired options, calibration, listener defaults, recovery material, and rollback limits rather than duplicating them.
