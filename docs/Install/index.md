@@ -181,20 +181,23 @@ to take effect:
 Press any key to continue.
 ```
 
-The installation will finish with:
+The [current Beta installer](beta1.md) finishes with a summary like this:
 
 ```text
-Installation successful: WsprryPi.
+Installation successful: Wsprry Pi.
+Wsprry Pi version: 4.0.0-beta.1+1e047a4
 
-To configure WsprryPi, open the following URL in your browser:
+To configure Wsprry Pi, open the following URL in your browser:
 
- http://wspr3.local/wsprrypi/
- http://10.0.0.52/wsprrypi/
+  http://wspr3.local/wsprrypi/
+  http://10.0.0.52/wsprrypi/
 
 If the hostname URL does not work, try using the IP address.
 Ensure your device is on the same network and that mDNS is
 supported by your system.
 ```
+
+The version and web addresses vary with your installation. For a precompiled installation, the final version is the executable's validated version; the initial notice says validation is pending.
 
 If the script prompts you to reboot, do that now.  At this point (and if you rebooted if prompted), WsprryPi is installed and running.
 
