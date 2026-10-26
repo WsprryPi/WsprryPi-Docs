@@ -112,6 +112,8 @@ The [current Beta/devel installer](beta1.md) keeps an existing USB-enabled picot
 
 Picotool is never compiled on the Pi, including when you request a WsprryPi application source build. A missing or invalid picotool download stops installation without a compilation fallback. No separate picotool setup is needed with the current Beta installation command. The web firmware page uses the installed tool; it does not install picotool on demand.
 
+The current Beta installs the local Pico maintenance adapter without downloading its shared installer from WsprryPico. The first image check or full erase obtains a compatible verified installer when needed. Pending Pico CI does not block WsprryPi installation. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for maintenance and recovery.
+
 ### Upgrading a customized web interface
 
 Every installed web interface includes an immutable manifest describing the UI files supplied by that installation. Before replacing the web interface, the installer classifies the existing files:
@@ -143,7 +145,7 @@ The [current beta installer](beta1.md) downloads the newest published executable
 
 With a compatible release executable, installation skips application compilation, its build dependencies, its swap preparation and its compilation-time and parallelism estimates. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and build-resource checks.
 
-If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download or validation stops installation instead of triggering a source build. To request compilation explicitly, use `--binary-source build` with the [beta source-build command](beta1.md#build-from-source).
+If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download or validation stops installation instead of triggering a source build.
 
 Source builds can take longer on older or low-memory Pis. When compilation is needed, the installer reports available resources and planned parallelism before starting its progress steps.
 

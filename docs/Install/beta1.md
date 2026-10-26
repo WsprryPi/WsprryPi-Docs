@@ -30,17 +30,7 @@ The current Beta installer supplies Python, libusb and USB-enabled picotool for 
 
 No separate picotool installation is needed. Picotool is never compiled on the Pi, and a missing or invalid download stops installation without switching to a source build. The web firmware page uses the installed tool; it does not install picotool on demand.
 
-## Build from source
-
-To explicitly request application compilation instead of automatic release selection, use:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh |
-  sudo REPO_BRANCH=devel bash -s -- \
-    --binary-source build
-```
-
-Source builds can take longer on older or low-memory Pis. The installer reports the build resources and planned parallelism before starting its progress steps. This option compiles the WsprryPi application; picotool still uses the prebuilt packages described above.
+The shared Pico firmware-maintenance installer is downloaded from WsprryPico when first needed by **Download and check image** or a full erase. It uses the latest compatible installer with successful verification, even when a newer Pico commit is still awaiting CI. WsprryPi installation, startup and ordinary status reads do not require this download. If no verified compatible tool is available, only the requested Pico maintenance operation stops; retry that operation later. Existing verified tools and recovery records are retained.
 
 ## Explicit release downloads
 

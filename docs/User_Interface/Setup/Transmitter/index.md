@@ -284,11 +284,7 @@ Use this workflow for a selected USB Pico already running WsprryPico. Updates
 retain its saved settings. Keep the Pico connected to the Pi throughout
 programming and verification.
 
-Initial USB maintenance needs Internet access to obtain a compatible, verified
-maintenance tool as well as the selected firmware. Its source is checked against
-a successful upstream verification build. A retained verified tool supports
-offline recovery; an unavailable update does not silently change your firmware
-branch. Firmware selection remains the separate choice described below.
+On first use, **Download and check image** obtains a compatible verified maintenance tool from WsprryPico as well as the selected firmware. Starting a full erase also obtains the tool when needed. A newer Pico commit awaiting verification does not prevent using an earlier compatible verified tool. WsprryPi installation, startup and status reads do not require this download. Later maintenance retains the cached verified tool if an update check fails, and interrupted firmware work uses its exact retained tool for offline recovery. If no compatible verified tool can be obtained on first use, the requested maintenance operation stops and can be retried later. Firmware branch selection remains the separate choice described below.
 
 1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
    select the intended Pico. Open **Pico firmware over USB** in Fleet.
