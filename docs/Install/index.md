@@ -143,7 +143,7 @@ This option leaves the existing UI in place instead of creating a replacement ba
 
 The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover stable (Trixie) and oldstable (Bookworm) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
 
-With a compatible release executable, installation skips application compilation, its build dependencies, its swap preparation and its compilation-time and parallelism estimates. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and build-resource checks.
+With a compatible release executable, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies on Pi 5-family systems when the RP1 GPIO driver is selected. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and matching kernel headers.
 
 If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download or validation stops installation instead of triggering a source build.
 

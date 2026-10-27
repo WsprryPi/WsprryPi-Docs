@@ -16,7 +16,7 @@ Precompiled WsprryPi binaries are available again for Raspberry Pi OS, formerly 
 
 The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published SHA-256 checksum when available. Beta 1 supplies these checksums. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
 
-When a compatible release executable is available, installation skips application compilation, its build dependencies, its swap preparation and its compilation-time and parallelism estimates. On Pi 5-family systems, the installer also supplies the RP1 GPIO driver and matching kernel headers; driver preparation can still require compilation and separate build-resource checks.
+When a compatible release executable is available, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies on Pi 5-family systems when the RP1 GPIO driver is selected. The installer still supplies the RP1 GPIO driver and matching kernel headers; driver preparation can still require compilation tools.
 
 If no compatible published executable exists for the selected branch and platform, the installer builds the application from source. A release lookup, download or validation failure stops installation; it does not silently switch to compilation. Correct the reported problem before retrying.
 
