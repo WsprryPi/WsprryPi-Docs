@@ -113,4 +113,4 @@ in the Pico manual. After a rename, update the
 
 ## USB diagnostic logs
 
-After saving a USB Pico in Fleet, enable its log export under **USB logging on this Pico**, then enable that source's collection on **Logs**. See [Collect a Pico's USB logs](../User_Interface/Logs/index.md#collect-a-picos-usb-logs). This diagnostic path works without Pico Wi-Fi. Turn collection off before using Console in another terminal; firmware maintenance releases it automatically while the update is in progress.
+After saving a USB Pico in Fleet, enable its log export under **USB logging on this Pico**, then enable that source's collection on **Logs**. See [Collect a Pico's USB logs](../User_Interface/Logs/index.md#collect-a-picos-usb-logs). This diagnostic path works without Pico Wi-Fi. Logging uses its own USB serial port, so Console remains available in another terminal while collection runs. Firmware maintenance releases Logging automatically during the update. Older firmware without the dedicated Logging port must be updated before collection can start.

@@ -16,15 +16,16 @@ Open **Log options** to filter severity, **Pause view** or **Export visible logs
 2. Open **Logs**, choose that Pico in **Source**, open **Log options** and enable **Collect this Pico's USB logs**. Firmware export belongs to the Pico; collection belongs to this Pi. Both must be enabled to receive records.
 3. Use **Refresh sources** to read the saved collection policy and current status after an uncertain save. Read and review the saved state before sending another change.
 
-Collection continues when a browser closes or its view is paused. The Pi supports up to eight collected USB Picos. Default collection and Pico export are disabled. The collector uses the Console interface; USB WTP jobs and management retain their separate interfaces. Logging never enables schedules or grants transmitter ownership.
+Collection continues when a browser closes or its view is paused. The Pi supports up to eight collected USB Picos. Default collection and Pico export are disabled. One USB cable provides four virtual serial ports: Console for interactive commands, WTP for jobs, Management for settings/time and Logging for diagnostic collection. The collector uses Logging; Console remains available in another terminal. Logging never enables schedules or grants transmitter ownership.
 
-Turn collection off before opening that Pico's Console in another terminal or browser tool. Close the other tool before turning collection on again. Firmware maintenance releases Console and reacquires it after the matching device reconnects. A changed device identity is not enrolled automatically. A saved policy remains selectable so it can be disabled after removing its Fleet profile.
+Console and collection can run at the same time. Firmware maintenance releases Logging and reacquires it after the matching device reconnects. Reboots, updates and physical USB disconnects affect all four ports. A changed device identity is not enrolled automatically. A saved policy remains selectable so it can be disabled after removing its Fleet profile.
 
 ## Missing or interrupted logs
 
 - **Firmware logging disabled:** read the Pico's settings and enable export. Enable collection on this Pi separately.
-- **Console busy or disconnected:** release Console in the other tool, check the data cable and refresh the source list. The collector retries the same saved device; tty ordering does not select another Pico.
+- **Logging port busy or disconnected:** release Logging in the other tool, check the data cable and refresh the source list. The collector retries the same saved device; tty ordering does not select another Pico.
 - **Maintenance:** finish or recover the firmware update before expecting new records. Losing USB does not prove that an accepted radio job stopped.
+- **Dedicated Logging port unavailable:** update the selected Pico. Earlier firmware retains Console, WTP and Management support, but the collector does not fall back to Console.
 - **Unsupported or unresponsive firmware:** update the selected Pico, verify its identity and read its logging settings again.
 - **Dropped or rejected records:** reduce the exported severity range and inspect the source status. Pico logging has bounded queues and rate limits; it is a diagnostic feed, not a lossless event archive.
 - **No matching records:** choose All sources or a broader severity filter, then verify export and collection status. An empty view does not mean that the transmitter is inactive.
