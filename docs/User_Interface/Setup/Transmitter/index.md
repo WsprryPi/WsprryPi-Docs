@@ -601,3 +601,9 @@ claim ownership or transmit. A conflict, changed selection/context, timeout or
 lost reply blocks further saves until explicit readback and review. Keep drafts,
 compare fresh saved/active observations, validate hardware again and deliberately
 save only after resolving the uncertainty. Do not automatically repeat a write.
+
+### USB diagnostic logging
+
+For a selected USB Pico, **USB logging on this Pico** reads saved export settings and current Console status. Enable export, choose the maximum severity and save. Read back after an uncertain save before another change. Configure the Pi's collection separately on [Logs](../../Logs/index.md#collect-a-picos-usb-logs). Collection does not select an output, start a job or change schedule ownership.
+
+Turn collection off on Logs before opening Console in another tool. Firmware maintenance temporarily releases Console. USB management and WTP use their own interfaces.

@@ -110,3 +110,7 @@ first. For Pico browser setup, hostname changes, resets and private backup
 handling, use [Maintain and recover](https://wsprrypico.readthedocs.io/en/devel/maintain.html)
 in the Pico manual. After a rename, update the
 [Pi connection profile and schedule destinations](../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).
+
+## USB diagnostic logs
+
+After saving a USB Pico in Fleet, enable its log export under **USB logging on this Pico**, then enable that source's collection on **Logs**. See [Collect a Pico's USB logs](../User_Interface/Logs/index.md#collect-a-picos-usb-logs). This diagnostic path works without Pico Wi-Fi. Turn collection off before using Console in another terminal; firmware maintenance releases it automatically while the update is in progress.
