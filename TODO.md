@@ -52,6 +52,8 @@
 
 ### Logging & Diagnostics
 
+- [ ] Document UDP sender, attached-Pico forwarding, Pi collector, both management UIs, origin/relay provenance, source filters, plaintext trust, local-send semantics, service/installer lifecycle and retention after implementation passes the [canonical coordinated acceptance plan](https://github.com/WsprryPi/WsprryPico/blob/devel/engineering/development/udp-syslog-proposal.md). Proposal reviewed; feature implementation and runtime acceptance pending. Refresh this documentation branch against the intended current operator-docs baseline before writing instructions or screenshots; do not present UDP as available.
+
 - [ ] Document logging changes and debug configuration
 - [ ] Explain improved error messaging and diagnostics
 - [ ] Document new debug and runtime observability improvements
