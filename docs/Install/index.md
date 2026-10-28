@@ -235,3 +235,7 @@ after installation. A route change
 is complete only after WsprryPi confirms the same requested, persisted,
 configured, and active route after startup. You may instead use Si5351 without
 selecting an RP1 route.
+
+## Optional network diagnostic logging
+
+The installer packages the separate unprivileged UDP logging worker with the application and UI. New installations leave export and listening disabled. Enabling it requires working journald access and enforceable memory/PID cgroup controllers. Read the local installation state in **Logs → Logging on this Pi** before configuring it. The [Logs guide](../User_Interface/Logs/index.md#receive-udp-logs-on-this-pi) covers explicit bind/peer setup, plaintext trust, forwarding, service removal, retained policies and journal storage pressure.

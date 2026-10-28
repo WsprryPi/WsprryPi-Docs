@@ -114,3 +114,9 @@ first. For Pico browser setup, hostname changes, resets and private backup
 handling, use [Maintain and recover](https://wsprrypico.readthedocs.io/en/devel/maintain.html)
 in the Pico manual. After a rename, update the
 [Pi connection profile and schedule destinations](../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).
+
+## UDP diagnostic logging
+
+A Pico can send diagnostic events directly over station Wi-Fi, or its attached Pi can forward already collected USB logs. These controls are independent of Fleet radio ownership and schedules. Use **UDP logging on this Pico** for the selected member's sender and **Logs → Logging on this Pi** for the local Pi's sender, USB forwarding and network collector. Verify the displayed device/boot and management carrier before saving. See [Logs](../User_Interface/Logs/index.md#receive-udp-logs-on-this-pi) for the collector and forwarding procedure and the [Pico UDP guide](https://wsprrypico.readthedocs.io/en/devel/udp.html) for direct export.
+
+UDP settings use independent saved state and remain disabled initially. Ordinary firmware updates preserve them. Retain the exact installer bundle for later updates from another computer. Disable export and read it back before rollback; the shared installer refuses an older image that reaches the UDP settings reservation. Do not erase a board to bypass that refusal. USB control and USB logging keep their separate settings and interfaces.
