@@ -7,7 +7,7 @@ The log page auto-refreshes as your WsprryPi server generates logs. It accesses 
 
 Choose **Source** beside **Clear** and **Refresh stream** to show **All sources**, **Local Pi** or one Pico. Attached Picos appear before collection is enabled. Each Pico is identified by its saved name or USB serial and stable device ID. Selecting a source only filters the journal; save a USB device in Fleet before enabling its collection. The example above uses sample records to show these labels.
 
-Pico records keep their own hostname, boot and event sequence. When the Pico has UTC, the displayed timestamp is its event time. Otherwise, **received** marks the Pi's receipt time. A host receipt time does not establish the Pico's clock accuracy.
+The source selector and Pico log prefixes use the saved Fleet name when available, with the reported hostname as a fallback. Displayed names omit a terminal `.local`; log prefixes retain the bracketed short device ID. Refresh sources to read a renamed Fleet profile. Journal records and exports keep the full reported hostname, boot and event sequence. When the Pico has UTC, the displayed timestamp is its event time. Otherwise, **received** marks the Pi's receipt time. A host receipt time does not establish the Pico's clock accuracy.
 
 Open **Log options** to filter severity, **Pause view** or **Export visible logs**. Pause stops this browser's live view; **Resume view** continues from its journal cursor. Export saves the normalized records retained by this view as a JSON-lines file, including origin metadata. Clear removes the displayed records without deleting the system journal. Source and severity selections have separate resume cursors.
 
