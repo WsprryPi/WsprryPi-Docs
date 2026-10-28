@@ -47,6 +47,14 @@ Plain LAN WTP accepts reachable clients; the Pico browser's Wi-Fi password
 does not protect that port. Use a trusted LAN. The browser HTTP address and
 WTP TCP port are different services.
 
+## Pico browser controls
+
+The Pico's own browser page has **Station Control** and **Wi-Fi/Host** links in its header. Selecting a view returns to the page top and preserves the current tab's drafts. Station Control starts with transmitter status, then station identity, **WSPR Configuration**, **Radio pins** and **CW Modes**. Saved-settings recovery and diagnostics are at its bottom. Wi-Fi/Host contains network, password, hostname and **Logging** controls.
+
+Status, accepted job/message details, schedules, frequencies and redacted saved settings load without a Pico browser login. Locked fields are dimmed and cannot be edited; passwords, keys and certificates are excluded. Use the hostname lock to authorize changes or job controls. **Save WSPR configuration** and **Apply WSPR configuration** affect WSPR schedule settings only. **Save radio pins** is independent, preserves WSPR drafts and needs an explicit **Reset Pico** in Station Control's transmitter status to activate changed pins. Keep output inactive and confirm the physical wiring before a pin change.
+
+These Pico controls are separate from WsprryPi's selected-member Fleet controls and the Pi's own schedules. For the complete workflow, use the [Pico configuration manual](https://wsprrypico.readthedocs.io/en/devel/configure.html). USB and UDP logging are under **Wi-Fi/Host → Logging**; see [Pico logging](../User_Interface/Logs/index.md#collect-a-picos-usb-logs). Reading a setting or selecting a log source does not take transmitter control.
+
 ## Identify the Pico in Fleet
 
 1. Keep Pi transmission disabled. Open **Setup → Fleet** and select the

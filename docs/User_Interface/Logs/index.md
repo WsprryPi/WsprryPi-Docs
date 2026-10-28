@@ -13,6 +13,8 @@ Open **Log options** to filter severity, **Pause view** or **Export visible logs
 
 ## Collect a Pico's USB logs
 
+In the Pico's own browser, USB and UDP export settings are under **Wi-Fi/Host → Logging**. Saved values are visible while locked; use the hostname lock to authorize a change. The following Fleet controls configure the selected member from WsprryPi.
+
 1. Save the USB Pico in **Setup → Fleet**. Select its USB management connection, open **USB logging on this Pico**, and choose **Read logging settings**. Enable export, choose its maximum severity and **Save Pico logging**. Saved and active states are shown separately. Older firmware requires an update before these controls are available.
 2. Open **Logs**, choose that Pico in **Source**, open **Log options** and enable **Collect this Pico's USB logs**. Firmware export belongs to the Pico; collection belongs to this Pi. Both must be enabled to receive records.
 3. Use **Refresh sources** to read the saved collection policy and current status after an uncertain save. Read and review the saved state before sending another change.
