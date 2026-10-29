@@ -583,8 +583,7 @@ station.
 ### Saved and active member hardware
 
 Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
-I2C pairs are inspection-only. I2C RF, amplifier, LPF, drive, calibration and
-waveform controls are unavailable in this editor. Missing resource support
+I2C pairs are inspection-only. I2C RF, calibration and waveform controls are unavailable in this editor. Supporting firmware offers independent GPIO drive, amplifier timing and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity are set on the Pico’s Radio pins page. Missing resource support
 leaves the compatible standalone editor available; malformed or unsupported
 advertised resources are refused without silently substituting another save.
 
