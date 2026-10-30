@@ -1,15 +1,31 @@
 (log-card)=
 # Logs
 
-![WsprryPi Logs showing a received native Pi UDP test event](logs.png)
+![Logs with Clear, Refresh stream, Pause view, Log options and Logging on this Pi in the toolbar](logs.png)
 
-The log page auto-refreshes as your WsprryPi server generates logs. It accesses them from the Debian systemd-journald system.
+The Logs page reads the Pi's systemd journal and streams new records while the browser view is running.
 
-Choose **Source** beside **Clear** and **Refresh stream** to show **All sources**, **Local Pi**, an attached Pico or a network origin observed through a configured peer. Attached Picos appear before collection is enabled. Each Pico is identified by its saved name or USB serial and stable device ID. Selecting a source only filters the journal; save a USB device in Fleet before enabling its collection. The example above shows a received native Pi UDP test event.
+Choose **Source** to show **All sources**, **Local Pi**, an attached Pico or a network origin observed through a configured peer. Attached Picos appear before collection is enabled. Each Pico is identified by its saved name or USB serial and stable device ID. Selecting a source only filters the journal; save a USB device in Fleet before enabling its collection.
 
 The source selector and Pico log prefixes use the saved Fleet name when available, with the reported hostname as a fallback. Displayed names omit a terminal `.local`; log prefixes retain the bracketed short device ID. Refresh sources to read a renamed Fleet profile. Journal records and exports keep the full reported hostname, boot and event sequence. When the Pico has UTC, the displayed timestamp is its event time. Otherwise, **received** marks the Pi's receipt time. A host receipt time does not establish the Pico's clock accuracy.
 
-Open **Log options** to filter severity, **Pause view** or **Export visible logs**. Pause stops this browser's live view; **Resume view** continues from its journal cursor. Export saves the normalized records retained by this view as a JSON-lines file, including origin metadata. Clear removes the displayed records without deleting the system journal. Source and severity selections have separate resume cursors.
+## View controls
+
+The toolbar keeps the viewing actions available above the records:
+
+- **Clear** removes displayed records without deleting the system journal.
+- **Refresh stream** reconnects the current view. When disconnected, this button reads **Start stream**; **Connecting…** indicates a connection attempt in progress.
+- **Pause view** stops this browser's live view while collection continues. **Resume view** continues from the retained view's journal cursor.
+- **Log options** opens a dialog with severity filtering, **Refresh sources**, **Export visible logs** and the selected Pico's collection control. Collection feedback appears beside these controls.
+- **Logging on this Pi** opens a dialog for this Pi's UDP export, USB forwarding and network collection settings.
+
+The stream status, such as **Connected**, uses the same shape and text styling as the toolbar buttons. It reports the browser's viewing connection and is not an action button. A connected stream does not establish collector or sender health.
+
+![Log options dialog with severity, source refresh, export and Pico collection controls](log-options.png)
+
+Close either dialog with **Close**, the close icon or **Escape**. Closing **Logging on this Pi** keeps an unsaved draft available while the page remains open; choose **Save logging on this Pi** to apply it.
+
+**Export visible logs** saves the records retained by this view as a JSON-lines file, including origin metadata. Source or severity changes load recent matching history unless the view is paused. Reconnect and resume continue the retained view; reopening the page loads recent history. Clear preserves the current continuation point.
 
 ## Collect a Pico's USB logs
 
@@ -36,12 +52,14 @@ Console remains available while logs are collected. Firmware maintenance release
 
 Any Pi can collect logs independently of its Fleet controller/member role. Export and listening are disabled initially. UDP uses plaintext without authentication. Use a deliberately configured managed network; a successful send does not confirm receipt. An IPv4 peer list restricts admission but does not authenticate the sender.
 
-![Logging on this Pi with independent export and receive controls](udp-controls.png)
+The dialog scrolls within the window. Its lower section contains the listen address, interface, port, allowed senders and saved status.
 
-1. Open **Logging on this Pi** and choose **Read UDP logging settings**. Verify the displayed local collector ID before editing.
-2. Under **Receive network logs on this Pi**, enable network log collection. Enter this Pi's current IPv4 address, its interface name, and port **5514**. The listener binds that address and interface; it does not listen on every interface.
+![Logging on this Pi dialog scrolled to network collection settings and saved status](udp-controls.png)
+
+1. Open **Logging on this Pi** from the toolbar. Saved and active settings load automatically when the Logs page opens. Wait for loading to finish and verify the displayed local collector ID before editing. If loading fails, the fields stay disabled; choose **Retry loading settings** to try again.
+2. Scroll to **Receive network logs on this Pi** and select **Enable network log collection**. Enter this Pi's current IPv4 address, its interface name, and port **5514**. The listener binds that address and interface; it does not listen on every interface.
 3. Enter allowed senders as one unique slot and IPv4 address per line, such as `member-1 192.168.1.21`. Up to 32 peers are supported. An empty list admits nothing.
-4. Choose **Save logging on this Pi**, then read settings again. **Ready** means the listener is locally bound. Check the journal submission counter and actual records separately; journald can still discard a submitted record under its own limits.
+4. Choose **Save logging on this Pi**. The dialog automatically reads back the saved and active states. **Ready** means the listener is locally bound. Check the journal submission counter and actual records separately; journald can still discard a submitted record under its own limits.
 
 Port **514** is also supported through an explicitly managed systemd socket. A conflicting port is refused before the old listener is stopped. Installation does not open a firewall or replace another logging daemon. Unsupported software, inactive service, invalid policy and bind failure remain visible near the controls.
 
@@ -49,9 +67,11 @@ The `wsprrypi-log` service runs as the dedicated unprivileged `wsprrylog` user, 
 
 ## Send or forward logs from this Pi
 
-1. Read **Logging on this Pi** and enable **UDP log export**. Enter one collector IPv4 address, port and explicit outgoing interface. Hostnames, IPv6, broadcast, multicast and this Pi's own addresses are refused.
+![Automatically loaded UDP export destination, port, severity and interface fields](udp-export-controls.png)
+
+1. Open **Logging on this Pi**, wait for its settings to load and select **Enable UDP log export**. Enter one collector IPv4 address, port and explicit outgoing interface. Hostnames, IPv6, broadcast, multicast and this Pi's own addresses are refused.
 2. Select **Include native Pi events** for approved application diagnostics. Select up to eight attached-Pico sources to forward their already collected USB records. Save each source in Fleet and enable its USB export and collection first; forwarding selection does not enable either of them.
-3. Choose severity, event filters and rate limits, then **Save logging on this Pi** and read back. Valid drafts remain available after an error. After a conflict or uncertain reply, read again, compare **Saved UDP logging settings** with the preserved draft and choose **Confirm review** before another save.
+3. Choose severity, event filters and rate limits, then **Save logging on this Pi** and check the automatic readback. Drafts remain available after an error. After a conflict or uncertain reply, choose **Retry loading settings**, compare **Saved UDP logging settings** with the preserved draft and choose **Confirm review** before another save.
 4. For native export, **Test saved UDP export** admits one fixed diagnostic event. Its successful response means local admission. Confirm receipt independently in the destination journal and Logs view. USB forwarding can be checked with a finite sequence of Pico startup or connection events.
 
 Each sender uses one destination. The Pi exports approved native application events and selected USB sources. UDP imports remain local to their collector and cannot be forwarded onward, so configuring collectors in a cycle does not create a log-forwarding loop. The service starts at the current journal tail and has no durable replay spool. Enabling export excludes events created while it was disabled. Restart or journal rotation creates a visible discontinuity rather than catching up old traffic.
@@ -68,7 +88,7 @@ Source, peer address, ingress, severity, stream version and verified collector i
 
 ## Stop or remove network logging
 
-Disable export and network collection independently, save, and read back before removing software. Confirm the logging service/socket is inactive and no unintended listening endpoint remains. The normal WsprryPi remover stops the managed worker and socket and preserves its separate `<ini>.udp-logs.json` policy for deliberate deletion. It does not replace the host logging stack or change journald retention. Keep the recovery firmware bundle before a Pico rollback; a firmware image using the older, larger application region is refused after the new storage layout rather than erasing settings automatically.
+Disable export and network collection independently, save, and check the displayed saved and active states before removing software. Confirm the logging service/socket is inactive and no unintended listening endpoint remains. The normal WsprryPi remover stops the managed worker and socket and preserves its separate `<ini>.udp-logs.json` policy for deliberate deletion. It does not replace the host logging stack or change journald retention. Keep the recovery firmware bundle before a Pico rollback; a firmware image using the older, larger application region is refused after the new storage layout rather than erasing settings automatically.
 
 ## Journal history and retention
 

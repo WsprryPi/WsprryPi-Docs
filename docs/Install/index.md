@@ -37,7 +37,7 @@ This section may be the most challenging part of the whole installation.  *You m
 
 ![Raspberry Pi Imager](Raspberry_Pi_Imager.png)
 
-WsprryPi 4.0 Beta supports Raspberry Pi OS, formerly Raspbian, on both stable (Trixie) and oldstable (Bookworm). Precompiled executables cover supported 32-bit ARMv6 and 64-bit AArch64 installations, including Pi 1 and Pi Zero systems.
+WsprryPi 4.0 Beta supports Raspberry Pi OS, formerly Raspbian, on both Trixie (currently Debian stable) and Bookworm (currently Debian oldstable). Precompiled executables cover supported 32-bit ARMv6 and 64-bit AArch64 installations, including Pi 1 and Pi Zero systems.
 
 Use the [current Beta installer](beta1.md) for automatic binary downloads. The stable-channel commands on this page continue to build the current stable application from source. OS support does not qualify every transmitter or band; see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification).
 
@@ -141,7 +141,7 @@ This option leaves the existing UI in place instead of creating a replacement ba
 
 ### Release binary or source build
 
-The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover stable (Trixie) and oldstable (Bookworm) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
+The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
 
 With a compatible release executable, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies on Pi 5-family systems when the RP1 GPIO driver is selected. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and matching kernel headers.
 

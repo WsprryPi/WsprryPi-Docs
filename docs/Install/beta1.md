@@ -12,7 +12,7 @@ WsprryPi 4.0 Beta 1 is published as [`v4.0.0-beta.1`](https://github.com/WsprryP
 
 ## Release binary or source build
 
-Precompiled WsprryPi binaries are available again for Raspberry Pi OS, formerly Raspbian, supporting stable (Trixie) and oldstable (Bookworm) on supported 32-bit ARMv6 and 64-bit AArch64 installations. Avoiding application compilation can save up to an hour on older hardware such as the Pi 1 and Pi Zero.
+Precompiled WsprryPi binaries are available again for Raspberry Pi OS, formerly Raspbian, supporting Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit ARMv6 and 64-bit AArch64 installations. Avoiding application compilation can save up to an hour on older hardware such as the Pi 1 and Pi Zero.
 
 The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published SHA-256 checksum when available. Beta 1 supplies these checksums. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
 
