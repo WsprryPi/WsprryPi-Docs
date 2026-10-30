@@ -571,7 +571,7 @@ With firmware advertising Type 2/3 support, the complete station selects:
 For supported callsign syntax, hash ambiguity, receiver context and paired-slot
 behavior, see [Automatic WSPR plan](https://wsprrypico.readthedocs.io/en/devel/operate.html#automatic-wspr-plan)
 in the Pico manual. A valid plan or save does not prove receiver identification
-or RF decoding. Older firmware may accept only Type 1 station writes;
+or RF decoding. The current settings controls require matching current Pi and Pico software;
 unsupported advertised formats are refused without switching carrier or save
 strategy.
 
@@ -583,7 +583,7 @@ station.
 ### Saved and active member hardware
 
 Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
-I2C pairs are inspection-only. I2C RF, calibration and waveform controls are unavailable in this editor. Supporting firmware offers independent GPIO drive, amplifier timing and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity are set on the Pico’s Radio pins page. Missing resource support
+I2C pairs are inspection-only. I2C RF, calibration and waveform controls are unavailable in this editor. Supporting firmware offers independent GPIO drive, amplifier timing and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity can be set in this member editor or on the Pico’s Radio pins page. Changes preserve timing and drive settings and require an explicit Pico restart. Missing resource support
 leaves the compatible standalone editor available; malformed or unsupported
 advertised resources are refused without silently substituting another save.
 

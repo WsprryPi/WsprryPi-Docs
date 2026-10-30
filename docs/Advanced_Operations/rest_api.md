@@ -221,44 +221,44 @@ This endpoint is used for:
 
 Pi/Pico Fleet controls use the resources below. Paths are shown as the
 backend receives them; browser requests prepend `/wsprrypi`, for example
-`/wsprrypi/api/v1/host/wtp-endpoint`. The existing peer, Host, Origin, and
+`/wsprrypi/api/control/v1/host/wtp-endpoint`. The existing peer, Host, Origin, and
 privileged-network guards apply. Browser writes use same-origin JSON intent
 headers. These are local host-management resources; WTP job control uses the
 separate TCP endpoint, default port `31417`.
 
-- `GET /api/v1/host/wtp-endpoint`
+- `GET /api/control/v1/host/wtp-endpoint`
 
   Listener, requested/effective local Enable, remote owner/job, output uncertainty, takeover generation, and launch observation.
 
-- `POST /api/v1/host/wtp-endpoint/enable`
+- `POST /api/control/v1/host/wtp-endpoint/enable`
 
   Confirm target-local takeover using the current configuration `If-Match` revision.
 
-- `POST /api/v1/host/wtp-endpoint/recover`
+- `POST /api/control/v1/host/wtp-endpoint/recover`
 
   Request local output reconciliation with `{"confirmed":true}`. Success requires confirmed inactive output.
 
-- `GET /api/v1/host/fleet`
+- `GET /api/control/v1/host/fleet`
 
   Read assignments, per-output runtime observations, and the assignment ETag.
 
-- `POST /api/v1/host/fleet`
+- `POST /api/control/v1/host/fleet`
 
   Change an assignment using its current `If-Match` revision. Operations: `assign`, `enable`, `pause`, `schedule`, `recover`, `remove`.
 
-- `GET /api/v1/host/discovery`
+- `GET /api/control/v1/host/discovery`
 
   Read nearby DNS-SD observations without claiming a device.
 
-- `GET/POST /api/v1/host/devices`
+- `GET/POST /api/control/v1/host/devices`
 
   Read or edit saved connection profiles; edits require the catalog `If-Match` revision.
 
-- `POST /api/v1/host/discovery/identify`
+- `POST /api/control/v1/host/discovery/identify`
 
   Perform explicit read-only identification of a selected candidate.
 
-- `POST /api/v1/host/devices/use`
+- `POST /api/control/v1/host/devices/use`
 
   Select a profile for the single `[WTP]` backend using the host config `If-Match` and body `catalog_revision`.
 
@@ -289,21 +289,26 @@ for persistence and request contracts.
 
 ## Selected Pico application, station and hardware
 
+The shared settings contract remains `Wsprry-Control/1` throughout prerelease
+development. Its contents may change before the first stable release; update
+Pi and Pico together. Version 1 does not promise compatibility with earlier
+beta snapshots. The first stable release locks that contract.
+
 These management resources belong to the selected member. They do not edit Pi
 host settings or prepared jobs, and are separate from standalone schedule saves.
 Use the normal Apache proxy:
 
 ```text
-GET  /wsprrypi/api/v1/member/application
-GET  /wsprrypi/api/v1/member/station
-GET  /wsprrypi/api/v1/member/hardware
-GET  /wsprrypi/api/v1/member/pins
-PUT  /wsprrypi/api/v1/member/station
-PUT  /wsprrypi/api/v1/member/hardware
-POST /wsprrypi/api/v1/member/pins/validate
+GET  /wsprrypi/api/control/v1/member/application
+GET  /wsprrypi/api/control/v1/member/station
+GET  /wsprrypi/api/control/v1/member/hardware
+GET  /wsprrypi/api/control/v1/member/pins
+PUT  /wsprrypi/api/control/v1/member/station
+PUT  /wsprrypi/api/control/v1/member/hardware
+POST /wsprrypi/api/control/v1/member/pins/validate
 ```
 
-Each GET returns the same reconciled `wsprrypi-member-resources/1` bundle:
+Each GET returns the same reconciled `member-resources` bundle:
 `target`, `carrier`, nullable `profile_generation`, `profile_owned_station`,
 complete `application`, advertised `pin_choices`, and opaque `member_context`.
 Application includes station, hardware, recurrence, capabilities and restart
@@ -312,21 +317,17 @@ checks the common saved revision. Live recurrence/active observations may change
 independently. Preserve decimal uint64 strings as strings. Hardware
 `active_revision` is an observation digest, never the save ETag.
 
-### Versioned Pico station formats
+### Current Pico station contract
 
-The Pi browser paths above remain stable. The native adapter requires the exact
-advertised `application_resources_v2` descriptor, together with its legacy
-foundation, before selecting `transmitter-application/2`,
-`transmitter-station/2` and `wspr_type123_auto`. It then uses Pico's exact
-`/api/v1/application/2`, `/api/v1/station/2`, `/api/v1/config/2` and
-`/api/v1/config/update/2` routes. Hardware remains `/api/v1/hardware`.
-Unknown or malformed descriptors are refused without retrying legacy routes.
-Old firmware keeps the frozen application/1, station/1 and `wspr_type1`
-contract. Selected unsupported new formats return
-`unsupported_station_encoding`, without identity substitution or mutation.
-Preserve the returned error code and endpoint-specific HTTP status.
+The Pi requires `Wsprry-Control/1` and validates the complete advertised
+resource, policy and carrier descriptors before any mutation. Pico resources
+use `/api/control/v1/application`, `/station`, `/hardware`, `/pins`, `/config`
+and `/config/update` beneath that same namespace. There are no historical
+application, station or hardware views and no downgrade negotiation.
+Unknown contracts, malformed descriptors and unsupported station formats
+are refused before writes.
 
-Application/2 includes `wspr_plan` (`wspr-plan/1`): supported state, frame types
+The current application includes `wspr_plan`: supported state, frame types
 and count, 120-second slot separation, rationale and ambiguity/alternate call.
 A null station has a null plan. Plans describe encodability, not clock quality,
 readiness, enablement, live output or transmission. See
@@ -334,11 +335,12 @@ readiness, enablement, live output or transmission. See
 for ordinary-six, compound, brackets, ambiguity and pair behavior.
 
 Use the loaded station schema unchanged in a complete scoped PUT. For example,
-a versioned station body uses `"schema": "transmitter-station/2"` with
+a current station body uses `"contract": "Wsprry-Control/1"` and
+`"schema": "station"` with
 `"station": {"callsign": "W1A/AA0NT", "locator": "EM18IG", "power_dbm": 0}`
 and the exact loaded target. Zero is a valid reported-power value, not a request
 to disable RF. Profile-owned station identity still requires transactional setup.
-Config v1 content and config-update/1 omission/null/false/zero semantics,
+Current configuration omission/null/false/zero semantics,
 credentials, flags, schedules, pins and consumed-slot watermark retain their
 existing meaning. Partial updates must produce a complete valid configuration;
 there is no per-field partial success or durable incomplete draft.
@@ -354,17 +356,16 @@ there is no per-field partial success or durable incomplete draft.
    or `none`. Existing peer/Host/proxy guards still apply; no CORS grant is added.
 4. Send one complete station or supported hardware object. Read back explicitly
    before another save. Changing carrier or attempting a save invalidates other
-   resource/legacy editor contexts. Preview and field edits never autosave.
+   resource/editor contexts. Preview and field edits never autosave.
 
-This **legacy station/1** example illustrates the closed complete-station body.
-For versioned firmware, replace its schema with the exact loaded
-`transmitter-station/2` schema before sending; the station/1 body is refused
-when station/2 is negotiated. Replace the example target with the exact loaded
-target and review every station field together. These IDs and values are synthetic, not a device to contact.
+This example illustrates the closed current station body. Replace the target
+with the exact loaded target and review every station field together. These
+IDs and values are synthetic, not a device to contact.
 
 ```json
 {
-  "schema": "transmitter-station/1",
+  "contract": "Wsprry-Control/1",
+  "schema": "station",
   "target": {
     "scope": "member",
     "device_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -378,7 +379,8 @@ A complete supported hardware body has the same target and a complete pin plan:
 
 ```json
 {
-  "schema": "transmitter-hardware/1",
+  "contract": "Wsprry-Control/1",
+  "schema": "hardware",
   "target": {
     "scope": "member",
     "device_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -386,7 +388,7 @@ A complete supported hardware body has the same target and a complete pin plan:
   },
   "pins": {
     "engine": "direct", "rf_gp": 0, "i2c_pair": null,
-    "button_gp": null, "amplifier_gp": null, "lpf_gps": [],
+    "button_gp": null, "amplifier_gp": null, "amplifier_active_high": true, "lpf_gps": [],
     "indicator": "onboard_led", "indicator_gp": null,
     "indicator_active_high": true
   }
@@ -395,7 +397,8 @@ A complete supported hardware body has the same target and a complete pin plan:
 
 Select actual GP choices from the authenticated response and check role
 conflicts. The nonpersistent preview takes only the complete `pins` object
-above as its bare body, with the same host revision/context/intent headers.
+above plus the root `"contract":"Wsprry-Control/1"` member, with the same
+host revision/context/intent headers.
 The adapter does not forward `If-Match` to Pico's preview, preserving its
 nonpersistent semantics. Preview distinguishes validity, conflicts and
 operational support and verifies unchanged configuration on readback. A valid
@@ -427,8 +430,8 @@ shutdown. No save restarts, reconnects WTP, enables recurrence, claims or transm
 
 Engineering mTLS and explicitly supported consumer station/AP management use
 the host's existing idle admission. Built-in route flags do not prove remote
-support. Missing shared-resource discovery preserves the compatible legacy
-editor; malformed/unsupported advertised discovery refuses without fallback.
+support. Missing, malformed or unsupported shared-resource discovery refuses control
+without selecting an older editor or resource view.
 See [management and member controls](../User_Interface/Setup/Transmitter/index.md#management-connection-and-login)
 for login expiry and supported GP/adapters.
 
@@ -437,13 +440,13 @@ for login expiry and supported GP/adapters.
 | Browser path | Owner and update contract |
 | --- | --- |
 | `/wsprrypi/config` | Legacy Pi host configuration; full PUT or PATCH; conditional writes supported, legacy unconditioned compatibility retained. |
-| `/wsprrypi/api/v1/host/config` | Explicit `wsprrypi-host-config/1` host envelope; PUT applies a merge patch under exact required host ETag. |
-| `/wsprrypi/api/v1/member/configuration` | Coordinated selected-Pico atomic editor; GET context then POST changed known fields with exact member target/revision. |
-| `/wsprrypi/api/v1/config` | Compatible remote Pico Config resource; GET/PUT retain remote revision and complete-config semantics. |
+| `/wsprrypi/api/control/v1/host/config` | Explicit `wsprrypi-host-config/1` host envelope; PUT applies a merge patch under exact required host ETag. |
+| `/wsprrypi/api/control/v1/member/configuration` | Coordinated selected-Pico atomic editor; GET context then POST changed known fields with exact member target/revision. |
+| `/wsprrypi/api/control/v1/config` | Read-only current selected-Pico configuration projection; ordinary saves use the coordinated merge editor. |
 
-The coordinated editor negotiates one supported save strategy before mutation.
+The coordinated editor uses the current merge update strategy.
 It preserves Pico-owned settings outside the form and safely refuses unknown
-configuration fields rather than losing them through an older full replacement.
+configuration fields before mutation.
 Null password means preserve; arrays replace atomically; explicit false/zero
 retain their meaning. Ordinary edits are not whole-configuration resets.
 Schedules-only saves preserve unrelated drafts. None of these resources gives

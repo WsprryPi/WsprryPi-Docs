@@ -9,7 +9,7 @@ WsprryPi's Fleet controls, host schedules, CLI/INI settings and job recovery
 are documented in this manual. The companion
 [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/) owns firmware
 installation, the Pico's own browser controls, standalone operation and
-device recovery. Use documentation matching the installed software; `devel`
+device recovery. Update Pi and Pico together for current settings controls; earlier beta settings APIs are unsupported. Use documentation matching the installed software; `devel`
 describes development versions and does not imply a stable release.
 
 ## Prepare the hardware and firmware
@@ -135,7 +135,7 @@ Install compatible Pi worker, API and UI assets together before updating Pico fi
 
 In the selected Pico's member hardware area, next to the pin settings, use **Read saved timing** before editing **Enable before RF (ms)** and **Disable after RF (ms)**. Each defaults to **200 ms** and accepts **0–1000 whole milliseconds**. Save while the Pico is idle and unowned, then explicitly restart the Pico to activate the change. Readback distinguishes saved values from those active for the current boot. A disabled amplifier-enable pin uses neither interval.
 
-Lead gives the amplifier time to settle before the scheduled RF start. Tail holds it enabled after normal RF completion. These intervals surround the timed transmission and do not change the encoded message duration. Zero removes the corresponding interval. Jobs submitted too late for lead are refused; stop and fault cleanup bypass tail. Timing readback reports the last observed phase and does not measure amplifier readiness or RF power. Configure the amplifier-enable GPIO and polarity on the Pico’s **Radio pins** page; the Pi member editor provides timing controls. These controls require supporting Pico firmware and leave native Raspberry Pi amplifier settings independent.
+Lead gives the amplifier time to settle before the scheduled RF start. Tail holds it enabled after normal RF completion. These intervals surround the timed transmission and do not change the encoded message duration. Zero removes the corresponding interval. Jobs submitted too late for lead are refused; stop and fault cleanup bypass tail. Timing readback reports the last observed phase and does not measure amplifier readiness or RF power. Configure the amplifier-enable GPIO and pin polarity in the selected Pico’s member hardware controls or on its own **Radio pins** page. Both editors preserve timing and drive settings; changed hardware requires an explicit Pico restart. These controls require supporting Pico firmware and leave native Raspberry Pi amplifier settings independent.
 
 ## LPF and band selector
 
