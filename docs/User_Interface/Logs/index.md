@@ -1,7 +1,7 @@
 (log-card)=
 # Logs
 
-![Logs with Clear, Refresh stream, Pause view, Log options and Logging on this Pi in the toolbar](logs.png)
+![Logs with Clear, Refresh stream, Pause view, Log options and Local logging in the toolbar](logs.png)
 
 The Logs page reads the Pi's systemd journal and streams new records while the browser view is running.
 
@@ -17,7 +17,7 @@ The toolbar keeps the viewing actions available above the records:
 - **Refresh stream** reconnects the current view. When disconnected, this button reads **Start stream**; **Connecting…** indicates a connection attempt in progress.
 - **Pause view** stops this browser's live view while collection continues. **Resume view** continues from the retained view's journal cursor.
 - **Log options** opens a dialog with severity filtering, **Refresh sources**, **Export visible logs** and the selected Pico's collection control. Collection feedback appears beside these controls.
-- **Logging on this Pi** opens a dialog for this Pi's UDP export, USB forwarding and network collection settings.
+- **Local logging** opens the **Logging on this Pi** dialog for this Pi's UDP export, USB forwarding and network collection settings.
 
 The stream status, such as **Connected**, uses the same shape and text styling as the toolbar buttons. It reports the browser's viewing connection and is not an action button. A connected stream does not establish collector or sender health.
 
@@ -56,7 +56,7 @@ The dialog scrolls within the window. Its lower section contains the listen addr
 
 ![Logging on this Pi dialog scrolled to network collection settings and saved status](udp-controls.png)
 
-1. Open **Logging on this Pi** from the toolbar. Saved and active settings load automatically when the Logs page opens. Wait for loading to finish and verify the displayed local collector ID before editing. If loading fails, the fields stay disabled; choose **Retry loading settings** to try again.
+1. Open **Local logging** from the toolbar. Saved and active settings load automatically when the Logs page opens. Wait for loading to finish and verify the displayed local collector ID before editing. If loading fails, the fields stay disabled; choose **Retry loading settings** to try again.
 2. Scroll to **Receive network logs on this Pi** and select **Enable network log collection**. Enter this Pi's current IPv4 address, its interface name, and port **5514**. The listener binds that address and interface; it does not listen on every interface.
 3. Enter allowed senders as one unique slot and IPv4 address per line, such as `member-1 192.168.1.21`. Up to 32 peers are supported. An empty list admits nothing.
 4. Choose **Save logging on this Pi**. The dialog automatically reads back the saved and active states. **Ready** means the listener is locally bound. Check the journal submission counter and actual records separately; journald can still discard a submitted record under its own limits.
@@ -69,7 +69,7 @@ The `wsprrypi-log` service runs as the dedicated unprivileged `wsprrylog` user, 
 
 ![Automatically loaded UDP export destination, port, severity and interface fields](udp-export-controls.png)
 
-1. Open **Logging on this Pi**, wait for its settings to load and select **Enable UDP log export**. Enter one collector IPv4 address, port and explicit outgoing interface. Hostnames, IPv6, broadcast, multicast and this Pi's own addresses are refused.
+1. Open **Local logging**, wait for its settings to load and select **Enable UDP log export**. Enter one collector IPv4 address, port and explicit outgoing interface. Hostnames, IPv6, broadcast, multicast and this Pi's own addresses are refused.
 2. Select **Include native Pi events** for approved application diagnostics. Select up to eight attached-Pico sources to forward their already collected USB records. Save each source in Fleet and enable its USB export and collection first; forwarding selection does not enable either of them.
 3. Choose severity, event filters and rate limits, then **Save logging on this Pi** and check the automatic readback. Drafts remain available after an error. After a conflict or uncertain reply, choose **Retry loading settings**, compare **Saved UDP logging settings** with the preserved draft and choose **Confirm review** before another save.
 4. For native export, **Test saved UDP export** admits one fixed diagnostic event. Its successful response means local admission. Confirm receipt independently in the destination journal and Logs view. USB forwarding can be checked with a finite sequence of Pico startup or connection events.
