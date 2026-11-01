@@ -98,7 +98,7 @@ refuses foreign, modified, mixed, or otherwise unproven provider state instead
 of adopting or removing it. If an update is released, re-run the installer to
 take advantage of the new release.
 
-The current RP1 provider is v1.0.1 / Debian 1.0.1-1. The current installer selects a compatible published provider on every application branch, including `devel`. For an owned-provider version or channel change, it retains verified predecessor recovery inputs, performs managed cleanup and removal, verifies absence, and installs the selected provider. Explicit provider-development source selection remains separate. The tagged **4.0 Beta 1 installer** installs its
+The current RP1 provider is v1.0.1 / Debian 1.0.1-1. The current installer selects a published provider on every application branch, including `devel`, and verifies compatibility before changing installed runtime state. For an owned-provider version or channel change, it retains verified predecessor recovery inputs, performs managed cleanup and removal, verifies absence, and installs the selected provider. Explicit provider-development source selection remains separate. The tagged **4.0 Beta 1 installer** installs its
 pinned qualification evidence locally, including updates that skip an unchanged provider. No separate
 qualification-release download or cache refresh is needed. The evidence cannot
 authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status).
