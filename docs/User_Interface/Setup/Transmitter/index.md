@@ -351,6 +351,8 @@ Engineering HTTPS uses the configured
 Network (TLS) credentials; supported consumer Wi-Fi or setup Wi-Fi uses an
 explicit login. A network WTP connection alone does not provide that login.
 
+For direct field operation, the Pico’s **Wi-Fi/Host → Field access** setting keeps its protected AP available across restarts. Join that AP with the effective Pico control password, then authenticate in its browser page. With no usable higher-priority time source, the authenticated AP browser automatically supplies its device clock. **Using browser time** applies to a phone, tablet, or laptop. Keep the page active for refresh; holdover is limited to one hour and the Pico’s 500 ms uncertainty ceiling, independently of NTP timeout settings. Restart requires fresh time. These direct Pico controls do not transfer RF ownership to WsprryPi. See the [Pico field-access instructions](https://wsprrypico.readthedocs.io/en/devel/connect.html#field-access-without-internet).
+
 Keep WsprryPi transmission disabled while editing. Management requires an idle
 host and confirmed Pico state, with no pending, owned, active, or unresolved
 work. Use [Pico status and recovery](#pico-status-and-recovery) to resolve that
