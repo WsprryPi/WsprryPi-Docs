@@ -44,7 +44,7 @@ Within the Operations card are panels intended to be your quick reference to you
   - *Transmit Enabled* switch enables or disables transmission the transmission scheduler.  When enabled, the transmitter will operate on the schedule you have configured.  If you disable it, the configuration will save immediately, however any in-progress transmissions will finish.
   - *Stop transmission* button allows you to halt an ongoing transmission immediately, and it wil disable future transmissions.  It is only enabled during a transmission.
 
-- **Frequency:** A panel that displays the current or next frequency configured.  Keep in mind that WSPR is an upper-side band mode, so the frequency displayed will be the center frequency (where you would set your radio to transmit) and the actual frequency WSPR uses will be ~1500Hz higher.  For CW modes, this is the actual frequency of the transmission.
+- **USB dial / Next USB dial:** The WSPR panel displays the current or next USB dial frequency. RF center = dial + 1500 Hz + optional random placement. The standard 20m dial is 14,095,600 Hz and its RF center without random placement is 14,097,100 Hz. **Random placement** shows the signed WSPR offset in Hz, separately from the fixed 1,500 Hz placement. CW labels identify **Carrier** for QRSS, **Space** for FSKCW and **Dot** for DFCW; **Positive shift** gives the mark or dash offset. These values describe requested frequencies, not measured RF.
 
     ![Frequency Panel](frequency.png)
 

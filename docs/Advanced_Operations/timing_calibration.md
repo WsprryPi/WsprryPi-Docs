@@ -105,12 +105,7 @@ Frequency calibration matters because WSPR occupies a narrow band. The Raspberry
 
 ### Interpreting Test Tone Measurements
 
-Use the final requested RF carrier as the nominal frequency for a current Test
-Tone measurement. The Maintenance page's **WSPR band** choice adds the displayed
-WSPR offset to the dial frequency; **Custom RF frequency** already specifies RF.
-An explicit numeric `--test-tone` value also specifies RF directly. Apply that
-conversion once, and keep receiver calibration separate from transmitter PPM.
-The displayed or reported carrier is a synthesis target, not a measurement.
+Use the final requested RF carrier as the nominal frequency for Test Tone measurements. Both Maintenance's **WSPR band** selection and CLI `--test-tone 20m` add 1,500 Hz to the effective USB dial, targeting `14,097,100 Hz` with the standard 20m preset. Custom RF and numeric or unit-suffixed CLI inputs specify the carrier directly: `--test-tone 14095600` targets `14,095,600 Hz`. Test Tone never uses random placement. Apply the dial conversion once and keep receiver calibration separate from transmitter PPM. An accepted synthesis target is not a measured output frequency.
 
 When reviewing older records, identify the exact executable version used. Legacy
 GPIO builds before the [test-tone frequency correction](https://github.com/WsprryPi/WsprryPi/commit/ef9a76a5be4d8223b89bcd64df1e1a376d48a0a5)

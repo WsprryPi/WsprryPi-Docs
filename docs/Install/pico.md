@@ -85,6 +85,13 @@ and [member resources](../User_Interface/Setup/Transmitter/index.md#shared-pico-
 to read and manage the selected Pico from WsprryPi. Keep its autonomous
 schedule disabled while using host scheduling. Turning off Pi transmission or
 pausing an assignment does not disable the Pico's saved standalone schedule.
+The Pico’s standalone WSPR frequency is a whole-Hz USB dial. Its four tones
+surround a center 1,500 Hz above that dial, without random placement. Fleet
+WSPR assignments instead take absolute RF centers: standalone dial `3568600`
+and Fleet center `3570100 Hz` describe the same nominal placement. See the
+[Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html) for
+standalone configuration.
+
 Pico station defaults and Pi job parameters have separate authority; changing
 one does not rewrite an already prepared job.
 

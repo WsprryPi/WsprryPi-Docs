@@ -48,6 +48,12 @@ this implementation does not provide inbound TLS on the Pi.
 
 ### Assign an output schedule
 
+Fleet frequency inputs are absolute RF references: WSPR RF center, finite tone
+or QRSS carrier, FSKCW space, or DFCW dot. For standard 20m WSPR enter
+`14097100`, rather than USB dial `14095600`. Fleet applies no dial conversion
+or random placement. FSKCW mark and DFCW dash add the positive shift. Changing
+modes updates the labels while preserving draft and saved frequency values.
+
 Fleet assignments and listener settings use explicit save buttons, unlike
 ordinary Setup autosave. Review the feedback beside the action before leaving.
 

@@ -17,7 +17,7 @@ The Mode panel allows configuring most of the metadata for CW modes.
 The actual CW mode is one of:
 
 - **QRSS** - QRSS is extreme slow speed CW, the name is derived from the Q-code QRS (reduce your speed).  This mode, when displayed on a grabber's screen, is the most "CW-looking" of all the modes, with familiar dots and dashes.
-- **FSKCW** - FSKCW means Frequency Shift Keying CW.  Instead of activate/deactivate the carrier, the carrier is always activated as long as the transmission lasts. During pauses between dots, dashes or characters the frequency is shifted downwards.  The upper trace shown on the screen contains the morse information, the lower trace is drawn during signal pauses.
+- **FSKCW** - FSKCW means Frequency Shift Keying CW. Dots and dashes use the mark frequency; internal gaps between elements, characters, and words use the lower space frequency. Gaps between repeats and the final tail have RF off. The upper trace contains the Morse information, and the lower trace shows the internal gaps.
 - **DFCW** - DFCW means Dual Frequency CW.  DFCW mode was developed that enhances the average speed in LF transmissions (more impacted by QRN) by a factor of 2.5 to 3. In DFCW the element *duration* is replaced by the element *frequency*. Dots and dashes do not have a different length but they are transmitted on a different frequency. Due to this frequency shift there is no space needed between the dots/dashes and the character space can be reduced to the same dot length. The standard intra-element spacing multiplier is `0.333333`.
 
 ## CW Timing
@@ -54,21 +54,21 @@ Changing **Modulation** displays the corresponding spacing triplet; it does not 
 
 ### Modulation construction
 
-- **QRSS** transmits a dot for `T` and a dash for `3T` at the base frequency. Its spacing uses the QRSS/FSKCW triplet.
+- **QRSS** transmits a dot for `T` and a dash for `3T` at the carrier frequency. Its spacing uses the QRSS/FSKCW triplet.
 - **FSKCW** transmits its mode-specific dot and dash tones for `T` and `3T`. Its spacing also uses the QRSS/FSKCW triplet.
 - **DFCW** transmits every dot and dash for `T`. Frequency distinguishes the two elements, and its spacing uses the separate DFCW triplet.
 
-### Frequency offset
+### Positive shift
 
-This is the positive offset from the base that FSKCW or DFCW will shift to transmit characters.  This is in Hz and should be entered without any engineering notation.  This field is dithered and unavailable in QRSS mode.
+Enter a positive whole-number shift in Hz. FSKCW mark = space + shift; DFCW dash = dot + shift. This control is disabled in QRSS. FSKCW retains its space carrier between elements; QRSS and DFCW gaps have RF off. Timing and gap controls remain independent of the frequency reference.
 
-### Base frequency
+### Carrier, space or dot frequency
 
-This is the base frequency for transmissions.  For QRSS it is the exact frequency of the characters.  For FSKCW or DFCW it is the base from which the shift is made to transmit.  This is entered as a whole-number in Hz such as `14096900`, or include `Hz`, `kHz`, `MHz`, or `GHz` for decimal values such as `14.0969MHz`.
+The label follows the selected mode: **Carrier frequency** for QRSS, **Space frequency** for FSKCW, and **Dot frequency** for DFCW. Enter whole-number Hz, such as `14096900`, or use Hz, kHz, MHz or GHz units, such as `14.0969MHz`. WSPR band aliases are rejected. Changing the mode changes the reference label while preserving the entered frequency. Band correlation remains in use for filter selection, frequency policy and output limits.
 
 ### Frequency calibration
 
-This is the CW form of the PPM/NTP settings in WSPR.  Here you may calibrate your frequency (the actual tone frequency, as opposed to the SSB offset for WSPR) in PPM.  Your available range is +-200PPM.
+CW uses the selected transmitter backend's frequency-correction settings. Configure those settings under [Transmitter](../Transmitter/index.md); they correct reference-clock error and do not replace the carrier, space, dot or positive-shift values. A remote WTP transmitter owns its correction; supplied absolute RF targets do not receive Pi calibration again. Use an independently calibrated receiver when measuring RF. See [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md).
 
 ## Schedule
 

@@ -37,8 +37,9 @@
   Generate a continuous RF tone. Enter a positive whole-number frequency in
   hertz, or add an `Hz`, `kHz`, `MHz`, or `GHz` suffix to a decimal value that
   resolves to whole-number hertz. Scientific notation and fractional-hertz
-  results are rejected. A band alias selects that band's WSPR dial frequency,
-  not its WSPR carrier frequency; use an explicit value for another carrier.
+  results are rejected. A band alias selects the effective WSPR RF center: its USB dial plus
+  1,500 Hz, without random placement. For example, `--test-tone 20m` targets
+  14,097,100 Hz with the standard preset.
 
 An explicit numeric Test Tone frequency is the requested RF carrier; no WSPR
 audio offset is added. For example, `--test-tone 14097100` targets 14,097,100 Hz.

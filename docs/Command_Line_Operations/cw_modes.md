@@ -11,10 +11,11 @@ These options configure direct command-line transmissions using QRSS, FSKCW, or 
   Message to transmit in CW-based modes.
 
 - `--cw-base-frequency <freq>`  
-  Base RF frequency. Supports Hz, kHz, MHz, GHz suffixes.
+  QRSS carrier, FSKCW space, or DFCW dot frequency. Supports Hz, kHz, MHz,
+  and GHz suffixes. WSPR band aliases are rejected; no WSPR audio offset is added.
 
 - `--cw-shift-hz <hz>`  
-  Frequency shift for FSK-based modes.
+  Positive shift in Hz: FSKCW mark = space + shift; DFCW dash = dot + shift.
 
 - `--cw-dot-seconds <seconds>`  
   Length of a Morse "dot".
@@ -51,6 +52,10 @@ The `--cw-*` gap options are shared by QRSS and FSKCW. DFCW uses its own gap opt
 - `--dfcw-inter-word-gap <multiple>`
 
   DFCW gap between words (default: `3.0` dot lengths).
+
+QRSS and DFCW gaps have RF off. FSKCW uses its space frequency during
+internal element, character, and word gaps; gaps between repeats and the final
+tail have RF off.
 
 ## Envelope Control
 

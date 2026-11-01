@@ -104,14 +104,14 @@ Notice that there are no spaces between the number and `m` for meters, and none 
 
 The frequency may also be listed in pure integral Hz, such as `21094600`.
 
-Of note, WSPR is an Upper Side Band (USB) mode.  The frequency entered is a typical USB dial frequency.  You may note that the tones are shifted ~1,500Hz higher.
+WSPR entries are USB dial frequencies. The nominal RF center is 1,500 Hz above the dial, plus optional random placement. Tone 0 is 2.197265625 Hz below that center. For the formulas and a complete 20m example, see [Dial, RF center, and tones](../../../Advanced_Operations/canonical_bands.md#dial-rf-center-and-tones).
 
 Using a bare band preset selects the current frequency profile's WSPR dial
 convention. **Frequency profile** defaults to **Existing/Common** for
 compatibility. The initial alternate profile is **WRC-15**; it changes only the
 meaning of a bare `60m`. Open **Band preferences** to choose **Default**,
 **Preset**, or **Custom** independently for every canonical band. Each row shows
-the effective USB dial and RF tone. **Clear** removes only that band's override.
+the effective USB dial and RF center / Test Tone target without random placement. **Clear** removes only that band's override.
 Valid edits save automatically; invalid custom values remain visible and block
 autosave until corrected or cleared. Explicit qualified presets and numeric
 values entered in **Frequencies** never change when the profile changes.
@@ -128,7 +128,9 @@ examples.
 
 ### Random offset
 
-Turning this switch on will add a positive or negative random offset to the transmitted frequency.  This can be handy when there is a lot of traffic on WSPR, and allow you to find a more clear slice of the available bandwidth.
+Enable **Random offset** to select a uniform placement within ±80 Hz once per prepared WSPR message plan. A two-frame plan keeps the same placement and nominal RF center for both frames. Each subsequent independent plan receives a fresh draw, which may equal the previous value. Turning the switch off selects zero placement. Test Tone does not use random placement.
+
+For a `14,095,600 Hz` USB dial and a `+37 Hz` placement, both frames use a nominal RF center of `14,097,137 Hz`. Placement is separate from calibration and measured RF output.
 
 ### Reported Power
 

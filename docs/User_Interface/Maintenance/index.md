@@ -81,9 +81,9 @@ complete.
 
 [![Test Tone accepted while awaiting controller runtime confirmation](test_tone.png)](test_tone.png)
 
-This retained current-UI fixture shows acceptance before runtime confirmation.
-It uses synthetic responses and demonstrates feedback, not a live transmitter
-or measured RF state. Open the image for full resolution.
+An accepted Test Tone request can still be waiting for runtime confirmation.
+Read the execution status before treating the tone as active. This illustration
+shows feedback, not measured RF. Open the image for full resolution.
 
 Select **Test tone** to open the manual tone controls. This does not change the
 frequency saved in Setup.
@@ -92,12 +92,11 @@ frequency saved in Setup.
 
 Choose one of these frequency sources:
 
-- **WSPR band** uses a canonical band entry supplied by the connected
-  controller. The preview shows the WSPR dial frequency and the resulting RF
-  frequency after the WSPR offset is applied. Its bare 60 m entry follows the
-  saved frequency profile and per-band preference.
-- **Custom RF frequency** accepts an exact, whole-number frequency in Hz. This
-  value is the RF frequency; no WSPR offset is added.
+- **WSPR band** uses the effective USB dial preset, profile and saved per-band preference supplied by the connected controller. The preview adds the fixed 1,500 Hz placement to obtain the RF center / steady carrier target. The standard `20m` choice targets `14,097,100 Hz`, matching CLI `--test-tone 20m`.
+
+- **Custom RF frequency** accepts a whole-number carrier target in Hz. Entering `14095600` targets exactly `14,095,600 Hz`, matching numeric CLI `--test-tone 14095600`. No WSPR placement is added.
+
+Neither source applies random placement. A preview is an unsaved selection; the result confirms the accepted synthesis target and runtime state separately. It does not measure output frequency. When the accepted target matches the preview, the result need not repeat the calculation.
 
 ![Test Tone frequency-source controls with Custom RF frequency selected](test_tone_frequency_source.jpg)
 
