@@ -16,11 +16,7 @@ output. **Neutral activation** is the separate managed step establishing runtime
 administration. **Route selection/restoration** is another explicit transaction.
 These steps do not establish live-output authorization.
 
-Published provider software is **v1.0.0**, Debian **1.0.0-1**. Production/main
-`auto` selection uses an eligible published release; development `auto` selects
-an exact development source. The explicit `RP1_GPCLK_DKMS_SOURCE=release`
-installer selection uses the published path on devel too. An explicit
-`INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
+The current provider is **v1.0.1**, Debian **1.0.1-1**. Automatic selection uses a published release on every WsprryPi branch, including `devel`. The installer checks that the selected provider matches the application before changing installed runtime state. Explicit development-source selections remain available for provider development. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
 
 A repeat installation verifies exact ownership/identity, prepares an owned
 runtime for update, installs or validates the provider/application, activates
@@ -29,13 +25,10 @@ Transmission stays disabled. Foreign, modified, mixed or unproven state is
 preserved and reported as failure. Do not install another provider over managed
 state or remove ownership evidence to bypass a refusal.
 
-Development-to-release migration and version changes require the owning
-cleanup-first update/removal workflow, followed by absence verification and
-installation. Direct package upgrade/downgrade is not a recovery procedure.
-Retain exact predecessor recovery inputs. Normal uninstall removes only
+The normal installer handles owned-provider version and channel changes through the cleanup-first workflow. It retains the previous ownership record and verified recovery inputs under `/var/lib/wsprrypi/rp1-provider-migration.*`, removes the predecessor through its owning lifecycle, verifies absence, and installs the selected provider. Release recovery inputs include the original checksummed Debian package; development inputs retain the original rollback authority. Missing recovery inputs or foreign files stop migration with the existing state preserved. Direct package replacement is not the migration path. Normal uninstall removes only
 attributable, unchanged installer-owned state; failed preparation/removal stops
 before application teardown. Preserve the error and support evidence when
-refused. The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/v4.0.0-beta.1/docs/rp1-gpclk-dkms-installation.md)
+refused. The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
 defines the owning recovery boundaries.
 
 RP1 plans use nominal **200 MHz pll_sys**, with intrinsic `-46.245 ppm` plus
