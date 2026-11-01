@@ -26,6 +26,20 @@ Use the web UI in this order:
 - Review recent reception reports on the Spots page.
 - Monitor typical operations from the Operation page.
 
+## Browser requirements
+
+Use a current Chrome, Edge, Firefox, or Safari browser with JavaScript enabled.
+The interface is validated in Chromium; compatibility with every browser version
+or embedded web view has not been verified. Internet Explorer and legacy Edge
+are not supported.
+
+An open page continues using its loaded interface until you refresh it. Before
+choosing **Refresh** in the **UI refresh required** dialog or reloading the page,
+check the save status and resolve any unsaved changes. Wait for valid changes to
+show **Saved**, and correct errors or copy drafts you want to keep. Choose
+**Cancel** if you are not ready to refresh. A reload may discard transient
+drafts; it does not reset saved settings.
+
 ## Navbar
 
 The navbar is the blue bar pinned to the top of the page.
