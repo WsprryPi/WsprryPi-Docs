@@ -475,7 +475,7 @@ for browser access and login. A saved draft is separate from applied settings,
 active hardware and readiness. An already enabled Pico schedule continues with
 its applied settings while you save progress.
 
-WsprryPi's **Save member station** and **Save member hardware** remain complete,
+WsprryPi's **Save member station** and **Save RF output settings** remain complete,
 atomic scoped saves. For independent station drafts saved through WsprryPi,
 use [Save station progress from Fleet](#save-station-progress-from-fleet).
 The Pico page's partial-save support does not change the other Fleet editors.
@@ -521,7 +521,7 @@ authority and workflow.
    Button behavior also requires the member's button adapter to be enabled.
 4. Choose **Validate candidate pins** and review conflicts and operational support.
    This preview never saves or activates pins. If the unchanged plan is supported,
-   choose **Save member hardware** separately.
+   choose **Save RF output settings** separately.
 5. Read the result, then load resources again before any further save. Each save
    invalidates other editor contexts; unrelated drafts remain available for review.
 
