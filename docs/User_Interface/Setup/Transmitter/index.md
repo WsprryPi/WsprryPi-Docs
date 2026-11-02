@@ -217,9 +217,7 @@ and actual TCP port. TLS also needs host paths to the CA, client certificate,
 and client key. See the [WTP INI reference](../../../Advanced_Operations/ini_configuration/transmitter_backends.md#pico-wtp)
 for the individual settings.
 
-**Maximum UTC uncertainty (ns)** defaults to 100000000 (100 ms). Existing saved
-limits are retained. The Pico's own
-clock evidence must meet this limit, and the host needs synchronized UTC.
+UTC uncertainty is displayed for operator judgment. First-party submissions use the Pico's advertised ceiling rather than the historical profile limit; no uncertainty control is needed. The host needs synchronized UTC and the Pico needs a valid time source.
 **Allow device frequency rounding** accepts reported realizable frequencies;
 it does not qualify RF accuracy. Continuous **Test Tone** is unavailable with
 Pico; complete finite jobs use its local timing.
@@ -351,7 +349,7 @@ Engineering HTTPS uses the configured
 Network (TLS) credentials; supported consumer Wi-Fi or setup Wi-Fi uses an
 explicit login. A network WTP connection alone does not provide that login.
 
-For direct field operation, the Pico’s **Wi-Fi/Host → Field access** setting keeps its protected AP available across restarts. Join that AP with the effective Pico control password, then authenticate in its browser page. With no usable higher-priority time source, the authenticated AP browser automatically supplies its device clock. **Using browser time** applies to a phone, tablet, or laptop. Keep the page active for refresh; holdover is limited to one hour and the Pico’s 500 ms uncertainty ceiling, independently of NTP timeout settings. Restart requires fresh time. These direct Pico controls do not transfer RF ownership to WsprryPi. See the [Pico field-access instructions](https://wsprrypico.readthedocs.io/en/devel/connect.html#field-access-without-internet).
+For direct field operation, the Pico’s **Wi-Fi/Host → Field access** setting keeps its protected AP available across restarts. Join that AP with the effective Pico control password, then authenticate in its browser page. With no usable higher-priority time source, the authenticated AP browser automatically supplies its device clock. **Using browser time** applies to a phone, tablet, or laptop. Keep the page active for refresh; holdover is limited to one hour, independently of NTP timeout settings. Estimated UTC uncertainty remains visible and does not impose an additional first-party transmission cutoff. Restart requires fresh time. These direct Pico controls do not transfer RF ownership to WsprryPi. See the [Pico field-access instructions](https://wsprrypico.readthedocs.io/en/devel/connect.html#field-access-without-internet).
 
 Keep WsprryPi transmission disabled while editing. Management requires an idle
 host and confirmed Pico state, with no pending, owned, active, or unresolved
@@ -587,8 +585,7 @@ station.
 
 ### Saved and active member hardware
 
-Reported WSPR dBm is message metadata, not measured power or RF drive. Fixed
-I2C pairs are inspection-only. I2C RF, calibration and waveform controls are unavailable in this editor. Supporting firmware offers independent GPIO drive, amplifier timing and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity can be set in this member editor or on the Pico’s Radio pins page. Changes preserve timing and drive settings and require an explicit Pico restart. Missing resource support
+Reported WSPR dBm is message metadata, not measured power or RF drive. Supporting firmware offers selectable Direct GPIO and [Si5351 RF output](../../../Install/pico.md#si5351-rf-output), including a complete I²C pair, reference, drive, and loopback settings. The Si5351 controls are independent of WsprryPi's local synthesizer backend. Automatic RF calibration and waveform controls are unavailable in this editor. Supporting firmware also offers independent GPIO drive, amplifier timing, and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity can be set in this member editor or on the Pico’s Radio pins page. Changes preserve timing and drive settings and require an explicit Pico restart. Missing resource support
 leaves the compatible standalone editor available; malformed or unsupported
 advertised resources are refused without silently substituting another save.
 

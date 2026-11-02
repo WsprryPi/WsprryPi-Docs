@@ -85,7 +85,7 @@ configuration.
 | `TLS Server Identity` | For TLS, the expected certificate name. Direct connections may use the configured hostname; a discovered TLS profile requires an explicit expected identity. |
 | `TLS CA File` / `TLS Client Certificate` / `TLS Client Key` | Absolute paths to provisioned files on the WsprryPi host for TLS. The INI and catalog retain file references, not key contents. |
 | `Device ID` | Expected 32-character lowercase hexadecimal WTP identity from HELLO. TLS requires it. USB or a direct Plain LAN endpoint may leave it blank and learn an identity for the current session; a supplied ID is checked. A saved profile requires a confirmed full ID. Plain LAN HELLO is not cryptographic authentication. |
-| `Start Uncertainty ns` | Maximum permitted start uncertainty, from 1 through 1000000000 nanoseconds. Default: 100000000 (100 ms); existing configured limits are retained. |
+| `Start Uncertainty ns` | Historical stored profile value, retained across upgrades. First-party submissions use the Pico's advertised ceiling; this value no longer vetoes a transmission. UTC uncertainty is displayed for operator judgment. |
 | `Allow Frequency Adjustment` | Default: `false`. Permits reported realizable frequency rounding; it does not establish RF accuracy. |
 
 Obtain identities from the intended device rather than copying another
@@ -93,10 +93,7 @@ board's values. USB identity, WTP device identity, TLS certificate identity,
 and current boot identity serve different checks. A hostname, DNS-SD instance
 label, or Plain LAN HELLO alone does not establish trusted identity.
 
-The host requires synchronized UTC with at most 500 ms reported maximum error.
-The Pico separately needs valid UTC within the configured start-uncertainty
-budget and its own clock limits. Raising the budget is an explicit acceptance
-decision, not clock calibration or proof of start accuracy.
+The host requires synchronized UTC without kernel clock-error flags. The Pico separately needs a valid time source under its source-age, leap and ownership rules. UTC uncertainty is reported for operator judgment; it is not another first-party transmission budget. External WTP callers can still explicitly request a smaller protocol limit. The independently versioned USB time-observation exchange retains its own validity and format checks; accepting an observation is not RF calibration or proof of start accuracy.
 
 Set host `[Calibration] PPM = 0.0`. Disable TX LED, amplifier, shutdown-button,
 and band-selector GPIO controls, including per-frequency `@` selectors. CW fades
