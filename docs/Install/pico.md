@@ -15,8 +15,7 @@ describes development versions and does not imply a stable release.
 ## Prepare the hardware and firmware
 
 Use a Pico 2 W, a USB data cable and a suitable filtered, loaded RF path.
-Other Pico models are not supported WsprryPico targets. Normal firmware uses
-direct GPIO output; the Pico's pins are **GP** numbers, separate from the Pi's
+Other Pico models are not supported WsprryPico targets. Normal firmware supports direct GPIO output and a qualified external Si5351 profile; the Pico's pins are **GP** numbers, separate from the Pi's
 BCM numbers and physical header pins. Confirm the active Pico pin assignment
 before wiring. Its reported WSPR dBm is message content, not measured power.
 Check the Pico manual's
@@ -100,8 +99,7 @@ Before enabling a Pi transmission or resuming a Fleet assignment:
 - Confirm the intended full device ID, idle ownership and inactive output.
 - Read saved and active Pico settings; resolve restart, STOP and fault states.
 - Verify station, mode, frequency, filter/load and the target's reported limits.
-- Confirm synchronized Pi UTC and acceptable Pico clock evidence. The selected
-  single-output connection defaults to a 100 ms Pico uncertainty budget.
+- Confirm synchronized Pi UTC and a valid Pico time source. Read its reported UTC uncertainty; first-party submissions do not impose an additional uncertainty veto.
 - Review the controller's
   [experimental frequency permissions](../Command_Line_Operations/transmitter_backends.md#experimental-frequency-policy).
   WTP combinations remain untested in host policy and require explicit
@@ -155,3 +153,13 @@ In Fleet, open the selected Pico's member hardware controls and **LPF / band sel
 Save while the Pico is idle and unowned, explicitly restart it, then read back saved and active settings. Every selector change requires restart. Reads and errors retain entries; after an uncertain save, read and review before another deliberate save. No configuration save tests GPIO or transmits. Unsupported firmware shows the controls as unavailable. The same settings are available on the Pico's own Radio pins page; see [Configure the Pico selector](https://wsprrypico.readthedocs.io/en/devel/configure.html#lpf-and-band-selector).
 
 Use suitable 3.3 V logic drivers and external bias that keeps the bank inactive during reset and loss of Pico power. Never connect relay coils directly to GPIO. Declared ranges and GPIO readback do not measure filter response, relay position, power handling or emissions.
+
+## Si5351 RF output
+
+In the selected Pico's member hardware controls, choose **Load member resources**, then select **Si5351** as the **RF output engine**. These are Pico settings, separate from WsprryPi's local Si5351 backend. Choose a complete I²C SDA/SCL pair, the fitted reference frequency and source, and the transmit clock. Passive crystals also require their specified load. External clock/TCXO uses the supported XA arrangement rather than CLKIN.
+
+Loopback can be **None**, **CLK0**, **CLK1**, or **CLK2**, with a distinct transmit clock and an eligible counter input. None releases the capture input and dependent trusted use. **Measure only** reports a clock ratio and uncertainty. **Trust local reference for Pico rate** requires a declared reference uncertainty. Hardware selection, that allowance and hardware qualification are operator responsibilities; shared bench results do not certify an operator’s hardware. After NTP or phone time is accepted, it can reduce Pico timer drift while preserving that time source's age, uncertainty, and expiry. It supplies no UTC epoch or automatic RF calibration. Manual Si5351 correction is in ppb and remains separate from direct GPIO correction. Output drive is electrical current, independent of reported WSPR power.
+
+Choose **Validate candidate pins**, then **Save RF output settings**. The complete engine and reference allocation saves together. Draft edits do not program hardware. Restart the Pico explicitly to activate the accepted allocation; changing it back does not clear the restart requirement. Selecting Direct GPIO restores its controls and retains inactive Si5351 settings.
+
+Ordinary firmware supports the documented **QRP Labs Rev. 6 module with a 25 MHz external-XA TCXO**, **SDA GP4 / SCL GP5**, **CLK0 at 8 mA**, and no independent RF-gate assignment. Loopback is **None** or **CLK2 → GP7**, using the normal **138 MHz** Pico clock. Other configurations require an explicit engineering Pico build. The same normal image also supports Direct GPIO. Register readback does not prove RF inactivity or accuracy. Engineering tests require verified I²C pull-ups and bus timing, a conducted RF path and shutdown/reset checks. GPS/PPS ingestion and automatic calibration are unavailable. See [Si5351 settings in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#si5351-output-settings) for supported module settings and measurement limits.

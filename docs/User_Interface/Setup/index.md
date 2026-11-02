@@ -8,7 +8,7 @@ application while committed work owns the transmitter.
 
 Fleet assignments and listener settings use explicit saves. Selected-member
 settings also use explicit controls: **Load member resources**, **Validate candidate
-pins**, **Save member station**, and **Save member hardware**. Editing those
+pins**, **Save member station**, and **Save RF output settings**. Editing those
 drafts never triggers host autosave. See
 [member resources](Transmitter/index.md#shared-pico-member-resources) before
 saving settings on a Pico. For independent station drafts in Fleet, see
