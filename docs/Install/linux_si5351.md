@@ -5,10 +5,10 @@ adapter, and WsprryPi accesses its `/dev/i2c-N` node through `i2c-dev`.
 For MCP2221A, the path is `MCP2221A → hid-mcp2221 → i2c-dev`.
 There is no direct HID transport or automatic backend fallback on Linux.
 
-The stable-identity controls described here are part of the #411 implementation
-candidate. MCP2221A physical qualification on Ubuntu and Raspberry Pi OS remains
-pending. Software tests, enumeration, and register communication do not qualify
-clock output, frequency accuracy, cancellation, or disconnected-output safety.
+Physical qualification applies to the tested host, kernel, driver, reference,
+and output path. Software tests, enumeration, and register communication alone
+do not qualify clock output, frequency accuracy, cancellation, or
+disconnected-output safety.
 Native macOS transport and qualification belong to #419.
 
 ## Reference hardware
@@ -67,6 +67,11 @@ I2C-node access alone does not grant scheduling permission; without it,
 transmission fails before waveform generation. The simulated backend does not
 require this real-time scheduling permission.
 
+On hosts with the Pico USB updater, use the configured application service
+account so its protected maintenance state is readable. Unreadable maintenance
+state blocks transmitter controls. Preserve update records and their
+permissions.
+
 ## Select the adapter
 
 For metadata-only CLI inventory, run `wsprrypi --list-i2c-adapters`; it does not
@@ -112,7 +117,7 @@ Measure the conducted output against a stable frequency reference before
 setting Si5351 calibration. With an SDR, capture a locked reference signal
 alongside the Si5351 signal where possible; their separation avoids confusing
 receiver tuning error with transmitter error. Record reference lock, receiver
-settings, measurement resolution, and drift.
+settings, measurement resolution, warm-up, and drift.
 
 The Si5351 calibration value corrects the fitted reference frequency. A positive
 PPM value compensates for output below the requested frequency. Verify the
@@ -131,8 +136,10 @@ and output-disable measurement before starting.
 Startup attempts all-output disable before ordinary programming. Cancellation
 requests stop and disable cleanup; it does not establish measured RF inactivity.
 Removal, NACK, partial transfer, timeout, or identity change fails the operation
-without selecting another adapter or bus. An adapter reset or USB disconnect
-cannot guarantee that a separately powered Si5351 has stopped generating clocks.
+without selecting another adapter or bus. Loss of I2C access can leave a powered
+Si5351 generating clocks beyond a software duration limit. An adapter reset or
+USB disconnect cannot guarantee that a separately powered Si5351 has stopped
+generating clocks.
 Treat failed cleanup or unknown output state as requiring physical verification
 and a known recovery procedure before further operation. Reconnecting does not
 authorize automatic resumption.
