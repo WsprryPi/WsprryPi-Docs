@@ -91,22 +91,25 @@ unconfirmed; a completed scan with no compatible response is a different result.
 Neither a responding address nor successful initialization proves RF readiness
 under every operating condition.
 
-### I2C Bus
+### I2C adapter
 
-Choose one of the I2C buses detected on the Raspberry Pi. WsprryPi lists only
-buses currently exposed by Linux with a corresponding I2C device. If the saved
-bus is no longer available, it remains identified as unavailable but cannot be
-selected; choose another listed bus explicitly. Enable or attach an I2C bus,
-then reload the page to refresh the list.
+Select an adapter exposed by Linux with a corresponding I2C device. A USB
+entry retains its stable identity and shows the current `/dev/i2c-N` node.
+MCP2221A requires this stable selection. Generic numeric-bus settings remain
+available for other adapters. An unavailable or ambiguous saved identity stays
+visible and blocks use; WsprryPi never selects an arbitrary identical adapter.
+Reload after reconnecting to refresh the resolved node.
 
-A listed bus confirms only that the Linux adapter is present. It does not
-confirm access permissions, external-header routing, wiring, power, or an
-attached Si5351.
+Serial identity includes VID/PID. Without a serial, selection is tied to the
+host's USB topology; moving the adapter may require explicit reselection.
+The [Linux USB I2C setup](../../../Install/linux_si5351.md) covers the reference
+hardware, permissions, capability checks, and recovery limits. Listing confirms
+metadata presence only, not access, wiring, or physical qualification.
 
 ### I2C Address
 
 Selecting Si5351 or loading it as the active backend requests fresh inventory
-after the saved bus/address is populated. WsprryPi checks only `0x60` through
+after the saved bus/address is populated. Stable-identity selection probes only the selected address. For a generic numeric bus, WsprryPi checks only `0x60` through
 `0x6F`. Ordinary configuration and status reads use cached observations; they
 do not scan an inactive Si5351 merely to fill the form.
 

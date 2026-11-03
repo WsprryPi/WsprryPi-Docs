@@ -7,6 +7,7 @@ The normal installation commands below retain the stable channel.
 :hidden:
 
 beta1
+linux_si5351
 ```
 
 ## Gather Hardware
@@ -29,7 +30,7 @@ common breakout boards:
 - [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal. WsprryPi has not qualified a 25 MHz reference for 2 m WSPR.
 - [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations. WsprryPi's qualified 2 m configuration uses a 27 MHz reference.
 
-The Si5351 is controlled through the Pi's [I2C bus](https://pinout.xyz/pinout/i2c), requiring a connection to GPIO2 and GPIO3 for this communication.
+The Pi header I2C connection uses GPIO2 and GPIO3. The [Linux USB I2C setup](linux_si5351.md) describes the preferred MCP2221A/Si5351 reference pair, stable adapter identity, Ubuntu prerequisites, and qualification limits.
 
 ## Prerequisites
 
