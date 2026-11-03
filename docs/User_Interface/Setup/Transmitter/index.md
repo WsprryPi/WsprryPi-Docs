@@ -365,17 +365,30 @@ work first. Disabling transmission on the Pi does not disable Pico's standalone
 scheduler: leave **Enable Pico standalone schedule** cleared until you intend
 Pico to transmit autonomously and its clock and RF path are ready.
 
+Use **Save station progress** under **Standalone station defaults** for
+independent station-field saves and separate application. **Complete station
+save** provides the complete three-field alternative. Open **RF output, GPS,
+and pins** for hardware settings. USB name and Wi-Fi have their own controls
+near the top of the panel. Management prerequisites appear before the editors;
+resolve the stated prerequisite before reading or saving settings.
+
 #### Load and save settings
 
-1. Confirm the selected Pico and its **Device / boot** observation, then choose
+1. Confirm the selected Pico and its **Device / boot** observation. Open
+   **Standalone schedules and combined settings**, then choose
    **Load saved Pico settings**. A normal load replaces the form's draft and
    clears any entered password. Status polling preserves the draft.
 2. Edit the required fields. **WSPR power metadata (dBm)** is the reported WSPR
    power, not an RF output-drive control. **Time server** accepts an IPv4 address
    or a hostname supported by the Pico firmware.
-3. Choose **Save Pico settings** and read the result below the controls. Saving
+3. Choose **Save combined settings** and read the result below the controls. Saving
    applies the changed settings together. An unchanged form reports that no
    settings changed and performs no save.
+
+This combined form supports network management and firmware without the separate
+editors. Use the station-progress and USB name/Wi-Fi controls above for their
+scoped tasks. **Save combined settings** can change station, Wi-Fi, expiry, and
+standalone Enable as well as schedule entries.
 
 Ordinary saves preserve settings outside this form, including Pico pin
 assignments and advanced frequency-policy settings. On supported older firmware,
@@ -387,7 +400,7 @@ station or Wi-Fi values, change them through Pico setup.
 
 Reset individual values explicitly. For example, set **Schedule expiry (UTC
 epoch seconds)** to `0` to remove expiry, or clear **Enable Pico standalone
-schedule** and choose **Save Pico settings** to disable standalone scheduling.
+schedule** and choose **Save combined settings** to disable standalone scheduling.
 The form has no whole-configuration reset or replacement control, and does not
 edit pins or advanced frequency-policy settings.
 
@@ -402,13 +415,13 @@ period. An enabled standalone schedule requires at least one entry.
 **Save schedules only** changes the saved schedule entries while preserving
 other saved settings and all unrelated form drafts, including an entered
 password. It does not apply a draft enable/disable checkbox or expiry change;
-use **Save Pico settings** for those changes.
+use **Save combined settings** for those changes.
 
 For an already configured Pico, leave **New Wi-Fi password** blank to preserve
 the saved credential. A blank entry does not erase it, and Pico never returns
 the saved password to the form. Enter a new password only when changing it;
 complete the credentials explicitly when configuring Pico for the first time.
-A confirmed **Save Pico settings** clears the password entry. A failed or
+A confirmed **Save combined settings** clears the password entry. A failed or
 unconfirmed save, or **Save schedules only**, keeps it. Keep this draft page
 open during recovery; browser reload or navigation does not preserve the draft.
 
@@ -421,8 +434,9 @@ boot. Read the reported restart requirement; saving does not request a restart.
 If restart requirements are unconfirmed, check Pico status before operating.
 
 To change the Pico's own network name, use
-[Change the Pico hostname](#change-the-pico-hostname) below. This Pi's settings
-form preserves that name during ordinary saves; it has no hostname editor.
+[Change the Pico hostname](#change-the-pico-hostname) below. The combined
+settings form preserves that name during ordinary saves; the separate **USB
+name and Wi-Fi** controls edit it over USB.
 
 **Read Pico Wi-Fi status** observes the current network state. **Disable Pico
 Wi-Fi** disconnects network control and is a temporary switch, separate from
@@ -489,7 +503,10 @@ The Pico page's partial-save support does not change the other Fleet editors.
 
 Change the device's network name using
 [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname).
-WsprryPi's settings form preserves that name; it has no hostname editor.
+For a Pico connected by USB, open **USB name and Wi-Fi**, then choose **Read
+name and Wi-Fi**. Edit **Pico common name**, choose **Save common name**, and
+review the saved and active name. Use **Restart Pico to apply** only when ready
+to activate a saved change. The combined settings form preserves this name.
 Renaming a Fleet profile changes only the profile label.
 
 Disable the Pico's own schedule and resolve pending, owned or active work before
@@ -514,25 +531,30 @@ are read-only here; prepared jobs and standalone schedules keep their own
 authority and workflow.
 
 1. Load the member resources explicitly while the host/member are idle.
-2. For station changes, review callsign, locator and **Reported WSPR power (dBm)**
-   together, then choose **Save member station**. This replaces the complete
-   scoped station object. Loaded firmware determines supported station formats;
-   see the automatic planning rules below. Consumer profile-owned station fields
-   use Pico transactional setup for application. Independent saved drafts on
-   supported firmware are described below.
-3. For hardware, select **Direct RF output**, optional **Active-low button**,
-   and onboard, external or disabled indicator. Choices use Pico **GP** numbers,
-   not Pi BCM/header numbers. Preserve the intended external indicator polarity.
-   Button behavior also requires the member's button adapter to be enabled.
-4. Choose **Validate candidate pins** and review conflicts and operational support.
-   This preview never saves or activates pins. If the unchanged plan is supported,
-   choose **Save RF output settings** separately.
+2. For station changes, use [Save station progress](#save-station-progress-from-fleet)
+   to save valid fields and apply them separately. To save all three station
+   fields together, expand **Complete station save**, review callsign, locator,
+   and **Reported WSPR power (dBm)**, then choose **Save member station**. This
+   replaces the complete scoped station object. Consumer profile-owned station
+   fields use Pico transactional setup for application.
+3. Open **RF output, GPS, and pins**. Select the supported RF engine and its
+   output settings, optional **Active-low button**, and onboard, external, or
+   disabled indicator. Choices use Pico **GP** numbers, not Pi BCM/header
+   numbers. Preserve the intended indicator polarity. Button behavior also
+   requires the member's button adapter to be enabled. Configure optional GPS
+   and supported Si5351 settings in this same disclosure.
+4. Below the pin, GPS, and Si5351 fields, choose **Validate hardware plan** and
+   review conflicts and operational support. This preview never saves or
+   activates hardware. If the unchanged plan is supported, choose **Save RF
+   output settings** separately. Amplifier timing, filter selectors, and GPIO
+   drive retain their own read/save controls.
 5. Read the result, then load resources again before any further save. Each save
    invalidates other editor contexts; unrelated drafts remain available for review.
 
 ### Save station progress from Fleet
 
-On supporting firmware, **Read saved progress** reads the selected Pico's
+Under **Standalone station defaults**, use **Save station progress**. On
+supporting firmware, **Read saved progress** reads the selected Pico's
 saved station draft and applied station separately. It works over the selected
 USB, Engineering HTTPS, Consumer Wi-Fi or Consumer setup Wi-Fi management
 connection. A complete station is not required to read or save progress.
@@ -557,8 +579,8 @@ result and member resources afterward to inspect applied state and restart needs
 
 After a conflict, lost connection or unconfirmed reply, read saved progress and
 review it before one new deliberate save. No mutation is retried automatically.
-Older firmware without this capability retains **Save member station** and the
-complete settings workflow. Unknown advertised contracts refuse safely.
+Older firmware without this capability retains **Save member station** under
+**Complete station save** and the complete settings workflow. Unknown advertised contracts refuse safely.
 
 ### Pico automatic WSPR planning
 
@@ -592,7 +614,7 @@ station.
 
 ### Saved and active member hardware
 
-Reported WSPR dBm is message metadata, not measured power or RF drive. Supporting firmware offers selectable Direct GPIO and [Si5351 RF output](../../../Install/pico.md#si5351-rf-output), including a complete I²C pair, reference, drive, and loopback settings. The Si5351 controls are independent of WsprryPi's local synthesizer backend. Automatic RF calibration and waveform controls are unavailable in this editor. Supporting firmware also offers independent GPIO drive, amplifier timing, and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity can be set in this member editor or on the Pico’s Radio pins page. Changes preserve timing and drive settings and require an explicit Pico restart. Missing resource support
+Reported WSPR dBm is message metadata, not measured power or RF drive. Supporting firmware offers selectable Direct GPIO and [Si5351 RF output](../../../Install/pico.md#si5351-rf-output), including a complete I²C pair, reference, drive, and loopback settings. The Si5351 controls are independent of WsprryPi's local synthesizer backend. The displayed controls depend on the selected Pico's supported capabilities. Automatic Si5351 correction requires enabled GPS with a validated UTC/PPS association and a separate loopback measurement; it does not establish absolute RF accuracy. Waveform controls are unavailable in this editor. Supporting firmware also offers independent GPIO drive, amplifier timing, and [LPF / band selector controls](../../../Install/pico.md#lpf-and-band-selector). Amplifier pin and polarity can be set in this member editor or on the Pico’s Radio pins page. Changes preserve timing and drive settings and require an explicit Pico restart. Missing resource support
 leaves the compatible standalone editor available; malformed or unsupported
 advertised resources are refused without silently substituting another save.
 

@@ -6,10 +6,11 @@ Ordinary Pi host settings autosave after validation. Read the status beside the
 Setup title before leaving the page. A saved value may still await runtime
 application while committed work owns the transmitter.
 
-Fleet assignments and listener settings use explicit saves. Selected-member
-settings also use explicit controls: **Load member resources**, **Validate candidate
-pins**, **Save member station**, and **Save RF output settings**. Editing those
-drafts never triggers host autosave. See
+Fleet device profiles, output assignments, listener settings, and Pico settings
+use explicit saves. Browsing devices or editing these drafts does not trigger
+host autosave. **Use Pico** and this Pi's connection fields still save
+automatically. Selected-member controls include **Load member resources**,
+**Validate hardware plan**, and **Save RF output settings**. See
 [member resources](Transmitter/index.md#shared-pico-member-resources) before
 saving settings on a Pico. For independent station drafts in Fleet, see
 [Save station progress from Fleet](Transmitter/index.md#save-station-progress-from-fleet).
@@ -26,7 +27,9 @@ Or, it will indicate that the settings have been successfully saved:
 
 ![Parameters Saved](parameters_saved.png)
 
-This contextual information is included on all sub-tabs and views within the Setup card.
+The status beside the Setup title describes this Pi's automatically saved
+settings. Fleet explains its save controls in the header; read the feedback
+beside each explicit action to confirm its result.
 
 The Setup card is divided into four sub-pages:
 
@@ -59,9 +62,12 @@ ordinary Setup autosave. Review the feedback beside the action before leaving.
 
 1. Save and verify a profile for each target Pi or Pico. For a Pi, use its
    WTP port (default `31417`) and status HTTP port (default `31415`).
-2. In **Output schedules**, choose **Assign a schedule**, select a **Saved
-   output**, and enter its mode, RF base frequency in Hz, job parameters, repeat
-   period, and UTC phase. For a Pi, confirm **Use Plain LAN for this assignment**.
+2. Select the intended saved device, then choose **Assign a schedule** under
+   **Output schedules**. The editor retains that saved-device selection. If no
+   matching saved device is selected, choose a **Saved output** explicitly.
+   Confirm the output, then enter its mode, RF base frequency in Hz, job
+   parameters, repeat period, and UTC phase. For a Pi, confirm **Use Plain LAN
+   for this assignment**.
 3. Choose **Save assignment**. It starts paused unless **Start this output's schedule
    after saving** is selected. Use **Resume** when ready to run it.
 
