@@ -54,6 +54,13 @@ Use the host's device-group or narrowly scoped device-rule policy. Avoid
 world-writable device nodes. Availability in the selector establishes metadata
 presence only; access and `I2C_FUNC_I2C` are checked before slave access.
 
+Physical transmission also requires permission to run the transmitter thread
+with `SCHED_FIFO` priority 50. Grant the application user an appropriate
+real-time priority limit through the host's service or session policy.
+I2C-node access alone does not grant scheduling permission; without it,
+transmission fails before waveform generation. The simulated backend does not
+require this real-time scheduling permission.
+
 ## Select the adapter
 
 For metadata-only CLI inventory, run `wsprrypi --list-i2c-adapters`; it does not
