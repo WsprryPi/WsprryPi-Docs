@@ -12,6 +12,27 @@ installation, the Pico's own browser controls, standalone operation and
 device recovery. Update Pi and Pico together for current settings controls; earlier beta settings APIs are unsupported. Use documentation matching the installed software; `devel`
 describes development versions and does not imply a stable release.
 
+(start-with-standalone-operation)=
+```{admonition} Start with standalone operation
+:class: important
+
+We strongly recommend using WsprryPico in standalone mode before adding it to
+WsprryPi's Fleet. Use the Pico's own browser controls to learn its local
+capabilities: station settings, time and frequency configuration, individual
+messages, automatic schedules, and stop controls. This gives you a familiar
+baseline before adding the Pi's connection, ownership, and scheduling controls.
+
+Follow the [standalone setup sequence](https://wsprrypico.readthedocs.io/en/devel/)
+and [first WSPR transmission walkthrough](https://wsprrypico.readthedocs.io/en/devel/operate.html#your-first-wspr-transmission),
+including its RF preparation and end-of-trial shutdown steps. Before switching
+to Fleet, disable the Pico's standalone schedules, save and apply the change,
+and confirm inactive output and released control. See the
+[handoff to WsprryPi](https://wsprrypico.readthedocs.io/en/devel/wsprrypi.html#ownership-and-schedules).
+
+Standalone use is a learning recommendation, not a connection requirement.
+USB Fleet control still works without configuring the Pico's Wi-Fi.
+```
+
 ## Prepare the hardware and firmware
 
 Use a Pico 2 W, a USB data cable and a suitable filtered, loaded RF path.

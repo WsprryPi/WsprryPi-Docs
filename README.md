@@ -61,6 +61,9 @@ Pico-specific build flag is required, including on Read the Docs.
 
 These topics are written for a WsprryPi operator adding Pico outputs and
 managing a fleet. Start with [Add a WsprryPico](docs/Install/pico.md).
+We strongly recommend new WsprryPico users
+[start with standalone operation](docs/Install/pico.md#start-with-standalone-operation)
+to learn the Pico's local capabilities before introducing Fleet control.
 The [WsprryPico operator manual](https://wsprrypico.readthedocs.io/en/devel/)
 covers standalone use, initial firmware installation, Pico browser controls,
 hardware limits and device recovery. Its

@@ -201,6 +201,15 @@ with [Add a WsprryPico](../../../Install/pico.md). This section describes the
 controls in WsprryPi. Pico browser and standalone procedures live in the
 [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).
 
+```{important}
+New to WsprryPico? We strongly recommend using its standalone browser controls
+first to understand local configuration, messages, schedules, and stop controls
+before trying Fleet control. Follow
+{ref}`Start with standalone operation <start-with-standalone-operation>`
+for the learning path and schedule handoff checks. This is a recommendation;
+USB Fleet control does not require Pico Wi-Fi setup.
+```
+
 Open **Setup → Fleet** to add a Pico to WsprryPi, select it for jobs from this
 Pi, or assign independent schedules to several outputs. Fleet is available on
 every page load. Opening the tab and browsing devices do not select an output,

@@ -7,6 +7,9 @@ outputs. To add a Pico 2 W running WsprryPico and manage output schedules, see
 [Add a WsprryPico](Install/pico.md). The companion
 [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/) covers standalone
 use, device-side setup and deeper Pico details.
+If you are new to WsprryPico, we strongly recommend
+{ref}`starting with standalone operation <start-with-standalone-operation>`
+to learn its local capabilities before using WsprryPi's Fleet controls.
 Qualification depends on
 the backend, Raspberry Pi clock profile, band, and transmission mode. Check the
 [Band qualification](About_Wsprry_Pi/index.md#band-qualification) table before
