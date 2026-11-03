@@ -82,7 +82,13 @@ Choose the fitted reference (**25,000,000 Hz**, **Passive crystal** for product
 output drive. Do not substitute defaults for the fitted hardware. The reference
 and drive are independent of the WSPR message's reported power.
 
-Only the selected address is probed when using a stable identity. Probing is a
+Choose the board's fitted **I2C Address**. With a stable identity, selecting an
+address checks only that address. If a saved address no longer responds, the
+control stays editable so another fitted address can be selected explicitly.
+A failed check does not confirm that the whole address range is empty. Valid
+address changes save automatically with the form.
+
+Probing is a
 register-pointer write followed by a read, not output programming or definitive
 silicon identification. A permission or capability failure is distinct from a
 non-responsive slave. Correct the reported condition and explicitly retry.

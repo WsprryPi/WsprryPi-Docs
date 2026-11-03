@@ -109,7 +109,11 @@ metadata presence only, not access, wiring, or physical qualification.
 ### I2C Address
 
 Selecting Si5351 or loading it as the active backend requests fresh inventory
-after the saved bus/address is populated. Stable-identity selection probes only the selected address. For a generic numeric bus, WsprryPi checks only `0x60` through
+after the saved bus/address is populated. Stable-identity selection probes only
+the selected address. If it does not respond, choose the board's fitted address
+from **I2C Address** to check that address explicitly. The control remains
+editable after a failed check; a single-address result does not describe the
+whole range. Valid address changes use the form's normal autosave. For a generic numeric bus, WsprryPi checks only `0x60` through
 `0x6F`. Ordinary configuration and status reads use cached observations; they
 do not scan an inactive Si5351 merely to fill the form.
 
