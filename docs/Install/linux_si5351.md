@@ -34,6 +34,12 @@ and the driver's clock-rate setting on the intended host. WsprryPi does not
 configure the MCP2221A clock rate directly. Record the kernel, selected rate,
 and verification method when qualifying a setup.
 
+The kernel must enable `CONFIG_HID_MCP2221` as a built-in driver or module.
+Some Raspberry Pi OS kernels omit it. Use a kernel with this driver, or a
+matching module provided through the host's kernel-maintenance policy, before
+expecting the adapter to appear. WsprryPi does not supply a missing kernel
+driver.
+
 A strict Si5351 executable can be built without ancillary Pi GPIO:
 
 ```sh
@@ -99,6 +105,20 @@ Probing is a
 register-pointer write followed by a read, not output programming or definitive
 silicon identification. A permission or capability failure is distinct from a
 non-responsive slave. Correct the reported condition and explicitly retry.
+
+## Reference calibration
+
+Measure the conducted output against a stable frequency reference before
+setting Si5351 calibration. With an SDR, capture a locked reference signal
+alongside the Si5351 signal where possible; their separation avoids confusing
+receiver tuning error with transmitter error. Record reference lock, receiver
+settings, measurement resolution, and drift.
+
+The Si5351 calibration value corrects the fitted reference frequency. A positive
+PPM value compensates for output below the requested frequency. Verify the
+correction at a second frequency before saving it for that board. Keep receiver
+correction separate and use the measured value for the actual reference and
+setup, rather than copying another board's calibration.
 
 ## Conducted measurements and recovery
 
