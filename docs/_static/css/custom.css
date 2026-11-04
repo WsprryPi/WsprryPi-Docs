@@ -374,6 +374,13 @@ footer a:focus-visible {
     min-width: 9rem;
 }
 
+.rst-content #rp1-frequency-calibration-results table.docutils th,
+.rst-content #rp1-frequency-calibration-results table.docutils td {
+    overflow-wrap: normal;
+    white-space: nowrap;
+    word-break: normal;
+}
+
 .rst-content .admonition,
 .rst-content .note,
 .rst-content .warning,

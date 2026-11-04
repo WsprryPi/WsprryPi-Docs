@@ -201,6 +201,8 @@ reference errors select **Fallback PPM**; accepted jobs retain their original
 correction. Review an existing residual when changing calibration sources.
 See {ref}`Transmission Timing and Calibration <direct-pps-calibration-on-pi-5>`
 for prerequisites, source ownership, uncertainty, and loss behavior.
+The {ref}`RP1 frequency-calibration results <direct-pps-rp1-results>` show
+measured host-estimate and direct PPS errors in both Hz and PPM.
 
 
 ## Add a Pico and manage outputs

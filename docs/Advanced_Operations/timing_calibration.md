@@ -66,11 +66,43 @@ Clock-tree access, unsupported firmware, unavailable PIO resources, or a
 different PPS input produce an unavailable state and manual fallback.
 
 The saved system-clock preference is retained when direct PPS is selected.
-Disabling direct PPS restores that preference. Other backends keep their own
-calibration; this capture adapter does not qualify Pi 1–4, Si5351, or a remote
-transmitter. Chrony continues to own UTC synchronization. Direct calibration
+Disabling direct PPS restores that preference. Direct PPS calibration applies
+to the Pi 5/RP1 backend. Other backends keep their own calibration. Chrony
+continues to own UTC synchronization. Direct calibration
 adjusts the RF frequency model rather than changing the physical parent rate
 or symbol timing.
+
+(direct-pps-rp1-results)=
+##### RP1 frequency-calibration results
+
+Direct PPS calibration reduced carrier-frequency error in the measurements
+below on one **Raspberry Pi 5 / RP1**, using both GPIO output routes at 2 mA.
+The conducted steady tones were measured against an independent GPSDO reference.
+The baseline includes normal chipset compensation and Chrony's host-frequency
+estimate, held constant during each baseline group. Direct PPS uses the measured
+RP1 clock correction with zero residual.
+
+Each error cell shows **repeat 1**, then **repeat 2**, in **Hz (PPM)**. The last
+column gives the largest conditional measurement allowance among the four
+baseline/PPS captures for that row; allowances are rounded outward.
+
+| RP1 output | RF (MHz) | Host-estimate error: Hz (PPM) | Direct PPS error: Hz (PPM) | Measurement allowance |
+| --- | ---: | ---: | ---: | ---: |
+| GPIO20 | 7.0401 | −11.876 (−1.6869)<br>−15.911 (−2.2600) | −0.351 (−0.0499)<br>+0.096 (+0.0136) | ±0.223 Hz<br>(±0.0316 PPM) |
+| GPIO20 | 14.0971 | −26.964 (−1.9128)<br>−34.294 (−2.4327) | −0.655 (−0.0464)<br>+0.254 (+0.0180) | ±0.295 Hz<br>(±0.0209 PPM) |
+| GPIO20 | 28.1261 | −58.450 (−2.0782)<br>−70.850 (−2.5190) | +0.357 (+0.0127)<br>−1.000 (−0.0356) | ±0.439 Hz<br>(±0.0156 PPM) |
+| GPIO4 | 7.0401 | −15.549 (−2.2087)<br>−15.575 (−2.2124) | −0.123 (−0.0174)<br>−0.033 (−0.0047) | ±0.222 Hz<br>(±0.0316 PPM) |
+| GPIO4 | 14.0971 | −31.114 (−2.2071)<br>−31.165 (−2.2107) | −0.159 (−0.0113)<br>+0.275 (+0.0195) | ±0.295 Hz<br>(±0.0209 PPM) |
+| GPIO4 | 28.1261 | −61.994 (−2.2042)<br>−62.196 (−2.2113) | −0.269 (−0.0096)<br>+0.715 (+0.0254) | ±0.438 Hz<br>(±0.0156 PPM) |
+
+Direct PPS reduced the measured error in both runs at every frequency shown.
+GPS/PPS synchronization of host UTC and direct calibration of the RP1 RF clock
+are separate functions; select **Direct PPS calibration** to use the RF-clock
+measurement.
+
+The [full measurement record](https://github.com/WsprryPi/WsprryPi/blob/b164d3fd/docs/direct-pps-validation.md#frequency-by-frequency-comparison)
+includes per-run values, the reference setup, measurement assumptions, and
+residual-trim results.
 
 #### Host estimate and manual correction
 
