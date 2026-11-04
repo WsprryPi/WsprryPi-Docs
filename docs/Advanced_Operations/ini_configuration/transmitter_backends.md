@@ -31,9 +31,18 @@ for the measured signal-quality findings.
 The estimate/residual/manual values describe additional correction. The backend
 adds its intrinsic chipset compensation once, including when additional PPM is
 zero. A usable estimate selects estimate plus residual; otherwise manual applies.
-A prior-qualified estimate can remain usable within its bounded 900-second age
+A prior-qualified host estimate can remain usable within its bounded 900-second age
 window even when current qualification is unavailable. Saved inputs do not change
 already committed work. See [calibration accounting](../timing_calibration.md).
+
+`Use Direct PPS Calibration = True` selects the optional Pi 5/RP1 measurement
+against an existing `pps0` input on GPIO17. It defaults to `False`. It replaces
+the host frequency estimate for RP1 while retaining that separate saved
+preference. Direct measurements need three stable ten-second observations,
+expire after 30 seconds, and do not use the host estimate's 900-second
+holdover. Unavailable acquisition selects `Manual PPM`. Qualify the reference
+and review any existing residual before enabling it; see
+{ref}`direct PPS prerequisites and operation <direct-pps-calibration-on-pi-5>`.
 
 ```{literalinclude} default_wsprrypi.ini
 :language: ini

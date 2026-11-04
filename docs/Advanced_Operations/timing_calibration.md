@@ -12,6 +12,68 @@ Wall-clock synchronization and GPIO frequency calibration are related but distin
 
 ### GPIO-Based Transmissions
 
+(direct-pps-calibration-on-pi-5)=
+#### Direct PPS calibration on Pi 5
+
+With the RP1 GPIO backend, **Direct PPS calibration (Pi 5 / RP1)** measures the
+RF clock against GPS PPS. It is disabled by default. It requires an existing
+`pps0` input on GPIO17, Linux RP1 PIO support, and access to the system clock
+tree. WsprryPi observes the input without changing its pin configuration or
+taking it away from Chrony.
+
+Enable it only after verifying the receiver, PPS wiring, reference lock, and
+an edge-error budget of at most one microsecond. Chrony must select that local
+reference alone, with a report age of at most 300 seconds and normal leap status.
+The existing Chrony adapter refreshes every 120 seconds; this selection-health
+check is separate from the direct RF measurement's 30-second expiry. A selected
+local-source label does not independently verify receiver lock or wiring;
+the administrator remains responsible for that reference qualification.
+Do not assign GPIO17 to an LED, amplifier, shutdown button, or band selector.
+
+1. Keep transmission disabled, configure the existing GPS/PPS source, and
+   verify Chrony's synchronization and receiver lock.
+2. In **Setup > Transmitter > GPIO Output > Frequency calibration**, review
+   **Fallback PPM** and **Residual PPM**, then enable **Direct PPS calibration**.
+   An old residual measured with the host estimate may be inappropriate for
+   this different correction source; retain a record and measure it again.
+3. Allow at least 30 seconds for three distinct ten-second measurements with
+   a spread of at most 0.1 ppm. Acquisition status appears beside the control
+   and in the Operations frequency correction panel.
+4. Confirm a qualified direct PPS estimate before testing output. Compare
+   repeated, finite conducted tones against an independently verified RF
+   reference. Apply only the remaining measured error as **Residual PPM**.
+
+Direct PPS replaces the host frequency estimate for RP1; it does not add a
+second full estimate. It reconciles the measured parent error with the
+intrinsic chipset compensation, which still applies once. The displayed
+correction remains the additional term. **Residual PPM** applies only to a
+usable measurement, and **Fallback PPM** remains independent.
+
+Acquisition errors retire the current result and restart qualification.
+Unstable readings return to acquisition and fallback; allow additional settling
+after temperature or load changes.
+Measurements expire after 30 seconds; no expired result is retained as a
+holdover correction. Until a usable result is available, WsprryPi uses the
+configured fallback, including zero additional correction when fallback is
+zero. Fallback zero retains the intrinsic chipset compensation. Accepted
+transmissions keep their original correction; updates affect future work.
+
+The ten-second measurement carries a conditional uncertainty bound of
+0.202 ppm with the one-microsecond reference-edge budget. This is an input
+measurement budget, not a guarantee of achieved RF accuracy. Independent
+conducted measurements establish the result for a particular board and setup.
+Clock-tree access, unsupported firmware, unavailable PIO resources, or a
+different PPS input produce an unavailable state and manual fallback.
+
+The saved system-clock preference is retained when direct PPS is selected.
+Disabling direct PPS restores that preference. Other backends keep their own
+calibration; this capture adapter does not qualify Pi 1–4, Si5351, or a remote
+transmitter. Chrony continues to own UTC synchronization. Direct calibration
+adjusts the RF frequency model rather than changing the physical parent rate
+or symbol timing.
+
+#### Host estimate and manual correction
+
 The GPIO backend has three separate calibration values in **Setup > Transmitter > GPIO Output > Frequency calibration**:
 
 - **System clock estimate** enables a provider-derived estimate of Raspberry Pi clock-rate error. WsprryPi currently supports chrony.
@@ -154,7 +216,7 @@ fast. For Si5351, the reference-calibration adjustment has the opposite sign.
 Recheck through the conducted RF path; do not copy a full correction between
 backends or count intrinsic compensation twice.
 
-Chrony remains the UTC/slot authority. Administrator-configured PPS may support
-Chrony timing and estimates; WsprryPi 4.0 adds no direct PPS RF calibration or
-alternative RP1 clock-parent experiment. Host timestamps do not independently
-measure the RF clock.
+Chrony remains the UTC/slot authority. The optional RP1 direct PPS path counts
+the RF clock domain independently of Chrony's host-rate estimate. Host
+timestamps alone do not establish RF-clock error. The RP1 parent remains
+nominal 200 MHz `pll_sys`.
