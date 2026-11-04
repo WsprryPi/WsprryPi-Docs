@@ -193,6 +193,15 @@ verified GNSS lock or measured RF accuracy. See
 [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md)
 for intrinsic, residual, manual and zero-additional accounting.
 
+On Pi 5 with the RP1 GPIO backend, **Direct PPS calibration** can replace the
+host estimate with an RF-clock measurement against an existing GPS PPS input
+on GPIO17. It is opt-in and requires a qualified reference and current local
+Chrony synchronization. Allow at least 30 seconds to settle. Acquisition and
+reference errors select **Fallback PPM**; accepted jobs retain their original
+correction. Review an existing residual when changing calibration sources.
+See {ref}`Transmission Timing and Calibration <direct-pps-calibration-on-pi-5>`
+for prerequisites, source ownership, uncertainty, and loss behavior.
+
 
 ## Add a Pico and manage outputs
 

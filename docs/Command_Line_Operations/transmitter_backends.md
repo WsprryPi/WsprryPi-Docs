@@ -138,15 +138,21 @@ for the underlying signal-quality findings.
   Enable the qualified Chrony-derived system clock frequency estimate.
 
 - `--no-system-clock-frequency-estimate`
-  Disable the estimate and select GPIO manual PPM.
+  Disable both automatic sources for this invocation and select GPIO manual PPM.
 
 - `-p`, `--gpio-manual-ppm <value>`
   Set additional manual correction (`-200` through `200 ppm`) and disable
-  the estimate. `--ppm` remains an accepted compatibility alias.
+  both automatic estimates. `--ppm` remains an accepted compatibility alias.
 
 - `--gpio-frequency-residual-ppm <value>`
   Set the conducted residual added only to a usable current or bounded
   prior-qualified estimate (`-200` through `200 ppm`).
+
+Explicitly selecting the host estimate also disables direct PPS for that
+invocation. Direct PPS is enabled through `GPIO.Use Direct PPS Calibration`
+in the INI file or the corresponding Setup control; these CLI choices do not
+rewrite its saved preference. See
+{ref}`direct PPS calibration <direct-pps-calibration-on-pi-5>`.
 
 Positive GPIO PPM models a fast source. Intrinsic chipset compensation remains
 applied once even with manual zero. Manual is a fallback, not an additional term
