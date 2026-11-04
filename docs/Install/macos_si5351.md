@@ -9,8 +9,9 @@ Transport selection is explicit. macOS does not provide Linux `i2c-dev` or a
 `/dev/i2c-N` device, and WsprryPi does not switch automatically to another
 adapter, bus, transport, or output backend.
 
-Native macOS physical qualification remains incomplete. A successful build,
-adapter listing, or register read does not establish output-disable behavior,
+Accepted hardware testing applies to its recorded host, adapter, synthesizer,
+reference, and output path. A successful build, adapter listing, or register read
+does not independently establish output-disable behavior,
 timing, frequency accuracy, or RF performance. Use the hardware and recovery
 checks below before considering physical operation.
 
@@ -94,9 +95,27 @@ session even when the selected identity can resolve again.
 
 ## Prepare the configuration
 
-Native Si5351 setup uses CLI or INI configuration. The web adapter selector and
-cached native status workflow are not supported. Do not use browser Reboot or
-Shutdown controls on macOS. Machine reboot and power-off are not supported.
+Use **Setup → Transmitter** to select the Si5351 output path and the exact
+**USB I2C adapter** identity. CLI and INI configuration remain available.
+Discovery lists native MCP2221A identities without opening a HID session or
+selecting an arbitrary adapter. Missing or ambiguous saved identities remain
+visible and unavailable; reconnect the intended adapter or select a unique one.
+
+Choose the fitted **I2C Address**. WsprryPi checks only that address on the selected
+adapter. An access error, timeout, or incompatible response keeps the address
+unconfirmed and preserves the draft. Correct the cause, then reload or select
+the adapter/address again. Valid selections save automatically; a failed check
+does not prove that settings were saved. A successful check establishes register
+compatibility, not physical output state or RF accuracy.
+
+Status reads reuse that check only while the adapter's live registry binding,
+identity, address, and reference frequency still match. Reconnecting the same
+adapter invalidates its former live binding. Reload to obtain current metadata
+and check the selected address again; no automatic reconnect or fallback occurs.
+
+**Reboot** and **Shutdown** stay disabled on macOS with an explanation that machine
+power control is unavailable. Requests from other clients are also rejected,
+and WsprryPi remains running. Ordinary application shutdown remains separate.
 
 Select `si5351` as the **Transmit Backend**, and enter the exact adapter identity.
 The retained **I2C Bus** setting is a Linux setting; it does not select a device
