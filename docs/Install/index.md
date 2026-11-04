@@ -8,11 +8,12 @@ The normal installation commands below retain the stable channel.
 
 beta1
 linux_si5351
+macos_si5351
 ```
 
 ## Gather Hardware
 
-You will need the following:
+For installation on a Raspberry Pi, you will need the following:
 
 - A Raspberry Pi
 - An SD card for the OS image
@@ -30,9 +31,16 @@ common breakout boards:
 - [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal. WsprryPi has not qualified a 25 MHz reference for 2 m WSPR.
 - [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations. WsprryPi's qualified 2 m configuration uses a 27 MHz reference.
 
-The Pi header I2C connection uses GPIO2 and GPIO3. The [Linux USB I2C setup](linux_si5351.md) describes the preferred MCP2221A/Si5351 reference pair, stable adapter identity, Ubuntu prerequisites, and qualification limits.
+The Pi header I2C connection uses GPIO2 and GPIO3. For a USB-connected Si5351,
+follow the host-specific guide:
+
+- [Linux USB I2C setup](linux_si5351.md): kernel driver, stable adapter identity, permissions, and qualification limits.
+- [macOS USB I2C setup](macos_si5351.md): native MCP2221A transport, source build, CLI/INI configuration, and qualification limits.
 
 ## Prerequisites
+
+The remaining steps on this page configure a Raspberry Pi. Other hosts use
+their respective USB I2C setup guides above.
 
 This section may be the most challenging part of the whole installation.  *You must have a working Raspberry Pi with Internet access.* It can be hard-wired or on Wi-Fi.  There is no better place to learn how to set up your new Pi than from the people who make it themselves.  [Go here](https://www.raspberrypi.com/documentation/computers/getting-started.html), and learn how to install the operating system with the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).  To enable SSH access, pre-configure your image with your local/time zone, Wi-Fi credentials, and a unique hostname.
 

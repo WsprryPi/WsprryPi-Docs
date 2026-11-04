@@ -9,7 +9,8 @@ Physical qualification applies to the tested host, kernel, driver, reference,
 and output path. Software tests, enumeration, and register communication alone
 do not qualify clock output, frequency accuracy, cancellation, or
 disconnected-output safety.
-Native macOS transport and qualification belong to #419.
+For the native macOS transport, build selection, adapter identity, and setup
+limits, use [macOS USB I2C and Si5351](macos_si5351.md).
 
 ## Reference hardware
 
