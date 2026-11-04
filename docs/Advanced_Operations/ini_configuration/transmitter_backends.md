@@ -35,6 +35,12 @@ A prior-qualified host estimate can remain usable within its bounded 900-second 
 window even when current qualification is unavailable. Saved inputs do not change
 already committed work. See [calibration accounting](../timing_calibration.md).
 
+On Pi 1–4, `Use System Clock Frequency Estimate = True` applies Chrony's
+host-frequency estimate to GPIO RF output. GPS/PPS is optional and belongs
+to the OS time-source configuration; WsprryPi has no direct PPS capture or
+PPS-input GPIO setting for these hosts. Chrony can also use network time
+sources. See {ref}`Pi 1–4 host-frequency calibration <pi1-4-host-frequency-calibration>`.
+
 `Use Direct PPS Calibration = True` selects the optional Pi 5/RP1 measurement
 against an existing `pps0` input on GPIO17. It defaults to `False`. It replaces
 the host frequency estimate for RP1 while retaining that separate saved

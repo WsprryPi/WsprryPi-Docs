@@ -12,6 +12,30 @@ Wall-clock synchronization and GPIO frequency calibration are related but distin
 
 ### GPIO-Based Transmissions
 
+(pi1-4-host-frequency-calibration)=
+#### Pi 1–4: OS clock estimate
+
+Pi 1–4 GPIO transmission uses RF clock parents derived from the same board
+oscillator as host timing. Enable **System clock estimate** in
+**Setup > Transmitter > GPIO Output > Frequency calibration** to apply
+Chrony's host-frequency estimate to WsprryPi's RF frequency model.
+
+**GPS/PPS hardware is optional.** Chrony can use network time sources; a
+properly configured GPS/PPS reference can improve its clock-rate estimate
+and UTC synchronization. Linux, GPS services, and Chrony handle PPS at the
+operating-system level. WsprryPi does not capture PPS directly on Pi 1–4
+and has no PPS-input GPIO setting for these hosts.
+
+Configure GPS/PPS through the OS when using it, verify Chrony's synchronization,
+and enable **System clock estimate** in WsprryPi. Chrony does not directly
+tune the RF output: WsprryPi applies its estimate, chipset compensation, and
+any **Residual PPM** to the RF model. **Fixed/manual PPM** remains the fallback
+when no usable estimate is available. See the
+[Pi 4 GPS/PPS example](../Additional_Reading/validation_platform.md) for wiring.
+
+Pi 5/RP1 has a separate RF clock. Its optional direct PPS calibration is
+described below.
+
 (direct-pps-calibration-on-pi-5)=
 #### Direct PPS calibration on Pi 5
 

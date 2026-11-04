@@ -56,6 +56,7 @@ Support/index
 :maxdepth: 2
 :caption: Reference
 
+Additional_Reading/validation_platform
 Internals/index
 Development/index
 FAQ/index

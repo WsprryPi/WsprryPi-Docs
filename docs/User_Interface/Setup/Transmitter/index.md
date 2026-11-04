@@ -193,6 +193,12 @@ verified GNSS lock or measured RF accuracy. See
 [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md)
 for intrinsic, residual, manual and zero-additional accounting.
 
+On Pi 1–4, **System clock estimate** uses Chrony's OS-level estimate of the
+shared board oscillator. GPS/PPS is optional and is configured in Linux/GPS
+services and Chrony; WsprryPi does not capture PPS directly on these hosts.
+Network time sources can also supply Chrony. See
+{ref}`Pi 1–4 host-frequency calibration <pi1-4-host-frequency-calibration>`.
+
 On Pi 5 with the RP1 GPIO backend, **Direct PPS calibration** can replace the
 host estimate with an RF-clock measurement against an existing GPS PPS input
 on GPIO17. It is opt-in and requires a qualified reference and current local
