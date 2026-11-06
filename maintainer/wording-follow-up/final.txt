@@ -1,0 +1,31 @@
+About WSPR
+
+WSPR (Weak Signal Propagation Reporter) is a protocol for low-power digital communication on amateur radio frequencies. Operators use it to study long-distance propagation, even under poor conditions.
+
+WSPR sends information as a sequence of tones in short, controlled bursts. Receiving software can recover the message from noise even when the signal is too weak to hear.
+
+Operations: current plan
+
+Current Plan or Message Progression will display the current (or next if in pause mode) plan to be transmitted. For WSPR modes, it will show the type of WSPR frame being transmitted, as well as the callsign and locator. For CW modes, it will show the message and a cursor for the character being transmitted.
+
+Type1Single is a standard Type 1 WSPR frame.
+
+Type2Single sends a supported compound callsign, such as one with a prefix (W0/) or suffix (/P), and reported power. It does not carry a locator.
+
+Type1Type3Paired alternates Type 1 (shown as F1/2) and Type 3 (shown as F2/2) messages, pairing a simple callsign with a long locator so the receiver can associate both.
+
+Type3Single sends a callsign hash, a six-character Maidenhead locator, and reported power. The hash is not reversible; the receiver needs matching callsign context from another decoded message.
+
+Type2Type3Paired alternates Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages, pairing a complex or long callsign with a long locator so the receiver can associate both.
+
+WSPR setup: planning mode
+
+Planning Mode
+
+Planning mode controls how WsprryPi chooses Type 1, 2, and 3 messages from the station details.
+
+Automatic - The planner attempts to choose the best transmission plan based on the data entered.
+
+Prefer paired when available - If the planner finds it can generate both Type 2 and Type 3 messages, it will do so in alternating windows.
+
+Require paired - Requires the planner to pair Type 2 and Type 3 messages for every transmission plan, supplying the callsign and extended locator in separate frames.

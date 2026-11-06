@@ -1,0 +1,68 @@
+{
+  "baseline_commit": "a9825fdb538b4d6ab351809e3e7238a2c5f23fa9",
+  "scope": "About WSPR opening two paragraphs; Operations current-plan descriptions through Type2Type3Paired; WSPR setup Planning Mode section",
+  "capture_method": "Visible Grammarly AI Detector highlight overlays mapped to rendered paragraph text, then verified in screenshots; no hidden application state or service API was used.",
+  "original": {
+    "score_percent": 22,
+    "flagged_parts": 2,
+    "strength_counts": {
+      "strong": 1,
+      "moderate": 1
+    },
+    "passages": [
+      {
+        "strength": "Strong AI patterns",
+        "source": "docs/About_WSPR/index.md",
+        "original_line": 3,
+        "heading_included": "About WSPR",
+        "text": "WSPR, \"Weak Signal Propagation Reporter,\" is a protocol for low-power, digital communication on amateur radio frequencies. WSPR is designed to transmit and receive information efficiently over long distances, even under challenging radio propagation conditions."
+      },
+      {
+        "strength": "Moderate AI patterns",
+        "source": "docs/About_WSPR/index.md",
+        "original_line": 5,
+        "text": "WSPR encodes information in a series of tones and transmits it in short, controlled bursts using a highly efficient modulation scheme. The resulting signal is often too weak to hear but can be decoded by specialized software at a receiving station, which can extract the encoded information from the noise."
+      }
+    ],
+    "proofreading_score": 95,
+    "proofreading_suggestions": 5
+  },
+  "intermediate_revision": {
+    "proofreading_score": 98,
+    "proofreading_suggestions": 2,
+    "ai_score_percent": 29,
+    "flagged_parts": 2,
+    "note": "Two final suggestions were then accepted: long-distance propagation and Type 2 and Type 3."
+  },
+  "final": {
+    "proofreading_score": 100,
+    "proofreading_suggestions": 0,
+    "score_percent": 29,
+    "flagged_parts": 2,
+    "strength_counts": {
+      "strong": 1,
+      "weak": 1
+    },
+    "passages": [
+      {
+        "strength": "Strong AI patterns",
+        "source": "docs/About_WSPR/index.md",
+        "line": 3,
+        "heading_included": "About WSPR",
+        "text": "WSPR (Weak Signal Propagation Reporter) is a protocol for low-power digital communication on amateur radio frequencies. Operators use it to study long-distance propagation, even under poor conditions."
+      },
+      {
+        "strength": "Weak AI patterns",
+        "source": "docs/User_Interface/Operations/index.md",
+        "lines": [
+          63,
+          64
+        ],
+        "paragraphs": [
+          "Type3Single sends a callsign hash, a six-character Maidenhead locator, and reported power. The hash is not reversible; the receiver needs matching callsign context from another decoded message.",
+          "Type2Type3Paired alternates Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages, pairing a complex or long callsign with a long locator so the receiver can associate both."
+        ]
+      }
+    ]
+  }
+}

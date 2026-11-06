@@ -219,6 +219,15 @@ punctuation corrections after a check do not constitute a whole-document rescore
   reported in the completion message, since they are only known after this report
   is committed.
 
+## Wording follow-up
+
+The subsequent [focused wording review](wording-follow-up/report.md) tightened
+the passages identified in prior items 5, 89, and 94. Its exact original/final
+inputs and captured AI highlights are saved beside that report. Proofreading
+rose from 95 to 100; AI resemblance rose from 22% to 29% for the same selected
+sections. These observations supplement rather than replace the historical
+whole-handbook batch scores above. New disposition numbers continue at 103.
+
 ## Suggestions not applied
 
 The following numbered dispositions cover rejected recommendations. Repeated
@@ -332,3 +341,6 @@ for user approval. Detector findings are listed separately from proofreading.
 | 100 | AI Detector, final batch 21 | Remaining resemblance findings: see final-pass score and part count above. | No stylistic rewrite was made solely to reduce the score. The clearer beginner path and shorter operator prose are substantive editorial changes; technical recovery and qualification wording remains precise. |
 | 101 | Final batch 22, Operations introduction | Optional rewrites of the redirect rationale and the condition for adding `/wsprrypi/` (2 recommendations) | Kept the existing redirect behavior and manual-path explanation. The main card introduction and stop instruction were shortened; repeated safety and mode suggestions retain their earlier dispositions. |
 | 102 | AI Detector, final batch 22 | 30% resemblance, 10 flagged parts in the revised Operations and CW scope | Reran after the wording changes. Remaining technical descriptions were retained where no concrete clarity defect justified another rewrite. This score is not directly comparable with the larger batch 20. |
+| 103 | Follow-up: About WSPR definition | AI Detector: Strong AI patterns in the final protocol definition | Exact text and retention rationale are captured in [the follow-up report](wording-follow-up/report.md). |
+| 104 | Follow-up: Operations plan descriptions | AI Detector: Weak AI patterns across Type3Single and Type2Type3Paired | Exact text and retention rationale are captured in [the follow-up report](wording-follow-up/report.md). |
+| 105 | Follow-up: final proofreading scope | No proofreading suggestions left unapplied | Both final suggestions were accepted; Grammarly writing score 100. AI flags remain separately recorded. |

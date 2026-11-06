@@ -1,0 +1,31 @@
+About WSPR
+
+WSPR, "Weak Signal Propagation Reporter," is a protocol for low-power, digital communication on amateur radio frequencies. WSPR is designed to transmit and receive information efficiently over long distances, even under challenging radio propagation conditions.
+
+WSPR encodes information in a series of tones and transmits it in short, controlled bursts using a highly efficient modulation scheme. The resulting signal is often too weak to hear but can be decoded by specialized software at a receiving station, which can extract the encoded information from the noise.
+
+Operations: current plan
+
+Current Plan or Message Progression will display the current (or next if in pause mode) plan to be transmitted. For WSPR modes, it will show the type of WSPR frame being transmitted, as well as the callsign and locator. For CW modes, it will show the message and a cursor for the character being transmitted.
+
+Type1Single is a standard Type 1 WSPR frame.
+
+Type2Single sends a supported compound callsign, such as one with a prefix (W0/) or suffix (/P), and reported power. It does not carry a locator.
+
+Type1Type3Paired is a paired frame transmission mode, alternating between Type 1 (shown as F1/2) and Type 3 (shown as F2/2) messages. This plan supports paired transmissions for a long locator and a simple callsign. This may be thought of as an automated means to assure the receiver can correlate all extended information.
+
+Type3Single sends a callsign hash, a six-character Maidenhead locator, and reported power. The hash is not reversible; the receiver needs matching callsign context from another decoded message.
+
+Type2Type3Paired is a paired frame transmission mode, alternating between Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages. This plan supports paired transmissions for a complex or long callsign and a long locator. This may be thought of as an automated means to assure the receiver can correlate all extended information.
+
+WSPR setup: planning mode
+
+Planning Mode
+
+Planning mode relates to the use of Type 1, 2, and 3 messages, and the behavior when certain data elements are entered.
+
+Automatic - The planner attempts to choose the best transmission plan based on the data entered.
+
+Prefer paired when available - If the planner finds it can generate both Type 2 and 3 messages, it will do so in alternating windows.
+
+Require paired - Requires the planner to always use a paired Type 2 and 3 message format. For those who want the additional data to be received and understood by even the most remote stations under challenging conditions, this is likely the best choice.

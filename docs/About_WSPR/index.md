@@ -1,8 +1,8 @@
 # About WSPR
 
-WSPR, "Weak Signal Propagation Reporter," is a protocol for low-power, digital communication on amateur radio frequencies. WSPR is designed to transmit and receive information efficiently over long distances, even under challenging radio propagation conditions.
+WSPR (Weak Signal Propagation Reporter) is a protocol for low-power digital communication on amateur radio frequencies. Operators use it to study long-distance propagation, even under poor conditions.
 
-WSPR encodes information in a series of tones and transmits it in short, controlled bursts using a highly efficient modulation scheme. The resulting signal is often too weak to hear but can be decoded by specialized software at a receiving station, which can extract the encoded information from the noise.
+WSPR sends information as a sequence of tones in short, controlled bursts. Receiving software can recover the message from noise even when the signal is too weak to hear.
 
 Each WSPR transmission carries one message frame. WsprryPi supports three
 message types:
