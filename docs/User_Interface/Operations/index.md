@@ -60,8 +60,8 @@ The card shows the current state and transmission plan, with controls to enable,
   - *Type1Single* is a standard Type 1 WSPR frame.
   - *Type2Single* sends a supported compound callsign, such as one with a prefix (`W0/`) or suffix (`/P`), and reported power. It does not carry a locator.
   - *Type1Type3Paired* alternates Type 1 (shown as F1/2) and Type 3 (shown as F2/2) messages, pairing a simple callsign with a long locator so the receiver can associate both.
-  - *Type3Single* sends a callsign hash, a six-character Maidenhead locator, and reported power. The hash is not reversible; the receiver needs matching callsign context from another decoded message.
-  - *Type2Type3Paired* alternates Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages, pairing a complex or long callsign with a long locator so the receiver can associate both.
+  - *Type3Single* sends three things: a callsign hash, a six-character Maidenhead locator, and reported power. The receiver can’t recover the callsign from the hash alone. It needs matching callsign information from another message it has decoded.
+  - *Type2Type3Paired* alternates between Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages. Together, the two frames let the receiver associate a complex or long callsign with a long locator.
   - *Next Message At* is displayed when in one of the three CW modes and the scheduler is waiting for a transmission window.  The time is displayed in the local time.
   - *Message Progression* is displayed in CW mode during a transmission. It will show a cursor on the current character.
 
