@@ -1,7 +1,7 @@
 # Raspberry Pi 5 RP1 GPCLK
 
 On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs
-and validates the RP1-GPCLK-DKMS provider and route administration. Fresh setup
+and validates the RP1-DKMS provider and route administration. Fresh setup
 establishes neutral administration with no GPIO route and output disabled.
 After that step, an explicitly saved `rp1-gpclk` GPIO4/GPIO20 selection can be
 restored with transmission disabled. A retained pin for another backend is not
@@ -16,26 +16,45 @@ output. **Neutral activation** is the separate managed step establishing runtime
 administration. **Route selection/restoration** is another explicit transaction.
 These steps do not establish live-output authorization.
 
-The current provider is **v1.0.1**, Debian **1.0.1-1**. Automatic selection uses a published release on every WsprryPi branch, including `devel`. The installer checks that the selected provider matches the application before changing installed runtime state. Explicit development-source selections remain available for provider development. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
+RP1-DKMS reports its product version from its canonical version header.
+WsprryPi requires compatible UAPI, runtime, and lifecycle interfaces.
+With the default `RP1_GPCLK_DKMS_SOURCE=auto`, development application branches
+resolve provider `devel` to an exact commit. Production selection requires an
+eligible published stable release and fails if one is unavailable; it does not
+fall back to development source. Explicit source selection remains available
+for provider development. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
 
-A repeat installation verifies exact ownership/identity, prepares an owned
-runtime for update, installs or validates the provider/application, activates
-neutral administration and restores an explicit saved RP1 route when eligible.
-Transmission stays disabled. Foreign, modified, mixed or unproven state is
-preserved and reported as failure. Do not install another provider over managed
-state or remove ownership evidence to bypass a refusal.
+WsprryPi selects and authenticates the source, supplies its interface
+requirements, and calls the provider's public lifecycle interface. RP1-DKMS owns
+version classification, native installation, runtime preparation, recovery,
+removal, and absence checks. Its receipt is
+`/var/lib/rp1-gpclk-dkms/provider-installation.json`; WsprryPi is recorded as the
+client. Existing attributable WsprryPi ownership records are verified before
+conversion to provider-owned receipts.
 
-The normal installer handles owned-provider version and channel changes through the cleanup-first workflow. It retains the previous ownership record and verified recovery inputs under `/var/lib/wsprrypi/rp1-provider-migration.*`, removes the predecessor through its owning lifecycle, verifies absence, and installs the selected provider. Release recovery inputs include the original checksummed Debian package; development inputs retain the original rollback authority. Missing recovery inputs stop migration before teardown. Foreign files are preserved and block migration. A repeated installation uses the bound recovery evidence to continue an interrupted update after predecessor removal. Direct package replacement is not the migration path. Normal uninstall removes only
-attributable, unchanged installer-owned state; failed preparation/removal stops
-before application teardown. Preserve the error and support evidence when
-refused.
+Identical incoming inputs retain the owned installation. Changed incoming
+payloads at equal semantic-version precedence replace it, and a compatible higher
+version upgrades it. Build metadata does not affect semantic-version precedence;
+Debian package ordering is checked separately for release transitions.
+These operations preserve exact native ownership and recovery checks. Manual
+edits to installed provider code are preserved and stop replacement; they are
+different from deliberate changes to incoming installation files. Downgrades
+require explicit owning removal and reinstall. Transmission remains disabled while the
+normal installer prepares neutral administration and restores an explicitly
+saved RP1 route.
 
-If only a valid WsprryPi ownership record remains after the provider has been
-removed, normal uninstall verifies that the provider package, DKMS registration,
-modules, runtime files, overlays, and route configuration are absent. It then
-removes the unchanged stale record and continues without requiring the removed
-provider's runtime interface or a manual RP1-removal override. Residual or
-uncertain provider state still requires the owning recovery workflow.
+By default, `REMOVE_RP1_GPCLK_DKMS=auto` removes the attributable provider
+installed for WsprryPi. `true` explicitly requests owning removal; `false`
+preserves the provider. Uninstall requires verified provider absence before
+reporting that it was removed. It retires unchanged application-owned
+files and generated defaults. Pre-existing or modified operator data, configured
+fleet records, shared operating-system packages, and `picotool` are retained.
+Modified code or uncertain required ownership produces a cleanup failure.
+Provider recovery evidence is retained until its transaction is terminal and no
+live reference requires it.
+
+If installation or required cleanup fails, preserve the error and recovery
+files. Do not delete ownership records to bypass a refusal.
 
 The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
 defines the owning recovery boundaries.

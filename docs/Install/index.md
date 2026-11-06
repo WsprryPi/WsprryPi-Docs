@@ -72,7 +72,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Supply Pico USB firmware tools with the [current beta installer](beta1.md#pico-usb-firmware-tools).** It installs Python and libusb, and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
-  The installer resolves a compatible RP1-GPCLK-DKMS provider, verifies its
+  The installer resolves a compatible RP1-DKMS provider, verifies its
   source and installed artifacts, and first establishes route-neutral
   administration. Fresh setup has no selected route. An explicitly saved RP1
   GPIO4/GPIO20 selection can then be restored, with transmission disabled.
@@ -107,7 +107,19 @@ refuses foreign, modified, mixed, or otherwise unproven provider state instead
 of adopting or removing it. If an update is released, re-run the installer to
 take advantage of the new release.
 
-The current RP1 provider is v1.0.1 / Debian 1.0.1-1. The current installer selects a published provider on every application branch, including `devel`, and verifies compatibility before changing installed runtime state. For an owned-provider version or channel change, it retains verified predecessor recovery inputs, performs managed cleanup and removal, verifies absence, and installs the selected provider. Explicit provider-development source selection remains separate. The tagged **4.0 Beta 1 installer** installs its
+The current installer delegates provider lifecycle operations to RP1-DKMS.
+With the default `RP1_GPCLK_DKMS_SOURCE=auto`, development application branches
+resolve provider `devel` to an exact commit; production selection requires an
+eligible published stable release, without a development fallback. The
+provider reports its version and verifies interface compatibility, exact native
+ownership, recovery inputs, and predecessor absence. Repeated identical inputs
+retain the owned installation; changed inputs at the same version replace it;
+a compatible higher version upgrades it. Unexpected changes to installed code
+are preserved and stop replacement. See
+[RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership)
+for source selection, version ordering, and recovery.
+
+The tagged **4.0 Beta 1 installer** installs its
 pinned qualification evidence locally, including updates that skip an unchanged provider. No separate
 qualification-release download or cache refresh is needed. The evidence cannot
 authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status).
@@ -223,18 +235,19 @@ Run the normal installer in uninstall mode:
 curl -fsSL installwspr.aa0nt.net | sudo env ACTION=uninstall bash
 ```
 
-Uninstall removes the WsprryPi application, service, configuration, and web
-files while retaining shared operating-system packages. On Pi 5-family
+Uninstall removes unchanged WsprryPi-owned application, service, configuration,
+and web files while retaining operator data and shared operating-system packages.
+By default, on Pi 5-family
 systems, it also removes the RP1 provider and runtime administration when the
 installer can prove that the installed identity is still the one WsprryPi
 owns. Foreign, modified, mixed, or unproven provider state is preserved, and
 the uninstall reports a failure instead of deleting it.
 
-If the RP1 provider has already been removed and only a valid WsprryPi
-ownership record remains, uninstall verifies that no provider or runtime
-state remains, removes the stale record, and continues automatically. No
-manual RP1-removal override is needed. If that absence cannot be verified,
-uninstall preserves the record and requires the owning recovery workflow.
+RP1-DKMS owns the provider installation receipt and absence checks. WsprryPi
+maintains separate application file ownership. Uninstall removes unchanged owned
+files and generated defaults while preserving existing or modified operator
+data, configured fleet records, shared packages, and `picotool`. Failed required
+cleanup stops the uninstall; it does not report provider removal without proof.
 See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership).
 
 ## Additional Hardware
