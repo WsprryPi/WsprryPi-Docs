@@ -52,7 +52,7 @@ After installation, `/dev/rp1-gpclk` is normally absent until a route is
 selected. Route switching and removal happen in the current boot. For a
 selected route, requested, persisted, configured, and active routes must all be
 GPIO4 or all be GPIO20. For a removed route, configured and active must both be
-None and the transmission consumer endpoint must be absent. Eligibility and
+None, and the transmission consumer endpoint must be absent. Eligibility and
 cleanup must also be accepted; WsprryPi does not fall back to another route or
 backend.
 
@@ -70,19 +70,19 @@ provider files manually.
 ## Pico hostname or restart is unconfirmed
 
 Use [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname)
-for the device-side save, restart and sign-in procedure. WsprryPi's settings
+for the device-side save, restart, and sign-in procedure. WsprryPi's settings
 form does not rename the Pico; renaming a Fleet profile changes only its label.
-If a Pico save or restart reply is lost, read saved and active state before
+If a Pico save or restart reply is lost, read the saved and active state before
 repeating it. A timeout does not prove the change failed or output stopped.
 
 Keep Pi transmission and the affected Fleet assignment paused while reviewing
-the destination. Resolve pending, owned or uncertain jobs through
+the destination. Resolve pending, owned, or uncertain jobs through
 [Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery).
 Disabling Pi transmission alone does not disable Pico's autonomous schedule.
 
 | What you see | What to do |
 | --- | --- |
-| Browser opens at the new name, but WsprryPi cannot connect | Review the saved profile, active `[WTP]` endpoint and independent assignment destinations. A browser HTTP address is not a WTP listener port. |
+| Browser opens at the new name, but WsprryPi cannot connect | Review the saved profile, active `[WTP]` endpoint, and independent assignment destinations. A browser HTTP address is not a WTP listener port. |
 | Fleet still shows the old destination | Edit and freshly identify the saved profile, then use **Use this device** if changing the single active endpoint. Editing a label or profile alone does not switch it. |
 | New name is unreachable | Try the current LAN IPv4 address and verify the full device ID. Follow the Pico manual for duplicate-name or setup-Wi-Fi recovery. |
 | Different full device ID | Verify the intended board and address before using it. Renaming does not change the stable ID. |

@@ -1,16 +1,31 @@
 # About WSPR
 
-WSPR, "Weak Signal Propagation Reporter," is a protocol for low-power, digital communication on amateur radio frequencies. WSPR is designed to be a highly efficient way of transmitting and receiving information over long distances, even under challenging radio propagation conditions.
+WSPR, "Weak Signal Propagation Reporter," is a protocol for low-power, digital communication on amateur radio frequencies. WSPR is designed to transmit and receive information efficiently over long distances, even under challenging radio propagation conditions.
 
-WSPR operates by encoding information in a series of tones and transmitting it in short, controlled bursts using a highly efficient modulation scheme. The resulting signal is often too weak to be heard by human ears but can be decoded by specialized software on a receiving station, which can extract the encoded information from the noise.
+WSPR encodes information in a series of tones and transmits it in short, controlled bursts using a highly efficient modulation scheme. The resulting signal is often too weak to hear but can be decoded by specialized software at a receiving station, which can extract the encoded information from the noise.
 
-WSPR message types differ mainly in how much information they can encode and how they use transmission frames. Type 1 (WSPR1) is the original, single-frame format that encodes a standard callsign, grid locator (4 characters), and power level—simple, compact, and universally supported. As of version 3.0.0, two additional message types are available, WSPR 2 and WSPR 3.
+Each WSPR transmission carries one message frame. WsprryPi supports three
+message types:
 
-Type 2 (WSPR2) extends WSPR1 capabilities by allowing longer or non-standard callsigns (e.g., prefixes, suffixes, or portable identifiers) using a compressed/hashed representation, but still fits within a single transmission frame. Type 3 (WSPR3) goes further by splitting the message across two coordinated frames, enabling full transmission of extended callsigns and 6-character locators; it relies on the receiver combining both frames to reconstruct the complete message.
+- **Type 1** carries a standard callsign, a four-character Maidenhead locator,
+  and reported power.
+- **Type 2** carries a supported compound callsign and reported power, without
+  a locator.
+- **Type 3** carries a callsign hash, a six-character locator, and reported power.
+  The hash alone cannot reconstruct the callsign; the receiver needs matching
+  callsign context from another decoded message.
+
+WsprryPi can pair Type 1 or Type 2 with Type 3 in separate transmission windows
+to send station identity and the extended locator. A message type is a frame
+format; a paired plan schedules two frames. See
+[WSPR transmission planning](../User_Interface/Setup/Signal_Setup/wspr.md#wspr-transmission-type-selection-examples)
+for WsprryPi's choices and the
+[WSJT-X protocol reference](https://wsjtx.github.io/wsjtx/guide-full.html)
+for the message formats.
 
 WSPR is transmitted on a schedule, allowing multiple stations to share a single frequency. This makes WSPR suitable for various applications, including monitoring and analyzing radio propagation conditions, testing equipment and antennas, and conducting experiments in low-power, long-range communication.
 
-One of the critical features of WSPR is its ability to operate in very low signal-to-noise ratios. This allows for reliable communication over long distances, even under poor propagation conditions. This makes it a popular choice among amateur radio enthusiasts and researchers interested in studying long-range radio propagation and related phenomena.
+WSPR can operate at very low signal-to-noise ratios. This makes it useful for studying paths that ordinary listening may miss.
 
 WSPR is the software that implements MEPT-JT, which started life in 2008 as a suggestion by Murray ZL1BPU. Joe K1JT took up the challenge, designed the software, and added many improvements. 'MEPT-JT' is derived from 'MEPT' (Manned Experimental Propagation Transmission), a generic term for a range of low-powered techniques, and 'JT' is Joe Taylor's initials. It is one of a general family of D-MEPT (digital MEPT) modes.
 
@@ -25,7 +40,7 @@ The basic specifications of the MEPT\_JT mode are as follows:
 - Forward error correction (FEC): long-constraint convolutional code, K=32, r=1/2.
 - Number of channel symbols: nsym = (50+K-1)\*2 = 162.
 - Keying rate: 12000/8192 = 1.46 baud.
-- Modulation: continuous phase 4-FSK. Tone separation 1.46 Hz.
+- Modulation: continuous phase 4-FSK. Tone separation: 1.46 Hz.
 - Synchronization: 162-bit pseudo-random sync vector.
 - Data structure: each channel symbol conveys one sync bit and one data bit.
 - Duration of transmission: 162\*8192/12000 = 110.6 s.

@@ -80,8 +80,7 @@ host-present bus. Its JSON response contains `I2C Bus`, `Addresses`, and
 not program the clock generator or enable an output. The isolated worker has
 a two-second scan deadline and at most 25 ms of cleanup attempts, with one worker
 outstanding. A kernel-blocked worker can remain pending after termination is
-requested; further scans report busy until it exits. Busy, timeout/error and
-confirmed no response are different outcomes. Failed inventory preserves a saved
+requested; further scans report busy until it exits. Busy, timeout/error, and confirmed no response are different outcomes. Failed inventory preserves a saved
 address as unconfirmed; it does not establish missing hardware. Retry explicitly
 after the worker/problem is resolved. Configuration updates independently perform
 fresh validation of a newly selected bus/address rather than trusting this list.
@@ -119,9 +118,7 @@ POST /wsprrypi/api/rp1-gpclk-route
 
 `GET` is read-only and reports requested, persisted, configured, active,
 eligible, generation, journal, service-restoration status, and operator state.
-Detailed responses distinguish `qualificationEvidence`, `liveQualification` and
-`structuralCompatibility` from readiness, application eligibility and output
-inhibition. Evidence not collected is **Not inspected**; status does not download
+Detailed responses distinguish `qualificationEvidence`, `liveQualification`, and `structuralCompatibility` from readiness, application eligibility, and output inhibition. Evidence not collected is **Not inspected**; status does not download
 metadata. See [RP1 diagnostics](rp1_gpclk.md#diagnostic-evidence) for cache refresh
 and interpretation. The detailed diagnostic panel is hidden in the normal UI.
 
@@ -311,7 +308,7 @@ POST /wsprrypi/api/control/v1/member/pins/validate
 Each GET returns the same reconciled `member-resources` bundle:
 `target`, `carrier`, nullable `profile_generation`, `profile_owned_station`,
 complete `application`, advertised `pin_choices`, and opaque `member_context`.
-Application includes station, hardware, recurrence, capabilities and restart
+Application includes station, hardware, recurrence, capabilities, and restart
 observations. The adapter brackets resource reads with application readback and
 checks the common saved revision. Live recurrence/active observations may change
 independently. Preserve decimal uint64 strings as strings. Hardware
@@ -320,19 +317,19 @@ independently. Preserve decimal uint64 strings as strings. Hardware
 ### Current Pico station contract
 
 The Pi requires `Wsprry-Control/1` and validates the complete advertised
-resource, policy and carrier descriptors before any mutation. Pico resources
+resource, policy, and carrier descriptors before any mutation. Pico resources
 use `/api/control/v1/application`, `/station`, `/hardware`, `/pins`, `/config`
 and `/config/update` beneath that same namespace. There are no historical
-application, station or hardware views and no downgrade negotiation.
-Unknown contracts, malformed descriptors and unsupported station formats
+application, station, or hardware views and no downgrade negotiation.
+Unknown contracts, malformed descriptors, and unsupported station formats
 are refused before writes.
 
 The current application includes `wspr_plan`: supported state, frame types
-and count, 120-second slot separation, rationale and ambiguity/alternate call.
+and count, 120-second slot separation, rationale, and ambiguity/alternate call.
 A null station has a null plan. Plans describe encodability, not clock quality,
-readiness, enablement, live output or transmission. See
+readiness, enablement, live output, or transmission. See
 [Pico automatic planning](../User_Interface/Setup/Transmitter/index.md#pico-automatic-wspr-planning)
-for ordinary-six, compound, brackets, ambiguity and pair behavior.
+for ordinary-six, compound, brackets, ambiguity, and pair behavior.
 
 Use the loaded station schema unchanged in a complete scoped PUT. For example,
 a current station body uses `"contract": "Wsprry-Control/1"` and
@@ -341,14 +338,14 @@ a current station body uses `"contract": "Wsprry-Control/1"` and
 and the exact loaded target. Zero is a valid reported-power value, not a request
 to disable RF. Profile-owned station identity still requires transactional setup.
 Current configuration omission/null/false/zero semantics,
-credentials, flags, schedules, pins and consumed-slot watermark retain their
+credentials, flags, schedules, pins, and consumed-slot watermark retain their
 existing meaning. Partial updates must produce a complete valid configuration;
 there is no per-field partial success or durable incomplete draft.
 
 ### Read, review and send one scoped operation
 
 1. Select/authenticate the management carrier and explicitly GET a member
-   resource. Keep its exact quoted ETag, target and opaque `member_context`.
+   resource. Keep its exact quoted ETag, target, and opaque `member_context`.
 2. Send that ETag unchanged in `If-Match`, and the context unchanged in
    `X-WsprryPi-Member-Context`. Do not derive either from a device ID or generation.
 3. All mutations also require matching `Origin`, `Content-Type: application/json`
@@ -400,17 +397,16 @@ conflicts. The nonpersistent preview takes only the complete `pins` object
 above plus the root `"contract":"Wsprry-Control/1"` member, with the same
 host revision/context/intent headers.
 The adapter does not forward `If-Match` to Pico's preview, preserving its
-nonpersistent semantics. Preview distinguishes validity, conflicts and
-operational support and verifies unchanged configuration on readback. A valid
+nonpersistent semantics. Preview distinguishes validity, conflicts, and operational support and verifies unchanged configuration on readback. A valid
 structural I2C plan is not necessarily operationally supported.
 
 Scoped PUT bodies are limited to 1,024 UTF-8 bytes; preview to 2,048. Unknown
-fields, duplicate keys, wrong targets and unsupported schemas are refused.
+fields, duplicate keys, wrong targets, and unsupported schemas are refused.
 Application is read-only; station/hardware PUT are complete scoped replacements,
 not arbitrary merge patches. A successful PUT is confirmed by authoritative
 application readback. Profile-owned station fields remain read-only. Match the
 loaded station schema and negotiated format support; dBm is WSPR metadata,
-separate from measured RF output, drive and calibration.
+separate from measured RF output, drive, and calibration.
 
 ### Conflicts, uncertainty and ownership
 
@@ -419,10 +415,10 @@ invalidated member context/selection can return 409 `member_read_required`.
 Other 409 refusals include busy/unresolved runtime or unsupported resources.
 Keep the actual error code: a lost/malformed reply after dispatch can be
 unconfirmed even if persistence succeeded. Preserve the draft, explicitly read
-saved/active state and review before a new deliberate save. Never automatically
-retry a mutation, substitute an endpoint or switch save strategy after failure.
+saved/active state, and review before a new deliberate save. Never automatically
+retry a mutation, substitute an endpoint, or switch save strategy after failure.
 
-Saved hardware, active-at-boot hardware and null/unknown active state remain
+Saved hardware, active-at-boot hardware, and null/unknown active state remain
 distinct. Changed pins latch restart/output inhibition for this boot; saving the
 old plan or station does not clear it. Storage faults differ from application
 faults. `output_disable_failed` can accompany a saved change with unconfirmed
@@ -430,7 +426,7 @@ shutdown. No save restarts, reconnects WTP, enables recurrence, claims or transm
 
 Engineering mTLS and explicitly supported consumer station/AP management use
 the host's existing idle admission. Built-in route flags do not prove remote
-support. Missing, malformed or unsupported shared-resource discovery refuses control
+support. Missing, malformed, or unsupported shared-resource discovery refuses control
 without selecting an older editor or resource view.
 See [management and member controls](../User_Interface/Setup/Transmitter/index.md#management-connection-and-login)
 for login expiry and supported GP/adapters.

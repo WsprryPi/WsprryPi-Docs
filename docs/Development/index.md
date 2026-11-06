@@ -9,7 +9,7 @@ WsprryPi is developed as a modular Raspberry Pi application with a native C++ ba
 Automatic Update Polling Internals <../User_Interface/Maintenance/update_check>
 ```
 
-The project officially supports Raspberry Pi 5. GPIO RF transmission on Raspberry Pi 5 requires dedicated supported hardware rather than the older direct GPIO clock path used on earlier Raspberry Pi models.
+The project officially supports Raspberry Pi 5. GPIO RF transmission on Raspberry Pi 5 uses the installer-managed RP1 GPCLK provider rather than the older GPIO clock path used on earlier Raspberry Pi models. See [Raspberry Pi 5 RP1 GPCLK](../Advanced_Operations/rp1_gpclk.md) for the current integration.
 
 ## Build Environment
 
@@ -112,7 +112,7 @@ revisions, licensing disposition, and extraction guidance are recorded in
 
 Raspberry Pi 5 support is now official.
 
-Because Raspberry Pi 5 hardware differs significantly from earlier Raspberry Pi models, supported transmission paths may require dedicated external hardware or backend-specific support. The older direct GPIO RF approach remains associated with earlier Raspberry Pi generations where that clocking path is supported.
+Pi 5 GPIO output uses the managed RP1 GPCLK provider. Si5351 is a separate external-hardware option. Use the [RP1 operator guide](../Advanced_Operations/rp1_gpclk.md) for route setup and recovery; the older GPIO clock path applies to earlier Pi generations.
 
 ## Web UI Development
 

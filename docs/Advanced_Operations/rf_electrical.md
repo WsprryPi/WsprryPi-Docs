@@ -18,7 +18,7 @@ For the reasoning behind that requirement, see {doc}`../FAQ/lowpass-filter-justi
 
 Connect a low-pass filter through a DC-blocking capacitor to the configured GPIO4 or GPIO20 `GPCLK0` RF output and a ground pin on the Raspberry Pi before connecting an antenna.
 
-GPIO4 is on header pin 7 and GPIO20 is on header pin 38. Header pin 9 is a nearby ground connection.
+GPIO4 is on header pin 7, and GPIO20 is on header pin 38. Header pin 9 is a nearby ground connection.
 
 See:
 

@@ -65,7 +65,7 @@ envelope nor a spectral guarantee. I2C and scheduling time count against each
 event's absolute monotonic deadlines; expired slices are skipped rather than
 replayed. Slow transfers can consume a slice and shorten or omit pulses.
 
-Fade durations must be nonnegative and the slice duration positive. The last
+Fade durations must be nonnegative, and the slice duration must be positive. The last
 slice is limited to the remaining event time; overlapping fades use the lower
 envelope level. Smaller slices increase switching cost and do not prove smoother
 RF or extend the event. Measure the actual waveform and spectrum independently.

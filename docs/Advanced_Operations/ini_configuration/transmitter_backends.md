@@ -108,7 +108,7 @@ board's values. USB identity, WTP device identity, TLS certificate identity,
 and current boot identity serve different checks. A hostname, DNS-SD instance
 label, or Plain LAN HELLO alone does not establish trusted identity.
 
-The host requires synchronized UTC without kernel clock-error flags. The Pico separately needs a valid time source under its source-age, leap and ownership rules. UTC uncertainty is reported for operator judgment; it is not another first-party transmission budget. External WTP callers can still explicitly request a smaller protocol limit. The independently versioned USB time-observation exchange retains its own validity and format checks; accepting an observation is not RF calibration or proof of start accuracy.
+The host requires synchronized UTC without kernel clock-error flags. The Pico separately needs a valid time source under its source-age, leap, and ownership rules. UTC uncertainty is reported for operator judgment; it is not another first-party transmission budget. External WTP callers can still explicitly request a smaller protocol limit. The independently versioned USB time-observation exchange retains its own validity and format checks; accepting an observation is not RF calibration or proof of start accuracy.
 
 Set host `[Calibration] PPM = 0.0`. Disable TX LED, amplifier, shutdown-button,
 and band-selector GPIO controls, including per-frequency `@` selectors. CW fades
@@ -181,7 +181,7 @@ selected network management carrier, while the host and Pico are idle.
 Engineering HTTPS retains the selected Network (TLS) certificate policy;
 supported consumer station/AP management uses a separate volatile login. USB
 and Plain LAN WTP do not themselves provide JSON administration. No persistent
-management secret, new WTP authority or hardware-activation setting is added.
+management secret, new WTP authority, or hardware-activation setting is added.
 
 An ordinary settings save preserves supported settings outside the form,
 including pins and advanced frequency-policy settings. Older firmware is used
@@ -191,7 +191,7 @@ and the reported restart requirement determines the next step.
 Unknown fields refuse safely rather than being discarded. Explicit scoped
 station/hardware saves use complete resources under the selected member's
 revision/context, separately from the legacy atomic editor. They do not reset
-unrelated settings, restart, claim, reconnect WTP or transmit.
+unrelated settings, restart, claim, reconnect WTP, or transmit.
 
 See [Pico standalone settings and Wi-Fi](../../User_Interface/Setup/Transmitter/index.md#pico-standalone-settings-and-wi-fi)
 for loading, password preservation, schedule-only saves, and recovery after a

@@ -25,7 +25,7 @@ RF and Electrical Reference <rf_electrical>
 (gpio-based-transmissions)=
 (si5351-based-transmissions)=
 (am-calibration)=
-- [Transmission Timing and Calibration](timing_calibration.md) explains WSPR timing, GPIO and Si5351 frequency calibration, and manual AM zero-beat calibration.
+- [Transmission Timing and Calibration](timing_calibration.md) explains WSPR timing, frequency calibration for GPIO and Si5351, and manual AM zero-beat calibration.
 
 (canonical-band-correlation)=
 - [Canonical Bands and WSPR Frequency Presets](canonical_bands.md) explains frequency-to-band correlation, built-in WSPR dial presets, profiles, per-band preferences, and country/locality selection.

@@ -69,7 +69,7 @@ transmission fails before waveform generation. The simulated backend does not
 require this real-time scheduling permission.
 
 On hosts with the Pico USB updater, use the configured application service
-account so its protected maintenance state is readable. Unreadable maintenance
+account so its protected maintenance state is readable. An unreadable maintenance
 state blocks transmitter controls. Preserve update records and their
 permissions.
 
@@ -103,7 +103,7 @@ and drive are independent of the WSPR message's reported power.
 
 Choose the board's fitted **I2C Address**. With a stable identity, selecting an
 address checks only that address. If a saved address no longer responds, the
-control stays editable so another fitted address can be selected explicitly.
+control stays editable so you can explicitly select another fitted address.
 A failed check does not confirm that the whole address range is empty. Valid
 address changes save automatically with the form.
 

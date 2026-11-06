@@ -41,7 +41,7 @@ Backend `/version` includes structured metadata:
 }
 ```
 
-`parseWsprryPiVersionResponse()` prefers structured fields. Display-string parsing is legacy fallback.
+`parseWsprryPiVersionResponse()` prefers structured fields. Display-string parsing is a legacy fallback.
 
 ## GitHub Comparison Flow
 
@@ -144,7 +144,7 @@ detached_target_unknown
 currentSha...targetHeadSha
 ```
 
-* GitHub compare status `ahead` means the target branch contains the installed commit and additional newer commits, so update is available
+* GitHub compare status `ahead` means the target branch contains the installed commit and additional newer commits, so an update is available
 * `identical` means no update
 * `behind` is reported as local-ahead/no-update
 * `diverged` is a distinct no-update state because neither history is a safe upgrade path from the other

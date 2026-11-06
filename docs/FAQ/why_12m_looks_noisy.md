@@ -14,14 +14,16 @@ Qualification requires usable modulation and repeatable WSPR decoding. A
 steady carrier alone does not prove that a GPIO signal is usable for WSPR.
 :::
 
-Current WsprryPi releases fail closed for direct GPIO requests in the 12 m,
+For the legacy 500 MHz and 750 MHz PLLD GPIO paths described here,
+WsprryPi blocks unqualified direct GPIO requests by default in the 12 m,
 6 m, 4 m, 2 m, 1.25 m, and 70 cm band ranges. The check uses the final
 requested RF frequency and applies to named bands and arbitrary frequencies,
 WSPR and CW modes, scheduled operation, command-line operation, and Test Tone.
 The request is rejected before the transmitter is activated, with guidance to
 select a GPIO-qualified band or a transmitter backend separately qualified for
 the requested band. The Si5351 backend is not subject to this GPIO policy, but
-its qualification status still varies by band.
+its qualification status still varies by band. Pi 5 uses a different RP1 clock
+profile and is qualified on 12 m; use the current table below for its limits.
 
 ## Current Qualification Status
 

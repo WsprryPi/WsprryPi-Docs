@@ -5,7 +5,7 @@ The Transmitter tab on the Signal Setup page contains settings related to the ac
 Use the **RF Output Path** switch to choose between GPIO and Si5351. The switch
 shows GPIO on the left and Si5351 on the right; switch it off for GPIO or on for
 Si5351. The same RF Output panel then shows only the settings for that hardware.
-On wide screens those controls share one row. On smaller screens they wrap or
+On wide screens, those controls share one row. On smaller screens, they wrap or
 stack without changing their order.
 
 - **GPIO** - Available on earlier Raspberry Pi models and on Pi 5 when the
@@ -26,7 +26,7 @@ after neutral activation, with transmission disabled. A retained GPIO pin for
 another backend is not route consent. Installation alone does not qualify
 either route or authorize transmission.
 
-GPIO qualification depends on the processor clock profile, band and mode. Use
+GPIO qualification depends on the processor clock profile, band, and mode. Use
 the accepted [band qualification table and numbered notes](../../../About_Wsprry_Pi/index.md#band-qualification).
 Unqualified combinations are blocked by default in scheduled operation and
 Test Tone; an experimental override cannot enable an Unavailable plan.
@@ -61,8 +61,7 @@ leaves WsprryPi stopped and the controller inhibited for investigation. Use
 **Remove route** for normal removal. See [Raspberry Pi 5 RP1 GPCLK](../../../Advanced_Operations/rp1_gpclk.md)
 for recovery guidance.
 
-WsprryPi permits RP1 transmission only when the route and eligibility
-evidence agrees exactly.
+WsprryPi permits RP1 transmission only when the route and eligibility evidence agree exactly.
 
 The other pin remains available on the **Pi I/O** tab. Selecting the Si5351 backend releases both GPIO4 and GPIO20 for ordinary GPIO roles; the retained GPIO transmit-pin value is ignored while Si5351 is selected.
 
@@ -124,7 +123,7 @@ as **unconfirmed**; timeout does not mean missing hardware. A completed scan
 that does not find the saved address requires an explicit detected selection.
 
 Wait for an outstanding worker to exit before retrying a busy scan. After a
-communication failure, correct the reported bus, wiring, power or permissions
+communication failure, correct the reported bus, wiring, power, or permissions
 problem, then select the bus again or reload to request another bounded scan.
 Saving a newly selected bus/address independently validates it on the server;
 the browser's cached list is not authority to use it.
@@ -151,7 +150,7 @@ When **Passive crystal** is selected, the **Crystal Load Capacitance** menu appe
 
 ### Si 5351 Power Level
 
-Levels **1, 2, 3, 4** retain **2, 4, 6, 8 mA** output drive respectively.
+Levels **1, 2, 3, 4** retain **2, 4, 6, 8 mA** output drive, respectively.
 These are drive settings, not calibrated RF power. Measure the complete filtered
 and loaded RF path independently; WSPR reported dBm does not set this drive.
 
@@ -178,8 +177,7 @@ for slice/deadline limits and measurement boundaries.
 
 ## GPIO frequency correction feedback
 
-**Frequency calibration** separates **System clock estimate**, **Residual PPM**
-and **Fixed/manual PPM**. Candidate correction describes what a future request
+**Frequency calibration** separates **System clock estimate**, **Residual PPM**, and **Fixed/manual PPM**. Candidate correction describes what a future request
 would use. Committed correction belongs to the already prepared work and stays
 fixed even when a newer estimate arrives or settings are saved. Displayed
 effective/correction PPM is the additional term; chipset intrinsic compensation
@@ -191,7 +189,7 @@ unavailable or converging report can still use a bounded prior-qualified value.
 **age 0 s**. Source provenance describes selected/combined Chrony records, not
 verified GNSS lock or measured RF accuracy. See
 [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md)
-for intrinsic, residual, manual and zero-additional accounting.
+for intrinsic, residual, manual, and zero-additional accounting.
 
 On Pi 1–4, **System clock estimate** uses Chrony's OS-level estimate of the
 shared board oscillator. GPS/PPS is optional and is configured in Linux/GPS
@@ -230,7 +228,7 @@ USB Fleet control does not require Pico Wi-Fi setup.
 Open **Setup → Fleet** to add a Pico to WsprryPi, select it for jobs from this
 Pi, or assign independent schedules to several outputs. Fleet is available on
 every page load. Opening the tab and browsing devices do not select an output,
-save settings or start transmission.
+save settings, or start transmission.
 
 Use a Pico 2 W running WsprryPico firmware. Connect its USB cable to the Pi
 that runs WsprryPi, or connect both devices to a reachable network. Start with
@@ -257,14 +255,14 @@ Pico; complete finite jobs use its local timing.
 
 ### Known and nearby devices
 
-The selector includes saved devices, attached USB Picos and nearby network
+The selector includes saved devices, attached USB Picos, and nearby network
 advertisements. A saved device stays listed when its advertisement disappears.
 An advertisement
 is a connection hint, not proof of device identity, an active listener, or RF
 readiness. If Avahi discovery is unavailable or no service appears, use
 **Add device** for a manual network profile. USB discovery is independent of
 Avahi: a connected Pico running supported firmware appears automatically and
-does not require entering a USB path, serial or vendor/product IDs. Its Console
+does not require entering a USB path, serial, or vendor/product IDs. Its Console
 and Management ports are not listed as separate transmitters. A board in BOOTSEL
 mode does not expose the normal application connection. Merely opening the selector
 or highlighting an entry does not connect, identify, save, or switch devices.
@@ -302,8 +300,7 @@ keep their configured connection behavior.
 For independent remote schedules alongside this Pi's local schedule, use
 [Output schedules](../index.md#assign-an-output-schedule). The Pi server uses
 Plain LAN and derives its supported modes and frequency limits from the
-selected backend. Native GPIO, RP1 and Si5351 support finite WSPR, TONE, QRSS,
-FSKCW and DFCW jobs under their existing backend policies. See
+selected backend. Native GPIO, RP1, and Si5351 support finite WSPR, TONE, QRSS, FSKCW, and DFCW jobs under their existing backend policies. See
 [Pi WTP server capability](../../../Command_Line_Operations/transmitter_backends.md#pi-wtp-server-capability)
 for RP1's exact-operation development confirmation. The single-endpoint selection
 and Pico status controls below
@@ -315,7 +312,7 @@ Use this workflow for a selected USB Pico already running WsprryPico. Updates
 retain its saved settings. Keep the Pico connected to the Pi throughout
 programming and verification.
 
-On first use, **Download and check image** obtains a compatible verified maintenance tool from WsprryPico as well as the selected firmware. Starting a full erase also obtains the tool when needed. A newer Pico commit awaiting verification does not prevent using an earlier compatible verified tool. WsprryPi installation, startup and status reads do not require this download. Later maintenance retains the cached verified tool if an update check fails, and interrupted firmware work uses its exact retained tool for offline recovery. If no compatible verified tool can be obtained on first use, the requested maintenance operation stops and can be retried later. Firmware branch selection remains the separate choice described below.
+On first use, **Download and check image** obtains a compatible verified maintenance tool from WsprryPico as well as the selected firmware. Starting a full erase also obtains the tool when needed. A newer Pico commit awaiting verification does not prevent using an earlier compatible verified tool. WsprryPi installation, startup, and status reads do not require this download. Later maintenance retains the cached verified tool if an update check fails, and interrupted firmware work uses its exact retained tool for offline recovery. If no compatible verified tool can be obtained on first use, the requested maintenance operation stops and can be retried later. Firmware branch selection remains the separate choice described below.
 
 1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
    select the intended Pico. Open **Pico firmware over USB** in Fleet.
@@ -376,7 +373,7 @@ Open **Pico standalone settings and Wi-Fi** in Fleet when you need to manage
 the selected member's saved settings or network connection from WsprryPi.
 These controls manage settings saved on the selected Pico for its own
 standalone application. They are separate from this Pi's settings, prepared
-jobs, output assignments and saved connection profiles. A USB connection uses
+jobs, output assignments, and saved connection profiles. A USB connection uses
 the Pico's paired USB management channel automatically. For network management,
 Engineering HTTPS uses the configured
 Network (TLS) credentials; supported consumer Wi-Fi or setup Wi-Fi uses an
@@ -487,7 +484,7 @@ review that entry separately before deciding to submit it again.
 
 Choose **Management connection** explicitly. Engineering HTTPS retains the
 provisioned certificate policy. Consumer Wi-Fi and setup Wi-Fi require the
-configured Pico's full device ID, reachable IPv4/local hostname and its saved
+configured Pico's full device ID, reachable IPv4/local hostname, and its saved
 Wi-Fi passphrase. Setup Wi-Fi uses `192.168.4.1`; the Pi must already have
 network reachability. Selection does not move the Pi between networks.
 
@@ -495,10 +492,10 @@ Login input clears after an attempt. Consumer traffic keys remain only in RAM. W
 
 Page visibility and field editing do not count as Pico requests. Reauthenticate after expiry and explicitly load saved state before another save.
 
-No persistent management password is added to INI, device profiles or browser storage. Consumer authentication uses a shared passphrase; it does not establish unique device identity. Protect the Pi browser session and use a trusted endpoint.
+No persistent management password is added to INI, device profiles, or browser storage. Consumer authentication uses a shared passphrase; it does not establish unique device identity. Protect the Pi browser session and use a trusted endpoint.
 
 Supported firmware permits three consumer sessions and one pending login;
-older firmware may allow only one. Capacity, pending-login and pacing refusals
+older firmware may allow only one. Capacity, pending-login, and pacing refusals
 are distinct. Wait for a pending login or expiry, disconnect the owning client,
 or use the panel's explicit occupied-login inspection/retirement workflow when
 advertised. Read connection state after a lost reply. Pi tabs share the native
@@ -506,9 +503,9 @@ management session; retiring a login never retries a settings save. Unsupported
 retirement requires that login's own logout or expiry.
 
 Management remains subject to idle admission and confirmed output state.
-A reachable WTP endpoint, public advertisement or built-in host capability
+A reachable WTP endpoint, public advertisement, or built-in host capability
 flag does not establish authenticated management support. There is no automatic
-carrier, endpoint or mutation fallback after failure.
+carrier, endpoint, or mutation fallback after failure.
 
 ### Save progress on the Pico's own page
 
@@ -517,7 +514,7 @@ The Pico's device-served browser has its own save/apply workflow, described in
 in the Pico manual. Use its
 [connection instructions](https://wsprrypico.readthedocs.io/en/devel/connect.html)
 for browser access and login. A saved draft is separate from applied settings,
-active hardware and readiness. An already enabled Pico schedule continues with
+active hardware, and readiness. An already enabled Pico schedule continues with
 its applied settings while you save progress.
 
 WsprryPi's **Save member station** and **Save RF output settings** remain complete,
@@ -535,7 +532,7 @@ review the saved and active name. Use **Restart Pico to apply** only when ready
 to activate a saved change. The combined settings form preserves this name.
 Renaming a Fleet profile changes only the profile label.
 
-Disable the Pico's own schedule and resolve pending, owned or active work before
+Disable the Pico's own schedule and resolve pending, owned, or active work before
 renaming. Turning off Pi transmission alone does not disable that schedule.
 After the explicit Pico save/restart, verify the same full device ID and the
 new active name. Then update
@@ -551,8 +548,8 @@ unset. Standalone WSPR centers its four tones 1,500 Hz above the saved dial,
 without random placement. Fleet WSPR assignment inputs are absolute RF centers.
 
 **Load member resources** reads application, station, saved/active hardware,
-recurrence and supported pin choices as one reconciled observation. Confirm the
-device, boot, carrier and observation time. Application/recurrence observations
+recurrence, and supported pin choices as one reconciled observation. Confirm the
+device, boot, carrier, and observation time. Application/recurrence observations
 are read-only here; prepared jobs and standalone schedules keep their own
 authority and workflow.
 
@@ -582,15 +579,14 @@ authority and workflow.
 Under **Standalone station defaults**, use **Save station progress**. On
 supporting firmware, **Read saved progress** reads the selected Pico's
 saved station draft and applied station separately. It works over the selected
-USB, Engineering HTTPS, Consumer Wi-Fi or Consumer setup Wi-Fi management
+USB, Engineering HTTPS, Consumer Wi-Fi, or Consumer setup Wi-Fi management
 connection. A complete station is not required to read or save progress.
 
-Edit **Callsign**, **Locator** and **Reported WSPR power (dBm)**, then choose
-**Save valid station fields**. Each field reports whether it was saved, cleared
-or invalid. Invalid fields and edits made while a request is in flight stay in
+Edit **Callsign**, **Locator**, and **Reported WSPR power (dBm)**, then choose
+**Save valid station fields**. Each field reports whether it was saved, cleared, or invalid. Invalid fields and edits made while a request is in flight stay in
 your browser draft. **Unset** power clears the saved draft; **0** is a valid
 reported value. Saving progress does not replace applied configuration, start
-output, resume STOP or establish transmit readiness.
+output, resume STOP, or establish transmit readiness.
 
 Read progress again and compare device-saved values with your retained draft.
 **Discard station drafts and load progress** explicitly replaces your browser
@@ -603,7 +599,7 @@ Consumer profile-owned station application remains in Pico transactional setup;
 Fleet can retain independent drafts but does not bypass that authority. Read the
 result and member resources afterward to inspect applied state and restart needs.
 
-After a conflict, lost connection or unconfirmed reply, read saved progress and
+After a conflict, lost connection, or unconfirmed reply, read saved progress and
 review it before one new deliberate save. No mutation is retried automatically.
 Older firmware without this capability retains **Save member station** under
 **Complete station save** and the complete settings workflow. Unknown advertised contracts refuse safely.
@@ -626,7 +622,7 @@ With firmware advertising Type 2/3 support, the complete station selects:
 | Explicit `<CALL>`, six characters | Type 3 single; brackets are excluded from the hash |
 | Explicit `<CALL>`, four characters, or unsupported syntax | Refused by complete station saves or local-WSPR application |
 
-For supported callsign syntax, hash ambiguity, receiver context and paired-slot
+For supported callsign syntax, hash ambiguity, receiver context, and paired-slot
 behavior, see [Automatic WSPR plan](https://wsprrypico.readthedocs.io/en/devel/operate.html#automatic-wspr-plan)
 in the Pico manual. A valid plan or save does not prove receiver identification
 or RF decoding. The current settings controls require matching current Pi and Pico software;
@@ -646,14 +642,13 @@ advertised resources are refused without silently substituting another save.
 
 **Saved** hardware is the persisted plan; **Active** is the boot's observed
 plan. Null active state means unknown, even if another pin-choice display has a
-value. Changed pins require restart and latch output inhibition for the boot.
+value. Changed pins require a restart and latch output inhibition for the boot.
 Saving the old pins again or changing station does not clear that latch. Storage
 faults and hardware application faults are separate: `output_disable_failed`
 may mean new settings were stored while shutdown was unconfirmed. Resolve the
 fault and read back before another deliberate action.
 
 An explicit scoped save does not restart Pico, reconnect WTP, enable recurrence,
-claim ownership or transmit. A conflict, changed selection/context, timeout or
-lost reply blocks further saves until explicit readback and review. Keep drafts,
-compare fresh saved/active observations, validate hardware again and deliberately
+claim ownership, or transmit. A conflict, changed selection/context, timeout, or lost reply blocks further saves until explicit readback and review. Keep drafts,
+compare fresh saved/active observations, validate hardware again, and deliberately
 save only after resolving the uncertainty. Do not automatically repeat a write.

@@ -95,12 +95,12 @@ For endpoint details, see [REST API](../../Advanced_Operations/rest_api.md) and
 
 Changing a Pico hostname does not change the Pi's directly connected LAN
 policy or Apache configuration. Keep **Privileged network safety** enforced;
-disabling it does not fix `.local` discovery, a wrong destination or a
+disabling it does not fix `.local` discovery, a wrong destination, or a
 certificate mismatch. Use the intended Pico's current IP or available setup
 Wi-Fi to recover access, following
 [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname).
 
-A hostname, advertisement or browser-tab title helps locate a Pico but does
+A hostname, advertisement, or browser-tab title helps locate a Pico but does
 not authenticate it. Consumer Station control uses the Wi-Fi password saved
 on that Pico and does not require a browser CA or client certificate. This
 HTTP workflow retains its existing trust limits: use a trusted network and
@@ -122,6 +122,6 @@ name. Engineering deployments instead require matching replacement
 credentials through their provisioning workflow. Do not accept a certificate
 error or silently change transport to make a renamed endpoint connect.
 
-Keep the connection destination, expected TLS identity and full WTP device ID
+Keep the connection destination, expected TLS identity, and full WTP device ID
 separate when updating a Pi connection profile. See
 [After a Pico hostname change](../../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).

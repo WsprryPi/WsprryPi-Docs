@@ -6,25 +6,26 @@ The web interface is the primary day-to-day control surface for WsprryPi. It pro
 :maxdepth: 1
 :hidden:
 
-Operate Transmissions <Operations/index>
 Setup Overview <Setup/index>
-Configure WSPR and CW <Setup/Signal_Setup/index>
 Configure Transmitter <Setup/Transmitter/index>
+Configure WSPR and CW <Setup/Signal_Setup/index>
 Configure Raspberry Pi I/O <Setup/Pi_IO/index>
-View Logs <Logs/index>
+Operate Transmissions <Operations/index>
 View Reception Reports <Spots/index>
+View Logs <Logs/index>
 Maintenance <Maintenance/index>
 ```
 
 ![WsprryPi UI](WsprryPi_UI.png)
 
-Use the web UI in this order:
+For a new station, follow [Your first WSPR transmission](../first_transmission.md).
+For everyday operation:
 
-- Confirm the application is connected to the backend via the header indicators.
-- Review or change configuration on the Setup page.
-- Check Logs if the daemon does not behave as expected.
-- Review recent reception reports on the Spots page.
-- Monitor typical operations from the Operation page.
+1. Confirm the header indicators show a connection to the backend.
+2. Review the transmitter, station, and schedule settings under **Setup**.
+3. Start, monitor, and stop transmissions on **Operation**.
+4. Check **Spots** for reception reports and **Logs** for diagnostic records.
+5. Use **Maintenance** for recovery, test tones, updates, and support bundles.
 
 ## Browser requirements
 
@@ -50,7 +51,7 @@ The navbar is the blue bar pinned to the top of the page.
 
 The antenna icon turns color depending on the status of the application:
 
-- **Red:** Indicates the web page is disconnected from the application. The page has just opened and the Web Socket connection has not yet been negotiated. If it remains red, the daemon may not be running.
+- **Red:** Indicates the web page is disconnected from the application. The page has just opened, and the WebSocket connection has not yet been negotiated. If it remains red, the daemon may not be running.
 - **Orange:** Indicates the web page is negotiating the connection to the application.
 - **Yellow/Gold:** Indicates the web page is connected to the application, but no transmission is in progress.
 - **Green:** Indicates a transmission is in progress.
@@ -78,12 +79,12 @@ The **Spots** menu provides two reception-report destinations:
 
 ![WSPR Links](Links.png)
 
-Three pages are available here:
+Four links are available here:
 
-- **Documentation:** This documentation, hosted at Read The Docs.
+- **Documentation:** This documentation, hosted at Read the Docs.
 - **GitHub:** The main GitHub organization, containing all of the repositories supporting this project.
 - **TAPR:** TAPR is a non-profit 501(c)(3) organization of amateur radio (“ham”) operators who are interested in advancing the state of the radio art.  TAPR offers pre-built Pi HATs for WsprryPi in their store, among other items.
-- **WSPRNet Database:** The WSPRNet.or's database interface, where you may perform lookups on WSPR reports.
+- **WSPRNet Database:** The WSPRnet database interface, where you may perform lookups on WSPR reports.
 
 ### Web Page Mode
 
@@ -109,7 +110,7 @@ On the top right side before the clock are server control icons:
 
 The icon on the left reboots the Raspberry Pi. When selected, the transmission LED, if configured, flashes twice and the system reboots.
 
-The icon on the right powers off the Raspberry Pi. When selected, the transmission LED, if configured, flashes three times and the system shuts down immediately. In many setups you will need to remove and reapply power before the Pi can start again.
+The icon on the right powers off the Raspberry Pi. When selected, the transmission LED, if configured, flashes three times and the system shuts down immediately. In many setups, you will need to remove and reapply power before the Pi can start again.
 
 #### Clock
 
@@ -121,7 +122,7 @@ On the far right side of the card header is a clock displaying both local and UT
 
 The card body contains the page-specific controls and data. You may need to scroll to see all options. The layout is responsive and is intended to remain usable on both phones and desktop browsers.
 
-Changes are saved as you make them.  The status of the save is shown in the card header.
+Changes are saved as you make them.  The card header shows the save status.
 
 ![Save OK](Save_OK.png)
 
@@ -151,7 +152,7 @@ on the controller are removed when it next observes the takeover, including
 when it was offline during the takeover.
 
 With **Let it finish**, Enable is saved immediately, but effective local output
-stays inhibited until the current job ends and output-off is confirmed. If
+stays inhibited until the current job ends, and output-off is confirmed. If
 output state remains unknown, local transmission and new remote claims stay
 inhibited. Review the status beside the control and use **Reconcile local
 output** to request a local stop/reset; successful recovery requires confirmed

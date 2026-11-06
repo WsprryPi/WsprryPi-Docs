@@ -1,7 +1,6 @@
 # Raspberry Pi 5 RP1 GPCLK
 
-On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs
-and validates the RP1-GPIO-CLK-DKMS provider and route administration. Fresh setup
+On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs, and validates the RP1-GPIO-CLK-DKMS provider and route administration. Fresh setup
 establishes neutral administration with no GPIO route and output disabled.
 After that step, an explicitly saved `rp1-gpclk` GPIO4/GPIO20 selection can be
 restored with transmission disabled. A retained pin for another backend is not
@@ -11,7 +10,7 @@ when a route is selected. Si5351 remains a separate backend choice.
 ## Installation and ownership
 
 Use the normal WsprryPi installer. **Passive package installation** installs
-files without loading modules, applying overlays, operating services or enabling
+files without loading modules, applying overlays, operating services, or enabling
 output. **Neutral activation** is the separate managed step establishing runtime
 administration. **Route selection/restoration** is another explicit transaction.
 These steps do not establish live-output authorization.
@@ -62,7 +61,7 @@ defines the owning recovery boundaries.
 RP1 plans use nominal **200 MHz pll_sys**, with intrinsic `-46.245 ppm` plus
 separately selected additional correction. That default is not a board-specific
 calibration or a new qualification result. See [calibration accounting](timing_calibration.md).
-Runtime readiness, exclusive ownership and the application's bounded operation
+Runtime readiness, exclusive ownership, and the application's bounded operation
 confirmation remain necessary. Saving a route or starting the application does
 not authorize transmission.
 
@@ -92,18 +91,18 @@ these facts independent when reading API/diagnostic output:
   structural resource checks passed. It does not overwrite application qualification.
 - **External scoped evidence**: `qualification-v1.0.0-r1` supplements software
   1.0.0 / package 1.0.0-1. GPIO4 and GPIO20 have independent finite conducted
-  TONE evidence at 14,097,100 Hz, 2 mA and nominal 200 MHz pll_sys. Seven accepted
-  lifecycle cases per route do not prove every band, mode, board or kernel.
+  TONE evidence at 14,097,100 Hz, 2 mA, and nominal 200 MHz pll_sys. Seven accepted
+  lifecycle cases per route do not prove every band, mode, board, or kernel.
 - **Application eligibility**: the requested band/mode/plan has its own policy.
   `not-evaluated` means no application plan was assessed. An observational route
   `eligible=false` is not a band-unavailability verdict.
-- **Operational readiness, inhibition, ownership and cleanup**: current state
+- **Operational readiness, inhibition, ownership, and cleanup**: current state
   determines whether work can be admitted now. Unknown output is not off.
 
 The original immutable provider compatibility manifest remains empty with
 `defaultState=Unavailable`. The separate supplement does not rewrite it, erase
-the accepted application band table, enroll a target or grant transmission
-permission. Pi 5's accepted table retains 2200 m through 10 m including 12 m;
+the accepted application band table, enroll a target, or grant transmission
+permission. Pi 5's accepted table retains 2200 m through 10 m, including 12 m;
 6 m and 4 m remain unqualified, and 2 m/1.25 m/70 cm unavailable. Follow the
 full table's mode/scope notes rather than extending finite TONE evidence.
 
@@ -137,8 +136,7 @@ transaction. Recovery is intentionally fail-closed: it stops WsprryPi and
 leaves the controller inhibited for operator investigation. It is not the
 normal way to remove a route.
 
-If the route is removed but WsprryPi cannot be restored, transmission remains
-disabled and the panel reports **Route removed; service unavailable**. Correct
+If the route is removed but WsprryPi cannot be restored, transmission remains disabled, and the panel reports **Route removed; service unavailable**. Correct
 the reported service error, then retry the removal with the installed client,
 substituting the route that was removed:
 
@@ -167,15 +165,15 @@ results remain in the bundle as diagnostic evidence instead of stopping
 collection.
 
 The collector also includes the maintained qualification consumer's verified
-local evidence status. Missing, invalid, inaccessible or uninspected evidence
+local evidence status. Missing, invalid, inaccessible, or uninspected evidence
 remains explicit; collecting a bundle neither changes the evidence nor grants
 output authority. It does not copy the private installation record, change DKMS
-or routes, load modules or establish new hardware/RF qualification.
+or routes, load modules, or establish new hardware/RF qualification.
 
 <span id="qualification-cache-and-installed-commands"></span>
 ### Installed evidence and status
 
-The application installs its maintained consumer, pinned reference and complete
+The application installs its maintained consumer, pinned reference, and complete
 four-file evidence bundle under `/usr/local/lib/wsprrypi`. One application-owned
 receipt covers all six files. This also happens when an update skips an unchanged
 provider. Legacy helper/reference receipts can be upgraded or removed; foreign
@@ -200,7 +198,7 @@ provider inspection and reads the verified installed bundle/ownership evidence; 
 downloads or refreshes metadata. Read permissions must permit the installed
 provider and evidence inspection. Failure to inspect remains unknown; it is not
 permission to infer safe output. Route, exact source/package, both UAPIs,
-overlay/artifact inventory and both loaded module build notes must agree before
+overlay/artifact inventory, and both loaded module build notes must agree before
 attribution. Wrong-route/build evidence is refused independently for each route.
 
 - **Evidence missing**: the installed bundle is absent.
@@ -213,5 +211,4 @@ These are evidence states, not substitutes for readiness or application policy.
 The old diagnostic executable frozen inside Debian 1.0.0-1 cannot interpret the
 new supplement; use the installed application consumer above. No package asset
 was replaced to add this reporting. See the [provider acceptance scope](https://github.com/WsprryPi/WsprryPi/blob/v4.0.0-beta.1/docs/rp1-provider-acceptance.md)
-for retained installation/idle-runtime evidence, excluded rollback rehearsals
-and exact source/build limitations.
+for retained installation/idle-runtime evidence, excluded rollback rehearsals, and exact source/build limitations.

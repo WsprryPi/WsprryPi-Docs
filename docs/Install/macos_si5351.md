@@ -168,7 +168,7 @@ identity or weaken access controls to bypass an error.
 The native transport sets the I2C rate to approximately 100 kHz. NACK, short or
 partial transfers, timeout, disconnect, and changed identity fail the operation.
 A failed configuration write is not replayed. A faulted session does not reopen
-or resume automatically; correct the cause and make a deliberate new start.
+or resume automatically; correct the cause and start again deliberately.
 
 Do not cancel or reset an idle adapter as a setup step. Cancellation of an
 active transfer must establish the resulting engine state; an acknowledgment

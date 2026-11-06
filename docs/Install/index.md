@@ -3,13 +3,8 @@
 For the explicit 4.0 Beta 1 testing procedure, see [Install 4.0 Beta 1](beta1.md).
 The normal installation commands below retain the stable channel.
 
-```{toctree}
-:hidden:
-
-beta1
-linux_si5351
-macos_si5351
-```
+Before installing, check [What you need](../requirements.md). After installation,
+continue with [Your first WSPR transmission](../first_transmission.md).
 
 ## Gather Hardware
 
@@ -17,13 +12,13 @@ For installation on a Raspberry Pi, you will need the following:
 
 - A Raspberry Pi
 - An SD card for the OS image
-- A power supply for the Pi.  Pay attention to potentially noisy power supplies here.  You will benefit from a well-regulated supply with sufficient ripple suppression.  You may see supply ripple as mixing products centered around the transmit carrier, typically at 120Hz (60Hz mains frequency) and 100Hz (50Hz mains frequency).
+- A power supply for the Pi.  Pay attention to potentially noisy power supplies here.  Use a well-regulated supply with sufficient ripple suppression.  You may see supply ripple as mixing products centered around the transmit carrier, typically at 120Hz (60Hz mains frequency) and 100Hz (50Hz mains frequency).
 
 To use a Pico 2 W as an external output, follow [Add a WsprryPico](pico.md).
 It covers connection and Fleet setup on an installed Pi and links to the
 Pico's firmware and hardware instructions.
 
-If you choose the Si5351 backend, you will additionally need an Si5351 clock
+If you choose the Si5351 backend, you will also need an Si5351 clock
 generator. While I have provided a KiCad design for a Pi HAT with a
 purpose-built circuit surrounding the Si5351, you may also use one of the
 common breakout boards:
@@ -42,7 +37,7 @@ follow the host-specific guide:
 The remaining steps on this page configure a Raspberry Pi. Other hosts use
 their respective USB I2C setup guides above.
 
-This section may be the most challenging part of the whole installation.  *You must have a working Raspberry Pi with Internet access.* It can be hard-wired or on Wi-Fi.  There is no better place to learn how to set up your new Pi than from the people who make it themselves.  [Go here](https://www.raspberrypi.com/documentation/computers/getting-started.html), and learn how to install the operating system with the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).  To enable SSH access, pre-configure your image with your local/time zone, Wi-Fi credentials, and a unique hostname.
+This section may be the most challenging part of the whole installation.  *You must have a working Raspberry Pi with Internet access.* It can be hard-wired or on Wi-Fi.  There is no better place to learn how to set up your new Pi than from the people who make it themselves.  [Go here](https://www.raspberrypi.com/documentation/computers/getting-started.html) and learn how to install the operating system with the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).  To enable SSH access, pre-configure your image with your local/time zone, Wi-Fi credentials, and a unique hostname.
 
 ![Raspberry Pi Imager](Raspberry_Pi_Imager.png)
 
@@ -52,7 +47,7 @@ Use the [current Beta installer](beta1.md) for automatic binary downloads. The s
 
 You can use a full-featured desktop version with all the bells and whistles, or WsprryPi will run just fine on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
 
-Whatever you do, you will need command-line access to your Pi to proceed via SSH or the console.  Once you are up and running and connected to the Internet, you may proceed with WsprryPi installation.  Each time I update this documentation, the Raspberry Pi Imager has changed the workflow.  Use Internet resources to find your best path.  You will only need command line (SSH) access to the Pi, but you are welcome to use any other configuration.
+Whatever you do, you will need command-line access to your Pi to proceed via SSH or the console.  Once you are up and running and connected to the Internet, you may proceed with WsprryPi installation.  Each time I update this documentation, the Raspberry Pi Imager has changed the workflow.  Use Internet resources to find your best path.  You will only need command-line (SSH) access to the Pi, but you are welcome to use any other configuration.
 
 ## System Changes
 
@@ -61,7 +56,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Install Apache2**, a popular open-source, cross-platform web server that is the most popular web server by the numbers.  The [Apache Software Foundation](https://www.apache.org/) maintains Apache.  Apache is used to control WsprryPi from an easy-to-use web page.  Additionally, if you have not previously used the Apache installation, a redirect from the root of the web server to `/wsprrypi/` will be created for ease of use.  Finally, the script creates proxy mappings and a managed access policy for communication between the web page and application:
   - `http://127.0.0.1:31415/config` to `/wsprrypi/config` for getting/setting the configuration
   - `http://127.0.0.1:31415/version` to `/wsprrypi/version` to retrieve the running version.
-  - `ws://127.0.0.1:31416/socket` to `/wsprrypi/socket` for Web Socket communications.
+  - `ws://127.0.0.1:31416/socket` to `/wsprrypi/socket` for WebSocket communications.
   - A managed privileged-network-safety policy that restricts protected HTTP
     operations and the entire browser-facing WebSocket endpoint to directly
     connected Ethernet/Wi-Fi networks by default. The installer validates the
@@ -69,14 +64,14 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
 - **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
-- **Supply Pico USB firmware tools with the [current beta installer](beta1.md#pico-usb-firmware-tools).** It installs Python and libusb, and supplies prebuilt picotool when a compatible copy is not already installed.
+- **Supply Pico USB firmware tools with the [current beta installer](beta1.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its
   source and installed artifacts, and first establishes route-neutral
   administration. Fresh setup has no selected route. An explicitly saved RP1
   GPIO4/GPIO20 selection can then be restored, with transmission disabled.
-  Package installation, neutral activation and route restoration are separate;
+  Package installation, neutral activation, and route restoration are separate;
   none grants output authorization.
 - **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission will interfere with the WSPR transmission.
 
@@ -163,9 +158,9 @@ This option leaves the existing UI in place instead of creating a replacement ba
 
 The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
 
-With a compatible release executable, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies on Pi 5-family systems when the RP1 GPIO driver is selected. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and matching kernel headers.
+With a compatible release executable, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies to Pi 5-family systems when the RP1 GPIO driver is selected. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and matching kernel headers.
 
-If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download or validation stops installation instead of triggering a source build.
+If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download, or validation stops installation instead of triggering a source build.
 
 Source builds can take longer on older or low-memory Pis. When compilation is needed, the installer reports available resources and planned parallelism before starting its progress steps.
 
@@ -182,7 +177,7 @@ executable replacement during an update; other installation steps are omitted:
 The backup message appears only when an executable already exists at the
 destination. The service-stop message appears only when the service is running.
 Other messages vary with your Pi, installed packages, and installation options.
-Each `Complete:` message confirms that operation succeeded; executable
+Each `Complete:` message confirms that an operation succeeded; executable
 replacement alone does not mean the entire installation has finished. If an
 operation fails, the installer reports `Failed:` for that operation.
 
@@ -225,7 +220,7 @@ Note the URL for the configuration UI, listed as `{name}.local`, and the IP addr
 
 Some Windows systems can use this naming standard without additional work, but others may need to install Apple's [Bonjour Print Services](https://support.apple.com/kb/dl999) to enable this helpful tool.  If you encounter a 'host not found' error, try installing Bonjour.
 
-Connect to your new web page from your favorite computer or cell phone using the IP address or the `{name}.local` name, and you can begin setting things up.  See Operations for more information.
+Connect to your new web page from your favorite computer or cell phone using the IP address or the `{name}.local` name, and you can begin setting things up.  Continue with [Your first WSPR transmission](../first_transmission.md).
 
 ## Uninstall WsprryPi
 

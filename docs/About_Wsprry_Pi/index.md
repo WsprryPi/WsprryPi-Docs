@@ -1,26 +1,15 @@
 # About WsprryPi
 
-WsprryPi creates a simple WSPR beacon on your Raspberry Pi by generating a Pulse-Width Modulation (PWM) square-wave signal through a General-Purpose Input/Output (GPIO) pin. As of version 3.0.0, support for the inexpensive Si5351 clock generator was added, allowing use of the more capable Raspberry Pi 5.
+WsprryPi creates a low-power WSPR beacon using a Raspberry Pi. It can generate a square-wave RF clock through a General-Purpose Input/Output (GPIO) pin or control an external Si5351 clock generator. Raspberry Pi 5 GPIO output uses the installer-managed RP1 GPCLK provider.
 
-You connect the generated output through a [Low-Pass Filter to remove harmonics](https://www.nutsvolts.com/magazine/article/making\_waves\_) and then to an appropriate antenna.
+Connect the generated output through a [Low-Pass Filter to remove harmonics](https://www.nutsvolts.com/magazine/article/making\_waves\_), then to an appropriate antenna.
 
 :::{warning}
 Do not use WsprryPi without an appropriate low-pass filter. Unfiltered output can create harmonic interference on other bands.
 :::
 
-## Attribution
-
-This idea likely originated with Oliver Mattos and Oskar Weigl at the PiFM project. While the website is no longer online, the Wayback Machine has [the last known good version]( http://web.archive.org/web/20131016184311/http://www.icrobotics.co.uk/wiki/index.php/Turning_the_Raspberry_Pi_Into_an_FM_Transmitter).
-
-The icrobotics.co.uk website still hosts the original PiFM code. However, I suspect the domain has fallen into disrepair and may be unsafe, and I will not provide direct links here. Use the URL above to see the site; should the code disappear, I have [saved it here](https://github.com/WsprryPi/WsprryPi/raw/refs/heads/main/historical/pifm.tar.gz).
-
-After a conversation with Bruce Raymond of TAPR, I forked @threeme3's repo and added rudimentary installation capabilities and orchestration. Version 1.x of this project was a fork of threeme3/WsprryPi (no longer on GitHub), licensed under the GNU General Public License v3 (GPLv3). The original project is no longer maintained.
-
-In late 2024, George [K9TRV] of TAPR contacted me with questions about using WsprryPi on the Pi 5. The conversation led me to discard the original code in favor of a more modern, extensible, and maintainable base.
-
-As of Version 2.0+, all of the original code has been replaced with my own; it is no longer derivative work, and I have released it under the MIT license.
-
-My goal, and where you will validate my success, is to let you execute one command on your Pi to install and run the WsprryPi software. If you are lucky and have been living right, a radio wave will hit the cosmos and be received [somewhere else](https://wsprnet.org).
+Before choosing hardware, read [What you need](../requirements.md). The tables
+below distinguish model compatibility from band and mode qualification.
 
 ## Raspberry Pi model compatibility
 
@@ -51,7 +40,7 @@ Compatibility depends on both the Raspberry Pi model and transmitter type.
 
 ## Compute Module compatibility
 
-Compute Modules retain the GPIO and I2C capabilities of their corresponding Raspberry Pi generation, but they do not include GPIO headers. Their carrier board must route the connections required by the selected transmitter. Although these configurations are untested, they are expected to work; generation-specific restrictions, including the Compute Module 5 GPIO limitation, still apply.
+Compute Modules retain the GPIO and I2C capabilities of their corresponding Raspberry Pi generation, but they do not include GPIO headers. Their carrier board must route the connections required by the selected transmitter. Although these configurations are untested, they are expected to work; check the carrier board and selected backend requirements before use.
 
 ## Raspberry Pi Pico incompatibility
 
@@ -61,7 +50,7 @@ WsprryPico firmware can instead serve as an external output controlled by
 WsprryPi over USB or a network connection. The Pi remains the controller and
 can manage several outputs through Fleet. See
 [Add a WsprryPico](../Install/pico.md) for preparation and Pi setup. Standalone
-Pico use, hardware limits and firmware details are in the companion
+Pico use, hardware limits, and firmware details are in the companion
 [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).
 
 ## Transmitter qualification
@@ -72,7 +61,7 @@ Qualification is specific to the transmitter type, band, and GPIO clock profile.
 
 The GPIO hardware falls into three groups: the original Pi 1 family, Pi 2–4, and Pi 5. The SoC or package determines the oscillator frequency and GPIO clock source; Pi 2–4 do not all use the same PLLD frequency.
 
-In the table, **SoC** means system on chip and **CM** means Compute Module. Clock frequencies are nominal.
+In the table, **SoC** means system-on-chip and **CM** means Compute Module. Clock frequencies are nominal.
 
 | Pi models | SoC or package | GPIO clock source | Oscillator |
 | --- | --- | --- | --- |
@@ -108,7 +97,7 @@ In the table, **SoC** means system on chip and **CM** means Compute Module. Cloc
 | 70 cm | <span class="qualification-status qualification-status--unavailable">Unavailable</span><sup>4</sup> | <span class="qualification-status qualification-status--unavailable">Unavailable</span><sup>4</sup> | <span class="qualification-status qualification-status--unavailable">Unavailable</span><sup>4</sup> | <span class="qualification-status qualification-status--unavailable">Unavailable</span><sup>4</sup> |
 
 1. On 2200 m, the 500 MHz PLLD profile is qualified for TONE, QRSS, FSKCW, and DFCW; WSPR did not meet the decode requirement.
-2. On 2200 m the Pi 4 uses the 54 MHz oscillator, instead of the usual 750 MHz PLLD.
+2. On 2200 m, the Pi 4 uses the 54 MHz oscillator instead of the usual 750 MHz PLLD.
 3. Si5351 qualification on 2 m requires the tested 27 MHz reference configuration. A 25 MHz reference did not pass 2 m qualification testing and is unqualified.
 4. Today we have direct-output planning, not implemented or qualified harmonic operation. Harmonic operations are a feasible development direction; usable power, spectral cleanliness, and modulation quality remain to be measured.
 
@@ -120,3 +109,17 @@ In the table, **SoC** means system on chip and **CM** means Compute Module. Cloc
 For local qualification testing, use a conducted, suitably attenuated and filtered path into a receiver or SDR. Begin and end with a known-qualified control, verify the requested carrier and mode behavior, and confirm that RF output is disabled afterward. Use [`--allow-unqualified-frequency`](../Command_Line_Operations/transmitter_backends.md) only for a controlled test of an Untested or Unqualified combination; it cannot enable an Unavailable combination.
 
 See [GPIO Band Capabilities and Signal Quality](../FAQ/why_12m_looks_noisy.md) for the GPIO qualification findings.
+
+## Attribution
+
+This idea likely originated with Oliver Mattos and Oskar Weigl at the PiFM project. While the website is no longer online, the Wayback Machine has [the last known good version]( http://web.archive.org/web/20131016184311/http://www.icrobotics.co.uk/wiki/index.php/Turning_the_Raspberry_Pi_Into_an_FM_Transmitter).
+
+The icrobotics.co.uk website still hosts the original PiFM code. However, I suspect the domain has fallen into disrepair and may be unsafe, and I will not provide direct links here. Use the URL above to view the site; if the code disappears, I have [saved it here](https://github.com/WsprryPi/WsprryPi/raw/refs/heads/main/historical/pifm.tar.gz).
+
+After a conversation with Bruce Raymond of TAPR, I forked @threeme3's repo and added rudimentary installation capabilities and orchestration. Version 1.x of this project was a fork of threeme3/WsprryPi (no longer on GitHub), licensed under the GNU General Public License v3 (GPLv3). The original project is no longer maintained.
+
+In late 2024, George [K9TRV] of TAPR contacted me with questions about using WsprryPi on the Pi 5. The conversation led me to discard the original code in favor of a more modern, extensible, and maintainable base.
+
+As of Version 2.0+, all of the original code has been replaced with my own; it is no longer a derivative work, and I have released it under the MIT license.
+
+My goal, and where you will validate my success, is to let you execute one command on your Pi to install and run the WsprryPi software. If you are lucky and have been living right, a radio wave will hit the cosmos and be received [somewhere else](https://wsprnet.org).

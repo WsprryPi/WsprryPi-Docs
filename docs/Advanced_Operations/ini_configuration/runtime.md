@@ -94,7 +94,7 @@ To recover, correct the reported hardware or configuration problem and restart t
 This protection begins when the daemon runs. Use a separate hardware inhibit when the transmitter must remain disabled during the earlier power-up and operating-system boot interval.
 
 Saved edits and repair/reset can defer runtime application while a Test Tone
-owns its committed backend, mode, frequency and selectors. Saving does not
+owns its committed backend, mode, frequency, and selectors. Saving does not
 replace that running snapshot or clear cleanup uncertainty. Read
 [Test Tone results and recovery](../../User_Interface/Maintenance/index.md#read-the-result)
 before treating saved settings as active.

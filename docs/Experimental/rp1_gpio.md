@@ -114,7 +114,7 @@ version, artifact hashes, selected boot entry, and the failed operation.
 
 This historical page remains outside normal navigation/search to preserve
 Issue 399 provenance. Its GPIO20 and installer limitations apply only to the
-recorded custom-kernel build. Current installation, both-route evidence and
+recorded custom-kernel build. Current installation, both-route evidence, and
 accepted application qualification are documented in the
 [RP1 operator guide](../Advanced_Operations/rp1_gpclk.md) and
 [band table](../About_Wsprry_Pi/index.md#band-qualification). The old measurements

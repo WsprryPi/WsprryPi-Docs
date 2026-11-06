@@ -78,7 +78,7 @@ removing a catalog profile also does not create or remove an assignment.
 
 Each target must advertise support for the assigned job. Native GPIO, RP1 and
 Si5351 Pi servers report their WSPR, TONE, QRSS, FSKCW and DFCW capabilities.
-The selected backend's processor, route and frequency policies still apply.
+The selected backend's processor, route, and frequency policies still apply.
 RP1 retains its exact-operation host confirmation; Fleet does not create it.
 Pi and Pico jobs are checked against the selected target's reported capabilities. For a Pi profile, set the start-uncertainty limit
 to accommodate the reported clock uncertainty, no higher than `500000000` ns
@@ -110,7 +110,7 @@ schedules do not change either setting.
 eligible, select one explicitly, such as `eth0` or `wlan0`. Avahi advertises the
 listener through DNS-SD. If discovery is unavailable, a manual Plain LAN profile
 can still use the configured address and port. A discovery entry is only a
-connection hint; identify the device before saving it. Plain LAN is unencrypted
+connection hint; identify the device before saving it. Plain LAN is unencrypted,
 and its observed device ID is not cryptographic authentication.
 
 See [local takeover](../index.md#local-control-and-remote-ownership) before

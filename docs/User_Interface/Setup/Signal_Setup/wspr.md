@@ -2,7 +2,7 @@
 
 Use this page for WSPR station identity, transmission planning, frequency, power reporting, and calibration. Return to the [Signal Setup overview](index.md) to choose another mode. For calibration procedures, see [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md); for output hardware, see [Configure Transmitter](../Transmitter/index.md).
 
-WSPR or Weak Signal Propagation Reporting is the original mode for WsprryPi.
+WSPR (Weak Signal Propagation Reporter) is the original mode for WsprryPi.
 The controls described below appear in the **WSPR** half of the signal-mode
 selector. Configuration saves automatically after each valid change.
 
@@ -15,7 +15,7 @@ member plan. Prepared WTP jobs retain their supplied finite plan.
 
 ## Station Identity
 
-Within the Station identity section, you will set your callsign and locator. For normal Type 1 WSPR messages, the callsign is any valid 6-character or fewer. The Grid Locator is the four- character Maidenhead locator for where you are transmitting.
+Set your callsign and locator in the Station identity section. For normal Type 1 WSPR messages, use a valid callsign of six characters or fewer. The Grid Locator is the four-character Maidenhead locator for where you are transmitting.
 
 If you need or desire to use callsign extensions, have a callsign longer than 6 characters, or want or need to use a six-character locator, you will need to consider using Type 2 or 3 messages.
 
@@ -83,7 +83,7 @@ required, the planner should choose the appropriate companion frame:
 
 ## WSPR Transmission Plan
 
-These settings govern the way that WSPR is transmitted or received.
+These settings govern how WSPR is transmitted or received.
 
 ### Frequencies
 
@@ -102,7 +102,7 @@ They may also be listed in engineering notation where these are all the same:
 
 Notice that there are no spaces between the number and `m` for meters, and none between the number and the engineering notation.
 
-The frequency may also be listed in pure integral Hz, such as `21094600`.
+The frequency may also be listed in whole Hz, such as `21094600`.
 
 WSPR entries are USB dial frequencies. The nominal RF center is 1,500 Hz above the dial, plus optional random placement. Tone 0 is 2.197265625 Hz below that center. For the formulas and a complete 20m example, see [Dial, RF center, and tones](../../../Advanced_Operations/canonical_bands.md#dial-rf-center-and-tones).
 
@@ -134,19 +134,19 @@ For a `14,095,600 Hz` USB dial and a `+37 Hz` placement, both frames use a nomin
 
 ### Reported Power
 
-Reported power is not the same as the actual transmission power.  The transmitters settings may be attenuated by the LPF and additional gain may be added. Possible values are:
+Reported power is not the same as the actual transmission power.  The low-pass filter (LPF) may attenuate the transmitter output, and an amplifier may add gain. Possible values are:
 
 `0, 3, 7, 10, 13, 17, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60`
 
 dBm is added to the encoder WSPR message to be a reference for the decoded message.  The operator should choose the value that is closest to their actual transmission power.
 
-This setting has no bearing on actual transmission power.
+This setting does not change actual transmission power.
 
 ### Frequency calibration (PPM) & NTP Calibration
 
-Some operators may choose to manually calibrate their rig.  This is more important with GPIO-based transmissions where the Raspberry Pi frequencies may be impacted by power, heat, and mechanical differences.
+Some operators may choose to manually calibrate their rig.  This is more important with GPIO-based transmissions where the Raspberry Pi frequencies may be affected by power, heat, and mechanical differences.
 
-Others may opt for the simpler and "accurate enough" NTP calibration.  This uses an internet time source to calibrate the output frequency.  For most bands, this is more than reasonable.  Some operators on higher bands such as 6m and 2m may find even a small deviation puts them out of the transmission boundaries, and may need to use a calculated PPM adjustment.
+Others may opt for the simpler and "accurate enough" NTP calibration.  This uses an internet time source to calibrate the output frequency.  For most bands, this is more than reasonable.  Some operators on higher bands such as 6m and 2m may find even a small deviation puts them out of the transmission boundaries and may need to use a calculated PPM adjustment.
 
 When NTP is enabled, the Frequency Calibration field is dithered.  When using the Si5351 clock module, NTP is disabled and manual calibration should be used - although the combination of a TCXO and the Si5351 is often so close, it may be ignored.
 

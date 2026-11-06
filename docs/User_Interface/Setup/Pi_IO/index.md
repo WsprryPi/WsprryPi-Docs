@@ -16,7 +16,7 @@ GPIO4 and GPIO20 are available here unless the GPIO transmitter backend currentl
 
 ![Transmit LED conflict with GPIO RF output](../Conditional_GPIO/TX_LED_RF_Conflict.png)
 
-This is an Active High control ay 3V3 intended for use with an LED and a properly sized resistor.
+This is an active-high control at 3.3 V intended for use with an LED and a properly sized resistor.
 
 ## Enable Shutdown & Shutdown Pin
 
@@ -35,7 +35,7 @@ If you use an amplifier with an activation circuit, you may dedicate a pin to ac
 You may select active high or low, depending on your need.
 
 :::{danger}
-Most amplifiers allocate a pin to be grounded to its own chassis as an activation switch. Do not connect this directly to your Pi, it will overload your GPIO and may cause physical damage. A relay, SSR or MOSFET will be needed in most cases to switch the amp from the GPIO.
+Most amplifiers allocate a pin to be grounded to its own chassis as an activation switch. Do not connect this directly to your Pi; it will overload your GPIO and may cause physical damage. A relay, SSR, or MOSFET will be needed in most cases to switch the amp from the GPIO.
 :::
 
 A small PC817 Optocoupler Isolation Board, such as [this one available on Amazon](https://www.amazon.com/EC-Buying-Optocoupler-Isolation-Optoelectronic/dp/B0D3CX6NP6), may be a good ready-made solution.

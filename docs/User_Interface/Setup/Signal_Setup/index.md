@@ -1,6 +1,6 @@
 # Signal Setup Tab
 
-The Signal Setup tab of the Signal Setup page is where configuration items related to the signal type or content are configured.
+Use the Signal Setup tab to configure the signal type and message content.
 
 ![Signal Setup Panel](signal_setup_wspr.png)
 
@@ -8,7 +8,7 @@ This tab has two main modes, WSPR and CW.
 
 ![WSPR or CW Mode](WSPR_CW.png)
 
-Set your preferred mode and the page context will change specific to that mode.
+Select your preferred mode to show its settings.
 
 Choose the mode you want to configure:
 

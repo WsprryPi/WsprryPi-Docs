@@ -275,4 +275,4 @@ backends or count intrinsic compensation twice.
 Chrony remains the UTC/slot authority. The optional RP1 direct PPS path counts
 the RF clock domain independently of Chrony's host-rate estimate. Host
 timestamps alone do not establish RF-clock error. The RP1 parent remains
-nominal 200 MHz `pll_sys`.
+a nominal 200 MHz `pll_sys`.

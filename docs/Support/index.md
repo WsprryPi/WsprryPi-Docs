@@ -41,17 +41,17 @@ A short, specific description usually helps more than a long transcript with no 
 
 ## Problems involving a Pico output
 
-For WsprryPi connection, Fleet scheduling or host job recovery, start with
+For WsprryPi connection, Fleet scheduling, or host job recovery, start with
 [Add a WsprryPico](../Install/pico.md) and
 [Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery).
 Include the Pi version, Pico firmware/source identity, full stable device ID,
-transport and the exact error. Say whether output is confirmed inactive or
+transport, and the exact error. Say whether output is confirmed inactive or
 unknown; a disconnected member is not proof of RF shutdown.
 
-For the Pico's own browser, firmware, standalone scheduler or device reset,
+For the Pico's own browser, firmware, standalone scheduler, or device reset,
 use [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troubleshoot.html)
 and [Pico support information](https://wsprrypico.readthedocs.io/en/devel/maintain.html#support-information).
-Keep full-flash backups, credentials and unsanitized installer transactions
+Keep full-flash backups, credentials, and unsanitized installer transactions
 private; they are not support attachments.
 
 ## Using a Support Bundle

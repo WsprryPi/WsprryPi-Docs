@@ -1,12 +1,12 @@
 # Maintenance Card
 
-The maintenance page allows you to perform tasks that are not necessarily related to the business of transmitting WSPR or QRSS modes, but that you may need from time to time.
+Use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, and create a support bundle.
 
 ![Maintenance Page](maintenance.png)
 
 ## Repair Configuration
 
-In rare cases, you may find that your configuration is present and readable but has missing sections or is otherwise not fully functional. If you hand-edit your INI, for example, and mistakenly delete sections or keys.
+In rare cases, you may find that your configuration is present and readable but has missing sections or is otherwise not fully functional. This can happen if you hand-edit your INI file and mistakenly delete sections or keys.
 
 ![Repair Configuration](repair.png)
 
@@ -92,7 +92,7 @@ frequency saved in Setup.
 
 Choose one of these frequency sources:
 
-- **WSPR band** uses the effective USB dial preset, profile and saved per-band preference supplied by the connected controller. The preview adds the fixed 1,500 Hz placement to obtain the RF center / steady carrier target. The standard `20m` choice targets `14,097,100 Hz`, matching CLI `--test-tone 20m`.
+- **WSPR band** uses the effective USB dial preset, profile, and saved per-band preference supplied by the connected controller. The preview adds the fixed 1,500 Hz placement to obtain the RF center / steady carrier target. The standard `20m` choice targets `14,097,100 Hz`, matching CLI `--test-tone 20m`.
 
 - **Custom RF frequency** accepts a whole-number carrier target in Hz. Entering `14095600` targets exactly `14,095,600 Hz`, matching numeric CLI `--test-tone 14095600`. No WSPR placement is added.
 
@@ -157,7 +157,7 @@ prevents later tone restoration from restarting it.
 
 Saved Setup edits and **Repair current configuration** / **Reset to defaults**
 can be stored while the tone owns runtime, but application is deferred until
-cleanup. They do not replace the running backend, mode, frequency or selectors.
+cleanup. They do not replace the running backend, mode, frequency, or selectors.
 Review the resulting configuration and restoration feedback before re-enabling
 normal transmission.
 
@@ -166,8 +166,8 @@ normal transmission.
 If Start or End times out, or connection drops before a confirmed result, the
 outcome is uncertain. Reconnect and read current status; a lost connection does
 not establish output-off. While connected, **End** remains available whenever
-active or uncertain state requires recovery, even without the WSPR catalog.
-During a pending End it stays disabled to prevent duplicate requests.
+an active or uncertain state requires recovery, even without the WSPR catalog.
+During a pending End, it stays disabled to prevent duplicate requests.
 
 Request End once and inspect its result before another Start. Cleanup uncertainty
 inhibits further output. A recovery End can confirm cleanup without restoring
@@ -184,7 +184,7 @@ Tagged-release notifications provide a link to the [Releases page](https://githu
 
 ![Update Available Modal](update_avail.png)
 
-You may also check manually on the Maintenance page, and force an immediate check.
+You may also check manually on the Maintenance page and force an immediate check.
 
 ![Force Update Check](manual_update_check.png)
 
@@ -192,7 +192,7 @@ You may dismiss the modal, and the footer will continue to quietly show the rele
 
 ![Update Available Footer](update_footer.png)
 
-You may also choose to "Never check again" either in the modal, or by selecting "About" in the footer.
+You may also choose to "Never check again" either in the modal or by selecting "About" in the footer.
 
 ![About - Never Check](about_update.png)
 

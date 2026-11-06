@@ -38,7 +38,7 @@ curl -L https://raw.githubusercontent.com/WsprryPi/WsprryPi/main/scripts/install
 
 I have removed WSPR-15 support in version 2.x.
 
-WSPR-15 ("Weak Signal Propagation Reporter" with a 15-minute transmit/receive cycle) was introduced in January 2013 as part of the experimental WSPR-X software suite. By stretching the standard 2-minute cycle to 15 minutes, WSPR-15 lowers the symbol rate to about 0.183 Hz tone spacing, compared with 1.4648 Hz in standard WSPR, narrowing the occupied bandwidth to about 0.7 Hz. This yields roughly a 9 dB sensitivity improvement and made it attractive for very low-frequency and medium-frequency beacon work where Doppler shifts are minimal.
+WSPR-15 ("Weak Signal Propagation Reporter" with a 15-minute transmit/receive cycle) was introduced in January 2013 as part of the experimental WSPR-X software suite. By stretching the standard 2-minute cycle to 15 minutes, WSPR-15 lowers the symbol rate to about 0.183 Hz tone spacing, compared with 1.4648 Hz in standard WSPR, narrowing the occupied bandwidth to about 0.7 Hz. This yielded roughly a 9 dB sensitivity improvement and made it attractive for very low-frequency and medium-frequency beacon work where Doppler shifts are minimal.
 
 Sources:
 
@@ -51,7 +51,7 @@ Current Support and Viability
 - Network integration is limited. The central WSPRnet database and most reporting services expect the standard WSPR2 format, so WSPR-15 uploads and mapping generally require unofficial workarounds.
 - Modern alternatives outperform it. Within WSJT-X, the FST4W family achieves similar or better sensitivity than standard WSPR while remaining actively developed and widely used on LF and MF bands.
 
-Bottom line: WSPR-15 still works in legacy workflows, but it remains a niche protocol with minimal software and network support. For new weak-signal experiments, FST4W or standard 2-minute WSPR are the more practical choices.
+WSPR-15 still works in legacy workflows, but it remains a niche protocol with minimal software and network support. For new weak-signal experiments, FST4W or standard 2-minute WSPR are the more practical choices.
 
 (why-12m-looks-noisy-on-the-raspberry-pi)=
 ## GPIO Band Capabilities and Signal Quality

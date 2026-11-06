@@ -14,7 +14,7 @@ WsprryPi 4.0 Beta 1 is published as [`v4.0.0-beta.1`](https://github.com/WsprryP
 
 Precompiled WsprryPi binaries are available again for Raspberry Pi OS, formerly Raspbian, supporting Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit ARMv6 and 64-bit AArch64 installations. Avoiding application compilation can save up to an hour on older hardware such as the Pi 1 and Pi Zero.
 
-The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries and published SHA-256 checksum when available. Beta 1 supplies these checksums. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
+The installer chooses the matching download automatically and checks the executable's architecture, runtime libraries, and published SHA-256 checksum when available. Beta 1 supplies these checksums. You do not need to download an asset or place a `wsprrypi` file in your home directory first.
 
 When a compatible release executable is available, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies on Pi 5-family systems when the RP1 GPIO driver is selected. The installer still supplies the RP1 GPIO driver and matching kernel headers; driver preparation can still require compilation tools.
 
@@ -26,15 +26,15 @@ For Raspberry Pi setup and general installation guidance, see [Installing Wsprry
 
 ## Pico USB firmware tools
 
-The current Beta installer supplies Python, libusb and USB-enabled picotool for Pico USB firmware maintenance. It keeps an existing compatible picotool 2.3 or newer within the 2.x series; otherwise it downloads the prebuilt picotool 2.3.1 package matching your Pi's operating-system release and userspace architecture. Packages cover all four targets: ARMv6 Bookworm, ARMv6 Trixie, AArch64 Bookworm and AArch64 Trixie. Required support files are included, and the installer verifies the download and packaged files before installing them.
+The current Beta installer supplies Python, libusb, and USB-enabled picotool for Pico USB firmware maintenance. It keeps an existing compatible picotool 2.3 or newer within the 2.x series; otherwise it downloads the prebuilt picotool 2.3.1 package matching your Pi's operating-system release and userspace architecture. Packages cover all four targets: ARMv6 Bookworm, ARMv6 Trixie, AArch64 Bookworm and AArch64 Trixie. Required support files are included, and the installer verifies the download and packaged files before installing them.
 
 No separate picotool installation is needed. Picotool is never compiled on the Pi, and a missing or invalid download stops installation without switching to a source build. The web firmware page uses the installed tool; it does not install picotool on demand.
 
-The shared Pico firmware-maintenance installer is downloaded from WsprryPico when first needed by **Download and check image** or a full erase. It uses the latest compatible installer with successful verification, even when a newer Pico commit is still awaiting CI. WsprryPi installation, startup and ordinary status reads do not require this download. If no verified compatible tool is available, only the requested Pico maintenance operation stops; retry that operation later. Existing verified tools and recovery records are retained.
+The shared Pico firmware-maintenance installer is downloaded from WsprryPico when first needed by **Download and check image** or a full erase. It uses the latest compatible installer with successful verification, even when a newer Pico commit is still awaiting CI. WsprryPi installation, startup, and ordinary status reads do not require this download. If no verified compatible tool is available, only the requested Pico maintenance operation stops; retry that operation later. Existing verified tools and recovery records are retained.
 
 ## Explicit release downloads
 
-An explicit `--binary-source release --release-tag ...` download does not automatically acquire an expected checksum, and the installer in the frozen Beta tag does not compare download checksums. For an explicit download, verify the original asset against the release's [SHA256SUMS](https://github.com/WsprryPi/WsprryPi/releases/download/v4.0.0-beta.1/SHA256SUMS) independently before selecting it with `--binary-source local --binary-path /absolute/path/to/verified-executable`. Architecture, runtime-library and version checks do not replace checksum verification.
+An explicit `--binary-source release --release-tag ...` download does not automatically acquire an expected checksum, and the installer in the frozen Beta tag does not compare download checksums. For an explicit download, verify the original asset against the release's [SHA256SUMS](https://github.com/WsprryPi/WsprryPi/releases/download/v4.0.0-beta.1/SHA256SUMS) independently before selecting it with `--binary-source local --binary-path /absolute/path/to/verified-executable`. Architecture, runtime-library, and version checks do not replace checksum verification.
 
 ## Report beta problems
 

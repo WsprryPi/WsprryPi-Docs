@@ -44,7 +44,7 @@ not available in a particular country.
 | `70cm` | 420–450 MHz | 432,300,000 Hz |
 
 All envelope endpoints are inclusive. Exactly 54 MHz correlates to `6m`; `5m`
-begins at the next integral hertz so one frequency cannot have two identities.
+begins at the next integral hertz, so one frequency cannot have two identities.
 The compatibility aliases `lf` and `mf` are accepted for `2200m` and `630m`,
 but WsprryPi reports the canonical names. `22m` is not an amateur-band
 identity and is rejected rather than remapped.
@@ -176,7 +176,7 @@ frequency to `60m` rather than its `20m` key. An invalid preference prevents
 that configuration from being applied instead of silently falling back.
 
 `Band Preferences` does not redefine canonical band envelopes and cannot create
-new named presets. A numeric preference reassigns a bare band name while an
+new named presets. A numeric preference reassigns a bare band name, while an
 integral number entered directly in `Frequency` affects only that occurrence.
 Both forms are correlated to a canonical band for filter selection and
 qualification.

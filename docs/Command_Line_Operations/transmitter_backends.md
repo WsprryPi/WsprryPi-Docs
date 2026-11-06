@@ -166,9 +166,8 @@ migration path.
 ## Si5351 Backend
 
 Levels 1–4 select retained 2/4/6/8 mA drive, not calibrated RF power.
-Discovery, initialization, runtime readiness and successful cleanup are separate
-checks. Keep output disabled after a fault, establish ownership/quiescence and
-resolve any uncertain cleanup before another deliberate transmission. Recovery
+Discovery, initialization, runtime readiness, and successful cleanup are separate
+checks. Keep output disabled after a fault, establish ownership/quiescence, and resolve any uncertain cleanup before another deliberate transmission. Recovery
 does not resume interrupted work automatically. See
 [Si5351 readiness and recovery](../User_Interface/Setup/Transmitter/index.md#readiness-and-recovery).
 
@@ -243,10 +242,10 @@ and use [Fleet output assignments](../User_Interface/Setup/index.md#assign-an-ou
 on the controller.
 
 The selected native **GPIO, RP1 GPCLK or Si5351** backend exposes **WSPR,
-TONE, QRSS, FSKCW and DFCW** through the same WTP server. GPIO uses the selected
-transmit pin, drive and clock correction; RP1 uses its kernel provider, selected
-GPIO4/GPIO20 route and drive; Si5351 uses its bus, address, reference, CLK output,
-drive and PPM settings.
+TONE, QRSS, FSKCW, and DFCW** through the same WTP server. GPIO uses the selected
+transmit pin, drive, and clock correction; RP1 uses its kernel provider, selected
+GPIO4/GPIO20 route, and drive; Si5351 uses its bus, address, reference, CLK output,
+drive, and PPM settings.
 
 CAPS reports the selected backend's numerical clock or planner envelope.
 Si5351's envelope is 7,812.5 Hz through 200 MHz; its existing qualified bands
