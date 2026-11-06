@@ -80,3 +80,31 @@ Build from the repository root:
 source docs/.venv/bin/activate
 python -m sphinx -b html docs docs/_build/html
 ```
+
+## Automatic handbook validation
+
+The **Handbook validation** GitHub Actions workflow runs for pushes to
+`devel` and pull requests targeting `devel`. It uses Python 3.11, matching
+`readthedocs.yaml`, and installs `docs/requirements.txt` into a fresh
+`docs/.venv`. It runs the Sphinx extension tests and builds the complete HTML
+handbook from scratch. Unresolved references, missing images, and other Sphinx
+warnings fail validation.
+
+Run the same checks locally from the repository root:
+
+```bash
+source docs/.venv/bin/activate
+python -m pip check
+python -m unittest discover -s tests -p 'test_*.py' -v
+python -m sphinx -E -a -b html -n -W --keep-going docs docs/_build/html
+```
+
+Results appear in the commit and pull-request checks and in the repository's
+[Actions tab](https://github.com/WsprryPi/WsprryPi-Docs/actions/workflows/handbook.yml).
+This workflow validates HTML and local documentation references; it does not
+probe external websites or publish the handbook. Read the Docs hosting remains
+separate.
+
+Omit commit-message directives such as `[skip ci]` when validation is required.
+[GitHub suppresses push and pull-request workflows](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs)
+for commits containing those directives.
