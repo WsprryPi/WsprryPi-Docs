@@ -154,8 +154,8 @@ In all cases, NTP will continue to keep the Pi in sync to time messages appropri
 
 ### Planning Mode
 
-Planning mode controls how WsprryPi chooses Type 1, 2, and 3 messages from the station details.
+Planning Mode controls how WsprryPi chooses Type 1, 2, and 3 messages from the station details.
 
 - **Automatic** - The planner attempts to choose the best transmission plan based on the data entered.
-- **Prefer paired when available** - If the planner finds it can generate both Type 2 and Type 3 messages, it will do so in alternating windows.
+- **Prefer paired when available** - If the planner can generate both Type 2 and Type 3 messages, it does so in alternating windows.
 - **Require paired** - Requires the planner to pair Type 2 and Type 3 messages for every transmission plan, supplying the callsign and extended locator in separate frames.

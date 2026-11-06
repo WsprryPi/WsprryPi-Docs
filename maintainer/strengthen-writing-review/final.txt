@@ -1,0 +1,31 @@
+About WSPR
+
+WSPR stands for Weak Signal Propagation Reporter. It’s a digital protocol that amateur radio operators use to study how low-power signals travel over long distances, even when propagation conditions are poor.
+
+WSPR sends information as a sequence of tones in short, controlled bursts. Receiving software can recover the message from noise even when the signal is too weak to hear.
+
+Operations: current plan
+
+Current Plan or Message Progression shows the current plan to be transmitted, or the next plan in pause mode. For WSPR modes, it shows the WSPR frame type being transmitted, along with the callsign and locator. For CW modes, it shows the message and a cursor for the character being transmitted.
+
+Type1Single is a standard Type 1 WSPR frame.
+
+Type2Single sends a supported compound callsign, such as one with a prefix (W0/) or suffix (/P), and reported power. It does not carry a locator.
+
+Type1Type3Paired alternates Type 1 (shown as F1/2) and Type 3 (shown as F2/2) messages, pairing a simple callsign with a long locator so the receiver can associate both.
+
+Type3Single sends three things: a callsign hash, a six-character Maidenhead locator, and reported power. The receiver can’t recover the callsign from the hash alone. It needs matching callsign information from another message it has decoded.
+
+Type2Type3Paired alternates between Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages. Together, the two frames let the receiver associate a complex or long callsign with a long locator.
+
+WSPR setup: planning mode
+
+Planning Mode
+
+Planning Mode controls how WsprryPi chooses Type 1, 2, and 3 messages from the station details.
+
+Automatic - The planner attempts to choose the best transmission plan based on the data entered.
+
+Prefer paired when available - If the planner can generate both Type 2 and Type 3 messages, it does so in alternating windows.
+
+Require paired - Requires the planner to pair Type 2 and Type 3 messages for every transmission plan, supplying the callsign and extended locator in separate frames.

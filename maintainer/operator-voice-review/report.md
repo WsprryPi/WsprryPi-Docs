@@ -53,6 +53,12 @@ compared with the intended extract after normalizing whitespace and matched.
 - No actionable issue remained after reviewing the final diff. Remote build
   results and commit are reported in the completion message.
 
+## Subsequent completion
+
+The remaining Strengthen writing coverage in item 112 was completed in the
+[follow-up review](../strengthen-writing-review/report.md). The results and
+dispositions below describe the earlier pass.
+
 ## Suggestions not applied
 
 Items continue the previous review's numbering. Items 103 and 104 remain historical

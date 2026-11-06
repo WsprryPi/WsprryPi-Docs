@@ -53,7 +53,7 @@ The card shows the current state and transmission plan, with controls to enable,
 
     ![Frequency Panel GPIO Status](frequency_gpio.png)
 
-- **Current Plan** or **Message Progression** will display the current (or next if in pause mode) plan to be transmitted.  For WSPR modes, it will show the type of WSPR frame being transmitted, as well as the callsign and locator.  For CW modes, it will show the message and a cursor for the character being transmitted.
+- **Current Plan** or **Message Progression** shows the current plan to be transmitted, or the next plan in pause mode. For WSPR modes, it shows the WSPR frame type being transmitted, along with the callsign and locator. For CW modes, it shows the message and a cursor for the character being transmitted.
 
     ![Current Plan](current_plan.png)
 
