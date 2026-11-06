@@ -230,6 +230,13 @@ installer can prove that the installed identity is still the one WsprryPi
 owns. Foreign, modified, mixed, or unproven provider state is preserved, and
 the uninstall reports a failure instead of deleting it.
 
+If the RP1 provider has already been removed and only a valid WsprryPi
+ownership record remains, uninstall verifies that no provider or runtime
+state remains, removes the stale record, and continues automatically. No
+manual RP1-removal override is needed. If that absence cannot be verified,
+uninstall preserves the record and requires the owning recovery workflow.
+See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership).
+
 ## Additional Hardware
 
 While the TAPR Hat is optional, an antenna is not. Choosing an antenna is beyond the scope of this documentation. The direct GPIO backend can use GPIO4 (header pin 7) or GPIO20 (header pin 38), but its square-wave output requires the filtering, DC blocking, and protection described in the [RF and Electrical Reference](../Advanced_Operations/rf_electrical.md). Do not connect an antenna directly to an unfiltered GPIO pin.

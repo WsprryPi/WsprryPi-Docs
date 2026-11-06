@@ -28,7 +28,16 @@ state or remove ownership evidence to bypass a refusal.
 The normal installer handles owned-provider version and channel changes through the cleanup-first workflow. It retains the previous ownership record and verified recovery inputs under `/var/lib/wsprrypi/rp1-provider-migration.*`, removes the predecessor through its owning lifecycle, verifies absence, and installs the selected provider. Release recovery inputs include the original checksummed Debian package; development inputs retain the original rollback authority. Missing recovery inputs stop migration before teardown. Foreign files are preserved and block migration. A repeated installation uses the bound recovery evidence to continue an interrupted update after predecessor removal. Direct package replacement is not the migration path. Normal uninstall removes only
 attributable, unchanged installer-owned state; failed preparation/removal stops
 before application teardown. Preserve the error and support evidence when
-refused. The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
+refused.
+
+If only a valid WsprryPi ownership record remains after the provider has been
+removed, normal uninstall verifies that the provider package, DKMS registration,
+modules, runtime files, overlays, and route configuration are absent. It then
+removes the unchanged stale record and continues without requiring the removed
+provider's runtime interface or a manual RP1-removal override. Residual or
+uncertain provider state still requires the owning recovery workflow.
+
+The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
 defines the owning recovery boundaries.
 
 RP1 plans use nominal **200 MHz pll_sys**, with intrinsic `-46.245 ppm` plus
