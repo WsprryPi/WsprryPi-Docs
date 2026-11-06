@@ -1,7 +1,7 @@
 # Raspberry Pi 5 RP1 GPCLK
 
 On Raspberry Pi 5-family systems, the WsprryPi installer resolves, installs
-and validates the RP1-DKMS provider and route administration. Fresh setup
+and validates the RP1-GPIO-CLK-DKMS provider and route administration. Fresh setup
 establishes neutral administration with no GPIO route and output disabled.
 After that step, an explicitly saved `rp1-gpclk` GPIO4/GPIO20 selection can be
 restored with transmission disabled. A retained pin for another backend is not
@@ -16,16 +16,16 @@ output. **Neutral activation** is the separate managed step establishing runtime
 administration. **Route selection/restoration** is another explicit transaction.
 These steps do not establish live-output authorization.
 
-RP1-DKMS reports its product version from its canonical version header.
+RP1-GPIO-CLK-DKMS reports its product version from its canonical version header.
 WsprryPi requires compatible UAPI, runtime, and lifecycle interfaces.
-With the default `RP1_GPCLK_DKMS_SOURCE=auto`, development application branches
-resolve provider `devel` to an exact commit. Production selection requires an
-eligible published stable release and fails if one is unavailable; it does not
-fall back to development source. Explicit source selection remains available
-for provider development. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
+With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
+published `v1.0.0-rc.1`. Explicit `release` selection chooses the latest eligible
+published release, including prereleases, and fails if none is available.
+Selection does not fall back to development source. Explicit development source
+selection remains available. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
 
 WsprryPi selects and authenticates the source, supplies its interface
-requirements, and calls the provider's public lifecycle interface. RP1-DKMS owns
+requirements, and calls the provider's public lifecycle interface. RP1-GPIO-CLK-DKMS owns
 version classification, native installation, runtime preparation, recovery,
 removal, and absence checks. Its receipt is
 `/var/lib/rp1-gpclk-dkms/provider-installation.json`; WsprryPi is recorded as the

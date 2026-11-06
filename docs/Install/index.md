@@ -72,7 +72,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Supply Pico USB firmware tools with the [current beta installer](beta1.md#pico-usb-firmware-tools).** It installs Python and libusb, and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
-  The installer resolves a compatible RP1-DKMS provider, verifies its
+  The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its
   source and installed artifacts, and first establishes route-neutral
   administration. Fresh setup has no selected route. An explicitly saved RP1
   GPIO4/GPIO20 selection can then be restored, with transmission disabled.
@@ -107,10 +107,10 @@ refuses foreign, modified, mixed, or otherwise unproven provider state instead
 of adopting or removing it. If an update is released, re-run the installer to
 take advantage of the new release.
 
-The current installer delegates provider lifecycle operations to RP1-DKMS.
-With the default `RP1_GPCLK_DKMS_SOURCE=auto`, development application branches
-resolve provider `devel` to an exact commit; production selection requires an
-eligible published stable release, without a development fallback. The
+The current installer delegates provider lifecycle operations to RP1-GPIO-CLK-DKMS.
+With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
+published `v1.0.0-rc.1`. Explicit `release` selection chooses the latest eligible
+published release, including prereleases, without a development fallback. The
 provider reports its version and verifies interface compatibility, exact native
 ownership, recovery inputs, and predecessor absence. Repeated identical inputs
 retain the owned installation; changed inputs at the same version replace it;
@@ -243,7 +243,7 @@ installer can prove that the installed identity is still the one WsprryPi
 owns. Foreign, modified, mixed, or unproven provider state is preserved, and
 the uninstall reports a failure instead of deleting it.
 
-RP1-DKMS owns the provider installation receipt and absence checks. WsprryPi
+RP1-GPIO-CLK-DKMS owns the provider installation receipt and absence checks. WsprryPi
 maintains separate application file ownership. Uninstall removes unchanged owned
 files and generated defaults while preserving existing or modified operator
 data, configured fleet records, shared packages, and `picotool`. Failed required
