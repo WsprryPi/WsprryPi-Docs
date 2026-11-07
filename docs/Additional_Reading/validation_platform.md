@@ -68,3 +68,52 @@ pin 12. The Linux `ppsN` device number is separate from the GPIO number.
 Verify Chrony's synchronization before transmission. See
 {ref}`Pi 1–4 host-frequency calibration <pi1-4-host-frequency-calibration>`
 for the relationship between OS clock discipline and WsprryPi's RF model.
+
+(configure-and-verify-chrony)=
+### Configure and verify Chrony
+
+WsprryPi uses the Raspberry Pi's synchronized UTC clock to schedule
+transmissions. For Pi 1–4 GPIO output, it can also use Chrony's estimate of
+the host oscillator's frequency error to correct the RF frequency model.
+
+GPS/PPS is optional. Chrony can obtain time from network servers, or from a
+suitable GPS receiver through Linux PPS support and GPS services. GPS serial
+data supplies the UTC date and time; PPS supplies a precise second boundary.
+
+For GPS/PPS configuration, follow the
+[GPSD Time Service HOWTO](https://gpsd.gitlab.io/gpsd/gpsd-time-service-howto)
+and [Chrony configuration examples](https://chrony-project.org/examples.html).
+The [Chrony configuration manual](https://chrony-project.org/doc/latest/chrony.conf.html)
+documents reference-clock options. Match device paths and GPIO assignments to
+the actual receiver, Raspberry Pi model, and operating system.
+
+After configuration, inspect the time service:
+
+```sh
+chronyc tracking
+chronyc sources -v
+chronyc sourcestats -v
+```
+
+Confirm that Chrony reports normal leap status, a selected source marked
+`*`, and recent source observations. For GPS/PPS operation, verify that the
+intended local reference is selected; a connected receiver or a source named
+“PPS” alone does not establish that it is being used. Allow the frequency
+estimate to settle. WsprryPi separately checks its quality before applying it.
+
+#### Time synchronization and RF calibration
+
+The correction depends on the transmitter backend:
+
+- **Pi 1–4 GPIO:** Enable **System clock estimate** to use the qualified
+  Chrony estimate. GPS/PPS can improve that estimate, but does not eliminate
+  every source of RF error.
+- **Pi 5 GPIO/RP1:** RP1's RF clock is separate from the host clock. Use the
+  documented {ref}`Direct PPS calibration <direct-pps-calibration-on-pi-5>`
+  configuration when measuring that clock against PPS.
+- **Si5351:** RF accuracy depends on the Si5351's reference oscillator and
+  applicable calibration settings. Synchronizing the Pi with Chrony does
+  not directly calibrate the Si5351 reference.
+
+Correct UTC time and accurate RF frequency are separate requirements.
+Verify each for the selected transmitter configuration.

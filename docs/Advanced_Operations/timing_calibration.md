@@ -31,7 +31,9 @@ and enable **System clock estimate** in WsprryPi. Chrony does not directly
 tune the RF output: WsprryPi applies its estimate, chipset compensation, and
 any **Residual PPM** to the RF model. **Fixed/manual PPM** remains the fallback
 when no usable estimate is available. See the
-[Pi 4 GPS/PPS example](../Additional_Reading/validation_platform.md) for wiring.
+[Pi 4 GPS/PPS example](../Additional_Reading/validation_platform.md) for wiring
+and {ref}`Configure and verify Chrony <configure-and-verify-chrony>` for
+upstream setup guides and time-service checks.
 
 Pi 5/RP1 has a separate RF clock. Its optional direct PPS calibration is
 described below.
