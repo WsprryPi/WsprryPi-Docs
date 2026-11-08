@@ -85,7 +85,8 @@ Uncertain jobs remain blocked until explicitly reconciled and resumed.
 
 Older software limited to eight outputs cannot load a saved fleet with more than
 eight assignments. Before downgrading, use the current software to pause,
-reconcile, and remove enough assignments. Keep a private backup; do not edit away
+reconcile, and remove enough assignments. Even with eight assignments, older
+software refuses files larger than 128 KiB. Keep a private backup; do not edit away
 recovery barriers or prune the assignment file by hand.
 
 Each target must advertise support for the assigned job. Native GPIO, RP1 and
