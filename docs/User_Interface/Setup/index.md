@@ -71,10 +71,22 @@ ordinary Setup autosave. Review the feedback beside the action before leaving.
 3. Choose **Save assignment**. It starts paused unless **Start this output's schedule
    after saving** is selected. Use **Resume** when ready to run it.
 
-A central Pi supports zero through eight remote output schedules alongside its
+A central Pi supports zero through 32 remote output schedules alongside its
 own local schedule. **Use this device** selects the separate single-endpoint
 `[WTP]` backend; it does not create an independent output assignment. Saving or
 removing a catalog profile also does not create or remove an assignment.
+
+The local schedule does not consume a remote slot. The saved-device catalog holds
+up to 64 connection profiles independently of these assignments. The capacity
+shown under **Output schedules** includes unresolved contexts retained after a
+local takeover; use **Reconcile** to release them before adding another output.
+Saved schedules survive restart, including paused states and consumed slots.
+Uncertain jobs remain blocked until explicitly reconciled and resumed.
+
+Older software limited to eight outputs cannot load a saved fleet with more than
+eight assignments. Before downgrading, use the current software to pause,
+reconcile, and remove enough assignments. Keep a private backup; do not edit away
+recovery barriers or prune the assignment file by hand.
 
 Each target must advertise support for the assigned job. Native GPIO, RP1 and
 Si5351 Pi servers report their WSPR, TONE, QRSS, FSKCW and DFCW capabilities.
