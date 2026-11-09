@@ -1,6 +1,6 @@
 # Installing WsprryPi
 
-For the explicit 4.0 Beta 1 testing procedure, see [Install 4.0 Beta 1](beta1.md).
+For the current testing prerelease, see [Install 4.0 Beta 7](beta7.md).
 The normal installation commands below retain the stable channel.
 
 Before installing, check [What you need](../requirements.md). After installation,
@@ -43,7 +43,7 @@ This section may be the most challenging part of the whole installation.  *You m
 
 WsprryPi 4.0 Beta supports Raspberry Pi OS, formerly Raspbian, on both Trixie (currently Debian stable) and Bookworm (currently Debian oldstable). Precompiled executables cover supported 32-bit ARMv6 and 64-bit AArch64 installations, including Pi 1 and Pi Zero systems.
 
-Use the [current Beta installer](beta1.md) for automatic binary downloads. The stable-channel commands on this page continue to build the current stable application from source. OS support does not qualify every transmitter or band; see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification).
+Use the [current Beta installer](beta7.md) for automatic binary downloads. The stable-channel commands on this page continue to build the current stable application from source. OS support does not qualify every transmitter or band; see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification).
 
 You can use a full-featured desktop version with all the bells and whistles, or WsprryPi will run just fine on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
 
@@ -64,7 +64,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
 - **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
-- **Supply Pico USB firmware tools with the [current beta installer](beta1.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
+- **Supply Pico USB firmware tools with the [current beta installer](beta7.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its
@@ -104,7 +104,7 @@ take advantage of the new release.
 
 The current installer delegates provider lifecycle operations to RP1-GPIO-CLK-DKMS.
 With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
-published `v1.0.0-rc.1`. Explicit `release` selection chooses the latest eligible
+published `v1.0.0-rc.2`. Explicit `release` selection chooses the latest eligible
 published release, including prereleases, without a development fallback. The
 provider reports its version and verifies interface compatibility, exact native
 ownership, recovery inputs, and predecessor absence. Repeated identical inputs
@@ -123,7 +123,7 @@ a new band-unavailability result.
 
 ### Pico USB firmware tools
 
-The [current Beta/devel installer](beta1.md) keeps an existing USB-enabled picotool 2.3 or newer within the 2.x series. If no compatible copy is available, it downloads picotool 2.3.1 with its required support files. Prebuilt packages cover Bookworm and Trixie, each with 32-bit ARMv6 and 64-bit AArch64 userspace. The installer selects the matching package and verifies the download and packaged files before installing them.
+The [current Beta/devel installer](beta7.md) keeps an existing USB-enabled picotool 2.3 or newer within the 2.x series. If no compatible copy is available, it downloads picotool 2.3.1 with its required support files. Prebuilt packages cover Bookworm and Trixie, each with 32-bit ARMv6 and 64-bit AArch64 userspace. The installer selects the matching package and verifies the download and packaged files before installing them.
 
 Picotool is never compiled on the Pi, including when you request a WsprryPi application source build. A missing or invalid picotool download stops installation without a compilation fallback. No separate picotool setup is needed with the current Beta installation command. The web firmware page uses the installed tool; it does not install picotool on demand.
 
@@ -156,7 +156,7 @@ This option leaves the existing UI in place instead of creating a replacement ba
 
 ### Release binary or source build
 
-The [current beta installer](beta1.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
+The [current beta installer](beta7.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
 
 With a compatible release executable, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies to Pi 5-family systems when the RP1 GPIO driver is selected. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and matching kernel headers.
 
@@ -196,7 +196,7 @@ to take effect:
 Press any key to continue.
 ```
 
-The [current Beta installer](beta1.md) finishes with a summary like this:
+The [current Beta installer](beta7.md) finishes with a summary like this:
 
 ```text
 Installation successful: Wsprry Pi.

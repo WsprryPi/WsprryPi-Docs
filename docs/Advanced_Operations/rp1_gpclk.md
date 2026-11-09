@@ -18,7 +18,7 @@ These steps do not establish live-output authorization.
 RP1-GPIO-CLK-DKMS reports its product version from its canonical version header.
 WsprryPi requires compatible UAPI, runtime, and lifecycle interfaces.
 With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
-published `v1.0.0-rc.1`. Explicit `release` selection chooses the latest eligible
+published `v1.0.0-rc.2`. Explicit `release` selection chooses the latest eligible
 published release, including prereleases, and fails if none is available.
 Selection does not fall back to development source. Explicit development source
 selection remains available. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.

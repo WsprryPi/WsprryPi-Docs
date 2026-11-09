@@ -316,11 +316,7 @@ On first use, **Download and check image** obtains a compatible verified mainten
 
 1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
    select the intended Pico. Open **Pico firmware over USB** in Fleet.
-2. Choose **main** or **devel** under **Firmware branch**. The default is
-   **main**, independently of the Pi's branch. **Latest verified CI image**
-   selects an available verified image from that branch; an unavailable image
-   is refused without substituting another branch. A specific CI version or
-   stable release can also be selected explicitly.
+2. The default **Image selection** is **Specific version**, with **Firmware version** set to `1.0.0-rc.2`. This selects the published Pico RC.2 release. You can enter another release or CI version explicitly. **Firmware branch** defaults to **main**, independently of the Pi's branch, and applies when you choose **Latest verified CI image**. An unavailable image is refused without substituting another branch; compatible stable firmware remains a separate explicit selection.
 3. Choose **Read firmware status**, then **Download and check image**. Review
    the reported version, branch and source before choosing **Install checked
    image** and confirming the selected USB Pico.
