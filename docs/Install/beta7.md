@@ -14,7 +14,7 @@ This selects the current `devel` installer and supporting files. It downloads th
 
 Automatic downloads verify the supplied checksum, architecture and runtime-library compatibility. A lookup, download or validation failure stops installation. If no compatible release is available, the installer follows its documented source-build policy. Follow its prompts and any requested reboot, then open the printed web address. See [Installing WsprryPi](index.md) for preparation and recovery guidance.
 
-Beta 7's executable reports `4.0.0-beta.7+3db74d7`; the suffix identifies its build source. The [release manifest and checksums](https://github.com/WsprryPi/WsprryPi/releases/tag/v4.0.0-beta.7) identify the four exact executable assets. The normal stable-channel installation commands remain separate.
+Beta 7's executable reports `4.0.0-beta.7+3db74d7b`; the suffix identifies its build source. The [release manifest and checksums](https://github.com/WsprryPi/WsprryPi/releases/tag/v4.0.0-beta.7) identify the four exact executable assets. The normal stable-channel installation commands remain separate.
 
 ## Pico USB firmware tools
 
