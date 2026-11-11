@@ -19,6 +19,6 @@ The primary data flow is as follows:
 
 ## Log Files
 
-As of 2.2.x, the `wsprrypi` service will log messages to the Debian `systemd-journald` facility.
+The `wsprrypi` service logs messages to the Debian `systemd-journald` facility.
 
 See the section on the [Log Panel](../User_Interface/Logs/index.md) for more information.

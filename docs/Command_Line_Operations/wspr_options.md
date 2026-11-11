@@ -44,7 +44,7 @@
 
 ### WSPR Message Types
 
-The CLI is no longer limited to classic Type 1-only callsign handling. Direct
+The CLI supports WSPR message planning. Direct
 CLI WSPR input is passed through the same WSPR planning path used by the rest
 of the application.
 

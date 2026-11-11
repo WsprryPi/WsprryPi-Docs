@@ -191,14 +191,14 @@ The backend service receives this request internally as:
 http://127.0.0.1:31415/version
 ```
 
-Modern versions expose structured metadata:
+The endpoint exposes structured metadata:
 
 ```json
 {
-    "wspr_version": "3.0.0-rc.4+abcdef0 (devel)",
-    "ui_version": "3.0.0-rc.4+abcdef0 (devel)",
+    "wspr_version": "<installed-build> (devel)",
+    "ui_version": "<installed-build> (devel)",
     "ui_build_id": "mtime-1234567890abcdef",
-    "wspr_version_raw": "3.0.0-rc.4+abcdef0",
+    "wspr_version_raw": "<installed-build>",
     "wspr_branch": "devel",
     "wspr_branch_state": "branch",
     "wspr_commit": "abcdef0123456789",
@@ -286,10 +286,8 @@ for persistence and request contracts.
 
 ## Selected Pico application, station and hardware
 
-The shared settings contract remains `Wsprry-Control/1` throughout prerelease
-development. Its contents may change before the first stable release; update
-Pi and Pico together. Version 1 does not promise compatibility with earlier
-beta snapshots. The first stable release locks that contract.
+The selected-member settings contract is `Wsprry-Control/1`. Keep Pi and Pico
+software compatible and verify advertised capabilities before saving settings.
 
 These management resources belong to the selected member. They do not edit Pi
 host settings or prepared jobs, and are separate from standalone schedule saves.
@@ -319,8 +317,7 @@ independently. Preserve decimal uint64 strings as strings. Hardware
 The Pi requires `Wsprry-Control/1` and validates the complete advertised
 resource, policy, and carrier descriptors before any mutation. Pico resources
 use `/api/control/v1/application`, `/station`, `/hardware`, `/pins`, `/config`
-and `/config/update` beneath that same namespace. There are no historical
-application, station, or hardware views and no downgrade negotiation.
+and `/config/update` beneath that same namespace. Only the advertised application, station, and hardware resources are accepted.
 Unknown contracts, malformed descriptors, and unsupported station formats
 are refused before writes.
 

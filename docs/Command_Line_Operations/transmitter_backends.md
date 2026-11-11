@@ -157,9 +157,7 @@ rewrite its saved preference. See
 Positive GPIO PPM models a fast source. Intrinsic chipset compensation remains
 applied once even with manual zero. Manual is a fallback, not an additional term
 on top of the estimate. See [calibration accounting](../Advanced_Operations/timing_calibration.md)
-before reusing an older correction. The former `--use-ntp` and `--no-use-ntp`
-spellings are not current long options; retired INI `GPIO.Use NTP` has a separate
-migration path.
+when setting a correction.
 
 ---
 

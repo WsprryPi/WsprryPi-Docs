@@ -1,31 +1,23 @@
-# Install 4.0 Beta 7
+# Development installation
 
-[WsprryPi 4.0 Beta 7](https://github.com/WsprryPi/WsprryPi/releases/tag/v4.0.0-beta.7) is a testing prerelease. It supports up to **32 independent remote Fleet outputs** alongside the controller's local output and uses the current Pico RC.2 control contract. Review [supported hardware and band limits](../About_Wsprry_Pi/index.md#band-qualification) before operating a transmitter.
-
-## Install or update
-
-Run this command on the Raspberry Pi through SSH or a local console:
+Use the development channel to install the application and supporting files from `devel`:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo REPO_BRANCH=devel bash
+curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo env BRANCH=devel bash
 ```
 
-This selects the current `devel` installer and supporting files. It downloads the newest published executable for `devel` that matches Raspberry Pi OS Bookworm or Trixie and the Pi's 32-bit ARMv6 or 64-bit AArch64 userspace. Published prereleases are eligible. Run the command again to update; later `devel` releases and supporting files can supersede Beta 7.
+The installer chooses a published executable matching the selected branch, Raspberry Pi OS, and userspace architecture. Automatic downloads verify supplied checksums, architecture, and runtime-library compatibility. A lookup, download, or validation failure stops installation. If no compatible executable is available, the installer follows its source-build policy. For an explicit asset selection, independently verify the published checksum before installing it. Architecture and runtime checks do not replace checksum verification. Follow any requested reboot and open the printed web address.
 
-Automatic downloads verify the supplied checksum, architecture and runtime-library compatibility. A lookup, download or validation failure stops installation. If no compatible release is available, the installer follows its documented source-build policy. Follow its prompts and any requested reboot, then open the printed web address. See [Installing WsprryPi](index.md) for preparation and recovery guidance.
-
-Beta 7's executable reports `4.0.0-beta.7+3db74d7b`; the suffix identifies its build source. The [release manifest and checksums](https://github.com/WsprryPi/WsprryPi/releases/tag/v4.0.0-beta.7) identify the four exact executable assets. The normal stable-channel installation commands remain separate.
+Review [hardware and band limits](../About_Wsprry_Pi/index.md#band-qualification) before enabling output.
 
 ## Pico USB firmware tools
 
-The installer retains compatible USB-enabled picotool 2.3 or newer within 2.x, or supplies the verified prebuilt picotool 2.3.1 package for the Pi's userspace. Picotool is never compiled on the Pi. The shared Pico maintenance tool is obtained from its independently verified channel when first needed; pending newer Pico CI does not block Pi installation or replace an available compatible verified tool.
+The installer supplies the Pico USB maintenance tools. Under **Setup → Fleet → Pico firmware over USB**, review the selected image and its source before choosing **Install checked image**. Downloading and checking an image does not program the Pico. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for settings retention and recovery.
 
-In **Setup → Fleet → Pico firmware over USB**, **Specific version** defaults to published Pico `1.0.0-rc.2`. Downloading and checking an image does not program the Pico. Review the reported version and source before explicitly installing it. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for saved-settings retention and recovery.
-
-Pi 5-family GPIO installations select published RP1 provider `v1.0.0-rc.2` by default. Driver preparation and kernel compatibility remain separate from the application executable download.
+Pi 5-family GPIO driver preparation and kernel compatibility are separate from the application executable download.
 
 ## Testing scope and reports
 
-Software integration and executable checks do not establish installation, physical USB, service lifecycle, GPIO, timing, spectral or RF qualification. A 32-output software capacity is not evidence of a measured 32-transmitter installation. Keep transmission disabled during setup and review the selected hardware's operating limits before enabling it.
+Software integration and executable checks do not establish physical USB, GPIO, timing, spectral, or RF qualification. Keep transmission disabled during setup and review the selected hardware's operating limits.
 
-Report reproducible problems through [GitHub issues](https://github.com/WsprryPi/WsprryPi/issues/new/choose). Include the installed version, selected backend and relevant device identity. Use [Create and Share a Support Bundle](../User_Interface/Maintenance/support_bundle.md) to send diagnostic information privately.
+Report reproducible problems through [GitHub issues](https://github.com/WsprryPi/WsprryPi/issues/new/choose). Include the installed build identity, selected backend, and relevant device identity. Use [Create and Share a Support Bundle](../User_Interface/Maintenance/support_bundle.md) to share diagnostic information privately.

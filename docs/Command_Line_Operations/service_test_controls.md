@@ -48,7 +48,7 @@ to fail instead of moving the carrier. Choose a nearby valid frequency and
 review the new request before trying again. A successful start reports the
 synthesis target, not a measured RF frequency.
 
-For clock-error measurements and older GPIO tone records, see
+For clock-error measurements, see
 [Interpreting Test Tone Measurements](../Advanced_Operations/timing_calibration.md#interpreting-test-tone-measurements).
 
 ---

@@ -13,13 +13,9 @@ The project officially supports Raspberry Pi 5. GPIO RF transmission on Raspberr
 
 ## Build Environment
 
-Current development builds are compiled directly on the target Raspberry Pi. This avoids distributing binaries that may depend on newer `GLIBC` versions than the user's installed operating system provides.
-
-The project is currently built with `g++` from GCC 14:
-
-```text
-gcc (Debian 14.2.0-19) 14.2.0
-```
+Build the application for the target operating system and architecture. Runtime
+libraries must satisfy the executable's dependencies. See the source repository
+for the compiler and build requirements.
 
 The backend is developed in modern C++.
 
@@ -46,9 +42,7 @@ src/
 
 The component directories are ordinary files tracked by the central WsprryPi
 repository. Their named roots, public interfaces, standalone build or test
-entry points, and reuse boundaries remain intact. The former component
-repositories are retained as historical references rather than active
-synchronization targets.
+entry points, and reuse boundaries are maintained in the central repository.
 
 ### Web UI
 
@@ -58,7 +52,7 @@ synchronization targets.
 
 - [INI-Handler](https://github.com/WsprryPi/INI-Handler): A class for reading and writing formatted INI files.
 - [LCBLog](https://github.com/WsprryPi/LCBLog): A logging class for formatting, writing, levels, and timestamps.
-- [Mailbox](https://github.com/WsprryPi/Mailbox): The current Linux mailbox-property interface. Broadcom mailbox software is historical design lineage; the absorbed component does not contain Broadcom source.
+- [Mailbox](https://github.com/WsprryPi/Mailbox): The Linux mailbox-property interface.
 - [MonitorFile](https://github.com/WsprryPi/MonitorFile): A class for watching a file for changes.
 - [PPM-Manager](https://github.com/WsprryPi/PPM-Manager): A class for tracking and applying system clock PPM correction.
 - [Signal-Handler](https://github.com/WsprryPi/Signal-Handler): A class for intercepting process signals such as `SIGINT` and allowing clean shutdown.

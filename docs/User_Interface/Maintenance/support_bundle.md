@@ -10,7 +10,7 @@ A support bundle may identify you, your station, equipment, or network. It can i
 
 1. Open **Maintenance** in the WsprryPi web interface.
 2. In **Support Bundle**, select **Start support bundle**.
-3. Choose how the bundle will be associated with your support request:
+3. Choose how to associate the bundle with your support request:
    - Enter the number of an existing WsprryPi GitHub issue.
    - Choose to create a GitHub issue after collection. Enter a useful problem description and contact method for the private bundle record.
    - Choose **I am not using GitHub**. Enter a useful problem description and contact method.
@@ -121,7 +121,7 @@ Never attach the readable `.tar.gz`, the encrypted `.age` file, the receipt, or 
 
 ### When private upload is unavailable
 
-- **Upgrade required:** Install the displayed WsprryPi version or later, then try again. The local candidate remains unchanged. Older application versions do not receive a replacement Dropbox request address.
+- **Upgrade required:** Install the required WsprryPi update, then try again. The local candidate remains unchanged. An incompatible application does not receive a replacement Dropbox request address.
 - **Temporarily disabled:** Keep the local files and try again later or follow the authenticated message shown by the application.
 - **Availability check failed:** Confirm internet access and select **Try again**. Do not substitute an unverified upload destination.
 
@@ -140,7 +140,7 @@ Dropbox cannot read the encrypted bundle contents, but it can observe upload met
 
 Opening the Dropbox page is not an upload. Dropbox displaying **Finished uploading** is provider-reported success. Recording that result in WsprryPi is your report of success. Neither is confirmation that the maintainer has received, decrypted, or accepted the bundle. Maintainer confirmation happens separately after receipt and validation.
 
-![Private support upload workflow showing encryption and Dropbox disclosure](support_bundle_private_upload.png)
+![Support request context and optional I2C probe controls](support-bundle.jpg)
 
 ## Continue the Support Request
 

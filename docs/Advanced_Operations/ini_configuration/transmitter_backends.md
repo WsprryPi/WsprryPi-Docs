@@ -100,7 +100,7 @@ configuration.
 | `TLS Server Identity` | For TLS, the expected certificate name. Direct connections may use the configured hostname; a discovered TLS profile requires an explicit expected identity. |
 | `TLS CA File` / `TLS Client Certificate` / `TLS Client Key` | Absolute paths to provisioned files on the WsprryPi host for TLS. The INI and catalog retain file references, not key contents. |
 | `Device ID` | Expected 32-character lowercase hexadecimal WTP identity from HELLO. TLS requires it. USB or a direct Plain LAN endpoint may leave it blank and learn an identity for the current session; a supplied ID is checked. A saved profile requires a confirmed full ID. Plain LAN HELLO is not cryptographic authentication. |
-| `Start Uncertainty ns` | Historical stored profile value, retained across upgrades. First-party submissions use the Pico's advertised ceiling; this value no longer vetoes a transmission. UTC uncertainty is displayed for operator judgment. |
+| `Start Uncertainty ns` | Stored profile value. First-party submissions use the Pico's advertised ceiling; this field does not veto a transmission. UTC uncertainty is displayed for operator judgment. |
 | `Allow Frequency Adjustment` | Default: `false`. Permits reported realizable frequency rounding; it does not establish RF accuracy. |
 
 Obtain identities from the intended device rather than copying another
@@ -184,9 +184,8 @@ and Plain LAN WTP do not themselves provide JSON administration. No persistent
 management secret, new WTP authority, or hardware-activation setting is added.
 
 An ordinary settings save preserves supported settings outside the form,
-including pins and advanced frequency-policy settings. Older firmware is used
-only when its saved settings can be preserved safely; incompatible settings
-cause refusal. Standalone settings may be saved before all changes are active,
+including pins and advanced frequency-policy settings. A save proceeds only when the firmware
+and its saved settings can be handled safely; incompatible settings cause refusal. Standalone settings may be saved before all changes are active,
 and the reported restart requirement determines the next step.
 Unknown fields refuse safely rather than being discarded. Explicit scoped
 station/hardware saves use complete resources under the selected member's

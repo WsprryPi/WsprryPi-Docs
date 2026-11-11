@@ -152,8 +152,7 @@ Residual is unused in manual/zero mode; manual is not added to an estimate.
 Zero additional correction retains intrinsic compensation. Current defaults are
 BCM2835: -2.5 ppm; BCM2836/BCM2837 and BCM2711: 0 ppm; RP1: -46.245 ppm.
 These are product defaults with their recorded evidence limits, not individual
-board measurements. RP1 uses nominal **200 MHz pll_sys**; the historical 50 MHz
-XOSC planning assumption is not the current RF parent contract.
+board measurements. RP1 uses nominal **200 MHz pll_sys** as its RF parent.
 
 Positive GPIO additional PPM models a fast source: the larger calculated divider
 lowers physical RF. Each configured GPIO correction input and selected additional
@@ -198,9 +197,9 @@ panel's effective/correction PPM fields are additional-only, with provenance.
 
 Chrony may use NTP servers, GNSS, PPS, or a mixture of sources. The administrator owns that source configuration outside WsprryPi. See the official [chronyc documentation](https://chrony-project.org/doc/4.4/chronyc.html) for the `tracking` data that supplies the current frequency estimate, residual frequency, source identity, age, and uncertainty information.
 
-Existing configurations that contain the retired `GPIO.Use NTP` key are actively migrated when saved. WsprryPi maps the legacy value to `GPIO.Use System Clock Frequency Estimate`, adds the new GPIO calibration keys when absent, and removes `GPIO.Use NTP`. New configuration writes and web requests use the canonical keys. An existing
-canonical value takes precedence during migration. Saved custom correction
-values are not silently rewritten to compensate for a changed baseline.
+GPIO calibration uses `GPIO.Use System Clock Frequency Estimate`,
+`GPIO.Frequency Residual PPM`, and `GPIO.Manual PPM`. Saved custom correction values
+require independent RF measurement; WsprryPi does not silently rewrite them.
 
 #### GPIO calibration workflow
 
@@ -216,10 +215,9 @@ values are not silently rewritten to compensate for a changed baseline.
 A residual measures what remains with intrinsic compensation and the estimate
 already applied. Do not enter a measured full parent error again as a residual.
 If an independent measurement gives full source error `P`, reconcile it as
-`M = P - I` or `R = P - I - E`. For example, a historical RP1 total correction
-of `-46.245 ppm` corresponds to zero additional correction under the current
-intrinsic default. Review older custom settings explicitly; the application does
-not rewrite them. Correct receiver/SDR error once in the measurement path.
+`M = P - I` or `R = P - I - E`. An RP1 full source error of
+`-46.245 ppm` corresponds to zero additional correction with the intrinsic
+default. Correct receiver/SDR error once in the measurement path.
 
 Frequency calibration matters because WSPR occupies a narrow band. The Raspberry Pi reference crystal has both static error and temperature-dependent drift. Recheck the residual after meaningful hardware, temperature, power-supply, or reference-source changes.
 
@@ -227,20 +225,8 @@ Frequency calibration matters because WSPR occupies a narrow band. The Raspberry
 
 Use the final requested RF carrier as the nominal frequency for Test Tone measurements. Both Maintenance's **WSPR band** selection and CLI `--test-tone 20m` add 1,500 Hz to the effective USB dial, targeting `14,097,100 Hz` with the standard 20m preset. Custom RF and numeric or unit-suffixed CLI inputs specify the carrier directly: `--test-tone 14095600` targets `14,095,600 Hz`. Test Tone never uses random placement. Apply the dial conversion once and keep receiver calibration separate from transmitter PPM. An accepted synthesis target is not a measured output frequency.
 
-When reviewing older records, identify the exact executable version used. Legacy
-GPIO builds before the [test-tone frequency correction](https://github.com/WsprryPi/WsprryPi/commit/ef9a76a5be4d8223b89bcd64df1e1a376d48a0a5)
-nominally emitted Test Tone **2.197265625 Hz below the requested RF frequency**,
-before oscillator error and any hardware-limit adjustment. For those affected
-measurements, compare the retained raw frequency with
-`requested RF - 2.197265625 Hz`, accounting separately for any reported hardware
-adjustment. Reassess a GPIO PPM value derived from such a tone before reusing it
-with a corrected build.
-
-The displacement is fixed in hertz, so its apparent PPM changes with frequency.
-Do not absorb it into a universal clock correction or apply it again to a
-corrected build. It does not apply to Si5351 or RP1 Test Tone, or to the configured
-QRSS, FSKCW, and DFCW carriers. WSPR intentionally transmits four tones centered
-around the requested WSPR RF frequency.
+WSPR transmits four tones centered around the requested WSPR RF frequency.
+QRSS, FSKCW, DFCW, and Test Tone use their configured carrier references.
 
 ### Si5351-Based Transmissions
 

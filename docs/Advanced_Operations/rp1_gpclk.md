@@ -18,7 +18,7 @@ These steps do not establish live-output authorization.
 RP1-GPIO-CLK-DKMS reports its product version from its canonical version header.
 WsprryPi requires compatible UAPI, runtime, and lifecycle interfaces.
 With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
-published `v1.0.0-rc.2`. Explicit `release` selection chooses the latest eligible
+the installer-selected published provider. Explicit `release` selection chooses the latest eligible
 published release, including prereleases, and fails if none is available.
 Selection does not fall back to development source. Explicit development source
 selection remains available. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
@@ -89,8 +89,8 @@ these facts independent when reading API/diagnostic output:
 
 - **Structural compatibility**: `Compatible-unqualified` means the provider's
   structural resource checks passed. It does not overwrite application qualification.
-- **External scoped evidence**: `qualification-v1.0.0-r1` supplements software
-  1.0.0 / package 1.0.0-1. GPIO4 and GPIO20 have independent finite conducted
+- **External scoped evidence**: The installed qualification bundle supplements the exact provider software
+  and package identities recorded with the measurements. GPIO4 and GPIO20 have independent finite conducted
   TONE evidence at 14,097,100 Hz, 2 mA, and nominal 200 MHz pll_sys. Seven accepted
   lifecycle cases per route do not prove every band, mode, board, or kernel.
 - **Application eligibility**: the requested band/mode/plan has its own policy.
@@ -180,10 +180,9 @@ provider. Legacy helper/reference receipts can be upgraded or removed; foreign
 or modified files are retained and reported. Interrupted upgrades can be retried.
 
 The bundle preserves evidence source `bb6815446beb9b96853ad5a353b0d355d4975710`
-and all four pinned SHA-256 identities. `qualification-v1.0.0-r1` identifies
-that evidence; it is not a separate download requirement. Installation and status
-need no evidence network refresh. The old network-populated cache is unused.
-The legacy `refresh` command now verifies local bundled bytes and optionally
+and all four pinned SHA-256 identities. The bundle metadata identifies
+that evidence; no separate download is required. Installation and status
+need no evidence network refresh. The `refresh` command verifies local bundled bytes and optionally
 exports them; it does not fetch a release. A provider version alone is
 insufficient attribution.
 
@@ -208,7 +207,6 @@ attribution. Wrong-route/build evidence is refused independently for each route.
   cannot be bound to this installed runtime; retain the detailed reason.
 
 These are evidence states, not substitutes for readiness or application policy.
-The old diagnostic executable frozen inside Debian 1.0.0-1 cannot interpret the
-new supplement; use the installed application consumer above. No package asset
-was replaced to add this reporting. See the [provider acceptance scope](https://github.com/WsprryPi/WsprryPi/blob/v4.0.0-beta.1/docs/rp1-provider-acceptance.md)
+Use the installed application consumer above for supplemental evidence. See the
+[provider acceptance scope](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-provider-acceptance.md)
 for retained installation/idle-runtime evidence, excluded rollback rehearsals, and exact source/build limitations.

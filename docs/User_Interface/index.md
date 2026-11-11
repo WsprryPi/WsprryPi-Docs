@@ -16,7 +16,7 @@ View Logs <Logs/index>
 Maintenance <Maintenance/index>
 ```
 
-![WsprryPi UI](WsprryPi_UI.png)
+![WsprryPi UI](overview.jpg)
 
 For a new station, follow [Your first WSPR transmission](../first_transmission.md).
 For everyday operation:
@@ -30,8 +30,8 @@ For everyday operation:
 ## Browser requirements
 
 Use a current Chrome, Edge, Firefox, or Safari browser with JavaScript enabled.
-The interface is validated in Chromium; compatibility with every browser version
-or embedded web view has not been verified. Internet Explorer and legacy Edge
+The interface is validated in Chromium; compatibility with every browser
+or embedded web view has not been verified. Internet Explorer and EdgeHTML
 are not supported.
 
 An open page continues using its loaded interface until you refresh it. Before
@@ -43,13 +43,13 @@ drafts; it does not reset saved settings.
 
 ## Navbar
 
-The navbar is the blue bar pinned to the top of the page.
+The navbar provides page links, controller connection status, and theme controls at the top of the page.
 
 ### Transmission Indicator
 
-![Transmission Indicator](Transmission_Indicator.png)
+![Transmission Indicator](Transmission_Indicator.jpg)
 
-The antenna icon turns color depending on the status of the application:
+The controller-status badge shows the application connection and transmission state:
 
 - **Red:** Indicates the web page is disconnected from the application. The page has just opened, and the WebSocket connection has not yet been negotiated. If it remains red, the daemon may not be running.
 - **Orange:** Indicates the web page is negotiating the connection to the application.
@@ -58,7 +58,7 @@ The antenna icon turns color depending on the status of the application:
 
 ### Main Application Links
 
-![WSPR Navbar Links](Navbar.png)
+![WSPR Navbar Links](Navbar.jpg)
 
 - **Operation:** The landing page and main view for active operations.
 - **Setup:** Configure the transmission parameters and hardware interface.
@@ -68,7 +68,7 @@ The antenna icon turns color depending on the status of the application:
 
 #### Spots Menu
 
-![The Spots menu with WSPR spots and QRSS Plus choices](Spots_Menu.png)
+![The Spots menu with WSPR spots and QRSS Plus choices](Spots_Menu.jpg)
 
 The **Spots** menu provides two reception-report destinations:
 
@@ -77,7 +77,7 @@ The **Spots** menu provides two reception-report destinations:
 
 #### WsprryPi Links Dropdown
 
-![WSPR Links](Links.png)
+![WSPR Links](Links.jpg)
 
 Four links are available here:
 
@@ -88,11 +88,11 @@ Four links are available here:
 
 ### Web Page Mode
 
-![Web Page Mode](Mode_Switch.png)
+![Web Page Mode](Mode_Switch.jpg)
 
 WsprryPi supports a light and dark presentation mode in the web interface.
 
-![Light/Dark Mode](Split_Screen.png)
+![Light/Dark Mode](dark-theme.jpg)
 
 ## Card Header
 
@@ -110,13 +110,13 @@ On the top right side before the clock are server control icons:
 
 The icon on the left reboots the Raspberry Pi. When selected, the transmission LED, if configured, flashes twice and the system reboots.
 
-The icon on the right powers off the Raspberry Pi. When selected, the transmission LED, if configured, flashes three times and the system shuts down immediately. In many setups, you will need to remove and reapply power before the Pi can start again.
+The icon on the right powers off the Raspberry Pi. When selected, the transmission LED, if configured, flashes three times and the system shuts down immediately. In many setups, you need to remove and reapply power before the Pi can start again.
 
 #### Clock
 
 On the far right side of the card header is a clock displaying both local and UTC time:
 
-![Local and UTC Clock](Clock.png)
+![Local and UTC Clock](Clock.jpg)
 
 ## Application Pages / Card Bodies
 
@@ -124,11 +124,7 @@ The card body contains the page-specific controls and data. You may need to scro
 
 Changes are saved as you make them.  The card header shows the save status.
 
-![Save OK](Save_OK.png)
-
-Any errors will be indicated there, with text directing you to the issue.
-
-![Save Error](Save_Error.png)
+The save status also identifies errors and directs you to the fields that need attention.
 
 Information related to each page follows.
 

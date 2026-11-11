@@ -41,16 +41,6 @@ every Raspberry Pi or station. Oscillator accuracy, drift, phase noise,
 harmonics, spurs, output power, and the attached RF chain remain
 hardware-specific.
 
-## Original-Generation Software Comparison
-
-The `Legacy_1.2.3` software, which is close to the original WsprryPi
-implementation, was also tested on the same Raspberry Pi 4 and Debian Trixie
-platform. Its 12 m tone did not form a usable requested-frequency carrier, and
-its 6 m tone formed a broad comb rather than a usable carrier. WSPR frame tests
-were therefore not attempted. These results do not show that the original
-WsprryPi code produced usable 12 m or 6 m signals on this platform. They
-therefore do not establish that the current behavior is a regression.
-
 ## What Testing Showed on Unqualified Bands
 
 The GPIO backend synthesizes frequencies by switching between integer divider

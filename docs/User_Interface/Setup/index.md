@@ -17,15 +17,9 @@ saving settings on a Pico. For independent station drafts in Fleet, see
 The Pico's own browser save/apply workflow is documented in
 [Configure your station in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#understand-what-was-saved).
 
-![Setup Card](Setup.png)
+![Setup Card](setup.jpg)
 
-If a change cannot be saved, a brief status appears beside the Setup title. Details about what needs attention appear below the tabs:
-
-![Invalid Callsign](invalid_callsign.png)
-
-Or, it will indicate that the settings have been successfully saved:
-
-![Parameters Saved](parameters_saved.png)
+If a change cannot be saved, a brief status appears beside the Setup title. Details about what needs attention appear below the tabs. **Saved** confirms a successful save.
 
 The status beside the Setup title describes this Pi's automatically saved
 settings. Fleet explains its save controls in the header; read the feedback
@@ -83,11 +77,9 @@ local takeover; use **Reconcile** to release them before adding another output.
 Saved schedules survive restart, including paused states and consumed slots.
 Uncertain jobs remain blocked until explicitly reconciled and resumed.
 
-Older software limited to eight outputs cannot load a saved fleet with more than
-eight assignments. Before downgrading, use the current software to pause,
-reconcile, and remove enough assignments. Even with eight assignments, older
-software refuses files larger than 128 KiB. Keep a private backup; do not edit away
-recovery barriers or prune the assignment file by hand.
+Keep a private backup of Fleet settings. Pause and reconcile affected outputs
+before removing assignments; do not edit away recovery barriers or prune the
+assignment file by hand.
 
 Each target must advertise support for the assigned job. Native GPIO, RP1 and
 Si5351 Pi servers report their WSPR, TONE, QRSS, FSKCW and DFCW capabilities.

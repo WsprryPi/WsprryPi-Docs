@@ -36,31 +36,14 @@ curl -L https://raw.githubusercontent.com/WsprryPi/WsprryPi/main/scripts/install
 (wspr-15-support)=
 ## WSPR-15 Support
 
-I have removed WSPR-15 support in version 2.x.
-
-WSPR-15 ("Weak Signal Propagation Reporter" with a 15-minute transmit/receive cycle) was introduced in January 2013 as part of the experimental WSPR-X software suite. By stretching the standard 2-minute cycle to 15 minutes, WSPR-15 lowers the symbol rate to about 0.183 Hz tone spacing, compared with 1.4648 Hz in standard WSPR, narrowing the occupied bandwidth to about 0.7 Hz. This yielded roughly a 9 dB sensitivity improvement and made it attractive for very low-frequency and medium-frequency beacon work where Doppler shifts are minimal.
-
-Sources:
-
-- [https://de.wikipedia.org/wiki/Weak_Signal_Propagation_Reporter](https://de.wikipedia.org/wiki/Weak_Signal_Propagation_Reporter)
-- [https://www.scribd.com/document/358388839/WSPR-X-Users-Guide](https://www.scribd.com/document/358388839/WSPR-X-Users-Guide_)
-
-Current Support and Viability
-
-- Software support is scarce. The only decoders that handle WSPR-15 are the legacy WSPRX program and the now-unmaintained WSPR-X client. Mainstream WSJT-X releases implement only the standard 2-minute WSPR protocol.
-- Network integration is limited. The central WSPRnet database and most reporting services expect the standard WSPR2 format, so WSPR-15 uploads and mapping generally require unofficial workarounds.
-- Modern alternatives outperform it. Within WSJT-X, the FST4W family achieves similar or better sensitivity than standard WSPR while remaining actively developed and widely used on LF and MF bands.
-
-WSPR-15 still works in legacy workflows, but it remains a niche protocol with minimal software and network support. For new weak-signal experiments, FST4W or standard 2-minute WSPR are the more practical choices.
+WsprryPi supports the standard two-minute WSPR protocol. WSPR-15 is not supported.
 
 (why-12m-looks-noisy-on-the-raspberry-pi)=
 ## GPIO Band Capabilities and Signal Quality
 
-> This section has been moved to a separate document for clarity.
-> See: [GPIO Band Capabilities and Signal Quality](why_12m_looks_noisy.md)
+See: [GPIO Band Capabilities and Signal Quality](why_12m_looks_noisy.md)
 
 (lpf-justification)=
 ## Low Pass Filter Requirements
 
-> This section has been moved to a separate document for clarity.
-> See: [Low Pass Filter Requirements](lowpass-filter-justification.md)
+See: [Low Pass Filter Requirements](lowpass-filter-justification.md)

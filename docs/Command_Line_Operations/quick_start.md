@@ -17,7 +17,7 @@ Useful commands:
   Restart the daemon and reload configuration.
 
 - `sudo systemctl stop wsprrypi`  
-  Stop the daemon. It will start again on reboot unless disabled.
+  Stop the daemon. It starts again on reboot unless disabled.
 
 - `sudo systemctl start wsprrypi`  
   Start the daemon manually.
@@ -85,9 +85,7 @@ These are required for direct WSPR transmission unless provided via INI:
   messages use a normal callsign that fits the classic WSPR field. When the
   supplied identity cannot be represented as a single Type 1 message, the
   planner can use paired WSPR message planning where supported. This allows
-  Type 2 and Type 3 message forms for extended callsign/grid combinations
-  rather than requiring every direct CLI transmission to fit the older
-  six-character Type 1-only form.
+  Type 2 and Type 3 message forms for extended callsign/grid combinations.
 
 - **GRID**  
   Maidenhead grid square or locator value used by the WSPR planner. Standard

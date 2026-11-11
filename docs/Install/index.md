@@ -1,6 +1,6 @@
 # Installing WsprryPi
 
-For the current testing prerelease, see [Install 4.0 Beta 7](beta7.md).
+For the development channel, see [Development installation](beta7.md).
 The normal installation commands below retain the stable channel.
 
 Before installing, check [What you need](../requirements.md). After installation,
@@ -8,7 +8,7 @@ continue with [Your first WSPR transmission](../first_transmission.md).
 
 ## Gather Hardware
 
-For installation on a Raspberry Pi, you will need the following:
+For installation on a Raspberry Pi, you need the following:
 
 - A Raspberry Pi
 - An SD card for the OS image
@@ -18,7 +18,7 @@ To use a Pico 2 W as an external output, follow [Add a WsprryPico](pico.md).
 It covers connection and Fleet setup on an installed Pi and links to the
 Pico's firmware and hardware instructions.
 
-If you choose the Si5351 backend, you will also need an Si5351 clock
+If you choose the Si5351 backend, you also need an Si5351 clock
 generator. While I have provided a KiCad design for a Pi HAT with a
 purpose-built circuit surrounding the Si5351, you may also use one of the
 common breakout boards:
@@ -39,21 +39,19 @@ their respective USB I2C setup guides above.
 
 This section may be the most challenging part of the whole installation.  *You must have a working Raspberry Pi with Internet access.* It can be hard-wired or on Wi-Fi.  There is no better place to learn how to set up your new Pi than from the people who make it themselves.  [Go here](https://www.raspberrypi.com/documentation/computers/getting-started.html) and learn how to install the operating system with the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).  To enable SSH access, pre-configure your image with your local/time zone, Wi-Fi credentials, and a unique hostname.
 
-![Raspberry Pi Imager](Raspberry_Pi_Imager.png)
+WsprryPi supports Raspberry Pi OS Trixie and Bookworm. Precompiled executables cover supported 32-bit ARMv6 and 64-bit AArch64 installations, including Pi 1 and Pi Zero systems.
 
-WsprryPi 4.0 Beta supports Raspberry Pi OS, formerly Raspbian, on both Trixie (currently Debian stable) and Bookworm (currently Debian oldstable). Precompiled executables cover supported 32-bit ARMv6 and 64-bit AArch64 installations, including Pi 1 and Pi Zero systems.
+Use the [development installer](beta7.md) for automatic binary downloads. The stable-channel commands on this page continue to build the current stable application from source. OS support does not qualify every transmitter or band; see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification).
 
-Use the [current Beta installer](beta7.md) for automatic binary downloads. The stable-channel commands on this page continue to build the current stable application from source. OS support does not qualify every transmitter or band; see the [band qualification table](../About_Wsprry_Pi/index.md#band-qualification).
+You can use a full-featured desktop version with all the bells and whistles, or WsprryPi runs on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
 
-You can use a full-featured desktop version with all the bells and whistles, or WsprryPi will run just fine on the Lite version on an SD card as small as 2 GB (although a minimum of 8 GB seems more comfortable these days).  You can even run it headless without a keyboard, mouse, or monitor.  If you enable SSH, you can use your command line from Windows 10/11, macOS, or another Pi.
-
-Whatever you do, you will need command-line access to your Pi to proceed via SSH or the console.  Once you are up and running and connected to the Internet, you may proceed with WsprryPi installation.  Each time I update this documentation, the Raspberry Pi Imager has changed the workflow.  Use Internet resources to find your best path.  You will only need command-line (SSH) access to the Pi, but you are welcome to use any other configuration.
+Whatever you do, you need command-line access to your Pi to proceed via SSH or the console.  Once you are up and running and connected to the Internet, you may proceed with WsprryPi installation.  Follow the Raspberry Pi Imager instructions for your chosen operating system.  You only need command-line (SSH) access to the Pi, but you are welcome to use any other configuration.
 
 ## System Changes
 
-Aside from the obvious, installing WsprryPi, the install script will do the following:
+Aside from the obvious, installing WsprryPi, the install script makes these changes:
 
-- **Install Apache2**, a popular open-source, cross-platform web server that is the most popular web server by the numbers.  The [Apache Software Foundation](https://www.apache.org/) maintains Apache.  Apache is used to control WsprryPi from an easy-to-use web page.  Additionally, if you have not previously used the Apache installation, a redirect from the root of the web server to `/wsprrypi/` will be created for ease of use.  Finally, the script creates proxy mappings and a managed access policy for communication between the web page and application:
+- **Install Apache2**, a popular open-source, cross-platform web server that is the most popular web server by the numbers.  The [Apache Software Foundation](https://www.apache.org/) maintains Apache.  Apache is used to control WsprryPi from an easy-to-use web page.  Additionally, if you have not previously used the Apache installation, a redirect from the root of the web server to `/wsprrypi/` is created for ease of use.  Finally, the script creates proxy mappings and a managed access policy for communication between the web page and application:
   - `http://127.0.0.1:31415/config` to `/wsprrypi/config` for getting/setting the configuration
   - `http://127.0.0.1:31415/version` to `/wsprrypi/version` to retrieve the running version.
   - `ws://127.0.0.1:31416/socket` to `/wsprrypi/socket` for WebSocket communications.
@@ -64,7 +62,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
 - **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
-- **Supply Pico USB firmware tools with the [current beta installer](beta7.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
+- **Supply Pico USB firmware tools with the [development installer](beta7.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
 - **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
   The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its
@@ -73,7 +71,7 @@ Aside from the obvious, installing WsprryPi, the install script will do the foll
   GPIO4/GPIO20 selection can then be restored, with transmission disabled.
   Package installation, neutral activation, and route restoration are separate;
   none grants output authorization.
-- **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission will interfere with the WSPR transmission.
+- **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission interfere with the WSPR transmission.
 
 (install-wspr)=
 ## Install WsprryPi
@@ -104,7 +102,7 @@ take advantage of the new release.
 
 The current installer delegates provider lifecycle operations to RP1-GPIO-CLK-DKMS.
 With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
-published `v1.0.0-rc.2`. Explicit `release` selection chooses the latest eligible
+the installer-selected published provider. Explicit `release` selection chooses the latest eligible
 published release, including prereleases, without a development fallback. The
 provider reports its version and verifies interface compatibility, exact native
 ownership, recovery inputs, and predecessor absence. Repeated identical inputs
@@ -114,7 +112,7 @@ are preserved and stop replacement. See
 [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership)
 for source selection, version ordering, and recovery.
 
-The tagged **4.0 Beta 1 installer** installs its
+The installer installs its
 pinned qualification evidence locally, including updates that skip an unchanged provider. No separate
 qualification-release download or cache refresh is needed. The evidence cannot
 authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status).
@@ -123,11 +121,11 @@ a new band-unavailability result.
 
 ### Pico USB firmware tools
 
-The [current Beta/devel installer](beta7.md) keeps an existing USB-enabled picotool 2.3 or newer within the 2.x series. If no compatible copy is available, it downloads picotool 2.3.1 with its required support files. Prebuilt packages cover Bookworm and Trixie, each with 32-bit ARMv6 and 64-bit AArch64 userspace. The installer selects the matching package and verifies the download and packaged files before installing them.
+The [development installer](beta7.md) keeps an existing compatible USB-enabled picotool. If no compatible copy is available, it downloads the packaged tool with its required support files. Prebuilt packages cover Bookworm and Trixie, each with 32-bit ARMv6 and 64-bit AArch64 userspace. The installer selects the matching package and verifies the download and packaged files before installing them.
 
-Picotool is never compiled on the Pi, including when you request a WsprryPi application source build. A missing or invalid picotool download stops installation without a compilation fallback. No separate picotool setup is needed with the current Beta installation command. The web firmware page uses the installed tool; it does not install picotool on demand.
+Picotool is never compiled on the Pi, including when you request a WsprryPi application source build. A missing or invalid picotool download stops installation without a compilation fallback. No separate picotool setup is needed with the development installation command. The web firmware page uses the installed tool; it does not install picotool on demand.
 
-The current Beta installs the local Pico maintenance adapter without downloading its shared installer from WsprryPico. The first image check or full erase obtains a compatible verified installer when needed. Pending Pico CI does not block WsprryPi installation. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for maintenance and recovery.
+The development installer installs the local Pico maintenance adapter without downloading its shared installer from WsprryPico. The first image check or full erase obtains a compatible verified installer when needed. Pending Pico CI does not block WsprryPi installation. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for maintenance and recovery.
 
 ### Upgrading a customized web interface
 
@@ -156,11 +154,11 @@ This option leaves the existing UI in place instead of creating a replacement ba
 
 ### Release binary or source build
 
-The [current beta installer](beta7.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Trixie (currently Debian stable) and Bookworm (currently Debian oldstable) on supported 32-bit and 64-bit Pis. This default is available through the updated `devel` installer; the stable-channel commands above still build from source.
+The [development installer](beta7.md) downloads the newest published executable for the selected branch that matches your Pi's operating-system release and userspace architecture. Prereleases for that branch are eligible. Published builds cover Trixie and Bookworm on supported 32-bit and 64-bit Pis. The `devel` installer uses this selection; the stable-channel commands above build from source.
 
 With a compatible release executable, installation skips application compilation, its build dependencies, build-memory and swap checks, temporary build-swap preparation, and compilation-time and parallelism estimates. This also applies to Pi 5-family systems when the RP1 GPIO driver is selected. This can save up to an hour on older hardware such as the Pi 1 and Pi Zero. It still installs runtime dependencies and supporting files. Pi 5-family RP1 GPIO driver preparation remains separate and can still require compilation tools and matching kernel headers.
 
-If no compatible published executable exists, the beta installer builds from source. A failed release lookup, download, or validation stops installation instead of triggering a source build.
+If no compatible published executable exists, the development installer builds from source. A failed release lookup, download, or validation stops installation instead of triggering a source build.
 
 Source builds can take longer on older or low-memory Pis. When compilation is needed, the installer reports available resources and planned parallelism before starting its progress steps.
 
@@ -196,11 +194,10 @@ to take effect:
 Press any key to continue.
 ```
 
-The [current Beta installer](beta7.md) finishes with a summary like this:
+The [development installer](beta7.md) finishes with a summary like this:
 
 ```text
 Installation successful: Wsprry Pi.
-Wsprry Pi version: 4.0.0-beta.1+1e047a4
 
 To configure Wsprry Pi, open the following URL in your browser:
 
@@ -212,11 +209,11 @@ Ensure your device is on the same network and that mDNS is
 supported by your system.
 ```
 
-The version and web addresses vary with your installation. For a precompiled installation, the final version is the executable's validated version; the initial notice says validation is pending.
+The web addresses vary with your installation. The installer validates the selected executable before reporting success.
 
 If the script prompts you to reboot, do that now.  At this point (and if you rebooted if prompted), WsprryPi is installed and running.
 
-Note the URL for the configuration UI, listed as `{name}.local`, and the IP address choice.  You can access your system using the `{name}.local` name without needing to remember the IP address.  The `{name}.local` is convenient for automatically assigned IP addresses in most home networks.  The IP address of your Raspberry Pi may change over time, but its name will remain the same.
+Note the URL for the configuration UI, listed as `{name}.local`, and the IP address choice.  You can access your system using the `{name}.local` name without needing to remember the IP address.  The `{name}.local` is convenient for automatically assigned IP addresses in most home networks.  The IP address of your Raspberry Pi may change over time, but its hostname stays the same unless you change it.
 
 Some Windows systems can use this naming standard without additional work, but others may need to install Apple's [Bonjour Print Services](https://support.apple.com/kb/dl999) to enable this helpful tool.  If you encounter a 'host not found' error, try installing Bonjour.
 

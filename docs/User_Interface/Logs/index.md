@@ -1,7 +1,7 @@
 (log-card)=
 # Logs
 
-![Logs with Clear, Refresh stream, Pause view, Log options and Local logging in the toolbar](logs.png)
+![Logs toolbar with view, stream, options, and local logging controls](controls.jpg)
 
 The Logs page reads the Pi's systemd journal and streams new records while the browser view is running.
 
@@ -21,7 +21,7 @@ The toolbar keeps the viewing actions available above the records:
 
 The stream status, such as **Connected**, uses the same shape and text styling as the toolbar buttons. It reports the browser's viewing connection and is not an action button. A connected stream does not establish collector or sender health.
 
-![Log options dialog with severity, source refresh, export and Pico collection controls](log-options.png)
+![Log options dialog with severity, source refresh, export and Pico collection controls](options.jpg)
 
 Close either dialog with **Close**, the close icon, or **Escape**. Closing **Logging on this Pi** keeps an unsaved draft available while the page remains open; choose **Save logging on this Pi** to apply it.
 
@@ -31,7 +31,7 @@ Close either dialog with **Close**, the close icon, or **Escape**. Closing **Log
 
 In the Pico's own browser, USB and UDP export settings are under **Wi-Fi/Host → Logging**. Saved values are visible while locked; use the hostname lock to authorize a change. The following Fleet controls configure the selected member from WsprryPi.
 
-1. Save the USB Pico in **Setup → Fleet**. Select its USB management connection, open **USB logging on this Pico**, and choose **Read logging settings**. Enable export, choose its maximum severity, and choose **Save Pico logging**. Saved and active states are shown separately. Older firmware requires an update before these controls are available.
+1. Save the USB Pico in **Setup → Fleet**. Select its USB management connection, open **USB logging on this Pico**, and choose **Read logging settings**. Enable export, choose its maximum severity, and choose **Save Pico logging**. Saved and active states are shown separately. These controls require compatible firmware.
 2. Open **Logs**, choose that Pico in **Source**, open **Log options**, and enable **Collect this Pico's USB logs**. Firmware export belongs to the Pico; collection belongs to this Pi. Both must be enabled to receive records.
 3. Use **Refresh sources** to read the saved collection policy and current status after an uncertain save. Read and review the saved state before sending another change.
 
@@ -44,7 +44,7 @@ Console remains available while logs are collected. Firmware maintenance release
 - **Firmware logging disabled:** read the Pico's settings and enable export. Enable collection on this Pi separately.
 - **Logging interface busy or disconnected:** close any other tool using the dedicated Logging port, check the data cable, and refresh the source list. The collector retries the same saved device; tty ordering does not select another Pico.
 - **Maintenance:** finish or recover the firmware update before expecting new records. Losing USB does not prove that an accepted radio job stopped.
-- **Update Pico firmware for a dedicated Logging port:** install compatible firmware that provides the dedicated Logging interface, verify its identity, and read its logging settings again. Earlier firmware is not collected through Console.
+- **Update Pico firmware for a dedicated Logging port:** install compatible firmware that provides the dedicated Logging interface, verify its identity, and read its logging settings again. Console is not used for log collection.
 - **Dropped or rejected records:** reduce the exported severity range and inspect the source status. Pico logging has bounded queues and rate limits; it is a diagnostic feed, not a lossless event archive.
 - **No matching records:** choose All sources or a broader severity filter, then verify export and collection status. An empty view does not mean that the transmitter is inactive.
 
@@ -53,8 +53,6 @@ Console remains available while logs are collected. Firmware maintenance release
 Any Pi can collect logs independently of its Fleet controller/member role. Export and listening are disabled initially. UDP uses plaintext without authentication. Use a deliberately configured managed network; a successful send does not confirm receipt. An IPv4 peer list restricts admission but does not authenticate the sender.
 
 The dialog scrolls within the window. Its lower section contains the listen address, interface, port, allowed senders, and saved status.
-
-![Logging on this Pi dialog scrolled to network collection settings and saved status](udp-controls.png)
 
 1. Open **Local logging** from the toolbar. Saved and active settings load automatically when the Logs page opens. Wait for loading to finish and verify the displayed local collector ID before editing. If loading fails, the fields stay disabled; choose **Retry loading settings** to try again.
 2. Scroll to **Receive network logs on this Pi** and select **Enable network log collection**. Enter this Pi's current IPv4 address, its interface name, and port **5514**. The listener binds that address and interface; it does not listen on every interface.
@@ -66,8 +64,6 @@ Port **514** is also supported through an explicitly managed systemd socket. A c
 The `wsprrypi-log` service runs as the dedicated unprivileged `wsprrylog` user, without transmitter or device access. Its journal-read group grants broad access to this host's journal while the service runs; the reader narrows its query to the transmitter service. The browser user is not given that group. Memory and PID cgroup controllers must be available so the service can enforce its 32 MiB and two-task ceilings. An unavailable controller prevents activation. The installer does not change kernel boot settings. On affected Raspberry Pi systems, an administrator can review the [Raspberry Pi kernel memory-controller discussion](https://github.com/raspberrypi/linux/issues/6980) and verify the available controllers after a deliberate reboot.
 
 ## Send or forward logs from this Pi
-
-![Automatically loaded UDP export destination, port, severity and interface fields](udp-export-controls.png)
 
 1. Open **Local logging**, wait for its settings to load, and select **Enable UDP log export**. Enter one collector IPv4 address, port, and explicit outgoing interface. Hostnames, IPv6, broadcast, multicast, and this Pi's own addresses are refused.
 2. Select **Include native Pi events** for approved application diagnostics. Select up to eight attached-Pico sources to forward their already collected USB records. Save each source in Fleet and enable its USB export and collection first; forwarding selection does not enable either of them.
@@ -88,7 +84,7 @@ Source, peer address, ingress, severity, stream version, and verified collector 
 
 ## Stop or remove network logging
 
-Disable export and network collection independently, save, and check the displayed saved and active states before removing software. Confirm the logging service/socket is inactive and no unintended listening endpoint remains. The normal WsprryPi remover stops the managed worker and socket and preserves its separate `<ini>.udp-logs.json` policy for deliberate deletion. It does not replace the host logging stack or change journald retention. Keep the recovery firmware bundle before a Pico rollback; a firmware image using the older, larger application region is refused after the new storage layout rather than erasing settings automatically.
+Disable export and network collection independently, save, and check the displayed saved and active states before removing software. Confirm the logging service/socket is inactive and no unintended listening endpoint remains. The normal WsprryPi remover stops the managed worker and socket and preserves its separate `<ini>.udp-logs.json` policy for deliberate deletion. It does not replace the host logging stack or change journald retention. Keep the recovery firmware bundle before a Pico rollback; a firmware image that overlaps the settings reservation is refused rather than erasing settings automatically.
 
 ## Journal history and retention
 

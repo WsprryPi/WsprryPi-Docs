@@ -1,5 +1,7 @@
 # Transmitter Configuration Tab
 
+![Transmitter controls showing GPIO selection and frequency calibration](transmitter.jpg)
+
 The Transmitter tab on the Signal Setup page contains settings related to the active output hardware path and transmission behavior.
 
 Use the **RF Output Path** switch to choose between GPIO and Si5351. The switch
@@ -84,7 +86,7 @@ Actual output should be measured with the entire circuit and antenna.
 
 ## Si5351
 
-The Si5351 is selectable on all supported Pi versions. Discovery establishes
+The Si5351 is selectable on all supported Pi models. Discovery establishes
 register communication only. Unchecked or failed discovery leaves presence
 unconfirmed; a completed scan with no compatible response is a different result.
 Neither a responding address nor successful initialization proves RF readiness
@@ -177,7 +179,7 @@ for slice/deadline limits and measurement boundaries.
 
 ## GPIO frequency correction feedback
 
-**Frequency calibration** separates **System clock estimate**, **Residual PPM**, and **Fixed/manual PPM**. Candidate correction describes what a future request
+**Frequency calibration** separates **System clock estimate**, **Residual PPM**, and **Fallback PPM**. Candidate correction describes what a future request
 would use. Committed correction belongs to the already prepared work and stays
 fixed even when a newer estimate arrives or settings are saved. Displayed
 effective/correction PPM is the additional term; chipset intrinsic compensation
@@ -248,7 +250,7 @@ and actual TCP port. TLS also needs host paths to the CA, client certificate,
 and client key. See the [WTP INI reference](../../../Advanced_Operations/ini_configuration/transmitter_backends.md#pico-wtp)
 for the individual settings.
 
-UTC uncertainty is displayed for operator judgment. First-party submissions use the Pico's advertised ceiling rather than the historical profile limit; no uncertainty control is needed. The host needs synchronized UTC and the Pico needs a valid time source.
+UTC uncertainty is displayed for operator judgment. First-party submissions use the Pico's advertised ceiling; no uncertainty control is needed. The host needs synchronized UTC and the Pico needs a valid time source.
 **Allow device frequency rounding** accepts reported realizable frequencies;
 it does not qualify RF accuracy. Continuous **Test Tone** is unavailable with
 Pico; complete finite jobs use its local timing.
@@ -316,12 +318,12 @@ On first use, **Download and check image** obtains a compatible verified mainten
 
 1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
    select the intended Pico. Open **Pico firmware over USB** in Fleet.
-2. The default **Image selection** is **Specific version**, with **Firmware version** set to `1.0.0-rc.2`. This selects the published Pico RC.2 release. You can enter another release or CI version explicitly. **Firmware branch** defaults to **main**, independently of the Pi's branch, and applies when you choose **Latest verified CI image**. An unavailable image is refused without substituting another branch; compatible stable firmware remains a separate explicit selection.
+2. The default **Image selection** is **Specific version**. Review the prefilled **Firmware version**, or enter the required firmware identifier explicitly. **Firmware branch** defaults to **main**, independently of the Pi's branch, and applies when you choose **Latest verified CI image**. An unavailable image is refused without substituting another branch; compatible stable firmware remains a separate explicit selection.
 3. Choose **Read firmware status**, then **Download and check image**. Review
    the reported version, branch and source before choosing **Install checked
    image** and confirming the selected USB Pico.
-4. Follow any BOOTSEL instructions shown by the tool. Older firmware needs a
-   one-time migration and its standalone schedule must be disabled or
+4. Follow any BOOTSEL preparation instructions shown by the tool. When this
+   preparation is required, the standalone schedule must be disabled or
    unconfigured. When prompted, unplug that Pico, hold BOOTSEL while reconnecting
    it to the same Pi USB port, release BOOTSEL, then choose **Continue after
    BOOTSEL**. Preparation writes no firmware; continuation backs up and checks
@@ -410,8 +412,7 @@ scoped tasks. **Save combined settings** can change station, Wi-Fi, expiry, and
 standalone Enable as well as schedule entries.
 
 Ordinary saves preserve settings outside this form, including Pico pin
-assignments and advanced frequency-policy settings. On supported older firmware,
-WsprryPi preserves the settings it understands when saving. If the firmware or
+assignments and advanced frequency-policy settings. WsprryPi preserves supported saved settings. If the firmware or
 saved settings cannot be handled safely, it refuses the operation and keeps the
 draft. Use compatible firmware or Pico's supported configuration workflow;
 repeated saves do not bypass the refusal. If feedback says Pico setup owns the
@@ -490,8 +491,8 @@ Page visibility and field editing do not count as Pico requests. Reauthenticate 
 
 No persistent management password is added to INI, device profiles, or browser storage. Consumer authentication uses a shared passphrase; it does not establish unique device identity. Protect the Pi browser session and use a trusted endpoint.
 
-Supported firmware permits three consumer sessions and one pending login;
-older firmware may allow only one. Capacity, pending-login, and pacing refusals
+The advertised firmware capabilities determine consumer-session capacity.
+The interface reports occupied sessions and pending login state. Capacity, pending-login, and pacing refusals
 are distinct. Wait for a pending login or expiry, disconnect the owning client,
 or use the panel's explicit occupied-login inspection/retirement workflow when
 advertised. Read connection state after a lost reply. Pi tabs share the native
@@ -597,8 +598,8 @@ result and member resources afterward to inspect applied state and restart needs
 
 After a conflict, lost connection, or unconfirmed reply, read saved progress and
 review it before one new deliberate save. No mutation is retried automatically.
-Older firmware without this capability retains **Save member station** under
-**Complete station save** and the complete settings workflow. Unknown advertised contracts refuse safely.
+When scoped station saving is unavailable, use **Save member station** under
+**Complete station save**, if advertised, or the complete settings workflow. Unknown advertised contracts refuse safely.
 
 ### Pico automatic WSPR planning
 

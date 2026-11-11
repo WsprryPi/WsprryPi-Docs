@@ -2,9 +2,9 @@
 
 Use this page to configure QRSS, FSKCW, or DFCW timing, frequency, scheduling, and message content. Return to the [Signal Setup overview](index.md) to choose WSPR. For direct shell operation, see [CW Mode Options](../../../Command_Line_Operations/cw_modes.md); for direct file editing, see [INI Configuration Reference](../../../Advanced_Operations/ini_configuration.md); for recoverable save failures, see [Configuration Troubleshooting](../../../Advanced_Operations/configuration_troubleshooting.md).
 
-CW Mode, using one of QRSS, FSKCW, or DFCW, was added as of version 3 of WsprryPi.  It provides several ways to experiment with low-power Morse-code transmissions.
+CW Mode provides QRSS, FSKCW, and DFCW for low-power Morse-code transmissions.
 
-![CW Mode](CW_Mode.png)
+![CW Mode](cw.jpg)
 
 CW modes are not as strictly formatted and are **not** a beacon mode as WSPR is.  Radio beacons send continuous, automated, unattended, one-way transmissions without specific reception targets. In contrast, QRSS transmitters are only intended to be transmitting when the control operator is available to control them, and the recipients are known QRSS grabbers around the world.
 
@@ -18,7 +18,7 @@ The actual CW mode is one of:
 
 - **QRSS** - QRSS is extremely slow-speed CW; the name is derived from the Q-code QRS (reduce your speed).  This mode, when displayed on a grabber's screen, is the most "CW-looking" of all the modes, with familiar dots and dashes.
 - **FSKCW** - FSKCW means Frequency Shift Keying CW. Dots and dashes use the mark frequency; internal gaps between elements, characters, and words use the lower space frequency. Gaps between repeats and the final tail have RF off. The upper trace contains the Morse information, and the lower trace shows the internal gaps.
-- **DFCW** - DFCW means Dual Frequency CW.  DFCW mode was developed to enhance the average speed in LF transmissions (more impacted by QRN) by a factor of 2.5 to 3. In DFCW, the element *duration* is replaced by the element *frequency*. Dots and dashes do not have a different length, but they are transmitted on a different frequency. Due to this frequency shift, there is no space needed between the dots/dashes, and the character space can be reduced to the same dot length. The standard intra-element spacing multiplier is `0.333333`.
+- **DFCW** - DFCW means Dual Frequency CW.  DFCW increases the average speed in LF transmissions (more impacted by QRN) by a factor of 2.5 to 3. In DFCW, the element *duration* is replaced by the element *frequency*. Dots and dashes do not have a different length, but they are transmitted on a different frequency. Due to this frequency shift, there is no space needed between the dots/dashes, and the character space can be reduced to the same dot length. The standard intra-element spacing multiplier is `0.333333`.
 
 ## CW Timing
 

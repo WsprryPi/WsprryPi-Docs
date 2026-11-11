@@ -59,7 +59,7 @@ filter; software configuration does not verify the filter or measure emissions.
 ## Install and continue
 
 Use [Installing WsprryPi](Install/index.md) for a normal Pi installation. That
-page distinguishes stable-channel commands from the explicit beta procedure.
+page distinguishes stable-channel commands from the development-channel procedure.
 Linux and macOS USB Si5351 installations have separate guides under
 **Optional Setups**.
 

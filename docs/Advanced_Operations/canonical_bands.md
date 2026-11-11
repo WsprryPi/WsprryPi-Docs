@@ -306,12 +306,11 @@ precedence, and examples.
 
 - Existing configurations without `Frequency Profile` continue to use
   `existing_common`.
-- Missing or empty `Band Preferences` preserves historical bare-band behavior.
+- Missing or empty `Band Preferences` uses the default bare-band selection.
 - Existing preset-string preferences remain valid and keep their JSON type.
 - Numeric preferences are additive; no conversion of existing INI files is
   required.
-- The former dedicated 60 m control is now the `60m` row in **Band
-  preferences**. Clearing it removes only the `60m` entry.
+- Configure 60 m using the `60m` row in **Band preferences**. Clearing it removes only the `60m` entry.
 - `22m` remains rejected. `8m`, `5m`, `1.25m`, and `70cm` are canonical band
   names, but only `8m` and `5m` require custom dial preferences before they can
   be used as bare WSPR presets.

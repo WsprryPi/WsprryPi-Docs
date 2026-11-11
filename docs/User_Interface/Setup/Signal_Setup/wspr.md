@@ -17,7 +17,7 @@ member plan. Prepared WTP jobs retain their supplied finite plan.
 
 Set your callsign and locator in the Station identity section. For normal Type 1 WSPR messages, use a valid callsign of six characters or fewer. The Grid Locator is the four-character Maidenhead locator for where you are transmitting.
 
-If you need or desire to use callsign extensions, have a callsign longer than 6 characters, or want or need to use a six-character locator, you will need to consider using Type 2 or 3 messages.
+If you need or desire to use callsign extensions, have a callsign longer than 6 characters, or want or need to use a six-character locator, you need to consider using Type 2 or 3 messages.
 
 ### WSPR Transmission Type Selection Examples
 
@@ -150,7 +150,7 @@ Others may opt for the simpler and "accurate enough" NTP calibration.  This uses
 
 When NTP is enabled, the Frequency Calibration field is dithered.  When using the Si5351 clock module, NTP is disabled and manual calibration should be used - although the combination of a TCXO and the Si5351 is often so close, it may be ignored.
 
-In all cases, NTP will continue to keep the Pi in sync to time messages appropriately.
+In all cases, NTP continues to keep the Pi in sync to time messages appropriately.
 
 ### Planning Mode
 

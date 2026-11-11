@@ -1,0 +1,537 @@
+{
+  "reference_repository": "WsprryPi",
+  "reference_commit": "caf8fd4602f1c5e4f2e2cf293ee6283138f2579c",
+  "rendering": "PHP templates and production assets; synthetic local station/status responses; browser screenshots cropped to documented controls; footer outside capture scope. No hardware or RF exercised.",
+  "original_referenced_assets": 55,
+  "referenced_assets": [
+    {
+      "path": "docs/Internals/wsprrypi_data_flow.pdf",
+      "pages": [
+        "docs/Internals/index.md"
+      ],
+      "sha256": "f7f8b6ef886aa8d0c55a5d7f382a7f9922eccae3d62f5353114b39f96b24344d",
+      "review": "retained after source/visual review"
+    },
+    {
+      "path": "docs/Internals/wsprrypi_data_flow.svg",
+      "pages": [
+        "docs/Internals/index.md"
+      ],
+      "sha256": "e8a578af39b6037e7cc2f09eb7443360f1913c3cc392386af89b2dd79d078ce5",
+      "review": "retained after source/visual review"
+    },
+    {
+      "path": "docs/User_Interface/Clock.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "51205348072c6433ee2a9e3c1f66298987fdf22458725afc0ffe5e0e92ccdb74",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Links.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "3f9aa40f9de52523547301816ebd7b36b345029bc731ea65bb4092c33da566cd",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Logs/controls.jpg",
+      "pages": [
+        "docs/User_Interface/Logs/index.md"
+      ],
+      "sha256": "0f8913b308825d6ba83de2bddfa0d3e28bc0a342da045ffab5db9e1a87049b4f",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Logs/options.jpg",
+      "pages": [
+        "docs/User_Interface/Logs/index.md"
+      ],
+      "sha256": "9541d77f43a0558f1a874729b2d0bd65c2702b77a518ee0dbb5a5a20639e81d3",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/recovery.jpg",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "sha256": "6e2821f3beffe0f2bce75a360ef3bb2760d68559d035f4f525add12ead0a13ed",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/support-bundle.jpg",
+      "pages": [
+        "docs/User_Interface/Maintenance/support_bundle.md"
+      ],
+      "sha256": "c3f0ed30ee5e72148e587eb3d342ab5786d32d0e34024825b316804d64096355",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Mode_Switch.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "8f7e462379caecaef3860e8ed417057fde554c124422dc12af71f629821e9b46",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Navbar.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "9b022a192b1c64b3035bafb174d378be976f1224a9d169b16f4efc0c67ee3477",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Operations/operation.jpg",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "sha256": "14dfb10e39673fcdb96ca42f6e4c6cb4816804086f54f8a7ad5b900e5b6a8d69",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Server_Control.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "90099c719fe1b427423ecd26765f01d8b677c292fe5b1f1ed5eaa18cc3625fd3",
+      "review": "retained after source/visual review"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/pi-io.jpg",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "sha256": "e3cce21b9b65b9cf280f0623abf69cbf6c11429db0e5aa62865d96a48b6c8c26",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/cw.jpg",
+      "pages": [
+        "docs/User_Interface/Setup/Signal_Setup/cw.md"
+      ],
+      "sha256": "e9b0e2bf83f8f2dc2f68136f336c28e48597222800ec8057aa1b68b8088b0d38",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Transmitter/transmitter.jpg",
+      "pages": [
+        "docs/User_Interface/Setup/Transmitter/index.md"
+      ],
+      "sha256": "7765455aab744c00e689bef6ce594895ac106604bb6def25656e17417ed515c1",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Setup/setup.jpg",
+      "pages": [
+        "docs/User_Interface/Setup/index.md",
+        "docs/User_Interface/Setup/Signal_Setup/index.md"
+      ],
+      "sha256": "3e28f344d5ec0a66f26a6d655b686a0b6c553e3980644f46e7a5c85b5c146be0",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Spots/download_selector.png",
+      "pages": [
+        "docs/User_Interface/Spots/index.md"
+      ],
+      "sha256": "06aa02533983c5f038a2ddf27e382699cd366d4d9108f4890ca9a9db387ca3ed",
+      "review": "retained after source/visual review"
+    },
+    {
+      "path": "docs/User_Interface/Spots_Menu.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "effba5178ee63909ba10d0ef78e6b21c6d6a6a67a3effbd7b7cb433bb6480dfc",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/Transmission_Indicator.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "904349f609f667430084dbaed5133f7e184259530f2bb3b8958962c27df82556",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/dark-theme.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "196a114168c2b09a874fd138044efae2f2978129cdf0edb45e9d19c5dbc3bc3f",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/User_Interface/overview.jpg",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "sha256": "c0cdd25ba3a2e2141c16a19f02d407ead90d5336dd6e5238478ae6e24e964a20",
+      "review": "captured from reference UI"
+    },
+    {
+      "path": "docs/_static/images/wiring/qlg3-pi4.svg",
+      "pages": [
+        "docs/Additional_Reading/validation_platform.md"
+      ],
+      "sha256": "5a5e2a7dd33f9e94e51658d56b4afaa30c9899235880952e5cc3fdf470923db7",
+      "review": "retained after source/visual review"
+    }
+  ],
+  "removed_reference_assets": [
+    {
+      "path": "docs/Install/Raspberry_Pi_Imager.png",
+      "pages": [
+        "docs/Install/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Clock.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Links.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Logs/log-options.png",
+      "pages": [
+        "docs/User_Interface/Logs/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Logs/logs.png",
+      "pages": [
+        "docs/User_Interface/Logs/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Logs/udp-controls.png",
+      "pages": [
+        "docs/User_Interface/Logs/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Logs/udp-export-controls.png",
+      "pages": [
+        "docs/User_Interface/Logs/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/about_update.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/confirmation.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/disable_transmissions.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/maintenance.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/manual_update_check.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/repair.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/repaired.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/reset.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/reset_complete.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/support_bundle_private_upload.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/support_bundle.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/test_tone.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/test_tone_frequency_source.jpg",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/update_avail.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Maintenance/update_footer.png",
+      "pages": [
+        "docs/User_Interface/Maintenance/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Mode_Switch.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Navbar.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/Initial_Ops.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/current_plan.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/frequency.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/frequency_gpio.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/message_progression.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/ready.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/reboot_behavior.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Operations/transmission_controls.png",
+      "pages": [
+        "docs/User_Interface/Operations/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Save_Error.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Save_OK.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Conditional_GPIO/TX_LED_RF_Conflict.png",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Activate_Amp.png",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Band_GPIO.png",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Pi_IO_Setup.png",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/Shutdown_Pin.png",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Pi_IO/TX_LED.png",
+      "pages": [
+        "docs/User_Interface/Setup/Pi_IO/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Setup.png",
+      "pages": [
+        "docs/User_Interface/Setup/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/CW_Mode.png",
+      "pages": [
+        "docs/User_Interface/Setup/Signal_Setup/cw.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/WSPR_CW.png",
+      "pages": [
+        "docs/User_Interface/Setup/Signal_Setup/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/Signal_Setup/signal_setup_wspr.png",
+      "pages": [
+        "docs/User_Interface/Setup/Signal_Setup/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/invalid_callsign.png",
+      "pages": [
+        "docs/User_Interface/Setup/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Setup/parameters_saved.png",
+      "pages": [
+        "docs/User_Interface/Setup/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Split_Screen.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Spots/Spots.png",
+      "pages": [
+        "docs/User_Interface/Spots/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Spots_Menu.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/Transmission_Indicator.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    },
+    {
+      "path": "docs/User_Interface/WsprryPi_UI.png",
+      "pages": [
+        "docs/User_Interface/index.md"
+      ],
+      "disposition": "replaced by current task overview, or removed where prose provides the instructions"
+    }
+  ]
+}

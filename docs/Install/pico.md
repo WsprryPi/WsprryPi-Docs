@@ -9,8 +9,8 @@ WsprryPi's Fleet controls, host schedules, CLI/INI settings, and job recovery
 are documented in this manual. The companion
 [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/) owns firmware
 installation, the Pico's own browser controls, standalone operation, and
-device recovery. Update Pi and Pico together for current settings controls; earlier beta settings APIs are unsupported. Use documentation matching the installed software; `devel`
-describes development versions and does not imply a stable release.
+device recovery. Keep Pi and Pico software compatible and use documentation
+that matches the installed software.
 
 (start-with-standalone-operation)=
 ```{admonition} Start with standalone operation
@@ -84,7 +84,7 @@ These Pico controls are separate from WsprryPi's selected-member Fleet controls 
    to identify the intended board, compare its full stable device ID, and save
    its connection profile. USB serial, device ID, boot ID, and a profile's
    display name serve different purposes.
-3. Choose how this Pi will use it:
+3. Choose how this Pi uses it:
    - **Use this device** selects the Pi's single active WTP output. Disable
      host TX LED, amplifier, shutdown-button and band GPIO controls and CW
      fades, and set host PPM to zero before selecting it.
@@ -153,9 +153,9 @@ in the Pico manual. After a rename, update the
 
 A Pico can send diagnostic events directly over station Wi-Fi, or its attached Pi can forward already collected USB logs. These controls are independent of Fleet radio ownership and schedules. Use **UDP logging on this Pico** for the selected member's sender and **Logs → Logging on this Pi** for the local Pi's sender, USB forwarding, and network collector. Verify the displayed device/boot and management carrier before saving. See [Logs](../User_Interface/Logs/index.md#receive-udp-logs-on-this-pi) for the collector and forwarding procedure and the [Pico UDP guide](https://wsprrypico.readthedocs.io/en/devel/udp.html) for direct export.
 
-UDP settings use independent saved state and remain disabled initially. Ordinary firmware updates preserve them. Retain the exact installer bundle for later updates from another computer. Disable export and read it back before rollback; the shared installer refuses an older image that reaches the UDP settings reservation. Do not erase a board to bypass that refusal. USB control and USB logging keep their separate settings and interfaces.
+UDP settings use independent saved state and remain disabled initially. Ordinary firmware updates preserve them. Retain the exact installer bundle for later updates from another computer. Disable export and read it back before rollback; the shared installer refuses an image that reaches the UDP settings reservation. Do not erase a board to bypass that refusal. USB control and USB logging keep their separate settings and interfaces.
 
-Install compatible Pi worker, API, and UI assets together before updating Pico firmware. Leave all UDP policies disabled until the intended sender and collector are configured and read back. Older peers show unavailable rather than using a different management resource or collecting Console output. A logging check needs no radio job: use a finite test event, or USB startup/management-connection events, and verify the destination journal and Logs view independently of the sender's submission count.
+Install compatible Pi worker, API, and UI assets together before updating Pico firmware. Leave all UDP policies disabled until the intended sender and collector are configured and read back. Incompatible peers show unavailable; they do not use a different management resource or collect Console output. A logging check needs no radio job: use a finite test event, or USB startup/management-connection events, and verify the destination journal and Logs view independently of the sender's submission count.
 
 ## Amplifier lead and tail
 

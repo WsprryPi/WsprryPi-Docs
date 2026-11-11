@@ -99,7 +99,7 @@ In the table, **SoC** means system-on-chip and **CM** means Compute Module. Cloc
 1. On 2200 m, the 500 MHz PLLD profile is qualified for TONE, QRSS, FSKCW, and DFCW; WSPR did not meet the decode requirement.
 2. On 2200 m, the Pi 4 uses the 54 MHz oscillator instead of the usual 750 MHz PLLD.
 3. Si5351 qualification on 2 m requires the tested 27 MHz reference configuration. A 25 MHz reference did not pass 2 m qualification testing and is unqualified.
-4. Today we have direct-output planning, not implemented or qualified harmonic operation. Harmonic operations are a feasible development direction; usable power, spectral cleanliness, and modulation quality remain to be measured.
+4. WsprryPi supports direct output. Harmonic operation is unsupported and unqualified.
 
 - <span class="qualification-status qualification-status--qualified">Qualified</span>: The transmitter type produced usable output on that band during qualification testing.
 - <span class="qualification-status qualification-status--partial">Partial</span>: At least one supported mode is qualified on that band and at least one other mode is not. Check the numbered note before transmitting.

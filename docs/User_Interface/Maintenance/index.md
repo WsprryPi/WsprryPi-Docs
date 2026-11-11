@@ -2,17 +2,13 @@
 
 Use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, and create a support bundle.
 
-![Maintenance Page](maintenance.png)
+![Maintenance configuration repair and reset controls](recovery.jpg)
 
 ## Repair Configuration
 
 In rare cases, you may find that your configuration is present and readable but has missing sections or is otherwise not fully functional. This can happen if you hand-edit your INI file and mistakenly delete sections or keys.
 
-![Repair Configuration](repair.png)
-
-When you press the "Repair current configuration" button, you will not be prompted before execution because it is considered a safe operation. A stock configuration file will be created, and your current configuration values will be applied on top. Missing or invalid data will be restored from the stock configuration.
-
-![Configuration Repaired](repaired.png)
+When you press the "Repair current configuration" button, repair runs without a confirmation prompt. WsprryPi creates a stock configuration file and applies your valid configuration values on top. Missing or invalid data is restored from the stock configuration.
 
 After this action, you should review all your settings to ensure they are still correct.
 
@@ -20,19 +16,13 @@ After this action, you should review all your settings to ensure they are still 
 
 This process is helpful if your INI file is damaged on disk or completely missing.
 
-![Reset Configuration](reset.png)
-
 Unlike the Repair Configuration button, it does not preserve existing user values. It copies a new stock `wsprrypi.ini` file in place of your current one if it exists, and reloads the configuration shipped with the application.
 
-When you press the "Reset to defaults" button, you will be presented with a confirmation modal because this will destroy your existing configuration.
+When you press the "Reset to defaults" button, a confirmation modal warns that the action replaces your existing configuration.
 
-![Reset Confirmation](confirmation.png)
+Confirm the action, and the process completes and returns its status.
 
-Confirm the action, and the process will complete and return the status.
-
-![Reset Complete](reset_complete.png)
-
-You will need to reconfigure all of your preferences before continuing to transmit.
+You need to reconfigure all of your preferences before continuing to transmit.
 
 ## Privileged Network Safety
 
@@ -79,11 +69,9 @@ Connect the transmitter to a suitable dummy load or attenuated test path before
 starting. Keep the test brief, and select **End** as soon as the check is
 complete.
 
-[![Test Tone accepted while awaiting controller runtime confirmation](test_tone.png)](test_tone.png)
-
 An accepted Test Tone request can still be waiting for runtime confirmation.
-Read the execution status before treating the tone as active. This illustration
-shows feedback, not measured RF. Open the image for full resolution.
+Read the execution status before treating the tone as active. Status feedback
+is not a measurement of RF output.
 
 Select **Test tone** to open the manual tone controls. This does not change the
 frequency saved in Setup.
@@ -98,10 +86,7 @@ Choose one of these frequency sources:
 
 Neither source applies random placement. A preview is an unsaved selection; the result confirms the accepted synthesis target and runtime state separately. It does not measure output frequency. When the accepted target matches the preview, the result need not repeat the calculation.
 
-![Test Tone frequency-source controls with Custom RF frequency selected](test_tone_frequency_source.jpg)
-
-The example above shows the safe disconnected state: the frequency source and
-exact RF preview remain visible, while **Start** and **End** are unavailable.
+When the controller is disconnected, **Start** and **End** are unavailable.
 
 Test Tone targets the RF carrier shown in the preview. On the legacy GPIO
 backend, a frequency that crosses a hardware clock-divider boundary is rejected
@@ -123,8 +108,6 @@ and the exact RF carrier used by **Custom RF frequency**.
 
 If scheduled WSPR or CW-family transmission is enabled, the page prompts you
 to stop and disable it before starting a test tone.
-
-![Disable Transmissions](disable_transmissions.png)
 
 You must re-enable normal transmissions on the Operations page after testing.
 
@@ -182,19 +165,11 @@ The WsprryPi UI automatically checks the running build against eligible releases
 
 Tagged-release notifications provide a link to the [Releases page](https://github.com/WsprryPi/WsprryPi/releases/). Branch-build notifications identify the target branch and commit and direct prerelease users to their designated update channel; they do not present an unrelated Releases link.
 
-![Update Available Modal](update_avail.png)
-
 You may also check manually on the Maintenance page and force an immediate check.
 
-![Force Update Check](manual_update_check.png)
-
-You may dismiss the modal, and the footer will continue to quietly show the release or branch-build notification.
-
-![Update Available Footer](update_footer.png)
+You may dismiss the modal, and the footer continues to quietly show the release or branch-build notification.
 
 You may also choose to "Never check again" either in the modal or by selecting "About" in the footer.
-
-![About - Never Check](about_update.png)
 
 If you choose to never check again and wish to re-enable the checking, the opposite setting is available in the "About" footer, as well as in the update check section in the maintenance panel.
 

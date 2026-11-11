@@ -27,9 +27,9 @@ WSPR is transmitted on a schedule, allowing multiple stations to share a single 
 
 WSPR can operate at very low signal-to-noise ratios. This makes it useful for studying paths that ordinary listening may miss.
 
-WSPR is the software that implements MEPT-JT, which started life in 2008 as a suggestion by Murray ZL1BPU. Joe K1JT took up the challenge, designed the software, and added many improvements. 'MEPT-JT' is derived from 'MEPT' (Manned Experimental Propagation Transmission), a generic term for a range of low-powered techniques, and 'JT' is Joe Taylor's initials. It is one of a general family of D-MEPT (digital MEPT) modes.
-
-The idea was to take a minimal message, code it as tightly as possible, add forward error correction, and then combine this with a known pseudo-random sequence to generate a two-minute message to be sent using 4-FSK modulation and a low baud rate. Joe estimated that the system's theoretical sensitivity would be -30dB S/N.
+WSPR encodes compact messages with forward error correction and a
+pseudo-random synchronization sequence. Four-frequency shift keying carries
+the encoded symbols in a transmission lasting about two minutes.
 
 Transmissions carry a station's callsign, [Maidenhead grid locator](https://en.wikipedia.org/wiki/Maidenhead\_Locator\_System), and transmitter power indicated in dBm. Receiving stations can decode signals with a signal-to-noise ratio [as low as -28 dB in a 2500 Hz bandwidth](https://physics.princeton.edu//pulsar/K1JT/wsprrypi.html). Stations with internet access can automatically upload their reception reports to a central database called [WSPRnet](https://wsprnet.org), which includes a mapping facility.
 
