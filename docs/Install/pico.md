@@ -184,3 +184,18 @@ Loopback can be **None**, **CLK0**, **CLK1**, or **CLK2**, with a distinct trans
 Choose **Validate candidate pins**, then **Save RF output settings**. The complete engine and reference allocation saves together. Draft edits do not program hardware. Restart the Pico explicitly to activate the accepted allocation; changing it back does not clear the restart requirement. Selecting Direct GPIO restores its controls and retains inactive Si5351 settings.
 
 Ordinary firmware supports the documented **QRP Labs Rev. 6 module with a 25 MHz external-XA TCXO**, **SDA GP4 / SCL GP5**, **CLK0 at 8 mA**, and no independent RF-gate assignment. Loopback is **None** or **CLK2 → GP7**, using the normal **138 MHz** Pico clock. Other configurations require an explicit engineering Pico build. The same normal image also supports Direct GPIO. Register readback does not prove RF inactivity or accuracy. Engineering tests require verified I²C pull-ups and bus timing, a conducted RF path, and shutdown/reset checks. GPS/PPS ingestion and automatic calibration are unavailable. See [Si5351 settings in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#si5351-output-settings) for supported module settings and measurement limits.
+
+## Pico standalone gray-line scheduling
+
+The selected Pico's **Gray-line scheduling** controls read and save independent
+morning and evening windows and frequency overrides for its standalone schedule.
+The controls preserve edits during readback and require fresh saved-state review
+after an unconfirmed save or a change of Pico. Saving does not enable a schedule,
+transfer recurrence ownership, or change Pi-owned Fleet or native Pi scheduling.
+
+Stop or relinquish a Pi-controlled schedule before using the Pico as a standalone
+beacon. Existing ownership and output checks still govern configuration changes.
+See the [Pico gray-line instructions](https://wsprrypico.readthedocs.io/en/devel/configure.html#gray-line-scheduling)
+for window boundaries, location requirements, precedence, paired-frame behavior,
+and propagation limits. Both applications must implement the current shared
+control descriptor to manage these settings over network or USB.
