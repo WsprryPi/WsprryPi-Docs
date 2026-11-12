@@ -187,15 +187,6 @@ Ordinary firmware supports the documented **QRP Labs Rev. 6 module with a 25 MHz
 
 ## Pico standalone gray-line scheduling
 
-The selected Pico's **Gray-line scheduling** controls read and save independent
-morning and evening windows and frequency overrides for its standalone schedule.
-The controls preserve edits during readback and require fresh saved-state review
-after an unconfirmed save or a change of Pico. Saving does not enable a schedule,
-transfer recurrence ownership, or change Pi-owned Fleet or native Pi scheduling.
+The selected Pico's **Gray-line scheduling** controls read and save independent morning and evening windows and frequency overrides for its standalone schedule. The controls preserve edits during readback and require fresh saved-state review after an unconfirmed save or a change of Pico. Saving does not enable a schedule, transfer recurrence ownership, or change Pi-owned Fleet or native Pi scheduling.
 
-Stop or relinquish a Pi-controlled schedule before using the Pico as a standalone
-beacon. Existing ownership and output checks still govern configuration changes.
-See the [Pico gray-line instructions](https://wsprrypico.readthedocs.io/en/devel/configure.html#gray-line-scheduling)
-for window boundaries, location requirements, precedence, paired-frame behavior,
-and propagation limits. Both applications must implement the current shared
-control descriptor to manage these settings over network or USB.
+Stop or relinquish a Pi-controlled schedule before using the Pico as a standalone beacon. Existing ownership and output checks still govern configuration changes. See the [Pico gray-line instructions](https://wsprrypico.readthedocs.io/en/devel/configure.html#gray-line-scheduling) for window boundaries, location requirements, precedence, paired-frame behavior, and propagation limits. Both applications must implement the current shared control descriptor to manage these settings over network or USB.
