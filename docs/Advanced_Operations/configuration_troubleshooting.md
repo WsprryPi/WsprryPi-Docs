@@ -96,3 +96,11 @@ enforced; disabling the Pi's LAN policy does not repair discovery or Pico
 credentials. Device-side reset and access recovery belong to the
 [Pico maintenance guide](https://wsprrypico.readthedocs.io/en/devel/maintain.html)
 and [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troubleshoot.html).
+
+## Fleet Operations remains unavailable or unconfirmed
+
+Check the selected Device and its full identity before acting. A stale observation is not renewed by an HTTP refresh alone. A failed connection requires explicit Reconcile; a healthy foreign job must finish or be managed by its actual owner. Pause can confirm this controller's schedule while foreign output remains active or device output is unknown.
+
+After an unconfirmed action, read authoritative current status and review it. Reconcile tracked work before resuming; do not repeat a mutation blindly or treat an old enabled flag as confirmation. A controller restart invalidates volatile action history. Restored in-flight and retained-cleanup barriers remain authoritative.
+
+A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and edits. Safe Pause of an already verified live owner remains available, with its achieved and unconfirmed postconditions reported separately. Preserve the private `.wtp-fleet-contexts.json` file beside the active INI and the `.wtp-assignments.json` file. Resolve storage or binding conflicts through maintenance and restore verified state; do not delete a journal, guess a retired endpoint or edit away a barrier.

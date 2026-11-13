@@ -102,6 +102,14 @@ is not automatically retried. Other remote outputs and the local schedule
 remain independent. A disconnected target has unknown output state; loss of
 contact does not prove it stopped.
 
+### Review action results and unsaved entries
+
+Fleet assignment controls report acceptance separately from completion. Read the result beside the affected output before starting another action. An unconfirmed response may follow a successful change; read current status and review it rather than repeating a command blindly. Operations provides the same assignment controls for one selected device, with controller controls kept separate.
+
+Unsaved schedule entries retain their original assignment and reviewed revision. Opening another schedule offers **Continue existing draft**, **Discard draft and open selected schedule**, or **Cancel**. A changed or replaced assignment cannot inherit the draft's authority. Failed saves preserve entries; correlated confirmed persistence clears the saved draft.
+
+Removing an output first pauses it and requires confirmed cleanup of this controller's owned work. Failed cleanup retains the paused assignment and recovery duty. Reconcile it, inspect the result, then explicitly remove it again if required. A target-local takeover can remove an assignment independently; its unresolved retained context continues consuming capacity until cleanup is established. Keep the private Fleet recovery files with the assignment state when backing up or restoring configuration. Do not delete them to bypass a recovery block.
+
 ### Configure the target Pi
 
 Expand **This Pi's WTP listener** to configure inbound admission, port, and

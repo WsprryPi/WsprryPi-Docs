@@ -241,7 +241,15 @@ separate TCP endpoint, default port `31417`.
 
 - `POST /api/control/v1/host/fleet`
 
-  Change an assignment using its current `If-Match` revision. Operations: `assign`, `enable`, `pause`, `schedule`, `recover`, `remove`.
+  Admit a correlated assignment action using its reviewed `If-Match` revision. Operations: `assign`, `enable`, `pause`, `schedule`, `recover`, `remove`. Acceptance can return 202 before verification, storage or cleanup completes; inspect the correlated result rather than treating acceptance as success.
+
+- `GET /api/control/v1/host/fleet/operations`
+
+  Read the bounded Operations projection without endpoint settings or credential-file paths. It carries controller incarnation, publication revision, per-assignment generation/control revision, observation age and eligibility.
+
+- `GET /api/control/v1/host/fleet/actions?ids=<action-id>[,<action-id>...]`
+
+  Read results for 1–32 distinct 32-character lowercase hex IDs. Only `ids` is allowed, with at most 2 KiB encoded query data and a 128 KiB response. An unknown/expired result does not establish the original action's outcome.
 
 - `GET /api/control/v1/host/discovery`
 
@@ -258,6 +266,12 @@ separate TCP endpoint, default port `31417`.
 - `POST /api/control/v1/host/devices/use`
 
   Select a profile for the single `[WTP]` backend using the host config `If-Match` and body `catalog_revision`.
+
+Every Fleet mutation includes `action_id`, `controller_incarnation`, `assignment_generation`, `reviewed_control_revision`, `reviewed_boot_id`, and `accept_before_ms` in addition to its operation fields. Generate 16 cryptographically random bytes for the lowercase-hex action ID. Read and capture the selected context and ETag before confirmation. After confirmation, obtain a fresh full snapshot's monotonic `now_ms`, verify the reviewed context still matches, and use that decimal value plus 30,000 ms as the fixed acceptance deadline. For a new assignment, generation and reviewed control revision are null; its target still comes from the validated profile. Enable requires a current boot binding. Do not change the reviewed ETag or context silently to make an old request pass.
+
+The controller accepts a new request only before its fixed deadline and within 45 seconds of its current monotonic time. An exact retained replay returns its original record without repeating effects; reuse of an ID with another payload, binding, deadline or ETag conflicts. Do not automatically retry mutations. Records are volatile and bounded to 320, with at most 256 terminal history entries and up to 64 active/protected slots, each at most 2 KiB; terminal history lasts up to 15 minutes. Active work and an unexpired acceptance window prevent eviction. After expiry or restart, read current state, explicitly review it and use a new action ID for a new intentional action.
+
+Action states are `accepted`, `pending`, `confirmed`, `refused`, `superseded` and `outcome_unconfirmed`; inspect `work_pending` separately. A confirmed Pause establishes this controller's disabled schedule and required owned-work quiescence. It does not establish that foreign output stopped or that RF was measured off. Current device evidence becomes stale at 15 seconds; its conservative age includes request/negotiation and browser latency rather than HTTP receipt alone. Failed observation requires explicit reconciliation, while healthy foreign occupancy remains observable without takeover.
 
 The takeover request contains `choice` (`end_now` or `finish_current`),
 `confirmed`, `observed_owner`, and `observed_job`. Send the owner and job from

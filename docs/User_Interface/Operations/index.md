@@ -2,6 +2,20 @@
 
 The **Operation** page is the main view for monitoring transmissions.
 
+## Select a Fleet output
+
+When an assigned Pi or Pico exists, the **Device** selector appears beside the Operations heading. It also includes removed outputs whose cleanup remains unresolved. A saved device profile alone does not add an output. **This Pi (controller)** is selected whenever the page opens. Selecting another output changes this view only; it does not change configuration, ownership, the single selected WTP backend or any schedule.
+
+The selected device's name and full identity stay beside its status. **Schedule enabled** and **Schedule paused** describe its assigned schedule. **Running** requires matching device job evidence; a countdown reaching zero does not establish execution. Intentional output-off intervals can occur inside a running job. Device observations and requested/realized frequency values are software reports, not measured RF or frequency qualification. Plain LAN's expected identity match is not authentication.
+
+Device observations become stale at 15 seconds. Their age continues increasing if refresh fails; a refreshed page does not make an old observation current. A healthy new context receives one read-only inspection. A failed connection requires explicit **Reconcile**; opening Operations or changing Device does not reconnect, claim output, set a clock or start a transmission. **Other job on device** identifies work outside this assignment and never offers takeover.
+
+Use **Resume schedule** only after reviewing fresh, inactive, unowned status and the saved schedule. Resume schedules future eligible occurrences and does not replay an interrupted slot. **Pause and stop** confirms the selected device and disables this controller's schedule while stopping its owned work. A confirmed schedule pause alone does not mean the device stopped: another job can remain active, or its output can be unknown. **Reconcile** reports its own result and leaves the schedule paused. **Edit schedule** opens the existing Fleet editor with the selected assignment; unsaved entries retain their original target and revision.
+
+Acceptance and completion are separate. Read the action feedback beside the controls. After a timeout or an unconfirmed outcome, use **Read status**, review the current state, and reconcile outstanding work before another start. **Review current state** acknowledges the current readback without rewriting an earlier unknown action as successful. Changing Device preserves pending action tracking. A replaced or removed assignment remains visibly removed until acknowledged; it never silently selects another target.
+
+Controller reboot, shutdown and reboot-behavior controls are hidden while a remote output is selected. The connection indicator and header clocks still describe the controller. With **This Pi** selected, the existing local controls apply; when its backend is WTP, those controls operate the configured endpoint rather than physical output on the controller.
+
 ## Initial Operations
 
 When you open the user interface at `http://{servername}.local`, the Apache configuration redirects to `http://{servername}.local/wsprrypi/`.  This configuration is in place to avoid a conflict with any other websites you may have on your system.  If the installer detects another website in the root, the redirect is disabled, and you need to append the `/wsprrypi/` manually.
