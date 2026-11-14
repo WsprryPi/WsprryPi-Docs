@@ -15,15 +15,10 @@ Use the [compatibility and upgrade guidance](pico.md#compatible-software) before
 selecting firmware. This development command follows current `devel` supporting
 files and its available executable; an older published executable may predate
 RC.3 support.
-Until a matching Pi executable is published, explicitly select a development
-source build with `--binary-source build` when updating for RC.3:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo env REPO_BRANCH=devel bash -s -- --binary-source build
-```
-
-This builds current `devel` on the Pi and follows its documented build-resource
-policy. Installation and firmware programming are separate operator actions.
+For the matched RC.1 executable, use the [pinned RC.1 installation command](rc1.md).
+A source build remains an explicit choice through `--binary-source build`; it
+builds current `devel` under the documented build-resource policy. Installation
+and firmware programming are separate operator actions.
 
 ## Pico USB firmware tools
 

@@ -83,6 +83,7 @@ Support/index
 :hidden:
 
 Install/pico
+Install/rc1
 Install/beta7
 Install/linux_si5351
 Install/macos_si5351

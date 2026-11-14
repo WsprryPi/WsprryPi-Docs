@@ -1,5 +1,6 @@
 # Installing WsprryPi
 
+For the pinned RC.1 prerelease, see [RC.1 installation](rc1.md).
 For the development channel, see [Development installation](beta7.md).
 The normal installation commands below retain the stable channel.
 

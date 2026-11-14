@@ -35,12 +35,11 @@ USB Fleet control still works without configuring the Pico's Wi-Fi.
 
 ## Compatible software
 
-Current WsprryPi development builds support the published **WsprryPico
+WsprryPi **4.0.0-rc.1** supports the published **WsprryPico
 1.0.0-rc.3** prerelease. Update WsprryPi and its supporting files before using
 RC.3 member controls; an older Pi executable may use a different settings
 contract. Beta 7 documents its earlier companion pair. Use the
-[development installation instructions](beta7.md) for current Pi development
-software and the [Pico release notes](https://wsprrypico.readthedocs.io/en/devel/reference/releases.html)
+[RC.1 installation instructions](rc1.md) for the matching Pi executable and the [Pico release notes](https://wsprrypico.readthedocs.io/en/devel/reference/releases.html)
 for RC.3 changes and limits. Firmware source is
 `b4e966797cf016f6b8ed873dbe638522fc4d81c7`; later manual updates do not
 identify a different firmware build.
