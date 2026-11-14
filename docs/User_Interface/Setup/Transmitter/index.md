@@ -318,8 +318,8 @@ On first use, **Download and check image** obtains a compatible verified mainten
 
 1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
    select the intended Pico. Open **Pico firmware over USB** in Fleet.
-2. The default **Image selection** is **Specific version**. Review the prefilled **Firmware version**, or enter the required firmware identifier explicitly. **Firmware branch** defaults to **main**, independently of the Pi's branch, and applies when you choose **Latest verified CI image**. An unavailable image is refused without substituting another branch; compatible stable firmware remains a separate explicit selection.
-3. Choose **Read firmware status**, then **Download and check image**. Review
+2. Choose **Image selection** explicitly; no firmware version is preselected. For the supported RC.3 prerelease, choose **Specific version** and enter `1.0.0-rc.3` (a leading `v` is also accepted). **Stable release** does not select RC.3. **Firmware branch** defaults to **main**, independently of the Pi's branch, and applies when you choose **Latest verified CI image**. An unavailable image is refused without substituting another branch; compatible stable firmware remains a separate explicit selection.
+3. Choose **Read firmware status**, then **Download and check image**. The shared installer verifies public image provenance, checksums, and its embedded settings contract. A mismatch stops the check without substituting another image. For RC.3, confirm version `1.0.0-rc.3` and source `b4e966797cf016f6b8ed873dbe638522fc4d81c7`. Review
    the reported version, branch and source before choosing **Install checked
    image** and confirming the selected USB Pico.
 4. Follow any BOOTSEL preparation instructions shown by the tool. When this

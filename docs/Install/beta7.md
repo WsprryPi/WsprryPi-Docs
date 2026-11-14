@@ -10,6 +10,21 @@ The installer chooses a published executable matching the selected branch, Raspb
 
 Review [hardware and band limits](../About_Wsprry_Pi/index.md#band-qualification) before enabling output.
 
+Current development builds support the **WsprryPico 1.0.0-rc.3** prerelease.
+Use the [compatibility and upgrade guidance](pico.md#compatible-software) before
+selecting firmware. This development command follows current `devel` supporting
+files and its available executable; an older published executable may predate
+RC.3 support.
+Until a matching Pi executable is published, explicitly select a development
+source build with `--binary-source build` when updating for RC.3:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo env REPO_BRANCH=devel bash -s -- --binary-source build
+```
+
+This builds current `devel` on the Pi and follows its documented build-resource
+policy. Installation and firmware programming are separate operator actions.
+
 ## Pico USB firmware tools
 
 The installer supplies the Pico USB maintenance tools. Under **Setup → Fleet → Pico firmware over USB**, review the selected image and its source before choosing **Install checked image**. Downloading and checking an image does not program the Pico. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for settings retention and recovery.

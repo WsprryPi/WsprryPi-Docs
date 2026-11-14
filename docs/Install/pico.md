@@ -33,6 +33,31 @@ Standalone use is a learning recommendation, not a connection requirement.
 USB Fleet control still works without configuring the Pico's Wi-Fi.
 ```
 
+## Compatible software
+
+Current WsprryPi development builds support the published **WsprryPico
+1.0.0-rc.3** prerelease. Update WsprryPi and its supporting files before using
+RC.3 member controls; an older Pi executable may use a different settings
+contract. Beta 7 documents its earlier companion pair. Use the
+[development installation instructions](beta7.md) for current Pi development
+software and the [Pico release notes](https://wsprrypico.readthedocs.io/en/devel/reference/releases.html)
+for RC.3 changes and limits. Firmware source is
+`b4e966797cf016f6b8ed873dbe638522fc4d81c7`; later manual updates do not
+identify a different firmware build.
+
+RC.3 remains a prerelease. In Fleet, select **Specific version**, enter
+`1.0.0-rc.3`, then choose **Download and check image**. **Stable release**
+does not select RC.3. Review the version and source before installing.
+Checking the image downloads and verifies it without programming the Pico.
+A settings-contract mismatch is refused; selecting an older version or another
+carrier does not bypass compatibility checks. See
+[USB firmware updates](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb)
+for preservation, confirmation, and recovery.
+
+Software integration and image checks do not establish physical USB, installed
+service behavior, timing, frequency accuracy, or RF qualification. Review the
+Pico manual’s hardware and output limits for the actual configuration.
+
 ## Prepare the hardware and firmware
 
 Use a Pico 2 W, a USB data cable, and a suitable filtered, loaded RF path.
@@ -127,8 +152,9 @@ Before enabling a Pi transmission or resuming a Fleet assignment:
   unqualified-frequency permission. The Pico's separate policy must also allow
   the job. Consent does not expand physical limits or qualify RF output.
 
-Pico RF correction uses its saved manual PPM; host GPIO clock calibration does
-not calibrate it. See
+Pico RF correction uses its own manual PPM or supported, explicitly configured
+GPS/PPS correction with residual trim. Direct GPIO and Si5351 corrections are
+independent; host GPIO clock calibration does not calibrate the Pico. See
 [Pico time and frequency correction](https://wsprrypico.readthedocs.io/en/devel/reference/time.html).
 Continuous **Test Tone** is unavailable through the Pico WTP backend.
 
@@ -183,7 +209,7 @@ Loopback can be **None**, **CLK0**, **CLK1**, or **CLK2**, with a distinct trans
 
 Choose **Validate candidate pins**, then **Save RF output settings**. The complete engine and reference allocation saves together. Draft edits do not program hardware. Restart the Pico explicitly to activate the accepted allocation; changing it back does not clear the restart requirement. Selecting Direct GPIO restores its controls and retains inactive Si5351 settings.
 
-Ordinary firmware supports the documented **QRP Labs Rev. 6 module with a 25 MHz external-XA TCXO**, **SDA GP4 / SCL GP5**, **CLK0 at 8 mA**, and no independent RF-gate assignment. Loopback is **None** or **CLK2 → GP7**, using the normal **138 MHz** Pico clock. Other configurations require an explicit engineering Pico build. The same normal image also supports Direct GPIO. Register readback does not prove RF inactivity or accuracy. Engineering tests require verified I²C pull-ups and bus timing, a conducted RF path, and shutdown/reset checks. GPS/PPS ingestion and automatic calibration are unavailable. See [Si5351 settings in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#si5351-output-settings) for supported module settings and measurement limits.
+Ordinary firmware supports the documented **QRP Labs Rev. 6 module with a 25 MHz external-XA TCXO**, **SDA GP4 / SCL GP5**, **CLK0 at 8 mA**, and no independent RF-gate assignment. Loopback is **None** or **CLK2 → GP7**, using the normal **138 MHz** Pico clock. Other configurations require an explicit engineering Pico build. The same normal image also supports Direct GPIO. Register readback does not prove RF inactivity or accuracy. Engineering tests require verified I²C pull-ups and bus timing, a conducted RF path, and shutdown/reset checks. Automatic Si5351 correction remains experimental. GPS/PPS input and automatic correction require supported wiring, saved settings, and qualified UTC/PPS association; see [Pico GPS/PPS setup](https://wsprrypico.readthedocs.io/en/devel/configure.html#gps-and-pps). See [Si5351 settings in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#si5351-output-settings) for supported module settings and measurement limits.
 
 ## Pico standalone gray-line scheduling
 
