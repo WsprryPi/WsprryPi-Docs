@@ -99,6 +99,8 @@ and [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troublesho
 
 ## Fleet Operations remains unavailable or unconfirmed
 
+If Fleet initialization fails, Fleet status is unavailable and reports the initialization error. Resolve the reported configuration, storage or identity problem through maintenance before retrying. A successful Fleet initialization establishes a new controller context; earlier unknown action results remain unconfirmed. Controller unavailability does not establish device output-off.
+
 Check the selected Device and its full identity before acting. A stale observation is not renewed by an HTTP refresh alone. A failed connection requires explicit Reconcile; a healthy foreign job must finish or be managed by its actual owner. Pause can confirm this controller's schedule while foreign output remains active or device output is unknown.
 
 After an unconfirmed action, read authoritative current status and review it. Reconcile tracked work before resuming; do not repeat a mutation blindly or treat an old enabled flag as confirmation. A controller restart invalidates volatile action history. Restored in-flight and retained-cleanup barriers remain authoritative.
