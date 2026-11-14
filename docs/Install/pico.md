@@ -41,7 +41,7 @@ RC.3 member controls; an older Pi executable may use a different settings
 contract. Beta 7 documents its earlier companion pair. Use the
 [RC.1 installation instructions](rc1.md) for the matching Pi executable and the [Pico release notes](https://wsprrypico.readthedocs.io/en/devel/reference/releases.html)
 for RC.3 changes and limits. Firmware source is
-`b4e966797cf016f6b8ed873dbe638522fc4d81c7`; later manual updates do not
+`a986d67f51139b523a00b0d2db858b4af94d944d`; later manual updates do not
 identify a different firmware build.
 
 RC.3 remains a prerelease. In Fleet, select **Specific version**, enter

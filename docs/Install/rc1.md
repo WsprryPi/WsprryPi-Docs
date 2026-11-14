@@ -19,8 +19,8 @@ For general development installation, see [Development installation](beta7.md).
 The published executables cover ARMv6 and AArch64 userspaces on Raspberry Pi OS
 Bookworm and Trixie. Select by operating-system release and userspace architecture,
 not kernel architecture alone. The executable source is
-`f88c951dcfcb03abf5cf236a02a2d9688ad49b57`; the embedded version is
-`4.0.0-rc.1+f88c951d`. Source and checksums are recorded in the release manifest.
+`2171792111eca9ec3086fe91eff1c19019758aa2`; the embedded version is
+`4.0.0-rc.1+21717921`. Source and checksums are recorded in the release manifest.
 
 ## Pico and GPIO companions
 
