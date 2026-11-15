@@ -26,6 +26,30 @@ The installer supplies the Pico USB maintenance tools. Under **Setup â†’ Fleet â
 
 Pi 5-family GPIO driver preparation and kernel compatibility are separate from the application executable download.
 
+## Startup and recovery after a failed update
+
+On supported Pi 5/CM5 systems, automatic RP1 provider installation is independent
+of the selected transmit backend. Selecting Si5351 or WTP keeps RP1 available
+for later use; `INSTALL_RP1_GPCLK_DKMS=false` explicitly omits its installation.
+
+RP1 startup recovery applies only when the saved transmit backend is `rp1-gpclk`.
+Other backends start without requiring RP1 restoration support in the executable
+or consulting RP1 recovery records. RP1 recovery does not change their saved
+transmit or boot settings. When RP1 is selected, its recovery safeguards still
+apply. See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership).
+
+If an installation step fails after executable replacement, the installer
+attempts to restore the previous executable and restart the service if it was
+previously running. Supporting files, including the startup hook, remain at the
+installed version. The hook accepts a restored non-RP1 executable without RP1
+restoration support. An executable used for RP1 still requires that support.
+
+Executable recovery does not reverse package or configuration changes. An older
+executable may be unable to read configuration changed during the attempted
+update. The installer reports failure even if recovery succeeds. Preserve the
+original error, subsequent recovery messages, installer log, and recovery files
+when reporting a failed update.
+
 ## Testing scope and reports
 
 Software integration and executable checks do not establish physical USB, GPIO, timing, spectral, or RF qualification. Keep transmission disabled during setup and review the selected hardware's operating limits.

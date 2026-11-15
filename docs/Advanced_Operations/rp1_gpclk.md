@@ -21,7 +21,10 @@ With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
 the installer-selected published provider. Explicit `release` selection chooses the latest eligible
 published release, including prereleases, and fails if none is available.
 Selection does not fall back to development source. Explicit development source
-selection remains available. `INSTALL_RP1_GPCLK_DKMS=false` skips provider installation.
+selection remains available. Automatic installation on supported Pi 5/CM5
+systems is independent of the selected transmit backend. Si5351 and WTP leave
+the provider available for later use. `INSTALL_RP1_GPCLK_DKMS=false` skips
+provider installation.
 
 WsprryPi selects and authenticates the source, supplies its interface
 requirements, and calls the provider's public lifecycle interface. RP1-GPIO-CLK-DKMS owns
@@ -54,6 +57,18 @@ live reference requires it.
 
 If installation or required cleanup fails, preserve the error and recovery
 files. Do not delete ownership records to bypass a refusal.
+
+Application startup recovery applies only when the saved transmit backend is
+`rp1-gpclk`. Other backends do not require RP1 restoration support in the
+application executable or depend on provider recovery records. RP1 recovery
+does not change their saved transmit or boot settings.
+
+For RP1 operation, startup still requires an application executable with RP1
+recovery support. If provider validation fails, an application with the required support can
+start idle for diagnostics. This does not authorize route restoration or output.
+An executable without the required recovery support is refused. See
+[development startup and recovery](../Install/beta7.md#startup-and-recovery-after-a-failed-update)
+for the limits of executable recovery after a failed installation.
 
 The maintained [installation and migration procedure](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/rp1-gpclk-dkms-installation.md)
 defines the owning recovery boundaries.
