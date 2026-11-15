@@ -110,9 +110,13 @@ label, or Plain LAN HELLO alone does not establish trusted identity.
 
 The host requires synchronized UTC without kernel clock-error flags. The Pico separately needs a valid time source under its source-age, leap, and ownership rules. UTC uncertainty is reported for operator judgment; it is not another first-party transmission budget. External WTP callers can still explicitly request a smaller protocol limit. The independently versioned USB time-observation exchange retains its own validity and format checks; accepting an observation is not RF calibration or proof of start accuracy.
 
-Set host `[Calibration] PPM = 0.0`. Disable TX LED, amplifier, shutdown-button,
-and band-selector GPIO controls, including per-frequency `@` selectors. CW fades
-are unsupported. Settings for inactive GPIO and Si5351 backends are retained.
+The WTP backend sets effective host PPM to zero automatically. Retain saved
+GPIO and Si5351 calibration values for their local backends. Before selecting
+WTP, disable TX LED, amplifier, shutdown-button, and band-selector GPIO controls,
+including per-frequency `@` selectors. Host CW envelope fades are not carried
+by WTP and are omitted automatically; retain their saved settings for local
+backends. See the [host-output prerequisites](../../User_Interface/Setup/Transmitter/index.md#before-selecting-the-host-output).
+Settings for inactive GPIO and Si5351 backends are retained.
 Unresolved WTP work blocks endpoint or backend replacement until its state is
 resolved.
 

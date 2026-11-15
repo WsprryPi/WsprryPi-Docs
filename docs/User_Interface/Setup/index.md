@@ -70,6 +70,12 @@ own local schedule. **Use this device** selects the separate single-endpoint
 `[WTP]` backend; it does not create an independent output assignment. Saving or
 removing a catalog profile also does not create or remove an assignment.
 
+The Pico member-settings and USB firmware panels below the catalog use the Pi's
+active endpoint, not the saved device chosen for an independent assignment.
+Verify **Pico status → Device / boot** before using them. For assignment-only
+setup, the [Pico's own browser controls](https://wsprrypico.readthedocs.io/en/devel/configure.html)
+can configure that target without changing this Pi's selected output.
+
 The local schedule does not consume a remote slot. The saved-device catalog holds
 up to 64 connection profiles independently of these assignments. The capacity
 shown under **Output schedules** includes unresolved contexts retained after a

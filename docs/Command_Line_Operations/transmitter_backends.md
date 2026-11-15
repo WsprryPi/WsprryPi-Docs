@@ -216,8 +216,11 @@ The host and Pico each need independently valid UTC. The default Pico start
 uncertainty budget is 100 ms; existing configured limits are retained. Choose
 a larger value only with device clock
 evidence. Finite WSPR, QRSS, FSKCW, and DFCW jobs use the Pico's local timing.
-Continuous `--test-tone` is unavailable for WTP. Host PPM must be zero, and
-ancillary GPIO controls and CW fades must be disabled before selecting WTP.
+Continuous `--test-tone` is unavailable for WTP. WTP sets effective host PPM
+to zero automatically; retain the saved local-backend calibration values.
+Disable ancillary GPIO controls before selecting WTP. Host CW envelope fades
+are omitted automatically, with their saved local settings retained. See the
+[host-output prerequisites](../User_Interface/Setup/Transmitter/index.md#before-selecting-the-host-output).
 
 WTP band/mode combinations remain untested in the host frequency policy and
 require the explicit unqualified-frequency option described above. A successful
