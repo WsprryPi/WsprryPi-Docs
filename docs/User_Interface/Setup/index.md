@@ -1,38 +1,61 @@
 # Setup Card
 
-This card is where your normal day-to-day configuration changes happen. Several settings are intentionally not exposed in the web UI because they are reserved for development and experimental use.
-
-Ordinary Pi host settings autosave after validation. Read the status beside the
-Setup title before leaving the page. A saved value may still await runtime
-application while committed work owns the transmitter.
-
-Fleet device profiles, output assignments, listener settings, and Pico settings
-use explicit saves. Browsing devices or editing these drafts does not trigger
-host autosave. **Use Pico** and this Pi's connection fields still save
-automatically. Selected-member controls include **Load member resources**,
-**Validate hardware plan**, and **Save RF output settings**. See
-[member resources](Transmitter/index.md#shared-pico-member-resources) before
-saving settings on a Pico. For independent station drafts in Fleet, see
-[Save station progress from Fleet](Transmitter/index.md#save-station-progress-from-fleet).
-The Pico's own browser save/apply workflow is documented in
-[Configure your station in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html#understand-what-was-saved).
+Use **Device** beside the Setup tabs to choose whose settings you are editing.
+On a phone, the selector appears on its own row. **This Pi** opens the local
+settings. A saved Pico opens its independent settings without selecting it as
+this controller's output. Confirm the name, device identity, connection, and
+status below the selector before editing.
 
 ![Setup Card](setup.jpg)
 
-If a change cannot be saved, a brief status appears beside the Setup title. Details about what needs attention appear below the tabs. **Saved** confirms a successful save.
+The four tabs are:
 
-The status beside the Setup title describes this Pi's automatically saved
-settings. Fleet explains its save controls in the header; read the feedback
-beside each explicit action to confirm its result.
+- [Signal Setup](Signal_Setup/index.md): local WSPR/CW settings, or the selected
+  Pico's station progress, station defaults, and existing standalone settings.
+- [Transmitter](Transmitter/index.md): the selected device's supported output
+  settings. Pico amplifier timing, drive, filters, and Si5351 have explicit actions.
+- [Device I/O](Pi_IO/index.md): local Pi pins, or Pico connections, logging, and
+  the complete RF-engine, pin, and GPS plan.
+- **Fleet**: discovery, saved connection profiles, output assignments, and
+  explicitly labeled controller output and firmware actions.
 
-The Setup card is divided into four sub-pages:
+## Choose and edit a device
 
-- [Configure WSPR and CW](Signal_Setup/index.md) for callsign, mode, and message-related settings.
-- [Configure Transmitter](Transmitter/index.md) for hardware output-path selection and related transmission settings.
-- [Configure Raspberry Pi I/O](Pi_IO/index.md) for Raspberry Pi pin assignments and indicator behavior.
-- [Manage Fleet outputs](Transmitter/index.md#add-a-pico-and-manage-outputs) to
-  add a Pico, select a remote output, update Pico firmware over USB, or assign
-  independent schedules to saved Pi and Pico devices.
+Selection alone never saves, enrolls, claims ownership, enables transmission,
+changes the backend, or changes accepted work. A nearby or unverified choice
+opens Fleet for identification and profile review; it grants no settings access.
+A controller-only installation has no local transmitter settings, but can manage
+supported saved Picos through the same tabs. Remote Pi settings are unavailable
+through this selector; use that Pi's own protected web interface.
+
+Local settings autosave after validation. Read the status beside the Setup title;
+a saved value may still await application while committed work owns the output.
+When you leave an unsaved local draft to manage another device, it is retained
+and autosave pauses. On returning, review it and choose **Save retained local
+draft** to resume saving. Returning alone does not publish the draft.
+
+Pico settings use explicit resource-specific reads, validation, saves, and,
+where supported, separate application or restart actions. Feedback belongs to
+the selected resource and device. **Saved** is different from active or awaiting
+restart. Existing jobs and schedules keep their own authority; reading settings
+does not stop or take over work. A device can refuse a change while work is active.
+
+Switching between Picos retains each browser draft. A write already accepted on
+the old device remains in **Target request outcomes**. A lost reply requires
+saved-value readback and explicit review before a new deliberate save. Profile
+replacement, changed boot, or lost capability pauses the editor; **Reconnect
+selected device** negotiates a fresh context. Replaced-profile drafts remain available for read-only inspection. Reconnecting
+the same profile can retain its entries, but a fresh resource read and deliberate
+review are required before saving through the new context. These browser drafts
+do not survive a page reload; resolve or copy needed non-secret entries before
+leaving. Passwords are excluded from retained-draft inspection.
+
+**Controller time and power**, the output connection, and USB firmware actions
+belong to the controller. Select **This Pi** before using its output connection controls. Firmware
+status/recovery remains available through its separate maintenance guard; it
+always refers to the controller’s active USB output, not the Device selection.
+**Use this device** in Fleet remains the separate, confirmed output-selection
+action. The shared Device selector does not perform it.
 
 ## Pi and Pico Fleet setup
 
@@ -70,11 +93,9 @@ own local schedule. **Use this device** selects the separate single-endpoint
 `[WTP]` backend; it does not create an independent output assignment. Saving or
 removing a catalog profile also does not create or remove an assignment.
 
-The Pico member-settings and USB firmware panels below the catalog use the Pi's
-active endpoint, not the saved device chosen for an independent assignment.
-Verify **Pico status → Device / boot** before using them. For assignment-only
-setup, the [Pico's own browser controls](https://wsprrypico.readthedocs.io/en/devel/configure.html)
-can configure that target without changing this Pi's selected output.
+Pico settings use the shared **Device** selector independently of output
+assignments. USB firmware maintenance remains bound to the controller's active
+output; confirm its full identity before using that separate Fleet workflow.
 
 The local schedule does not consume a remote slot. The saved-device catalog holds
 up to 64 connection profiles independently of these assignments. The capacity

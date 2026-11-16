@@ -1,8 +1,21 @@
-# Pi I/O Configuration Tab
+# Device I/O Configuration Tab
 
-The Pi I/O page contains settings for Raspberry Pi pin usage, including status indicators and hardware control lines exposed through the web interface.
+Choose **This Pi** in the shared **Device** selector for Raspberry Pi pin usage,
+status indicators, and control lines. These local settings retain autosave.
 
-![Raspberry Pi I/O Configuration](pi-io.jpg)
+With a saved Pico, **Device I/O** shows its supported USB/Wi-Fi connection,
+management login, UDP logging, network radio control, and complete **RF output,
+GPS, and pins** plan. Pico GP numbers are distinct from Pi BCM/header numbers.
+Read saved values, validate the complete hardware plan, then explicitly save it.
+The plan stays together so engine, pins, GPS, and I²C conflicts are checked in
+one transaction. A saved pin change can require a Pico restart; it does not
+restart automatically. The separate Transmitter tab holds independent drive,
+Si5351, amplifier-timing, and filter controls. See
+[Pico hardware resources](../Transmitter/index.md#shared-pico-member-resources).
+
+The sections below describe the local Pi view.
+
+![Device I/O Configuration](pi-io.jpg)
 
 ## Transmit LED & LED Pin
 

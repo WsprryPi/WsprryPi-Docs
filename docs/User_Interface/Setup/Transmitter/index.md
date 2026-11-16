@@ -1,5 +1,12 @@
 # Transmitter Configuration Tab
 
+Choose **Device** beside the tabs first. **This Pi** retains the local backend
+settings below. A saved Pico exposes its supported independent Si5351, amplifier
+timing, filter, and GPIO-drive resources with explicit reads and saves. Its
+complete engine/pin/GPS plan is under **Device I/O**; **Edit RF engine and pins** takes you there. Selection never changes an output backend.
+
+![Selected Pico transmitter settings](pico-transmitter.png)
+
 ![Transmitter controls showing GPIO selection and frequency calibration](transmitter.jpg)
 
 The Transmitter tab on the Signal Setup page contains settings related to the active output hardware path and transmission behavior.
@@ -94,7 +101,7 @@ for recovery guidance.
 
 WsprryPi permits RP1 transmission only when the route and eligibility evidence agree exactly.
 
-The other pin remains available on the **Pi I/O** tab. Selecting the Si5351 backend releases both GPIO4 and GPIO20 for ordinary GPIO roles; the retained GPIO transmit-pin value is ignored while Si5351 is selected.
+The other pin remains available on the **Device I/O** tab. Selecting the Si5351 backend releases both GPIO4 and GPIO20 for ordinary GPIO roles; the retained GPIO transmit-pin value is ignored while Si5351 is selected.
 
 If an existing configuration assigns the selected RF pin to an enabled ordinary GPIO role, both controls remain visible and are marked invalid until one assignment is changed or disabled. Invalid edits are not saved.
 
@@ -284,7 +291,7 @@ profile or create an independent assignment.
 
 1. Keep Pi transmission disabled and resolve pending, owned, active, or unresolved
    Pico work before switching endpoints.
-2. In **Setup → Pi I/O → Pi Controls**, turn off **Transmit LED**, **Enable
+2. In **Setup → Device I/O → Pi Controls**, turn off **Transmit LED**, **Enable
    Shutdown**, and **Activate Amp**. In **Band GPIO**, clear enabled
    band outputs. In **Setup → Signal Setup → WSPR Transmission Plan →
    Frequencies**, remove any per-frequency `@GPIO`, `@GPIOH`, or `@GPIOL`
@@ -304,9 +311,9 @@ profile or create an independent assignment.
    switching devices**, correct the retained draft and read the save status;
    do not reload away edits or force the switch.
 
-After applying a saved profile, check **Pico status → Device / boot** and the
-connection. The member-settings and firmware panels use this active endpoint;
-selecting a different catalog row does not retarget them.
+After applying a saved output profile, check **Pico status → Device / boot**
+and its connection. Output status and firmware maintenance use this active
+endpoint. Settings instead follow the shared **Device** selector.
 
 UTC uncertainty is displayed for operator judgment. First-party submissions use the Pico's advertised ceiling; no uncertainty control is needed. The host needs synchronized UTC and the Pico needs a valid time source.
 **Allow device frequency rounding** accepts reported realizable frequencies;
@@ -315,7 +322,8 @@ Pico; complete finite jobs use its local timing.
 
 ### Known and nearby devices
 
-The selector includes saved devices, attached USB Picos, and nearby network
+The Fleet **Saved output or nearby device** selector includes saved devices,
+attached USB Picos, and nearby network
 advertisements. A saved device stays listed when its advertisement disappears.
 An advertisement
 is a connection hint, not proof of device identity, an active listener, or RF
@@ -446,7 +454,9 @@ RF shutdown.
 
 ### Pico standalone settings and Wi-Fi
 
-Choose a saved Pico in Fleet's **Device** list and select **Manage settings**.
+Choose a saved Pico in the shared **Device** selector beside the Setup tabs.
+Fleet's **Manage settings** is a shortcut to that same selection. Open **Signal
+Setup** for station and combined settings, or **Device I/O** for connections.
 The **Pico settings** section identifies the device being edited. Confirm its
 full device ID and the saved **Device / boot** observations before saving.
 **Use this device** remains the separate action for choosing this Pi's output
@@ -612,8 +622,8 @@ its applied settings while you save progress.
 
 WsprryPi's **Save member station** and **Save RF output settings** remain complete,
 atomic scoped saves. For independent station drafts saved through WsprryPi,
-use [Save station progress from Fleet](#save-station-progress-from-fleet).
-The Pico page's partial-save support does not change the other Fleet editors.
+use [Save station progress on the selected Pico](#save-station-progress-on-the-selected-pico).
+The Pico page's partial-save support does not change the other settings editors.
 
 ### Change the Pico hostname
 
@@ -646,14 +656,15 @@ device, boot, carrier, and observation time. Application/recurrence observations
 are read-only here; prepared jobs and standalone schedules keep their own
 authority and workflow.
 
-1. Load the member resources explicitly while the host/member are idle.
-2. For station changes, use [Save station progress](#save-station-progress-from-fleet)
+1. Select the intended Pico and load its member resources explicitly. Reads do
+   not alter existing work. The Pico can refuse writes while work owns it.
+2. For station changes, use [Save station progress](#save-station-progress-on-the-selected-pico)
    to save valid fields and apply them separately. To save all three station
    fields together, expand **Complete station save**, review callsign, locator,
    and **Reported WSPR power (dBm)**, then choose **Save member station**. This
    replaces the complete scoped station object. Consumer profile-owned station
    fields use Pico transactional setup for application.
-3. Open **RF output, GPS, and pins**. Select the supported RF engine and its
+3. Open **Device I/O → RF output, GPS, and pins**. Select the supported RF engine and its
    output settings, optional **Active-low button**, and onboard, external, or
    disabled indicator. Choices use Pico **GP** numbers, not Pi BCM/header
    numbers. Preserve the intended indicator polarity. Button behavior also
@@ -667,9 +678,11 @@ authority and workflow.
 5. Read the result, then load resources again before any further save. Each save
    invalidates other editor contexts; unrelated drafts remain available for review.
 
-### Save station progress from Fleet
+<span id="save-station-progress-from-fleet"></span>
 
-Under **Standalone station defaults**, use **Save station progress**. On
+### Save station progress on the selected Pico
+
+In **Signal Setup**, under **Standalone station defaults**, use **Save station progress**. On
 supporting firmware, **Read saved progress** reads the selected Pico's
 saved station draft and applied station separately. It works over the selected
 USB, Engineering HTTPS, Consumer Wi-Fi, or Consumer setup Wi-Fi management
@@ -689,7 +702,7 @@ another Pico or boot must be discarded before saving to the new selection.
 **Apply saved station progress** applies the device-saved station, rather than
 unsaved text in the form. It requires a complete saved station and a fresh read.
 Consumer profile-owned station application remains in Pico transactional setup;
-Fleet can retain independent drafts but does not bypass that authority. Read the
+Signal Setup can retain independent drafts but does not bypass that authority. Read the
 result and member resources afterward to inspect applied state and restart needs.
 
 After a conflict, lost connection, or unconfirmed reply, read saved progress and
@@ -699,7 +712,7 @@ When scoped station saving is unavailable, use **Save member station** under
 
 ### Pico automatic WSPR planning
 
-These rules describe the Pico station defaults you read or save through Fleet.
+These rules describe the Pico station defaults you read or save through Signal Setup.
 Pi host **WSPR Transmission Plan** preferences and prepared WTP jobs have their
 own planning workflow; changing one does not select a Pico preference or
 re-encode a prepared job.
@@ -723,7 +736,7 @@ unsupported advertised formats are refused without switching carrier or save
 strategy.
 
 WsprryPi's complete member station/configuration saves remain atomic. The
-separate [Fleet station-progress workflow](#save-station-progress-from-fleet)
+separate [station-progress workflow](#save-station-progress-on-the-selected-pico)
 can retain valid fields without applying an incomplete or unencodable WSPR
 station.
 

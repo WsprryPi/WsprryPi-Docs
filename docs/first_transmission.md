@@ -33,7 +33,7 @@ Open **Setup → Transmitter** and follow [Transmitter Configuration](User_Inter
   communication; it does not confirm RF readiness.
 
 Check that the wiring and filter match the selected output. Review
-[Pi I/O](User_Interface/Setup/Pi_IO/index.md) if using a transmit LED, amplifier
+[Device I/O](User_Interface/Setup/Pi_IO/index.md) if using a transmit LED, amplifier
 control, shutdown input, or band relays. Resolve pin conflicts before continuing.
 
 ## Enter the station and WSPR plan
