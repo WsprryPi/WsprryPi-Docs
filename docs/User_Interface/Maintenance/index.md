@@ -2,9 +2,50 @@
 
 Use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, and create a support bundle.
 
-![Maintenance configuration repair and reset controls](recovery.jpg)
+## Set up this transmitter
+
+On a new installation, open **Maintenance** and use **Set up this transmitter**.
+Review the **Station** and **Operation** sections, including your call sign,
+locator, and output selection. Other settings are available in the expandable
+sections. Select **Save initial settings** when the configuration is ready.
+
+Reviewing or editing the form does not save it. If validation fails, the form
+retains your entries. If the connection is interrupted during a save, use
+**Check saved result** before attempting another change.
+
+Setup saves transmission and scheduling disabled. It does not start a tone,
+transmit a message, or enable a schedule. After the saved configuration and
+startup are verified, the ordinary Maintenance controls become available.
+
+Updates and configuration resets retain the installation's scheduling history.
+If established history is missing or damaged, the page opens read-only recovery;
+it cannot use initial setup or Reset to bypass that condition. An existing
+installation with scheduling assignments requires migration rather than initial
+setup.
+
+## Scheduling ownership
+
+For this Pi’s existing schedule, use **Review migration** under **Scheduling
+ownership**. Review the identified device, acknowledge the change, and select
+**Confirm migration**. The Pi blocks new recurring work, finishes accepted work,
+and saves its device-owned scheduling settings disabled. This does not select
+a different output or change the authorization for a separate manual action.
+New schedule enablement is unavailable in this version.
+
+Use **Check saved result** when a reply is interrupted. Pending or unknown work
+keeps migration pending; closing the browser or restarting the Pi does not prove
+completion. After a restart during handover, review current output and explicitly
+confirm reconciliation when offered. Keep the saved state and recovery evidence.
+
+After verified disabled staging, **Review previous schedule** offers an explicit
+rollback to this Pi’s recorded previous schedule. Review its warning: restoring
+the previous schedule may transmit under its saved settings. Unknown or active
+work blocks rollback. A remote controller’s unverified retirement cannot be
+substituted for this local transition; dependent remote-Pi migration is unavailable.
 
 ## Repair Configuration
+
+![Maintenance configuration repair and reset controls](recovery.jpg)
 
 In rare cases, you may find that your configuration is present and readable but has missing sections or is otherwise not fully functional. This can happen if you hand-edit your INI file and mistakenly delete sections or keys.
 
@@ -132,6 +173,10 @@ execution can fail after acceptance. Read the failure and cleanup status before
 another Start; failed startup does not automatically resume prior work.
 
 **End** feedback names cleanup and restoration separately. A successful Test
+A retired or held recurring schedule remains disabled when Test Tone ends.
+The manual tone does not clear retirement or resume old occurrences. The existing
+requirement to disable transmission before starting a tone still applies.
+
 Tone end can restore scheduler configuration, return to managed idle, or restore
 an earlier CLI direct tone. Ending this transaction therefore does not always
 mean all output is off. If restoration fails, the status retains that failure

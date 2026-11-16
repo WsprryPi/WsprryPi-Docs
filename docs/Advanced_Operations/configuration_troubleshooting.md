@@ -107,6 +107,28 @@ After an unconfirmed action, read authoritative current status and review it. Re
 
 A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and edits. Safe Pause of an already verified live owner remains available, with its achieved and unconfirmed postconditions reported separately. Preserve the private `.wtp-fleet-contexts.json` file beside the active INI and the `.wtp-assignments.json` file. Resolve storage or binding conflicts through maintenance and restore verified state; do not delete a journal, guess a retired endpoint or edit away a barrier.
 
+## Scheduling migration or retirement remains pending
+
+An offline device, unknown output, or unresolved accepted job keeps the operation
+pending. Do not delete scheduling history, restore an older enabled assignment,
+or reset configuration to bypass it. Accepted work finishes before retirement
+can be confirmed; a returning browser or restarted controller does not prove
+that output is inactive.
+
+Use **Check saved result** beside the original action after an interrupted reply.
+It reviews the retained request rather than starting another retirement. A
+confirmed retirement prevents that saved controller assignment from resuming.
+It does not create a replacement schedule or disable another controller's work.
+
+For this Pi's migration, follow the explicit reconciliation offered after a
+restart. Only verified disabled staging offers **Review previous schedule**;
+restoring that previous schedule may transmit under its saved settings. Missing
+or damaged established history requires recovery, not initial setup. Preserve
+the reported storage error and existing state when seeking help.
+
+See [Scheduling ownership](../User_Interface/Maintenance/index.md#scheduling-ownership)
+and [existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
+
 ## Solar draft is rejected or has no effect
 
 A local Pi solar draft is storage only. A successful save confirms retained

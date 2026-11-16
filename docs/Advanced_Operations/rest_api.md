@@ -473,3 +473,26 @@ The saved response and durable operation receipt confirm storage only. Existing
 INI writers preserve the draft. See [stored solar configuration](ini_configuration.md#stored-solar-configuration)
 for units, validation, and persistence. These local routes do not make remote Pi
 pairing or management available.
+
+### Local scheduling ownership
+
+`GET /api/control/v1/targets/{device_id}/migration` reads this Pi's scheduling
+authority. Explicit migration uses `POST .../migration`; rollback uses
+`POST .../migration/rollback`. These operations require the current target
+binding, capability revision, authority generation, strong `If-Match`, and a
+protected browser session. Save the original operation ID and request before
+submission. Recover an interrupted result through authoritative receipt and
+state readback before considering another action. Pending work cannot establish
+disabled staging, and no native schedule-enable route is available.
+
+`GET /api/control/v1/host/retirements` reads the local controller's saved
+assignment identities and retirement states. `POST` records an explicitly
+reviewed retirement under that document's strong revision. The server assigns
+assignment IDs; callers cannot supply retirement proof. Accepted or unknown
+work keeps retirement pending. An exact retained request can recover its result
+after restart; it does not authorize another retirement or resume the assignment.
+
+These Control/1 operations preserve WTP's separate transmission contract.
+Local retirement is not authenticated cross-controller handover. See the
+[browser API contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-browser-api.md)
+for the closed request documents and error handling.
