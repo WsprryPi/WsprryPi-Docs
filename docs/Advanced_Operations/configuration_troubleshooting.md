@@ -106,3 +106,19 @@ Check the selected Device and its full identity before acting. A stale observati
 After an unconfirmed action, read authoritative current status and review it. Reconcile tracked work before resuming; do not repeat a mutation blindly or treat an old enabled flag as confirmation. A controller restart invalidates volatile action history. Restored in-flight and retained-cleanup barriers remain authoritative.
 
 A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and edits. Safe Pause of an already verified live owner remains available, with its achieved and unconfirmed postconditions reported separately. Preserve the private `.wtp-fleet-contexts.json` file beside the active INI and the `.wtp-assignments.json` file. Resolve storage or binding conflicts through maintenance and restore verified state; do not delete a journal, guess a retired endpoint or edit away a barrier.
+
+## Solar draft is rejected or has no effect
+
+A local Pi solar draft is storage only. A successful save confirms retained
+settings; it does not apply solar restrictions or enable new scheduling. Keep
+solar `enabled` false and leave the existing scheduling enable flag unchanged.
+Use the current target context, revision, and protected management session for
+API saves. Review current settings after a lost reply before repeating an action.
+
+Check the uppercase site locator, ordered millidegree window bounds, decimal CW
+base, and every WSPR list entry, including overrides for disabled periods. A
+changed frequency must satisfy the selected Pi backend and current frequency
+policy. An offline WTP peer cannot qualify a new frequency override. Repair a
+rejected draft through a fresh validated save; do not remove managed history or
+edit the private sidecar. Preserve the reported storage or recovery error when
+seeking help.

@@ -43,3 +43,39 @@ Development builds also support `[WTP]` for the selected outbound endpoint and
 [listener settings](ini_configuration/runtime.md#wtp-server). Independent Fleet
 assignments are saved separately from the INI and from the device catalog.
 Local Enable, listener admission, and remote assignment Enable are independent.
+
+## Stored solar configuration
+
+Development builds can save a disabled solar-policy draft through the local Pi
+management API. The `pi-scheduling` capability reports `stored_only`: saving a
+draft does not apply solar restrictions, start a schedule, or permit transmission.
+The existing recurrence settings continue to apply. There is no solar scheduling
+editor or activation control in the web interface.
+
+The draft is stored in `<active-INI-path>.managed-settings.json`, beside the INI.
+The daemon publishes the INI, managed settings, and operation receipt in one
+recoverable transaction. Ordinary configuration saves and reloads retain the draft.
+Keep these files and their private management journal together; do not hand-edit
+or delete the sidecar to repair an error. Solar fields are not INI keys.
+
+A draft has independent day and night permissions and optional morning and evening
+windows. Windows use integer millidegrees from −90000 to 90000, with a lower bound
+strictly below the upper bound. Defaults are −6000 and +6000. The lower bound is
+included and the upper bound excluded. The evaluator treats day as solar-center
+elevation at least −0.833°; a qualifying morning or evening window takes
+precedence over day/night policy. Null frequency overrides inherit the saved
+mode settings. WSPR overrides retain their list, skip entries, frequency profile,
+band preferences, and per-entry selector metadata. CW bases are positive decimal
+hertz with at most nine fractional digits; trailing fractional zeroes are omitted.
+FSKCW and DFCW use the saved positive CW shift, with both derived tones validated.
+Changed overrides are validated even when their period is disabled. Unchanged,
+well-formed values that a backend no longer supports can be retained for repair;
+retention does not qualify them for transmission.
+
+The site is the center of the saved uppercase 4-, 6-, or 8-character Maidenhead
+locator. Native Pi GPS is unavailable. Stored drafts do not sample the clock or
+require time synchronization. The policy evaluator uses injected UTC between
+2025-01-01 inclusive and 2100-01-01 exclusive, without timezone or daylight-saving
+rules. Its readiness policy permits at most 250 ms uncertainty and at most one
+hour of holdover following a healthy sample in the same boot, with 50000 ppb
+uncertainty growth. Runtime solar admission is not available in this build.

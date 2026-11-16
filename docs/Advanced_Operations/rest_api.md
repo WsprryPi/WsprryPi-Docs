@@ -459,3 +459,17 @@ retain their meaning. Ordinary edits are not whole-configuration resets.
 Schedules-only saves preserve unrelated drafts. None of these resources gives
 the browser independent WTP CLAIM/LOAD/ARM authority: job submission stays with
 the host application. See the [compatibility contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-configuration-compatibility.md).
+
+### Local Pi solar drafts
+
+The local Pi target's `/api/control/v1/targets/{device_id}/context` advertises
+`pi-scheduling` with `activation: stored_only`. Read its current settings, then
+save the complete target candidate through `PUT .../settings`, using the returned
+binding, capability revision, strong `If-Match`, fresh operation ID, and protected
+browser session. Preserve `scheduling.enabled` and keep
+`scheduling.solar.enabled` false. No enable route is available for this policy.
+
+The saved response and durable operation receipt confirm storage only. Existing
+INI writers preserve the draft. See [stored solar configuration](ini_configuration.md#stored-solar-configuration)
+for units, validation, and persistence. These local routes do not make remote Pi
+pairing or management available.
