@@ -11,6 +11,9 @@ Run this command on the Raspberry Pi through SSH or a local console:
 curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/devel/scripts/install.sh | sudo env REPO_BRANCH=devel bash -s -- --binary-source release --release-tag v4.0.0-rc.1
 ```
 
+`REPO_BRANCH=devel` explicitly selects the source branch for supporting files.
+The installer script URL alone does not select that branch.
+
 Rerunning the command reinstalls the same executable version. The installer and
 supporting files follow `devel`. Follow the installer prompts and reboot if requested.
 The explicit release tag selects RC.1; it does not follow a newer prerelease.
