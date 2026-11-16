@@ -71,7 +71,9 @@ Aside from the obvious, installing WsprryPi, the install script makes these chan
   administration. Fresh setup has no selected route. An explicitly saved RP1
   GPIO4/GPIO20 selection can then be restored, with transmission disabled.
   Package installation, neutral activation, and route restoration are separate;
-  none grants output authorization.
+  none grants output authorization. Automatic provider installation is independent
+  of the selected transmit backend, including Si5351 and WTP.
+  `INSTALL_RP1_GPCLK_DKMS=false` explicitly omits provider installation.
 - **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission interfere with the WSPR transmission.
 
 (install-wspr)=
@@ -178,7 +180,9 @@ destination. The service-stop message appears only when the service is running.
 Other messages vary with your Pi, installed packages, and installation options.
 Each `Complete:` message confirms that an operation succeeded; executable
 replacement alone does not mean the entire installation has finished. If an
-operation fails, the installer reports `Failed:` for that operation.
+operation fails, the installer reports `Failed:` for that operation. See
+[development startup and recovery](beta7.md#startup-and-recovery-after-a-failed-update)
+for the startup checks and executable recovery limits.
 
 You may see:
 
