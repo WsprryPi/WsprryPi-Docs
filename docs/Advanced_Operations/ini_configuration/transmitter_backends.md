@@ -179,9 +179,10 @@ transport. Keep TLS verification and explicit Plain LAN selection intact.
 
 The `[WTP]` INI settings select how this Pi connects to a device; Pico's saved
 standalone station, Wi-Fi, and schedule settings are managed separately. When
-Fleet is open, **Pico standalone settings and Wi-Fi**
-uses the paired USB management channel automatically for USB, or the explicitly
-selected network management carrier, while the host and Pico are idle.
+Fleet is open, choose a saved Pico and select **Manage settings**.
+The editor uses the paired USB management channel for USB, or the explicitly
+selected network management carrier. Each Pico checks its own readiness before
+accepting a change; this Pi's selected output and accepted jobs stay in place.
 Engineering HTTPS retains the selected Network (TLS) certificate policy;
 supported consumer station/AP management uses a separate volatile login. USB
 and Plain LAN WTP do not themselves provide JSON administration. No persistent

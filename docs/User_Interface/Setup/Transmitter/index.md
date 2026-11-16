@@ -17,6 +17,35 @@ stack without changing their order.
   authenticated network connections on Linux. Open **Setup → Fleet** to add
   and manage a Pico output.
 
+## Recover saved settings
+
+If saved transmitter settings prevent startup, **Setup** shows **Recover saved
+settings**. Transmission controls remain unavailable until startup is verified.
+The displayed values are an unconfirmed draft. Opening the page or editing a
+field does not save anything.
+
+Correct the reported values, then choose **Save corrected settings**. Choose
+**Repair missing settings** to retain compatible saved values and fill missing
+settings from the installed defaults. **Restore default settings** requires a
+separate confirmation and replaces the saved settings. Review the station,
+output, and enable-on-boot settings before saving. After a valid save, normal
+startup resumes using the saved enable-on-boot policy.
+
+Recovery remains restricted to eligible local-network clients even when
+**Network Safety** is saved as Off. Saving retains that preference. Recovery
+access does not enable the other protected management controls while it is Off.
+
+If a save result is unconfirmed, keep the page open and use **Check saved
+result**. Further changes remain drafts while that result is unresolved. A
+successful startup alone does not confirm the save receipt. If you edited more
+values while waiting, returning to ordinary Setup requires explicitly
+discarding those later edits. Reloading or leaving the page loses unsaved drafts.
+
+**Read-only recovery** means saved history or startup could not be verified.
+Save, Repair, and Restore defaults are unavailable; Restore defaults cannot
+erase that history. Preserve the saved files and resolve the reported startup
+or storage problem before attempting another change.
+
 ## GPIO
 
 GPIO-based transmissions are the typical method most people think of when they think of WsprryPi.  It uses a GPIO Pin attached to a clock generator on the Pi to transmit WSPR tones.
@@ -417,10 +446,11 @@ RF shutdown.
 
 ### Pico standalone settings and Wi-Fi
 
-Open **Pico standalone settings and Wi-Fi** in Fleet when you need to manage
-the active Pico endpoint's saved settings or network connection from WsprryPi.
-Confirm its full **Device / boot** observation first: highlighting a different
-catalog row or assigning it a schedule does not change this panel's target.
+Choose a saved Pico in Fleet's **Device** list and select **Manage settings**.
+The **Pico settings** section identifies the device being edited. Confirm its
+full device ID and the saved **Device / boot** observations before saving.
+**Use this device** remains the separate action for choosing this Pi's output
+connection. A controller without a local transmitter can also manage Pico settings.
 These controls manage settings saved on the selected Pico for its own
 standalone application. They are separate from this Pi's settings, prepared
 jobs, output assignments, and saved connection profiles. A USB connection uses
@@ -431,12 +461,20 @@ explicit login. A network WTP connection alone does not provide that login.
 
 For direct field operation, the Pico’s **Wi-Fi/Host → Field access** setting keeps its protected AP available across restarts. Join that AP with the effective Pico control password, then authenticate in its browser page. With no usable higher-priority time source, the authenticated AP browser automatically supplies its device clock. **Using browser time** applies to a phone, tablet, or laptop. Keep the page active for refresh; holdover is limited to one hour, independently of NTP timeout settings. Estimated UTC uncertainty remains visible and does not impose an additional first-party transmission cutoff. Restart requires fresh time. These direct Pico controls do not transfer RF ownership to WsprryPi. See the [Pico field-access instructions](https://wsprrypico.readthedocs.io/en/devel/connect.html#field-access-without-internet).
 
-Keep WsprryPi transmission disabled while editing. Management requires an idle
-host and confirmed Pico state, with no pending, owned, active, or unresolved
-work. Use [Pico status and recovery](#pico-status-and-recovery) to resolve that
-work first. Disabling transmission on the Pi does not disable Pico's standalone
-scheduler: leave **Enable Pico standalone schedule** cleared until you intend
-Pico to transmit autonomously and its clock and RF path are ready.
+Reads preserve current jobs and RF ownership. Each Pico checks whether a requested
+change is safe and can refuse changes while its own work is pending, owned,
+active, or unresolved. Resolve the stated condition on that Pico before saving.
+Leave **Enable Pico standalone schedule** cleared until you intend Pico to
+transmit autonomously and its clock and RF path are ready.
+
+Managing another saved Pico keeps each device's entries on this page. Returning
+to the same saved profile requires fresh readback before another save. A changed
+or replaced profile keeps its old draft separate. Accepted requests remain listed
+under **Earlier settings requests** with their original device, even after the
+editor changes. Open **Retained drafts** to review entries from an inactive or
+replaced profile without restoring its connection or saving anything. Password
+contents are not displayed; enter them again in a current editor if needed.
+Keep the page open to retain unsaved entries.
 
 Use **Save station progress** under **Standalone station defaults** for
 independent station-field saves and separate application. **Complete station
@@ -510,10 +548,13 @@ To change the Pico's own network name, use
 settings form preserves that name during ordinary saves; the separate **USB
 name and Wi-Fi** controls edit it over USB.
 
-**Read Pico Wi-Fi status** observes the current network state. **Disable Pico
+Wi-Fi status loads automatically after the Pico connection is confirmed.
+**Refresh Wi-Fi status** updates that observation. **Disable Pico
 Wi-Fi** disconnects network control and is a temporary switch, separate from
 saved standalone settings. Re-enable it using the physical USB Console or a
 restart; changing the saved Wi-Fi fields is not a reconnect control.
+An accepted disable request can still show a pending change; wait for a fresh
+observation before treating Wi-Fi as disabled. USB management remains available.
 
 #### Conflicting or unconfirmed saves
 
@@ -522,12 +563,15 @@ lost reply, or interrupted connection can leave a save's outcome unconfirmed:
 the change may already have been saved. WsprryPi keeps the draft and password
 entry, disables further saves, and does not automatically repeat the operation.
 
-Confirm the intended Pico, resolve any busy or unresolved job state, then choose
-**Load saved Pico settings**. After a conflicting or unconfirmed save, this load
-keeps the draft and entered password and displays saved values beside the fields.
-Compare them, adjust the draft as needed, and choose another Save only after
-review. The redacted saved password cannot be compared with the retained entry;
-review that entry separately before deciding to submit it again.
+For a revision conflict, choose **Load saved Pico settings**, compare the saved
+values with the retained draft, and decide whether to save again. For an
+unconfirmed request, use **Read current settings** in the recovery section, then
+**I reviewed these settings**. This review releases the write hold without
+repeating the earlier request or declaring its unknown outcome successful.
+Load the editor's saved settings before making a new explicit change. A fresh
+browser also discovers an earlier unresolved request before dispatching another
+save. The redacted saved password cannot be compared with a retained entry;
+review that entry separately before submitting it again.
 
 ### Management connection and login
 
