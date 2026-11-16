@@ -35,7 +35,7 @@ select it. See [Add a WsprryPico](pico.md#compatible-software) and
 [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb)
 for settings retention and recovery.
 
-Pi 5-family GPIO installations select the published RP1-GPIO-CLK-DKMS `v1.0.0`
+Pi 5-family GPIO installations select the published RP1-GPIO-CLK-DKMS `v1.0.1`
 provider. Driver installation, route selection, and enabling transmission remain
 separate actions. Pi GPIO and Si5351 qualification do not qualify Pico output.
 
