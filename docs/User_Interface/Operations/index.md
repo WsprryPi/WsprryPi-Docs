@@ -2,6 +2,13 @@
 
 The **Operation** page is the main view for monitoring transmissions.
 
+Native device-owned scheduling has an independent enable state, managed through
+the [protected target API](../../Advanced_Operations/rest_api.md#local-pi-device-owned-scheduling).
+Turning that state off allows an accepted complete occurrence to drain and keeps
+output ownership. The existing Transmit and Stop controls retain their separate
+permission and cancellation behavior. A solar wait is normal waiting; a forecast
+or countdown alone does not establish execution.
+
 ## Select a Fleet output
 
 When an assigned Pi or Pico exists, the **Device** selector appears beside the Operations heading. It also includes removed outputs whose cleanup remains unresolved. A saved device profile alone does not add an output. **This Pi (controller)** is selected whenever the page opens. Selecting another output changes this view only; it does not change configuration, ownership, the single selected WTP backend or any schedule.

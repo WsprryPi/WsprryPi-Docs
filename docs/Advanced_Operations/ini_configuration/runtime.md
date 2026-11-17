@@ -155,3 +155,50 @@ consumed slots, and unresolved dispatch state. It is separate from
 `[WTP]`, which selects the single-endpoint backend. Manage assignments through
 Fleet or its [HTTP resource](../rest_api.md#pi-endpoint-and-fleet-resources).
 After interrupted work, reconcile the affected output before resuming it.
+
+## Native recurrence and time readiness
+
+Enable scheduling, solar selection, Transmit, Enable on Boot, and output ownership
+are independent. Scheduling off prevents new occurrences and permits an accepted
+complete WSPR pair or message to finish. It does not release the output to a WTP
+client. A solar wait also retains the reservation established by Transmit.
+Immediate Stop remains separate from scheduling disable.
+
+Enable on Boot applies to Transmit: Never starts with permission off, Follow uses
+the saved permission, and Always requests it on. These choices preserve the
+scheduling and solar flags. Always cannot restart a disabled schedule. Existing
+startup quiescence, takeover, and output-unknown safeguards still apply.
+
+With solar selection off, native recurrence uses the ordinary mode settings
+without added solar time or site prerequisites. With solar on, the transmitter
+uses its saved locator center and target-local UTC. A qualifying morning/evening
+window takes precedence over day/night permissions. Both starts of a paired WSPR
+occurrence must select the same allowed policy and frequency intent; otherwise
+the whole pair waits. An accepted occurrence keeps its frozen frequency and
+random placement through a later solar boundary.
+
+The supported solar clock provider is read-only Linux OS time discipline.
+It requires synchronized time, no leap/clock alarm, kernel maximum error plus
+acquisition uncertainty at most 250 ms, and a date from 2025 through 2099.
+After a healthy sample in this boot, bounded holdover can last up to one hour
+while estimated uncertainty remains at most 250 ms; it grows by 50 microseconds
+per second. Unavailable health, an alarm, a clock step, or suspend/resume can
+hold new work or invalidate preparation. This trusts the configured OS clock;
+it is not a UTC accuracy measurement or RF calibration. Platforms without that
+provider hold solar recurrence; ordinary solar-off operation remains available.
+
+Explicit period WSPR lists rotate independently. Inherited periods share the
+ordinary list. Policy refusal does not advance a list; an explicit skip consumes
+one normal slot, and a complete pair advances once. Restart, backward time steps,
+and re-enabling cannot replay a consumed occurrence. Missed slots are not queued.
+An uncertain interrupted occurrence requires safe output reconciliation; its
+reserved progression can be consumed conservatively even if no RF occurred.
+Missing or damaged established progress holds admission. Preserve recovery files
+and investigate storage errors instead of deleting history.
+
+When a Pi uses WTP as its output, that Pi still owns recurrence and solar policy;
+the selected destination executes finite WTP jobs. Device selection and management
+connections do not transfer schedule ownership. Status names the execution owner
+and destination separately. Next-start forecasts are bounded to 48 hours and
+4,096 candidates and may be unknown. Neither a countdown nor a forecast proves
+that a transmission occurred.

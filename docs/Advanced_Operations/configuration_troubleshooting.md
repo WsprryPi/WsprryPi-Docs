@@ -129,13 +129,27 @@ the reported storage error and existing state when seeking help.
 See [Scheduling ownership](../User_Interface/Maintenance/index.md#scheduling-ownership)
 and [existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
 
-## Solar draft is rejected or has no effect
+## Native scheduling is held or a solar save is rejected
 
-A local Pi solar draft is storage only. A successful save confirms retained
-settings; it does not apply solar restrictions or enable new scheduling. Keep
-solar `enabled` false and leave the existing scheduling enable flag unchanged.
-Use the current target context, revision, and protected management session for
-API saves. Review current settings after a lost reply before repeating an action.
+Read the target's current settings and status separately. A saved policy does
+not establish active output. Enable scheduling must be on, Transmit must permit
+output, and legacy retirement or initial transmitter setup must be complete.
+Scheduling off and solar waits do not release output ownership. After a lost
+reply, recover the original receipt and read authoritative settings before
+another action.
+
+For a time hold, check Linux OS synchronization and leap/clock alarms, the
+2025–2099 date range, and the 250 ms uncertainty limit. Holdover requires a
+healthy sample during this boot and expires within one hour. Without the approved
+clock-health provider, solar recurrence stays held. Check the transmitter's
+saved locator for a location hold. A backward clock step waits beyond the
+consumed watermark; a forward step does not queue missed transmissions.
+
+For a storage or recovery hold, preserve the progress and transaction records.
+An interrupted reservation is not proof of RF output. Confirm output is safely
+reconciled before resuming; missing or corrupt established history cannot be
+repaired by deleting files or repeating initial setup. See
+[native recurrence and time readiness](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
 
 Check the uppercase site locator, ordered millidegree window bounds, decimal CW
 base, and every WSPR list entry, including overrides for disabled periods. A

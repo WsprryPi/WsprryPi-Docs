@@ -460,19 +460,40 @@ Schedules-only saves preserve unrelated drafts. None of these resources gives
 the browser independent WTP CLAIM/LOAD/ARM authority: job submission stays with
 the host application. See the [compatibility contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-configuration-compatibility.md).
 
-### Local Pi solar drafts
+### Local Pi device-owned scheduling
 
-The local Pi target's `/api/control/v1/targets/{device_id}/context` advertises
-`pi-scheduling` with `activation: stored_only`. Read its current settings, then
-save the complete target candidate through `PUT .../settings`, using the returned
-binding, capability revision, strong `If-Match`, fresh operation ID, and protected
-browser session. Preserve `scheduling.enabled` and keep
-`scheduling.solar.enabled` false. No enable route is available for this policy.
+The local target's `/api/control/v1/targets/{device_id}/context` advertises
+`pi-scheduling` with `activation: next_occurrence`. Read current settings, then
+save the complete candidate through `PUT .../settings`, retaining its scheduling
+enable value. Use the returned binding, capability revision, strong `If-Match`,
+fresh operation ID, and protected browser session. Solar policy may be saved
+for a safely staged or native target. Local routes do not provide remote Pi
+pairing or remote administration.
 
-The saved response and durable operation receipt confirm storage only. Existing
-INI writers preserve the draft. See [stored solar configuration](ini_configuration.md#stored-solar-configuration)
-for units, validation, and persistence. These local routes do not make remote Pi
-pairing or management available.
+Enable and disable are separate protected transactions:
+
+- `POST .../enable` uses `target-enable`, the current revision, and the server's
+  complete saved `candidate_digest`. It enables that saved candidate after
+  authority and storage validation and preserves Transmit and boot.
+- `POST .../disable` uses `target-action` and the current revision. It persists
+  scheduling off. Accepted complete work can drain, and output ownership remains.
+- `GET .../status` reports saved enable flags, active revision, selected tones,
+  hold reason, observation age, and a next-start forecast or unknown. Use the
+  current target context.
+
+Every mutation also includes the current `contract`, `binding`,
+`capability_revision`, and a fresh `operation_id`, and requires strong `If-Match`.
+The enable body's schema is `target-enable`; disable uses `target-action`.
+Enable never applies an unsaved draft. Read settings after the save, review the
+candidate digest, and then enable that exact saved revision. A separate Stop
+operation uses a fresh output observation and does not clear scheduling enable.
+After a lost reply, look up the original operation and read settings before
+submitting a new action; replaying an older enable cannot undo a later disable.
+
+Scheduling on can still be held by Transmit off, ownership, recovery, frequency,
+time, or site readiness. A forecast is a prediction, not proof that output ran.
+See [device-owned scheduling configuration](ini_configuration.md#device-owned-scheduling-configuration)
+and [time and recurrence holds](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
 
 ### Local scheduling ownership
 
@@ -483,7 +504,7 @@ binding, capability revision, authority generation, strong `If-Match`, and a
 protected browser session. Save the original operation ID and request before
 submission. Recover an interrupted result through authoritative receipt and
 state readback before considering another action. Pending work cannot establish
-disabled staging, and no native schedule-enable route is available.
+disabled staging. Native enable remains refused until reconciliation and retirement are complete.
 
 `GET /api/control/v1/host/retirements` reads the local controller's saved
 assignment identities and retirement states. `POST` records an explicitly
