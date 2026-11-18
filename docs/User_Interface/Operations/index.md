@@ -73,3 +73,7 @@ The card shows the current state and transmission plan, with controls to enable,
   - *Type2Type3Paired* alternates between Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages. Together, the two frames let the receiver associate a complex or long callsign with a long locator.
   - *Next Message At* is displayed when in one of the three CW modes and the scheduler is waiting for a transmission window.  The time is displayed in the local time.
   - *Message Progression* is displayed in CW mode during a transmission. It shows a cursor on the current character.
+
+## Device-owned scheduling
+
+Use [Setup → Scheduling](../Setup/Scheduling/index.md) for the selected Pi’s schedule permission and solar policy. Verify the execution owner and output destination there. Disabling scheduling prevents new admissions while accepted work may finish. Transmit and immediate Stop remain separate controls; a disconnected observation cannot establish that output stopped.

@@ -9,6 +9,7 @@ The web interface is the primary day-to-day control surface for WsprryPi. It pro
 Setup Overview <Setup/index>
 Configure Transmitter <Setup/Transmitter/index>
 Configure WSPR and CW <Setup/Signal_Setup/index>
+Device-owned Scheduling <Setup/Scheduling/index>
 Configure Device I/O <Setup/Pi_IO/index>
 Operate Transmissions <Operations/index>
 View Reception Reports <Spots/index>

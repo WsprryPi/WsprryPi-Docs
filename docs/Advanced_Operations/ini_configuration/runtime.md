@@ -202,3 +202,7 @@ connections do not transfer schedule ownership. Status names the execution owner
 and destination separately. Next-start forecasts are bounded to 48 hours and
 4,096 candidates and may be unknown. Neither a countdown nor a forecast proves
 that a transmission occurred.
+
+## Scheduling editor
+
+[Setup → Scheduling](../../User_Interface/Setup/Scheduling/index.md) manages the same target-owned scheduling and solar values through protected, revision-bound saves. It saves a disabled policy, confirms readback, then requires explicit enablement. Do not edit private authority or recovery files to bypass initialization, ownership or unknown-operation holds. Disabled periods retain values and remain validated.

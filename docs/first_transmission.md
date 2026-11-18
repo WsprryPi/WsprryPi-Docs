@@ -59,6 +59,10 @@ WSPR frequency entries are USB dial frequencies. Their nominal RF center is
 shows these separately. Fleet WSPR assignments use absolute RF centers instead;
 follow their separate workflow when adding remote outputs.
 
+## Confirm schedule permission
+
+Before starting, review [Setup → Scheduling](User_Interface/Setup/Scheduling/index.md) for the intended Pi. **Enable scheduling** only prepares a draft: save the disabled policy, confirm readback, then explicitly enable the saved schedule. Keep solar selection off unless the target site and target clock prerequisites are satisfied. Transmit, ownership and boot behavior remain separate permissions.
+
 ## Start and observe
 
 Use a suitable conducted test path to check the setup before connecting an

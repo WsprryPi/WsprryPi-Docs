@@ -130,7 +130,7 @@ without changing them. A saved profile may remain listed while its discovery
 advertisement is absent.
 
 Independent Fleet schedules use separate assignments; see
-[Output schedules](../../User_Interface/Setup/index.md#assign-an-output-schedule).
+[Output schedules](../../User_Interface/Setup/index.md#manage-existing-output-schedules).
 A catalog profile is a connection record, not a schedule.
 
 Adding, renaming, editing, or removing a profile does not change `[WTP]`.

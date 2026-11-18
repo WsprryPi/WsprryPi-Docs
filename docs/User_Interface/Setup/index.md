@@ -5,12 +5,11 @@ On a phone, the selector appears on its own row. **This Pi** opens the local
 settings. A saved Pico or a verified paired Pi opens its independent settings without selecting it as this controller’s output. Confirm the name, device identity, connection, and
 status below the selector before editing.
 
-![Setup Card](setup.jpg)
-
-The four tabs are:
+The five tabs are:
 
 - [Signal Setup](Signal_Setup/index.md): local WSPR/CW settings, or the selected
-  Pico's station progress, station defaults, and existing standalone settings.
+  Pico's station progress and station defaults.
+- [Scheduling](Scheduling/index.md): the selected Pi’s device-owned schedule permission and solar policy, or the Pico’s supported independent recurrence controls.
 - [Transmitter](Transmitter/index.md): the selected device's supported output
   settings. Pico amplifier timing, drive, filters, and Si5351 have explicit actions.
 - [Device I/O](Pi_IO/index.md): local Pi pins, or Pico connections, logging, and
@@ -28,7 +27,7 @@ supported saved Picos, paired Pis, and supported Picos attached to those Pis thr
 
 ### Edit a paired Pi
 
-Select the verified Pi under **Device**, confirm its identity, and use **Read saved settings**. Its settings appear under the existing Signal Setup, Transmitter, and Device I/O tabs. Changes stay in that Pi’s browser draft until you select **Save this Pi’s settings**; switching tabs does not save them. Device-owned scheduling has its own workflow and is not enabled by this editor.
+Select the verified Pi under **Device**, confirm its identity, and use **Read saved settings**. Its settings appear under the existing Signal Setup, Transmitter, and Device I/O tabs. Changes stay in that Pi’s browser draft until you select **Save this Pi’s settings**; switching tabs does not save them. Use the separate [Scheduling](Scheduling/index.md) tab for device-owned schedule permission and solar policy. Signal Setup saves do not enable scheduling.
 
 Switching devices retains each Pi’s draft, including an invalid entry. **Discard draft and read again** asks before replacing it with current saved values. These drafts remain in the open browser page; resolve needed entries before reloading or closing it.
 

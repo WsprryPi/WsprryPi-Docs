@@ -239,7 +239,7 @@ A managed Pi can expose its local transmitter to a central Pi through Plain
 LAN WTP. This is independent of choosing `--backend wtp` for an outbound
 endpoint. Configure the server in
 [`[WTP Server]`](../Advanced_Operations/ini_configuration/runtime.md#wtp-server)
-and use [Fleet output assignments](../User_Interface/Setup/index.md#assign-an-output-schedule)
+and use [Fleet output assignments](../User_Interface/Setup/index.md#manage-existing-output-schedules)
 on the controller.
 
 The selected native **GPIO, RP1 GPCLK or Si5351** backend exposes **WSPR,

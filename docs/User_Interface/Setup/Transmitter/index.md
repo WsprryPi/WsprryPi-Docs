@@ -454,8 +454,7 @@ RF shutdown.
 ### Pico standalone settings and Wi-Fi
 
 Choose a saved Pico in the shared **Device** selector beside the Setup tabs.
-Fleet's **Manage settings** is a shortcut to that same selection. Open **Signal
-Setup** for station and combined settings, or **Device I/O** for connections.
+Fleet's **Manage settings** is a shortcut to that same selection. Open **Signal Setup** for station progress, **Scheduling** for WSPR recurrence, gray-line and combined standalone settings, or **Device I/O** for connections.
 The **Pico settings** section identifies the device being edited. Confirm its
 full device ID and the saved **Device / boot** observations before saving.
 **Use this device** remains the separate action for choosing this Pi's output
@@ -473,7 +472,7 @@ For direct field operation, the Pico’s **Wi-Fi/Host → Field access** setting
 Reads preserve current jobs and RF ownership. Each Pico checks whether a requested
 change is safe and can refuse changes while its own work is pending, owned,
 active, or unresolved. Resolve the stated condition on that Pico before saving.
-Leave **Enable Pico standalone schedule** cleared until you intend Pico to
+Leave **Enable Pico WSPR recurrence** cleared until you intend Pico to
 transmit autonomously and its clock and RF path are ready.
 
 Managing another saved Pico keeps each device's entries on this page. Returning
@@ -485,17 +484,14 @@ replaced profile without restoring its connection or saving anything. Password
 contents are not displayed; enter them again in a current editor if needed.
 Keep the page open to retain unsaved entries.
 
-Use **Save station progress** under **Standalone station defaults** for
+In **Signal Setup**, use **Save station progress** under **Standalone station defaults** for
 independent station-field saves and separate application. **Complete station
-save** provides the complete three-field alternative. Open **RF output, GPS,
-and pins** for hardware settings. USB name and Wi-Fi have their own controls
-near the top of the panel. Management prerequisites appear before the editors;
+save** provides the complete three-field alternative. In **Device I/O**, open **RF output, GPS, and pins** for hardware settings; USB name and Wi-Fi have their own controls there. Management prerequisites appear before the editors;
 resolve the stated prerequisite before reading or saving settings.
 
 #### Load and save settings
 
-1. Confirm the selected Pico and its **Device / boot** observation. Open
-   **Standalone schedules and combined settings**, then choose
+1. Confirm the selected Pico and its **Device / boot** observation. In **Scheduling**, open **Standalone schedules and combined settings**, then choose
    **Load saved Pico settings**. A normal load replaces the form's draft and
    clears any entered password. Status polling preserves the draft.
 2. Edit the required fields. **WSPR power metadata (dBm)** is the reported WSPR
@@ -506,9 +502,8 @@ resolve the stated prerequisite before reading or saving settings.
    settings changed and performs no save.
 
 This combined form supports network management and firmware without the separate
-editors. Use the station-progress and USB name/Wi-Fi controls above for their
-scoped tasks. **Save combined settings** can change station, Wi-Fi, expiry, and
-standalone Enable as well as schedule entries.
+editors. Use station progress in Signal Setup and USB name/Wi-Fi in Device I/O for those scoped tasks. **Save combined settings** can change station, Wi-Fi, expiry, and
+WSPR recurrence as well as schedule entries.
 
 Ordinary saves preserve settings outside this form, including Pico pin
 assignments and advanced frequency-policy settings. WsprryPi preserves supported saved settings. If the firmware or
@@ -518,14 +513,13 @@ repeated saves do not bypass the refusal. If feedback says Pico setup owns the
 station or Wi-Fi values, change them through Pico setup.
 
 Reset individual values explicitly. For example, set **Schedule expiry (UTC
-epoch seconds)** to `0` to remove expiry, or clear **Enable Pico standalone
-schedule** and choose **Save combined settings** to disable standalone scheduling.
+epoch seconds)** to `0` to remove expiry, or clear **Enable Pico WSPR recurrence** and choose **Save combined settings** to disable WSPR recurrence.
 The form has no whole-configuration reset or replacement control, and does not
 edit pins or advanced frequency-policy settings.
 
 #### Schedules and passwords
 
-In **Standalone schedule periods and phases (seconds)**, enter one period and
+In **WSPR schedule periods and phases (seconds)**, enter one period and
 phase per line, separated by a space, such as `120 0`. Use up to eight
 nonoverlapping schedules. The period must divide 86400 seconds (one day), and
 both values must be multiples of 120 seconds; the phase must be smaller than the

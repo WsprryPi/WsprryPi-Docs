@@ -158,3 +158,7 @@ policy. An offline WTP peer cannot qualify a new frequency override. Repair a
 rejected draft through a fresh validated save; do not remove managed history or
 edit the private sidecar. Preserve the reported storage or recovery error when
 seeking help.
+
+## Scheduling remains disabled or held
+
+In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distinguish the editable draft from **Saved scheduling** and active application. Save the disabled policy and confirm readback before explicitly enabling it. Complete Maintenance initialization or takeover when ownership is pending. For solar holds, check the target’s saved locator and clock observation; browser location and timezone cannot repair a target prerequisite. After a lost reply, check the original operation rather than repeat a save. Keep the draft during a conflict, disconnect or busy response.

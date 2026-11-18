@@ -155,7 +155,7 @@ settings described in the [connection reference](../User_Interface/Setup/Transmi
   choose **Use this device** and confirm the named target. Check **Pico status →
   Device / boot** and the connection before continuing. Switching does not enable
   transmission or resume an old job.
-- [**Assign a schedule**](../User_Interface/Setup/index.md#assign-an-output-schedule)
+- [**Assign a schedule**](../User_Interface/Setup/index.md#manage-existing-output-schedules)
   creates an independent Fleet output assignment. It does not replace this Pi's
   active endpoint. Review the assignment's saved output and start option before
   saving; leave its schedule paused until ready.
