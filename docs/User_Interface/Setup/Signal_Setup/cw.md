@@ -2,9 +2,7 @@
 
 Use this page to configure QRSS, FSKCW, or DFCW timing, frequency, scheduling, and message content. Return to the [Signal Setup overview](index.md) to choose WSPR. For direct shell operation, see [CW Mode Options](../../../Command_Line_Operations/cw_modes.md); for direct file editing, see [INI Configuration Reference](../../../Advanced_Operations/ini_configuration.md); for recoverable save failures, see [Configuration Troubleshooting](../../../Advanced_Operations/configuration_troubleshooting.md).
 
-CW Mode provides QRSS, FSKCW, and DFCW for low-power Morse-code transmissions.
-
-![CW Mode](cw.jpg)
+CW Mode provides QRSS, FSKCW, and DFCW for low-power Morse-code transmissions. The controls below describe **This Pi**, where valid edits use autosave. A paired Pi keeps its own draft until **Save this Pi’s settings**; Pico does not expose these Pi CW profiles.
 
 CW modes are not as strictly formatted and are **not** a beacon mode as WSPR is.  Radio beacons send continuous, automated, unattended, one-way transmissions without specific reception targets. In contrast, QRSS transmitters are only intended to be transmitting when the control operator is available to control them, and the recipients are known QRSS grabbers around the world.
 
@@ -71,6 +69,8 @@ The label follows the selected mode: **Carrier frequency** for QRSS, **Space fre
 CW uses the selected transmitter backend's frequency-correction settings. Configure those settings under [Transmitter](../Transmitter/index.md); they correct reference-clock error and do not replace the carrier, space, dot, or positive-shift values. A remote WTP transmitter owns its correction; supplied absolute RF targets do not receive Pi calibration again. Use an independently calibrated receiver when measuring RF. See [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md).
 
 ## Schedule
+
+Use [Scheduling](../Scheduling/index.md) for separate schedule permission and solar periods. A blank CW period override inherits the selected Pi’s saved base frequency and shift; an explicit override changes only that period’s base frequency. The cadence and message settings below remain authoritative. Saving them does not enable scheduling.
 
 ### Start minute / Start second / Repeat interval
 

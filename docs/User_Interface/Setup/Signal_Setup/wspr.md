@@ -4,7 +4,7 @@ Use this page for WSPR station identity, transmission planning, frequency, power
 
 WSPR (Weak Signal Propagation Reporter) is the original mode for WsprryPi.
 The controls described below appear in the **WSPR** half of the signal-mode
-selector. Configuration saves automatically after each valid change.
+selector. With **This Pi** selected, configuration saves automatically after each valid change. For a paired Pi, read its saved settings first and use **Save this Pi’s settings** explicitly; the values belong to that selected Pi.
 
 The planning preferences on this page belong to the **Pi host**. Pico member
 station defaults use [Pico automatic planning](../Transmitter/index.md#pico-automatic-wspr-planning),
@@ -80,6 +80,8 @@ required, the planner should choose the appropriate companion frame:
 
 - Standard inner callsign: **Type 1/3 pair**
 - Compound inner callsign: **Type 2/3 pair**
+
+A blank WSPR period override in [Scheduling](../Scheduling/index.md) inherits this target’s saved frequency list, skips, frequency profile and band preferences. Explicit solar-period overrides keep their own list selection. Signal Setup saves do not enable scheduling.
 
 ## WSPR Transmission Plan
 

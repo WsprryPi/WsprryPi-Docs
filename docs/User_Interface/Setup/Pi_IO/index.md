@@ -13,9 +13,9 @@ restart automatically. The separate Transmitter tab holds independent drive,
 Si5351, amplifier-timing, and filter controls. See
 [Pico hardware resources](../Transmitter/index.md#shared-pico-member-resources).
 
-The sections below describe the local Pi view.
+For a paired Pi, this tab uses that target’s independent settings draft. Confirm its identity, read saved settings, then select **Save this Pi’s settings** explicitly. Reading or selecting it does not change this controller’s pins or output.
 
-![Device I/O Configuration](pi-io.jpg)
+The sections below describe the local Pi view.
 
 ## Transmit LED & LED Pin
 

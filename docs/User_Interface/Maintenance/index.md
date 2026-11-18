@@ -39,7 +39,7 @@ If a controller-access change is unconfirmed, use **Check saved result**. Refres
 
 ## Scheduling ownership
 
-Under **Scheduling ownership**, choose the Pi under **Device**, then use **Review migration**. Review the identified device, acknowledge the change, and select **Confirm migration**. The Pi retires recorded previous schedules, reconciles accepted work, and saves device-owned scheduling disabled. An unavailable previous controller keeps migration pending. Changing Device or reviewing a transition does not save settings or change output. New schedule enablement is unavailable here.
+Under **Scheduling ownership**, choose the Pi under **Device**, then use **Review migration**. Review the identified device, acknowledge the change, and select **Confirm migration**. The Pi retires recorded previous schedules, reconciles accepted work, and saves device-owned scheduling disabled. An unavailable previous controller keeps migration pending. Changing Device or reviewing a transition does not save settings or change output. After confirmed migration, open [Setup → Scheduling](../Setup/Scheduling/index.md), read the disabled policy, review its target-site and frequency values, save and verify any changes, then explicitly enable the saved schedule there. Maintenance does not enable a schedule.
 
 Use **Check saved result** when a reply is interrupted. Pending or unknown work keeps migration pending; closing the browser or restarting the Pi does not prove completion. Checking a result does not resend the request. After a restart during handover, review current output and explicitly confirm reconciliation when offered.
 
