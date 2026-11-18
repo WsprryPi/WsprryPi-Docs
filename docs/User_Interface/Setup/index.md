@@ -2,8 +2,7 @@
 
 Use **Device** beside the Setup tabs to choose whose settings you are editing.
 On a phone, the selector appears on its own row. **This Pi** opens the local
-settings. A saved Pico opens its independent settings without selecting it as
-this controller's output. Confirm the name, device identity, connection, and
+settings. A saved Pico or a verified paired Pi opens its independent settings without selecting it as this controller’s output. Confirm the name, device identity, connection, and
 status below the selector before editing.
 
 ![Setup Card](setup.jpg)
@@ -25,8 +24,19 @@ Selection alone never saves, enrolls, claims ownership, enables transmission,
 changes the backend, or changes accepted work. A nearby or unverified choice
 opens Fleet for identification and profile review; it grants no settings access.
 A controller-only installation has no local transmitter settings, but can manage
-supported saved Picos through the same tabs. Remote Pi settings are unavailable
-through this selector; use that Pi's own protected web interface.
+supported saved Picos, paired Pis, and supported Picos attached to those Pis through the same tabs. Establish a Pi connection through [Controller access](../Maintenance/index.md#controller-access) first. Attached Picos use that existing connection automatically.
+
+### Edit a paired Pi
+
+Select the verified Pi under **Device**, confirm its identity, and use **Read saved settings**. Its settings appear under the existing Signal Setup, Transmitter, and Device I/O tabs. Changes stay in that Pi’s browser draft until you select **Save this Pi’s settings**; switching tabs does not save them. Device-owned scheduling has its own workflow and is not enabled by this editor.
+
+Switching devices retains each Pi’s draft, including an invalid entry. **Discard draft and read again** asks before replacing it with current saved values. These drafts remain in the open browser page; resolve needed entries before reloading or closing it.
+
+After a lost save reply, use **Check earlier request**. This checks the accepted operation without resending the save. If its outcome remains unknown, read current settings for review and use **I reviewed these settings** only after comparing them with your retained draft. Review allows a later deliberate change; it does not assert that the earlier save succeeded. Changed ownership, boot, or unavailable management pauses saving until a fresh verified read.
+
+**Stop this Pi’s output** is a separate action. Select **Read current output**, verify the identified output, and then select **Stop the output shown above**. Read again when the observation is stale. This action turns off the Pi’s saved Transmit permission; it does not change pairing or schedule enablement. Stop remains available when an earlier settings save is unconfirmed. Its own result is tracked separately, and the earlier request and your draft remain available for review. Acceptance does not prove that output is inactive; read the current output again.
+
+### Edit local or Pico settings
 
 Local settings autosave after validation. Read the status beside the Setup title;
 a saved value may still await application while committed work owns the output.
@@ -63,8 +73,7 @@ Open **Setup → Fleet** to manage saved Pi and Pico devices and independent
 output schedules. No developer-console setting is required. The
 [device catalog workflow](Transmitter/index.md#add-a-pico-and-manage-outputs)
 explains how to identify and save a profile. Browsing Fleet does not start
-transmission. Pi servers use **Plain LAN**;
-this implementation does not provide inbound TLS on the Pi.
+transmission. Pi WTP servers use **Plain LAN**. Paired Pi settings management uses a separate authenticated TLS connection; pairing does not encrypt or replace WTP.
 
 ### Manage existing output schedules
 

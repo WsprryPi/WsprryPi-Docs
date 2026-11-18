@@ -23,25 +23,29 @@ it cannot use initial setup or Reset to bypass that condition. An existing
 installation with scheduling assignments requires migration rather than initial
 setup.
 
+## Controller access
+
+Use **Controller access** to connect one Pi to another for settings management. Keep **Privileged network safety** enforced on both devices. A transmitter Pi and a controller-only Pi can each manage another Pi.
+
+1. On the Pi you want to manage, open **Maintenance** and select **Pair this Pi**. Keep that page open to view its temporary code.
+2. On the controller’s **Maintenance** page, find **Manage another Pi**. Select **Refresh devices**, choose the Pi displaying the code, enter its eight characters, and select **Connect to Pi**.
+3. Wait for confirmation. Open **Setup** and choose the paired Pi under **Device**. Supported Picos attached to it by USB also become available through that connection automatically.
+
+The code expires after two minutes and appears only in the page that opened the pairing window. If it expires or that page closes, return to that Pi’s Maintenance page and open pairing again to generate a new code. Security is configured automatically on the devices. Pairing does not change output selection, Transmit permission, schedules, or running work.
+
+To change who manages a Pi, open that Pi’s own Maintenance page and select **Replace controller**. Pair from the new controller using the new temporary code. The old controller can be offline; its ordinary management access is revoked when replacement completes. **Remove controller…** offers an explicit confirmation to remove management access. Running work and saved schedules continue. **Pair again** is offered when access recovery is required.
+
+If a controller-access change is unconfirmed, use **Check saved result**. Refreshing status or checking the result does not repeat the change. Keep an unknown result pending and follow its recovery feedback before another action.
+
 ## Scheduling ownership
 
-For this Pi’s existing schedule, use **Review migration** under **Scheduling
-ownership**. Review the identified device, acknowledge the change, and select
-**Confirm migration**. The Pi blocks new recurring work, finishes accepted work,
-and saves its device-owned scheduling settings disabled. This does not select
-a different output or change the authorization for a separate manual action.
-New schedule enablement is unavailable in this version.
+Under **Scheduling ownership**, choose the Pi under **Device**, then use **Review migration**. Review the identified device, acknowledge the change, and select **Confirm migration**. The Pi retires recorded previous schedules, reconciles accepted work, and saves device-owned scheduling disabled. An unavailable previous controller keeps migration pending. Changing Device or reviewing a transition does not save settings or change output. New schedule enablement is unavailable here.
 
-Use **Check saved result** when a reply is interrupted. Pending or unknown work
-keeps migration pending; closing the browser or restarting the Pi does not prove
-completion. After a restart during handover, review current output and explicitly
-confirm reconciliation when offered. Keep the saved state and recovery evidence.
+Use **Check saved result** when a reply is interrupted. Pending or unknown work keeps migration pending; closing the browser or restarting the Pi does not prove completion. Checking a result does not resend the request. After a restart during handover, review current output and explicitly confirm reconciliation when offered.
 
-After verified disabled staging, **Review previous schedule** offers an explicit
-rollback to this Pi’s recorded previous schedule. Review its warning: restoring
-the previous schedule may transmit under its saved settings. Unknown or active
-work blocks rollback. A remote controller’s unverified retirement cannot be
-substituted for this local transition; dependent remote-Pi migration is unavailable.
+When a previous schedule is available, choose it under **Previous schedule** and select **Review previous schedule**. Restoring it first requests Stop and disables device-owned recurrence, then verifies output is reconciled before granting restoration. The previous schedule may then transmit under its saved settings. A controller schedule can be restored only through its currently paired controller. The Pi keeps its own recurring schedules blocked until the selected controller confirms its result.
+
+If preparation or restoration is unconfirmed, stop and use **Check saved result**. A confirmed preparation step does not automatically submit the next step; review restoration again. If management access changed and the old receipt is private, **Read current state for review** and **I reviewed this state** can resolve the controller’s block after an explicit review when offered. This does not repeat the earlier request or make its historical outcome known. Retained scheduling or output holds still apply.
 
 ## Repair Configuration
 

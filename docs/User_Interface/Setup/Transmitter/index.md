@@ -5,6 +5,8 @@ settings below. A saved Pico exposes its supported independent Si5351, amplifier
 timing, filter, and GPIO-drive resources with explicit reads and saves. Its
 complete engine/pin/GPS plan is under **Device I/O**; **Edit RF engine and pins** takes you there. Selection never changes an output backend.
 
+A paired Pi uses the same tabs with its own explicit **Read saved settings** and **Save this Pi’s settings** controls. Read its settings and verify its identity before editing output, calibration, or band GPIO values. The selected Pi’s draft stays separate from local autosave. A Pico attached to a managed Pi uses that Pi’s existing connection automatically; selecting it does not switch this controller’s output. See [Choose and edit a device](../index.md#choose-and-edit-a-device) for saved-result recovery and retained drafts.
+
 ![Selected Pico transmitter settings](pico-transmitter.png)
 
 ![Transmitter controls showing GPIO selection and frequency calibration](transmitter.jpg)
@@ -264,19 +266,16 @@ USB Fleet control does not require Pico Wi-Fi setup.
 ```
 
 Open **Setup → Fleet** to add a Pico to WsprryPi, select it for jobs from this
-Pi, or assign independent schedules to several outputs. Fleet is available on
+Pi, or review existing independent schedules on several outputs. Fleet is available on
 every page load. Opening the tab and browsing devices do not select an output,
 save settings, or start transmission.
 
 Use a Pico 2 W running WsprryPico firmware. Connect its USB cable to the Pi
 that runs WsprryPi, or connect both devices to a reachable network. Start with
-the [device list](#known-and-nearby-devices), then choose either **Use this
-device** for the Pi's single selected output or
-[Assign a schedule](../index.md#assign-an-output-schedule) for an independent
-fleet output. These are separate choices.
+the [device list](#known-and-nearby-devices). **Use this device** selects the Pi’s single output. To review an existing independent Fleet assignment, use [Output schedules](../index.md#manage-existing-output-schedules). These are separate choices; adding a new output schedule is unavailable.
 
 **Use Pico** selects the WTP backend in the saved host configuration. It is
-separate from highlighting a device in the catalog or assigning an independent
+separate from highlighting a device in the catalog or managing an existing independent
 schedule. **Use this device** applies the chosen saved profile and selects that
 backend; it does not enable transmission. The **Connection** choice supports
 USB, Plain LAN, and Network (TLS). See the
@@ -287,7 +286,7 @@ for individual connection settings.
 
 These prerequisites apply when selecting **Use Pico** or **Use this device**
 for this Pi's active output. They are not required merely to save a catalog
-profile or create an independent assignment.
+profile or review an existing independent assignment.
 
 1. Keep Pi transmission disabled and resolve pending, owned, active, or unresolved
    Pico work before switching endpoints.
@@ -380,8 +379,8 @@ requires explicit review and consent again; neither binding silently follows
 a changed advertisement or falls back to another binding. Manual profiles
 keep their configured connection behavior.
 
-For independent remote schedules alongside this Pi's local schedule, use
-[Output schedules](../index.md#assign-an-output-schedule). The Pi server uses
+For existing independent remote schedules alongside this Pi's local schedule, use
+[Output schedules](../index.md#manage-existing-output-schedules). The Pi server uses
 Plain LAN and derives its supported modes and frequency limits from the
 selected backend. Native GPIO, RP1, and Si5351 support finite WSPR, TONE, QRSS, FSKCW, and DFCW jobs under their existing backend policies. See
 [Pi WTP server capability](../../../Command_Line_Operations/transmitter_backends.md#pi-wtp-server-capability)

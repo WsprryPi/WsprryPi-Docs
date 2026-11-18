@@ -29,6 +29,12 @@ bridges, containers, point-to-point interfaces, and merely private or
 local-looking addresses are not trusted automatically. If no eligible subnet
 can be established, protected non-loopback access fails closed.
 
+## Paired Pi management
+
+[Controller access](index.md#controller-access) establishes a separate authenticated TLS connection between the controller and managed Pi. The devices maintain that connection’s credentials automatically. It carries supported Pi settings and management of Picos attached through that Pi. Discovery alone does not grant access. Pairing and paired management are unavailable while privileged network safety is off or its active state is unknown.
+
+The browser still uses the configured web page and WebSocket transport. Pairing does not encrypt that browser hop, and it does not change WTP transport or claim rules. Use a trusted local network for the browser, including temporary pairing-code display and entry. Direct Pico network management retains the Pico’s existing login and transport requirements.
+
 ## Apply a state
 
 Use the **Privileged network safety** panel on **Maintenance**:
