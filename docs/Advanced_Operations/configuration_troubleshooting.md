@@ -50,12 +50,12 @@ For **Restoration failed**, correct the reported service error and follow the co
 
 Use [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname) for the device-side save, restart, and sign-in procedure. WsprryPi's settings form does not rename the Pico; renaming a Fleet profile changes only its label. If a Pico save or restart reply is lost, read the saved and active state before repeating it. A timeout does not prove the change failed or output stopped.
 
-Keep Pi transmission and the affected Fleet assignment paused while reviewing the destination. Resolve pending, owned, or uncertain jobs through [Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery). Disabling Pi transmission alone does not disable Pico's autonomous schedule.
+Keep the affected transmitter’s schedule disabled while reviewing the destination. Resolve pending, owned, or uncertain jobs through [Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery). Disabling Pi transmission alone does not disable Pico's autonomous schedule.
 
 | What you see | What to do |
 | --- | --- |
-| Browser opens at the new name, but WsprryPi cannot connect | Review the saved profile, active `[WTP]` endpoint, and independent assignment destinations. A browser HTTP address is not a WTP listener port. |
-| Fleet still shows the old destination | Edit and freshly identify the saved profile, then use **Use this device** if changing the single active endpoint. Editing a label or profile alone does not switch it. |
+| Browser opens at the new name, but WsprryPi cannot connect | Review the saved management profile, hostname, carrier, and management port. Verify the full device ID after reconnecting. |
+| Fleet still shows the old destination | Edit and freshly identify the saved management profile, then reconnect the selected device. Editing a profile label does not change its address or identity. |
 | New name is unreachable | Try the current LAN IPv4 address and verify the full device ID. Follow the Pico manual for duplicate-name or setup-Wi-Fi recovery. |
 | Different full device ID | Verify the intended board and address before using it. Renaming does not change the stable ID. |
 | Certificate or hostname-certificate error | Check the expected TLS identity and provisioned credentials. Keep verification enabled and preserve the chosen transport. |
@@ -63,15 +63,11 @@ Keep Pi transmission and the affected Fleet assignment paused while reviewing th
 
 [After a Pico hostname change](ini_configuration/transmitter_backends.md#after-a-pico-hostname-change) explains which Pi settings to update. Keep [Privileged network safety](../User_Interface/Maintenance/network_safety.md#pico-hostname-and-management-access) enforced; disabling the Pi's LAN policy does not repair discovery or Pico credentials. Device-side reset and access recovery belong to the [Pico maintenance guide](https://wsprrypico.readthedocs.io/en/devel/maintain.html) and [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troubleshoot.html).
 
-## Fleet Operations remains unavailable or unconfirmed
+## Device management remains unavailable or unconfirmed
 
-If Fleet initialization fails, Fleet status is unavailable and reports the initialization error. Resolve the reported configuration, storage, or identity problem through maintenance before retrying. A successful Fleet initialization establishes a new controller context; earlier unknown action results remain unconfirmed. Controller unavailability does not establish device output-off.
+Read the reported connection, storage, or identity error before retrying. Confirm the selected device’s full identity, management profile, and current connection. A controller that cannot reach a transmitter cannot establish that its output is off.
 
-Check the selected Device and its full identity before acting. A stale observation is not renewed by an HTTP refresh alone. A failed connection requires explicit Reconcile; a healthy foreign job must finish or be managed by its actual owner. Pause can confirm this controller's schedule while foreign output remains active or device output is unknown.
-
-After an unconfirmed action, read authoritative current status and review it. Reconcile tracked work before resuming; do not repeat a mutation blindly or treat an old enabled flag as confirmation. A controller restart invalidates volatile action history. Restored in-flight and retained-cleanup barriers remain authoritative.
-
-A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and edits. Safe Pause of an already verified live owner remains available, with its achieved and unconfirmed postconditions reported separately. Preserve the private `.wtp-fleet-contexts.json` file beside the active INI and the `.wtp-assignments.json` file. Resolve storage or binding conflicts through maintenance and restore verified state; do not delete a journal, guess a retired endpoint or edit away a barrier.
+After an unconfirmed save or stop, read authoritative current status and review the original result. Do not repeat an unknown mutation. A changed boot, profile, or authorization requires a fresh connection and readback. Preserve configuration and recovery records when requesting support.
 
 ## First scheduling setup remains held
 

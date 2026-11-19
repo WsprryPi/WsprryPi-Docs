@@ -2,21 +2,11 @@
 
 The **Operation** page is the main view for monitoring transmissions.
 
-Native device-owned scheduling has an independent enable state, managed through the [protected target API](../../Advanced_Operations/rest_api.md#local-pi-device-owned-scheduling). Turning that state off allows an accepted complete occurrence to drain and keeps output ownership. The existing Transmit and Stop controls retain their separate permission and cancellation behavior. A solar wait is normal waiting; a forecast or countdown alone does not establish execution.
+Native device-owned scheduling has an independent enable state, managed under [Setup → Scheduling](../Setup/Scheduling/index.md). Turning that state off allows an accepted complete occurrence to drain and keeps output ownership. The existing Transmit and Stop controls retain their separate permission and cancellation behavior. A solar wait is normal waiting; a forecast or countdown alone does not establish execution.
 
-## Select a Fleet output
+## Manage another transmitter
 
-When an assigned Pi or Pico exists, the **Device** selector appears beside the Operations heading. It also includes removed outputs whose cleanup remains unresolved. A saved device profile alone does not add an output. **This Pi (controller)** is selected whenever the page opens. Selecting another output changes this view only; it does not change configuration, ownership, the single selected WTP backend or any schedule.
-
-The selected device's name and full identity stay beside its status. **Schedule enabled** and **Schedule paused** describe its assigned schedule. **Running** requires matching device job evidence; a countdown reaching zero does not establish execution. Intentional output-off intervals can occur inside a running job. Device observations and requested/realized frequency values are software reports, not measured RF or frequency qualification. Plain LAN's expected identity match is not authentication.
-
-Device observations become stale at 15 seconds. Their age continues increasing if refresh fails; a refreshed page does not make an old observation current. A healthy new context receives one read-only inspection. A failed connection requires explicit **Reconcile**; opening Operations or changing Device does not reconnect, claim output, set a clock or start a transmission. **Other job on device** identifies work outside this assignment and never offers takeover. A previous completed or canceled job remains historical when another owner is present; it does not establish that the device is idle.
-
-Use **Resume schedule** only after reviewing fresh, inactive, unowned status and the saved schedule. Resume schedules future eligible occurrences and does not replay an interrupted slot. **Pause and stop** confirms the selected device and disables this controller's schedule while stopping its owned work. A confirmed schedule pause alone does not mean the device stopped: another job can remain active, or its output can be unknown. **Reconcile** reports its own result and leaves the schedule paused. **Edit schedule** opens the existing Fleet editor with the selected assignment; unsaved entries retain their original target and revision.
-
-Acceptance and completion are separate. Read the action feedback beside the controls. After a timeout or an unconfirmed outcome, use **Read status**, review the current state, and reconcile outstanding work before another start. **Review current state** acknowledges the current readback without rewriting an earlier unknown action as successful. Once the controller has finished handling a request, review can release its browser tracking entry even if the device still needs reconciliation; the recovery block remains in place. Wait for an in-flight request before reviewing it. Changing Device preserves pending action tracking. A replaced or removed assignment remains visibly removed until acknowledged; it never silently selects another target.
-
-Controller reboot, shutdown, and reboot-behavior controls are hidden while a remote output is selected. The connection indicator and header clocks still describe the controller. With **This Pi** selected, the existing local controls apply; when its backend is WTP, those controls operate the configured endpoint rather than physical output on the controller.
+Use **Device** under [Setup](../Setup/index.md) to manage a paired Pi or supported Pico. Review that device’s saved settings and native schedule there. Closing the controller’s browser does not stop another device’s schedule. Operations and the header clocks describe this controller; a saved management profile does not select its local transmitter backend.
 
 ## Initial Operations
 
@@ -47,7 +37,7 @@ The card shows the current state and transmission plan, with controls to enable,
 
 - **Transmission Controls:** This panel contains a switch to enable or disable transmissions as well as an emergency stop.
 
-  - *Transmit Enabled* switch enables or disables the transmission scheduler.  When enabled, the transmitter operates on the schedule you have configured.  If you disable it, the configuration saves immediately; any in-progress transmission finishes.
+  - *Transmit Enabled* permits or prevents output. The saved schedule must also be enabled under **Setup → Scheduling** before recurring transmissions can run.  If you disable it, the configuration saves immediately; any in-progress transmission finishes.
   - *Stop transmission* halts an ongoing transmission immediately and disables future transmissions. It is only enabled during a transmission.
 
 - **USB dial / Next USB dial:** The WSPR panel displays the current or next USB dial frequency. RF center = dial + 1500 Hz + optional random placement. The standard 20m dial is 14,095,600 Hz, and its RF center without random placement is 14,097,100 Hz. **Random placement** shows the signed WSPR offset in Hz, separately from the fixed 1,500 Hz placement. CW labels identify **Carrier** for QRSS, **Space** for FSKCW, and **Dot** for DFCW; **Positive shift** gives the mark or dash offset. These values describe requested frequencies, not measured RF.

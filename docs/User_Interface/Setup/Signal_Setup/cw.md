@@ -66,7 +66,7 @@ The label follows the selected mode: **Carrier frequency** for QRSS, **Space fre
 
 ### Frequency calibration
 
-CW uses the selected transmitter backend's frequency-correction settings. Configure those settings under [Transmitter](../Transmitter/index.md); they correct reference-clock error and do not replace the carrier, space, dot, or positive-shift values. A remote WTP transmitter owns its correction; supplied absolute RF targets do not receive Pi calibration again. Use an independently calibrated receiver when measuring RF. See [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md).
+CW uses the selected transmitter backend's frequency-correction settings. Configure those settings under [Transmitter](../Transmitter/index.md); they correct reference-clock error and do not replace the carrier, space, dot, or positive-shift values. A selected Pico applies its own frequency correction; the controller’s Pi calibration does not apply to Pico output. Use an independently calibrated receiver when measuring RF. See [Transmission Timing and Calibration](../../../Advanced_Operations/timing_calibration.md).
 
 ## Schedule
 

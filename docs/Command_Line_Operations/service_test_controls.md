@@ -52,9 +52,3 @@ For clock-error measurements, see [Interpreting Test Tone Measurements](../Advan
 - CLI options override INI values unless restricted.
 - Some advanced features are CLI-only.
 - Root privileges (`sudo`) are required for RF output.
-
-## Managed WTP listener port
-
-- `--wtp-server-port <port>` overrides the managed Pi WTP listener's port for this process. Valid values are `1` through `65535`; the saved default is `31417` in `[WTP Server]`.
-
-The override does not rewrite the INI. DNS-SD advertises the actual listening port, including an override. This option does not enable local RF, create a remote assignment, or make a direct one-shot command start the managed server. See [WTP Server configuration](../Advanced_Operations/ini_configuration/runtime.md#retired-wtp-configuration) for admission and interface selection. The Pi endpoint's finite remote TONE job is separate from the continuous local `--test-tone` control above.

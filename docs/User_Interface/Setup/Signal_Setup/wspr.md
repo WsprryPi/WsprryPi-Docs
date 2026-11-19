@@ -4,7 +4,7 @@ Use this page for WSPR station identity, transmission planning, frequency, power
 
 WSPR (Weak Signal Propagation Reporter) is the original mode for WsprryPi. The controls described below appear in the **WSPR** half of the signal-mode selector. With **This Pi** selected, configuration saves automatically after each valid change. For a paired Pi, read its saved settings first and use **Save this Pi’s settings** explicitly; the values belong to that selected Pi.
 
-The planning preferences on this page belong to the **Pi host**. Pico member station defaults use [Pico automatic planning](../Transmitter/index.md#pico-automatic-wspr-planning), which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for a supported compound with six characters, and a single Type 3 for explicit brackets with six characters. No Pi preference selector changes that automatic member plan. Prepared WTP jobs retain their supplied finite plan.
+The planning preferences on this page belong to the **Pi host**. Pico member station defaults use [Pico automatic planning](../Transmitter/index.md#pico-automatic-wspr-planning), which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for a supported compound with six characters, and a single Type 3 for explicit brackets with six characters. No Pi preference selector changes that automatic member plan.
 
 ## Station Identity
 
