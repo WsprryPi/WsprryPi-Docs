@@ -13,8 +13,11 @@ Review [hardware and band limits](../About_Wsprry_Pi/index.md#band-qualification
 Development source uses one coordinated Pi/Pico control schema. A previously
 published Pico release is not automatically compatible with a later development
 schema. Use the [compatibility and upgrade guidance](pico.md#compatible-software)
-for the selected source pair. Complete legacy retirement with matching
-WTP-capable software before replacement. This development command follows
+for the selected source pair. Deployments with outstanding remote WTP work
+must complete [WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
+with matching WTP-capable software before replacement. A Pi retaining its
+previous local scheduler can instead complete [local scheduling migration](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule)
+after updating, using the current software. This development command follows
 `devel` supporting files and its available executable. A published executable
 can predate the current control schema; confirm the matched sources before use.
 For the matched RC.1 executable, use the [pinned RC.1 installation command](rc1.md).

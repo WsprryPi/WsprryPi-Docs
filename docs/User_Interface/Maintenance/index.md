@@ -20,8 +20,10 @@ startup are verified, the ordinary Maintenance controls become available.
 Updates and configuration resets retain the installation's scheduling history.
 If established history is missing or damaged, the page opens read-only recovery;
 it cannot use initial setup or Reset to bypass that condition. An existing
-installation with scheduling assignments requires migration rather than initial
-setup.
+installation with a previous local schedule uses
+[local scheduling migration](#migrate-a-local-pi-schedule) rather than initial
+setup. Outstanding remote WTP duties require
+[retirement before upgrading](#retire-remote-wtp-work-before-upgrading).
 
 ## Controller access
 
@@ -39,19 +41,72 @@ If a controller-access change is unconfirmed, use **Check saved result**. Refres
 
 ## Scheduling ownership
 
-A Pi configured to send transmissions to another device cannot convert that
-remote output into a local device-owned schedule. Retire the controller's remote
-schedule and reconcile accepted work using WTP-capable software. Then choose the
-device that produces the signal under **Setup → Device** and configure its own
-schedule. Review migration remains unavailable for the Pi's remote output.
+Installing an update preserves established scheduling ownership. Moving a Pi's
+previous local schedule to native scheduling is a separate, explicit action in
+the current software. Retiring remote WTP work is a different procedure that
+must finish before replacing WTP-capable software.
 
-Under **Scheduling ownership**, choose the Pi under **Device**, then use **Review migration**. Review the identified device, acknowledge the change, and select **Confirm migration**. The Pi retires recorded previous schedules, reconciles accepted work, and saves device-owned scheduling disabled. An unavailable previous controller keeps migration pending. Changing Device or reviewing a transition does not save settings or change output. After confirmed migration, open [Setup → Scheduling](../Setup/Scheduling/index.md), read the disabled policy, review its target-site and frequency values, save and verify any changes, then explicitly enable the saved schedule there. Maintenance does not enable a schedule.
+### Migrate a local Pi schedule
+
+Use this procedure when the selected Pi produces its own signal through GPIO or
+Si5351. It works in the current software and does not require WTP support. The
+Pi retires its previous local scheduling authority, reconciles accepted work,
+and retains the saved configuration with native scheduling disabled. The
+previous local schedule remains available for controlled restoration.
+
+1. Open **Maintenance → Scheduling ownership** and choose the Pi under **Device**.
+2. Select **Review migration**, verify the identified device, acknowledge the
+   change, and select **Confirm migration**. Reviewing alone changes nothing.
+3. Wait for confirmation that the device-owned schedule is saved and disabled.
+   Accepted or uncertain work keeps the handover pending.
+4. Open [Setup → Scheduling](../Setup/Scheduling/index.md) for the same Pi. Read
+   the disabled policy and review its mode, frequency settings, and any solar
+   policy. Save and verify any changes with **Save disabled policy**.
+5. Select **Enable saved schedule** when ready. Transmit permission and boot
+   behavior remain separate; enabling scheduling does not turn on Transmit.
+
+The authority states distinguish progress: **legacy** retains the previous
+scheduler, **staged** confirms migration with native scheduling disabled, and
+**native** follows explicit enable of the saved native schedule. Ordinary
+scheduling can leave solar selection off.
+
+Postpone migration while accepted work, uncertain output, or damaged history
+needs reconciliation. A previous local scheduler can also be retained while
+evaluating a known configuration. Native recurring scheduling requires the
+handover; installing the software alone does not perform it.
 
 Use **Check saved result** when a reply is interrupted. Pending or unknown work keeps migration pending; closing the browser or restarting the Pi does not prove completion. Checking a result does not resend the request. After a restart during handover, review current output and explicitly confirm reconciliation when offered.
 
-When a previous local schedule is available, choose it under **Previous schedule** and select **Review previous schedule**. Restoring it first requests Stop and disables device-owned recurrence, then verifies output is reconciled before granting restoration. The previous local schedule may then transmit under its saved settings. Controller-owned WTP schedules cannot be restored by this software. Their records remain held for recovery with compatible WTP-capable controller and target software; do not enable an old controller against a retirement image.
+When a previous local schedule is available, choose it under **Previous schedule** and select **Review previous schedule**. Restoring it first requests Stop and disables device-owned recurrence, then verifies output is reconciled before granting restoration. The previous local schedule may then transmit under its saved settings. This control cannot restore controller-owned WTP schedules.
 
 If preparation or restoration is unconfirmed, stop and use **Check saved result**. A confirmed preparation step does not automatically submit the next step; review restoration again. If management access changed and the old receipt is private, **Read current state for review** and **I reviewed this state** can resolve the controller’s block after an explicit review when offered. This does not repeat the earlier request or make its historical outcome known. Retained scheduling or output holds still apply.
+
+### Retire remote WTP work before upgrading
+
+This procedure applies to an older deployment where a controller sends WTP jobs
+to another transmitter. Current software has no WTP dispatch or listener and
+cannot finish those jobs. A controller's remote output cannot be converted into
+a native local schedule on that controller.
+
+1. Before replacing the affected binaries or firmware, keep the compatible
+   WTP-capable controller and transmitter software available. Back up settings
+   and preserve ownership, assignment, and recovery records.
+2. Stop new controller dispatch using that software's controls. Let accepted
+   work finish or use its explicit stop procedure, then verify inactive, unowned
+   output and reconcile any uncertain cleanup. Losing contact is not completion.
+3. Complete the authenticated retirement for every recorded controller
+   assignment and verify the saved result. Offline controllers or transmitters
+   and unresolved work keep retirement pending; postpone replacement.
+4. Once those duties are resolved, update the affected devices as a compatible
+   pair. Select the device that produces the signal under **Setup → Device**,
+   configure its native schedule, save it disabled, and review it before enable.
+
+If already upgraded with unresolved WTP records, preserve them and obtain
+recovery guidance for the matching earlier controller and target software.
+Current read-only records do not establish cleanup. Do not delete history,
+reset configuration, or enable an old controller against a retirement image.
+**Review migration** remains unavailable for a Pi configured with remote WTP
+output. Local Pi migration above does not require returning to older software.
 
 ## Repair Configuration
 

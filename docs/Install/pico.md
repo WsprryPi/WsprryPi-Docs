@@ -18,7 +18,7 @@ Management does not require the Pico’s Wi-Fi when it is attached by USB.
 Use matching Pi and Pico management contracts. A device that lacks the required
 native schedule or management capability must remain on compatible software or
 receive a separately planned update. Before replacing WTP-capable software,
-complete [migration and cleanup](../User_Interface/Maintenance/index.md#scheduling-ownership)
+complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
 for every legacy controller and transmitter. Keep usable recovery binaries and
 configuration backups until their duties are resolved.
 

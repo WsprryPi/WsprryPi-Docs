@@ -109,7 +109,23 @@ A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and e
 
 ## Scheduling migration or retirement remains pending
 
-An offline device, unknown output, or unresolved accepted job keeps the operation
+### Local Pi scheduling migration
+
+Use the current software for [local migration](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule).
+WTP support is not required. A previous local schedule retains legacy authority
+until explicitly migrated. A confirmed migration leaves native scheduling
+disabled; enable the saved schedule separately after review.
+
+Use **Check saved result** after an interrupted reply. Follow the explicit
+reconciliation offered after a restart. Only verified disabled staging offers
+**Review previous schedule**; restoring that schedule may transmit under its
+saved settings. Missing or damaged established history requires recovery, not
+initial setup. Preserve the reported storage error and existing state when
+seeking help.
+
+### Remote WTP retirement before upgrading
+
+An offline device, unknown output, or unresolved accepted job keeps WTP retirement
 pending. Do not delete scheduling history, restore an older enabled assignment,
 or reset configuration to bypass it. Accepted work finishes before retirement
 can be confirmed; a returning browser or restarted controller does not prove
@@ -120,14 +136,11 @@ It reviews the retained request rather than starting another retirement. A
 confirmed retirement prevents that saved controller assignment from resuming.
 It does not create a replacement schedule or disable another controller's work.
 
-For this Pi's migration, follow the explicit reconciliation offered after a
-restart. Only verified disabled staging offers **Review previous schedule**;
-restoring that previous schedule may transmit under its saved settings. Missing
-or damaged established history requires recovery, not initial setup. Preserve
-the reported storage error and existing state when seeking help.
-
-See [Scheduling ownership](../User_Interface/Maintenance/index.md#scheduling-ownership)
-and [existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
+Complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
+with matching older WTP-capable software before replacing the affected deployment.
+The current retirement build cannot dispatch or finish WTP jobs. If replacement
+already occurred, retain the records and seek compatible recovery guidance. See
+[existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
 
 ## Native scheduling is held or a solar save is rejected
 

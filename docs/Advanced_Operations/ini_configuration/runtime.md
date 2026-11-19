@@ -118,7 +118,7 @@ management and retirement records, `<active-INI-path>.wtp-assignments.json`,
 `.wtp-fleet-contexts.json`, and `.wtp-devices.json`. Assignment records retain
 consumed slots and uncertain work; device profiles retain connection settings.
 Read-only legacy records never authorize reconnect or replay. Deleting history
-cannot establish cleanup. Follow [migration and recovery](../../User_Interface/Maintenance/index.md#scheduling-ownership)
+cannot establish cleanup. Follow [remote WTP retirement](../../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
 with WTP-capable software before replacing a deployment that still has duties.
 
 

@@ -1,6 +1,12 @@
 # Device-owned scheduling
 
-Choose the device beside the Setup tabs, then open **Scheduling**. The same controls manage **This Pi** and a verified paired Pi. Confirm the full identity, connection, execution owner and output destination before editing. A Pi can own a schedule whose output is a separate WTP transmitter; the output destination is not necessarily the device running the schedule.
+Choose the device beside the Setup tabs, then open **Scheduling**. The same controls manage **This Pi** and a verified paired Pi. Confirm the full identity, connection, execution owner, and output destination before editing. The selected transmitting device owns and runs its native schedule. A controller manages that device's settings; it does not dispatch WTP transmissions.
+
+An updated Pi can still retain its previous local scheduler. Use
+[local scheduling migration](../../Maintenance/index.md#migrate-a-local-pi-schedule)
+in the current software before enabling native recurrence. Migration saves the
+schedule disabled; explicit enable is a separate step. Older remote WTP
+deployments require [retirement before upgrading](../../Maintenance/index.md#retire-remote-wtp-work-before-upgrading).
 
 The selected Pi runs accepted schedules without an open browser or management controller. Closing the page does not stop a schedule. Reading, changing the selected device, and **Review draft** do not save or enable anything.
 

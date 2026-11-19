@@ -79,7 +79,7 @@ replacement. **Retired** means the recorded controller retirement completed; it
 does not establish that the target is online or stopped. View the saved identity
 and retirement status without deleting the recovery files.
 
-Complete the [pre-replacement migration procedure](../Maintenance/index.md#scheduling-ownership)
+Complete the [pre-upgrade WTP retirement procedure](../Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
 for every affected controller and transmitter. Offline targets, unknown output,
 and unresolved retirement keep the affected deployment on WTP-capable software.
 Other devices can still be managed independently.

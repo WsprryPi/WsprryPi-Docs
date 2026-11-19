@@ -147,4 +147,6 @@ do not replay the mutation. If management is unavailable, use the Pico’s local
 USB Console recovery procedure. Draft settings remain separate from stop.
 
 See [Fleet setup](Setup/index.md#pi-and-pico-fleet-setup) and
-[pre-replacement migration](Maintenance/index.md#scheduling-ownership).
+[local Pi scheduling migration](Maintenance/index.md#migrate-a-local-pi-schedule).
+Older deployments with remote WTP duties require
+[retirement before upgrading](Maintenance/index.md#retire-remote-wtp-work-before-upgrading).

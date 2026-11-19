@@ -238,7 +238,7 @@ A native stop disables both schedules and confirms inactive, unowned output.
 Unknown mutation outcomes require authoritative readback, never automatic replay.
 Local native Pi enable and output reconciliation still enforce confirmed cleanup,
 protected journals, and existing authority rules. Preserve legacy records; perform
-[pre-replacement migration](../User_Interface/Maintenance/index.md#scheduling-ownership)
+[pre-upgrade remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
 with WTP-capable software before replacing affected deployments.
 
 ## Selected Pico application, station and hardware
@@ -441,7 +441,11 @@ and [time and recurrence holds](ini_configuration/runtime.md#native-recurrence-a
 ### Local scheduling ownership
 
 `GET /api/control/v1/targets/{device_id}/migration` reads this Pi's scheduling
-authority. Explicit migration uses `POST .../migration`; rollback uses
+authority. Local migration is supported by the current retirement build and
+does not require WTP-capable software. It saves native scheduling disabled;
+explicit enable activates native authority. See the
+[local migration procedure](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule).
+Explicit migration uses `POST .../migration`; rollback uses
 `POST .../migration/rollback`. These operations require the current target
 binding, capability revision, authority generation, strong `If-Match`, and a
 protected browser session. Save the original operation ID and request before
