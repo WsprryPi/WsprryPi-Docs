@@ -1,14 +1,8 @@
 # Signal Setup Tab
 
-Choose **Device** beside the tabs first. With **This Pi**, Signal Setup configures
-the local signal type and message content and keeps validated autosave.
+Choose **Device** beside the tabs first. With **This Pi**, Signal Setup configures the local signal type and message content and keeps validated autosave.
 
-With a saved Pico, this tab shows station progress and complete station saves. Its existing WSPR recurrence, gray-line and standalone combined-settings editors are in [Scheduling](../Scheduling/index.md). Read saved values before an explicit save. Applying saved station progress is a separate action; saving a
-draft does not make an incomplete station ready or enable output. Existing
-standalone schedules retain their own explicit save and enable semantics.
-Pi CW profiles are not mapped onto Pico settings. Unsupported controls are
-unavailable rather than sent to the local Pi. See
-[Pico station resources](../Transmitter/index.md#shared-pico-member-resources).
+With a saved Pico, this tab shows station progress and complete station saves. Its existing WSPR recurrence, gray-line, and standalone combined-settings editors are in [Scheduling](../Scheduling/index.md). Read saved values before an explicit save. Applying saved station progress is a separate action; saving a draft does not make an incomplete station ready or enable output. Existing standalone schedules retain their own explicit save and enable semantics. Pi CW profiles are not mapped onto Pico settings. Unsupported controls are unavailable rather than sent to the local Pi. See [Pico station resources](../Transmitter/index.md#shared-pico-member-resources).
 
 The local Pi view has two main modes, WSPR and CW.
 

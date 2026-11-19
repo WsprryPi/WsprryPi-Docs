@@ -15,102 +15,40 @@ Wall-clock synchronization and GPIO frequency calibration are related but distin
 (pi1-4-host-frequency-calibration)=
 #### Pi 1–4: OS clock estimate
 
-Pi 1–4 GPIO transmission uses RF clock parents derived from the same board
-oscillator as host timing. Enable **System clock estimate** in
-**Setup > Transmitter > GPIO Output > Frequency calibration** to apply
-Chrony's host-frequency estimate to WsprryPi's RF frequency model.
+Pi 1–4 GPIO transmission uses RF clock parents derived from the same board oscillator as host timing. Enable **System clock estimate** in **Setup > Transmitter > GPIO Output > Frequency calibration** to apply Chrony's host-frequency estimate to WsprryPi's RF frequency model.
 
-**GPS/PPS hardware is optional.** Chrony can use network time sources; a
-properly configured GPS/PPS reference can improve its clock-rate estimate
-and UTC synchronization. Linux, GPS services, and Chrony handle PPS at the
-operating-system level. WsprryPi does not capture PPS directly on Pi 1–4
-and has no PPS-input GPIO setting for these hosts.
+**GPS/PPS hardware is optional.** Chrony can use network time sources; a properly configured GPS/PPS reference can improve its clock-rate estimate and UTC synchronization. Linux, GPS services, and Chrony handle PPS at the operating-system level. WsprryPi does not capture PPS directly on Pi 1–4 and has no PPS-input GPIO setting for these hosts.
 
-Configure GPS/PPS through the OS when using it, verify Chrony's synchronization,
-and enable **System clock estimate** in WsprryPi. Chrony does not directly
-tune the RF output: WsprryPi applies its estimate, chipset compensation, and
-any **Residual PPM** to the RF model. **Fixed/manual PPM** remains the fallback
-when no usable estimate is available. See the
-[Pi 4 GPS/PPS example](../Additional_Reading/validation_platform.md) for wiring
-and {ref}`Configure and verify Chrony <configure-and-verify-chrony>` for
-upstream setup guides and time-service checks.
+Configure GPS/PPS through the OS when using it, verify Chrony's synchronization, and enable **System clock estimate** in WsprryPi. Chrony does not directly tune the RF output: WsprryPi applies its estimate, chipset compensation, and any **Residual PPM** to the RF model. **Fixed/manual PPM** remains the fallback when no usable estimate is available. See the [Pi 4 GPS/PPS example](../Additional_Reading/validation_platform.md) for wiring and {ref}`Configure and verify Chrony <configure-and-verify-chrony>` for upstream setup guides and time-service checks.
 
-Pi 5/RP1 has a separate RF clock. Its optional direct PPS calibration is
-described below.
+Pi 5/RP1 has a separate RF clock. Its optional direct PPS calibration is described below.
 
 (direct-pps-calibration-on-pi-5)=
 #### Direct PPS calibration on Pi 5
 
-With the RP1 GPIO backend, **Direct PPS calibration (Pi 5 / RP1)** measures the
-RF clock against GPS PPS. It is disabled by default. It requires an existing
-`pps0` input on GPIO17, Linux RP1 PIO support, and access to the system clock
-tree. WsprryPi observes the input without changing its pin configuration or
-taking it away from Chrony.
+With the RP1 GPIO backend, **Direct PPS calibration (Pi 5 / RP1)** measures the RF clock against GPS PPS. It is disabled by default. It requires an existing `pps0` input on GPIO17, Linux RP1 PIO support, and access to the system clock tree. WsprryPi observes the input without changing its pin configuration or taking it away from Chrony.
 
-Enable it only after verifying the receiver, PPS wiring, reference lock, and
-an edge-error budget of at most one microsecond. Chrony must select that local
-reference alone, with a report age of at most 300 seconds and normal leap status.
-The existing Chrony adapter refreshes every 120 seconds; this selection-health
-check is separate from the direct RF measurement's 30-second expiry. A selected
-local-source label does not independently verify receiver lock or wiring;
-the administrator remains responsible for that reference qualification.
-Do not assign GPIO17 to an LED, amplifier, shutdown button, or band selector.
+Enable it only after verifying the receiver, PPS wiring, reference lock, and an edge-error budget of at most one microsecond. Chrony must select that local reference alone, with a report age of at most 300 seconds and normal leap status. The existing Chrony adapter refreshes every 120 seconds; this selection-health check is separate from the direct RF measurement's 30-second expiry. A selected local-source label does not independently verify receiver lock or wiring; the administrator remains responsible for that reference qualification. Do not assign GPIO17 to an LED, amplifier, shutdown button, or band selector.
 
-1. Keep transmission disabled, configure the existing GPS/PPS source, and
-   verify Chrony's synchronization and receiver lock.
-2. In **Setup > Transmitter > GPIO Output > Frequency calibration**, review
-   **Fallback PPM** and **Residual PPM**, then enable **Direct PPS calibration**.
-   An old residual measured with the host estimate may be inappropriate for
-   this different correction source; retain a record and measure it again.
-3. Allow at least 30 seconds for three distinct ten-second measurements with
-   a spread of at most 0.1 ppm. Acquisition status appears beside the control
-   and in the Operations frequency correction panel.
-4. Confirm a qualified direct PPS estimate before testing output. Compare
-   repeated, finite conducted tones against an independently verified RF
-   reference. Apply only the remaining measured error as **Residual PPM**.
+1. Keep transmission disabled, configure the existing GPS/PPS source, and verify Chrony's synchronization and receiver lock.
+2. In **Setup > Transmitter > GPIO Output > Frequency calibration**, review **Fallback PPM** and **Residual PPM**, then enable **Direct PPS calibration**. An old residual measured with the host estimate may be inappropriate for this different correction source; retain a record and measure it again.
+3. Allow at least 30 seconds for three distinct ten-second measurements with a spread of at most 0.1 ppm. Acquisition status appears beside the control and in the Operations frequency correction panel.
+4. Confirm a qualified direct PPS estimate before testing output. Compare repeated, finite conducted tones against an independently verified RF reference. Apply only the remaining measured error as **Residual PPM**.
 
-Direct PPS replaces the host frequency estimate for RP1; it does not add a
-second full estimate. It reconciles the measured parent error with the
-intrinsic chipset compensation, which still applies once. The displayed
-correction remains the additional term. **Residual PPM** applies only to a
-usable measurement, and **Fallback PPM** remains independent.
+Direct PPS replaces the host frequency estimate for RP1; it does not add a second full estimate. It reconciles the measured parent error with the intrinsic chipset compensation, which still applies once. The displayed correction remains the additional term. **Residual PPM** applies only to a usable measurement, and **Fallback PPM** remains independent.
 
-Acquisition errors retire the current result and restart qualification.
-Unstable readings return to acquisition and fallback; allow additional settling
-after temperature or load changes.
-Measurements expire after 30 seconds; no expired result is retained as a
-holdover correction. Until a usable result is available, WsprryPi uses the
-configured fallback, including zero additional correction when fallback is
-zero. Fallback zero retains the intrinsic chipset compensation. Accepted
-transmissions keep their original correction; updates affect future work.
+Acquisition errors retire the current result and restart qualification. Unstable readings return to acquisition and fallback; allow additional settling after temperature or load changes. Measurements expire after 30 seconds; no expired result is retained as a holdover correction. Until a usable result is available, WsprryPi uses the configured fallback, including zero additional correction when fallback is zero. Fallback zero retains the intrinsic chipset compensation. Accepted transmissions keep their original correction; updates affect future work.
 
-The ten-second measurement carries a conditional uncertainty bound of
-0.202 ppm with the one-microsecond reference-edge budget. This is an input
-measurement budget, not a guarantee of achieved RF accuracy. Independent
-conducted measurements establish the result for a particular board and setup.
-Clock-tree access, unsupported firmware, unavailable PIO resources, or a
-different PPS input produce an unavailable state and manual fallback.
+The ten-second measurement carries a conditional uncertainty bound of 0.202 ppm with the one-microsecond reference-edge budget. This is an input measurement budget, not a guarantee of achieved RF accuracy. Independent conducted measurements establish the result for a particular board and setup. Clock-tree access, unsupported firmware, unavailable PIO resources, or a different PPS input produce an unavailable state and manual fallback.
 
-The saved system-clock preference is retained when direct PPS is selected.
-Disabling direct PPS restores that preference. Direct PPS calibration applies
-to the Pi 5/RP1 backend. Other backends keep their own calibration. Chrony
-continues to own UTC synchronization. Direct calibration
-adjusts the RF frequency model rather than changing the physical parent rate
-or symbol timing.
+The saved system-clock preference is retained when direct PPS is selected. Disabling direct PPS restores that preference. Direct PPS calibration applies to the Pi 5/RP1 backend. Other backends keep their own calibration. Chrony continues to own UTC synchronization. Direct calibration adjusts the RF frequency model rather than changing the physical parent rate or symbol timing.
 
 (direct-pps-rp1-results)=
 ##### RP1 frequency-calibration results
 
-Direct PPS calibration reduced carrier-frequency error in the measurements
-below on one **Raspberry Pi 5 / RP1**, using both GPIO output routes at 2 mA.
-The conducted steady tones were measured against an independent GPSDO reference.
-The baseline includes normal chipset compensation and Chrony's host-frequency
-estimate, held constant during each baseline group. Direct PPS uses the measured
-RP1 clock correction with zero residual.
+Direct PPS calibration reduced carrier-frequency error in the measurements below on one **Raspberry Pi 5 / RP1**, using both GPIO output routes at 2 mA. The conducted steady tones were measured against an independent GPSDO reference. The baseline includes normal chipset compensation and Chrony's host-frequency estimate, held constant during each baseline group. Direct PPS uses the measured RP1 clock correction with zero residual.
 
-Each error cell shows **repeat 1**, then **repeat 2**, in **Hz (PPM)**. The last
-column gives the largest conditional measurement allowance among the four
-baseline/PPS captures for that row; allowances are rounded outward.
+Each error cell shows **repeat 1**, then **repeat 2**, in **Hz (PPM)**. The last column gives the largest conditional measurement allowance among the four baseline/PPS captures for that row; allowances are rounded outward.
 
 | RP1 output | RF (MHz) | Host-estimate error: Hz (PPM) | Direct PPS error: Hz (PPM) | Measurement allowance |
 | --- | ---: | ---: | ---: | ---: |
@@ -121,14 +59,9 @@ baseline/PPS captures for that row; allowances are rounded outward.
 | GPIO4 | 14.0971 | −31.114 (−2.2071)<br>−31.165 (−2.2107) | −0.159 (−0.0113)<br>+0.275 (+0.0195) | ±0.295 Hz<br>(±0.0209 PPM) |
 | GPIO4 | 28.1261 | −61.994 (−2.2042)<br>−62.196 (−2.2113) | −0.269 (−0.0096)<br>+0.715 (+0.0254) | ±0.438 Hz<br>(±0.0156 PPM) |
 
-Direct PPS reduced the measured error in both runs at every frequency shown.
-GPS/PPS synchronization of host UTC and direct calibration of the RP1 RF clock
-are separate functions; select **Direct PPS calibration** to use the RF-clock
-measurement.
+Direct PPS reduced the measured error in both runs at every frequency shown. GPS/PPS synchronization of host UTC and direct calibration of the RP1 RF clock are separate functions; select **Direct PPS calibration** to use the RF-clock measurement.
 
-The [full measurement record](https://github.com/WsprryPi/WsprryPi/blob/b164d3fd/docs/direct-pps-validation.md#frequency-by-frequency-comparison)
-includes per-run values, the reference setup, measurement assumptions, and
-residual-trim results.
+The [full measurement record](https://github.com/WsprryPi/WsprryPi/blob/b164d3fd/docs/direct-pps-validation.md#frequency-by-frequency-comparison) includes per-run values, the reference setup, measurement assumptions, and residual-trim results.
 
 #### Host estimate and manual correction
 
@@ -138,8 +71,7 @@ The GPIO backend has three separate calibration values in **Setup > Transmitter 
 - **Residual PPM** is the remaining conducted RF error measured while the provider estimate is active.
 - **Fixed/manual PPM** is the fallback used when the provider estimate is disabled or cannot be used.
 
-The UI and committed request report the **additional** correction. The GPIO
-backend adds its intrinsic chipset compensation once:
+The UI and committed request report the **additional** correction. The GPIO backend adds its intrinsic chipset compensation once:
 
 ```text
 usable current/prior-qualified estimate: additional A = estimate E + residual R
@@ -148,58 +80,27 @@ manual zero:                            additional A = 0
 RF divider model: nominal parent * (1 + (intrinsic I + additional A) / 1000000)
 ```
 
-Residual is unused in manual/zero mode; manual is not added to an estimate.
-Zero additional correction retains intrinsic compensation. Current defaults are
-BCM2835: -2.5 ppm; BCM2836/BCM2837 and BCM2711: 0 ppm; RP1: -46.245 ppm.
-These are product defaults with their recorded evidence limits, not individual
-board measurements. RP1 uses nominal **200 MHz pll_sys** as its RF parent.
+Residual is unused in manual/zero mode; manual is not added to an estimate. Zero additional correction retains intrinsic compensation. Current defaults are BCM2835: -2.5 ppm; BCM2836/BCM2837 and BCM2711: 0 ppm; RP1: -46.245 ppm. These are product defaults with their recorded evidence limits, not individual board measurements. RP1 uses nominal **200 MHz pll_sys** as its RF parent.
 
-Positive GPIO additional PPM models a fast source: the larger calculated divider
-lowers physical RF. Each configured GPIO correction input and selected additional
-term must be finite and within `-200` through `200 ppm`. The intrinsic term is
-separate. No live estimate or composed total is persisted as a custom correction.
+Positive GPIO additional PPM models a fast source: the larger calculated divider lowers physical RF. Each configured GPIO correction input and selected additional term must be finite and within `-200` through `200 ppm`. The intrinsic term is separate. No live estimate or composed total is persisted as a custom correction.
 
 #### Qualification and retained estimates
 
 Read estimate qualification and selected correction mode separately:
 
-- **Qualified**: synchronized, selected-source, normal-leap and quality checks
-  pass, with at least three stable evaluations (spread at most 0.1 ppm), at least
-  three retained provider samples, skew at most 1 ppm and absolute Chrony
-  residual-frequency statistic at most 0.5 ppm. Current reported age must be
-  known and at most 300 seconds. These evaluations do not prove independent PPS
-  samples or RF accuracy.
-- **Converging**, **Stale**, or **Unavailable**: a previously qualified estimate
-  can still supply bounded stale correction plus **Residual PPM**, even if the
-  current report is unavailable. Its qualification-time reported age plus
-  monotonic elapsed time must remain within 900 seconds. An old first observation
-  cannot qualify itself; source changes reset qualification history.
-- Without a usable current or retained estimate, use **Fixed/manual PPM**. A
-  zero manual value selects zero additional correction and reports the
-  uncalibrated additional state. Disabling the estimate also selects manual.
+- **Qualified**: synchronized, selected-source, normal-leap, and quality checks pass, with at least three stable evaluations (spread at most 0.1 ppm), at least three retained provider samples, skew at most 1 ppm and absolute Chrony residual-frequency statistic at most 0.5 ppm. Current reported age must be known and at most 300 seconds. These evaluations do not prove independent PPS samples or RF accuracy.
+- **Converging**, **Stale**, or **Unavailable**: a previously qualified estimate can still supply bounded stale correction plus **Residual PPM**, even if the current report is unavailable. Its qualification-time reported age plus monotonic elapsed time must remain within 900 seconds. An old first observation cannot qualify itself; source changes reset qualification history.
+- Without a usable current or retained estimate, use **Fixed/manual PPM**. A zero manual value selects zero additional correction and reports the uncalibrated additional state. Disabling the estimate also selects manual.
 
-Missing/malformed age remains **age unknown**, not zero. Cached reports accrue
-elapsed age before selection for future work. Source provenance considers only
-selected/combined Chrony records and their local/network modes. Names containing
-PPS, GPS or GNSS, unselected sources, and a local-reference label do not establish
-verified GNSS lock, reference routing or independent RF measurement. Mixed means
-local and network source kinds were combined; unknown provenance remains unknown.
-Chrony's residual-frequency quality statistic is not the configured conducted
-**Residual PPM** and must not be added as another correction.
+Missing/malformed age remains **age unknown**, not zero. Cached reports accrue elapsed age before selection for future work. Source provenance considers only selected/combined Chrony records and their local/network modes. Names containing PPS, GPS, or GNSS, unselected sources, and a local-reference label do not establish verified GNSS lock, reference routing or independent RF measurement. Mixed means local and network source kinds were combined; unknown provenance remains unknown. Chrony's residual-frequency quality statistic is not the configured conducted **Residual PPM** and must not be added as another correction.
 
 #### Candidate and committed correction
 
-Candidate correction describes the next preparation decision. Committed work
-retains its selected correction, clock plan and provenance for its lifetime.
-New estimates, source loss, expiration and saved configuration changes affect
-future work; they do not rewrite the immutable committed request. The operation
-panel's effective/correction PPM fields are additional-only, with provenance.
+Candidate correction describes the next preparation decision. Committed work retains its selected correction, clock plan and provenance for its lifetime. New estimates, source loss, expiration, and saved configuration changes affect future work; they do not rewrite the immutable committed request. The operation panel's effective/correction PPM fields are additional-only, with provenance.
 
 Chrony may use NTP servers, GNSS, PPS, or a mixture of sources. The administrator owns that source configuration outside WsprryPi. See the official [chronyc documentation](https://chrony-project.org/doc/4.4/chronyc.html) for the `tracking` data that supplies the current frequency estimate, residual frequency, source identity, age, and uncertainty information.
 
-GPIO calibration uses `GPIO.Use System Clock Frequency Estimate`,
-`GPIO.Frequency Residual PPM`, and `GPIO.Manual PPM`. Saved custom correction values
-require independent RF measurement; WsprryPi does not silently rewrite them.
+GPIO calibration uses `GPIO.Use System Clock Frequency Estimate`, `GPIO.Frequency Residual PPM`, and `GPIO.Manual PPM`. Saved custom correction values require independent RF measurement; WsprryPi does not silently rewrite them.
 
 #### GPIO calibration workflow
 
@@ -208,16 +109,9 @@ require independent RF measurement; WsprryPi does not silently rewrite them.
 3. Set **Residual PPM** to `0`, transmit a low-power test tone through a shielded 50-ohm load, suitable filtering, and attenuation, and measure the RF error with a receiver using a shared or traceable reference.
 4. Convert the remaining error to PPM and enter it as **Residual PPM**. Keep **System clock estimate** enabled.
 5. Repeat the conducted measurement across multiple samples. Confirm the combined correction improves both frequency accuracy and repeatability.
-6. Record a separately measured additional **Fixed/manual PPM** if operation
-   without a usable current or retained estimate is required. Disable the estimate
-   when measuring this fallback, while retaining intrinsic compensation.
+6. Record a separately measured additional **Fixed/manual PPM** if operation without a usable current or retained estimate is required. Disable the estimate when measuring this fallback, while retaining intrinsic compensation.
 
-A residual measures what remains with intrinsic compensation and the estimate
-already applied. Do not enter a measured full parent error again as a residual.
-If an independent measurement gives full source error `P`, reconcile it as
-`M = P - I` or `R = P - I - E`. An RP1 full source error of
-`-46.245 ppm` corresponds to zero additional correction with the intrinsic
-default. Correct receiver/SDR error once in the measurement path.
+A residual measures what remains with intrinsic compensation and the estimate already applied. Do not enter a measured full parent error again as a residual. If an independent measurement gives full source error `P`, reconcile it as `M = P - I` or `R = P - I - E`. An RP1 full source error of `-46.245 ppm` corresponds to zero additional correction with the intrinsic default. Correct receiver/SDR error once in the measurement path.
 
 Frequency calibration matters because WSPR occupies a narrow band. The Raspberry Pi reference crystal has both static error and temperature-dependent drift. Recheck the residual after meaningful hardware, temperature, power-supply, or reference-source changes.
 
@@ -225,42 +119,22 @@ Frequency calibration matters because WSPR occupies a narrow band. The Raspberry
 
 Use the final requested RF carrier as the nominal frequency for Test Tone measurements. Both Maintenance's **WSPR band** selection and CLI `--test-tone 20m` add 1,500 Hz to the effective USB dial, targeting `14,097,100 Hz` with the standard 20m preset. Custom RF and numeric or unit-suffixed CLI inputs specify the carrier directly: `--test-tone 14095600` targets `14,095,600 Hz`. Test Tone never uses random placement. Apply the dial conversion once and keep receiver calibration separate from transmitter PPM. An accepted synthesis target is not a measured output frequency.
 
-WSPR transmits four tones centered around the requested WSPR RF frequency.
-QRSS, FSKCW, DFCW, and Test Tone use their configured carrier references.
+WSPR transmits four tones centered around the requested WSPR RF frequency. QRSS, FSKCW, DFCW, and Test Tone use their configured carrier references.
 
 ### Si5351-Based Transmissions
 
-The Si5351 reference is independent of the Raspberry Pi system clock estimate
-and GPIO calibration values. Its planner uses
-`reference_hz * (1 - calibration_ppm / 1000000)`: positive Si5351 calibration
-reduces the modeled reference, unlike positive GPIO PPM. Switch **Setup > Transmitter > RF Output Path** to
-Si5351, then configure **Reference calibration (PPM)** in the same RF Output
-panel. WsprryPi applies that value only to Si5351 synthesis planning.
+The Si5351 reference is independent of the Raspberry Pi system clock estimate and GPIO calibration values. Its planner uses `reference_hz * (1 - calibration_ppm / 1000000)`: positive Si5351 calibration reduces the modeled reference, unlike positive GPIO PPM. Switch **Setup > Transmitter > RF Output Path** to Si5351, then configure **Reference calibration (PPM)** in the same RF Output panel. WsprryPi applies that value only to Si5351 synthesis planning.
 
 Measure the Si5351 correction against its actual crystal or external reference through a suitable conducted RF path. Do not copy the GPIO estimate, GPIO residual, or GPIO fixed/manual value into the Si5351 setting.
 
 ### Remote transmitter correction
 
-A remote transmitter owns its own frequency correction. Outbound jobs carry no
-Pi-host estimate, intrinsic or manual correction. A receiving Pi selects its
-local correction before preparing its plan. Host UTC synchronization is still
-needed for scheduling, independently of the remote RF clock.
+A remote transmitter owns its own frequency correction. Outbound jobs carry no Pi-host estimate, intrinsic, or manual correction. A receiving Pi selects its local correction before preparing its plan. Host UTC synchronization is still needed for scheduling, independently of the remote RF clock.
 
 ### AM Calibration
 
-Zero-beating a nearby AM carrier can provide a rough manual comparison when its
-frequency is independently known. It is not a substitute for an identified,
-calibrated RF reference. Record the backend, current correction, requested RF
-frequency and comparison frequency before changing a value.
+Zero-beating a nearby AM carrier can provide a rough manual comparison when its frequency is independently known. It is not a substitute for an identified, calibrated RF reference. Record the backend, current correction, requested RF frequency and comparison frequency before changing a value.
 
-If a GPIO tone requested at `F` zero-beats a known carrier `F_ref`, the approximate
-additional adjustment is `(F_ref / F - 1) * 1000000 ppm`, added to the correction
-already active during that comparison. A positive result means the output was
-fast. For Si5351, the reference-calibration adjustment has the opposite sign.
-Recheck through the conducted RF path; do not copy a full correction between
-backends or count intrinsic compensation twice.
+If a GPIO tone requested at `F` zero-beats a known carrier `F_ref`, the approximate additional adjustment is `(F_ref / F - 1) * 1000000 ppm`, added to the correction already active during that comparison. A positive result means the output was fast. For Si5351, the reference-calibration adjustment has the opposite sign. Recheck through the conducted RF path; do not copy a full correction between backends or count intrinsic compensation twice.
 
-Chrony remains the UTC/slot authority. The optional RP1 direct PPS path counts
-the RF clock domain independently of Chrony's host-rate estimate. Host
-timestamps alone do not establish RF-clock error. The RP1 parent remains
-a nominal 200 MHz `pll_sys`.
+Chrony remains the UTC/slot authority. The optional RP1 direct PPS path counts the RF clock domain independently of Chrony's host-rate estimate. Host timestamps alone do not establish RF-clock error. The RP1 parent remains a nominal 200 MHz `pll_sys`.

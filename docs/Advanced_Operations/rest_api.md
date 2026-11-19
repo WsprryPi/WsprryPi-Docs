@@ -17,12 +17,7 @@ The WsprryPi backend still listens on its service ports internally:
 
 Those ports are implementation details behind the proxy. Most users and documentation examples should use the proxied `/wsprrypi/` paths.
 
-Apache is required for browser operation and uses the browser's actual peer
-address for privileged network safety. Browser code does not fall back to the
-direct backend ports for protected operations. Compatible direct non-browser
-clients remain subject to peer, local `Host`, and optional matching `Origin`
-validation. `Forwarded`, `X-Forwarded-For`, `X-Real-IP`, and similar headers do
-not grant access.
+Apache is required for browser operation and uses the browser's actual peer address for privileged network safety. Browser code does not fall back to the direct backend ports for protected operations. Compatible direct non-browser clients remain subject to peer, local `Host`, and optional matching `Origin` validation. `Forwarded`, `X-Forwarded-For`, `X-Real-IP`, and similar headers do not grant access.
 
 The HTTP interface serves both the browser UI and the REST API through the proxied base path.
 
@@ -42,8 +37,7 @@ http://{servername}.local/wsprrypi/config
 
 Supported operations:
 
-- `GET`: Returns host configuration and read-only platform observations as JSON;
-  committed work can still use an earlier runtime snapshot.
+- `GET`: Returns host configuration and read-only platform observations as JSON; committed work can still use an earlier runtime snapshot.
 - `PUT`: Replaces the configuration with a full JSON payload
 - `PATCH`: Updates selected configuration fields
 
@@ -64,35 +58,17 @@ The API exposes configuration for:
 - CW timing and fade configuration
 - Planner preferences and paired-frame behavior
 
-The read-only `Platform` section of `GET /config` includes host I2C adapters
-and cached compatible-address observations for the configured bus. Configuration
-and status reads do not start discovery, including for inactive backends.
-Unchecked presence remains unconfirmed. These observations are neither
-persisted configuration nor client authority.
+The read-only `Platform` section of `GET /config` includes host I2C adapters and cached compatible-address observations for the configured bus. Configuration and status reads do not start discovery, including for inactive backends. Unchecked presence remains unconfirmed. These observations are neither persisted configuration nor client authority.
 
 ```text
 GET /wsprrypi/config/si5351-addresses?bus=N
 ```
 
-This read-only endpoint refreshes the compatible address list for a selected
-host-present bus. Its JSON response contains `I2C Bus`, `Addresses`, and
-`Discovery Error`. Address checks are limited to `0x60` through `0x6F` and do
-not program the clock generator or enable an output. The isolated worker has
-a two-second scan deadline and at most 25 ms of cleanup attempts, with one worker
-outstanding. A kernel-blocked worker can remain pending after termination is
-requested; further scans report busy until it exits. Busy, timeout/error, and confirmed no response are different outcomes. Failed inventory preserves a saved
-address as unconfirmed; it does not establish missing hardware. Retry explicitly
-after the worker/problem is resolved. Configuration updates independently perform
-fresh validation of a newly selected bus/address rather than trusting this list.
-A response establishes register compatibility, not definitive silicon identity.
+This read-only endpoint refreshes the compatible address list for a selected host-present bus. Its JSON response contains `I2C Bus`, `Addresses`, and `Discovery Error`. Address checks are limited to `0x60` through `0x6F` and do not program the clock generator or enable an output. The isolated worker has a two-second scan deadline and at most 25 ms of cleanup attempts, with one worker outstanding. A kernel-blocked worker can remain pending after termination is requested; further scans report busy until it exits. Busy, timeout/error, and confirmed no response are different outcomes. Failed inventory preserves a saved address as unconfirmed; it does not establish missing hardware. Retry explicitly after the worker/problem is resolved. Configuration updates independently perform fresh validation of a newly selected bus/address rather than trusting this list. A response establishes register compatibility, not definitive silicon identity.
 
 Configuration replacement and patch requests apply the same GPIO ownership validation as startup and INI reload. With the GPIO backend, the selected GPIO4 or GPIO20 RF output cannot also be used by an enabled Band GPIO, Transmit LED, Shutdown Button, or Amp Control, regardless of the `Operation.Transmit` value. A rejected request returns the conflict instead of clearing or moving either assignment.
 
-With privileged network safety enforced, `PUT` and `PATCH` require a browser
-peer on the Pi's directly connected LAN. `GET /config` remains read-only and
-available where practical. Repair/reset, stop-and-disable, support-bundle
-operations, and `POST /api/network-safety` are also protected. An off-LAN
-request is rejected before the operation is proxied.
+With privileged network safety enforced, `PUT` and `PATCH` require a browser peer on the Pi's directly connected LAN. `GET /config` remains read-only and available where practical. Repair/reset, stop-and-disable, support-bundle operations, and `POST /api/network-safety` are also protected. An off-LAN request is rejected before the operation is proxied.
 
 A minimal host patch disabling transmission is:
 
@@ -100,12 +76,7 @@ A minimal host patch disabling transmission is:
 {"Operation":{"Transmit":false}}
 ```
 
-Read `GET /wsprrypi/config` first and send its exact quoted ETag in `If-Match`
-with `PATCH /wsprrypi/config`. The browser autosave does this; legacy clients
-without a condition retain compatibility. A stale revision rejects the write;
-preserve the draft and explicitly reload saved settings before another attempt.
-Use the [INI reference](ini_configuration.md) for canonical keys. A saved edit
-can await runtime application while a Test Tone owns the committed configuration.
+Read `GET /wsprrypi/config` first and send its exact quoted ETag in `If-Match` with `PATCH /wsprrypi/config`. The browser autosave does this; legacy clients without a condition retain compatibility. A stale revision rejects the write; preserve the draft and explicitly reload saved settings before another attempt. Use the [INI reference](ini_configuration.md) for canonical keys. A saved edit can await runtime application while a Test Tone owns the committed configuration.
 
 ## RP1 GPCLK Route Endpoint
 
@@ -116,38 +87,20 @@ GET  /wsprrypi/api/rp1-gpclk-route
 POST /wsprrypi/api/rp1-gpclk-route
 ```
 
-`GET` is read-only and reports requested, persisted, configured, active,
-eligible, generation, journal, service-restoration status, and operator state.
-Detailed responses distinguish `qualificationEvidence`, `liveQualification`, and `structuralCompatibility` from readiness, application eligibility, and output inhibition. Evidence not collected is **Not inspected**; status does not download
-metadata. See [RP1 diagnostics](rp1_gpclk.md#diagnostic-evidence) for cache refresh
-and interpretation. The detailed diagnostic panel is hidden in the normal UI.
+`GET` is read-only and reports requested, persisted, configured, active, eligible, generation, journal, service-restoration status, and operator state. Detailed responses distinguish `qualificationEvidence`, `liveQualification`, and `structuralCompatibility` from readiness, application eligibility, and output inhibition. Evidence not collected is **Not inspected**; status does not download metadata. See [RP1 diagnostics](rp1_gpclk.md#diagnostic-evidence) for cache refresh and interpretation. The detailed diagnostic panel is hidden in the normal UI.
 
 For the installed runtime route profile, `POST` accepts these fixed operations:
 
-- `preflight` validates a GPIO4 or GPIO20 switch and returns the current
-  transaction generation and plan digest.
+- `preflight` validates a GPIO4 or GPIO20 switch and returns the current transaction generation and plan digest.
 - `switch` applies the preflighted GPIO4 or GPIO20 route in the current boot.
-- `remove` removes the exact active GPIO4 or GPIO20 route and restores the
-  prior WsprryPi service intent.
-- `recover` performs exceptional fail-closed cleanup and leaves WsprryPi
-  stopped and inhibited.
+- `remove` removes the exact active GPIO4 or GPIO20 route and restores the prior WsprryPi service intent.
+- `recover` performs exceptional fail-closed cleanup and leaves WsprryPi stopped and inhibited.
 
-`switch` requires the current generation; the service binds that generation to
-the reviewed preflight digest.
-`remove` names the exact route being removed. A successful switch or removal
-response means the bounded operation was queued; clients must poll `GET` until
-the route reaches a terminal state. A temporary disconnect is not proof of
-success. Normal removal finishes as route neutral with WsprryPi either online
-and idle, or still stopped or masked because that was its prior state.
+`switch` requires the current generation; the service binds that generation to the reviewed preflight digest. `remove` names the exact route being removed. A successful switch or removal response means the bounded operation was queued; clients must poll `GET` until the route reaches a terminal state. A temporary disconnect is not proof of success. Normal removal finishes as route neutral with WsprryPi either online and idle, or still stopped or masked because that was its prior state.
 
-The compatibility development profile retains `preflight`,
-`apply-and-reboot`, and `rollback`. Runtime requests are never translated into
-reboot operations. Unknown operations, routes, stale generations, non-idle
-state, foreign boot content, and ownership conflicts fail closed.
+The compatibility development profile retains `preflight`, `apply-and-reboot`, and `rollback`. Runtime requests are never translated into reboot operations. Unknown operations, routes, stale generations, non-idle state, foreign boot content, and ownership conflicts fail closed.
 
-The endpoint never accepts a shell command, arbitrary path, overlay name, or
-reboot command. Active or neutral state is not inferred until read-only status
-reconciliation succeeds.
+The endpoint never accepts a shell command, arbitrary path, overlay name, or reboot command. Active or neutral state is not inferred until read-only status reconciliation succeeds.
 
 ## Network Safety Endpoint
 
@@ -158,9 +111,7 @@ GET  /wsprrypi/api/network-safety
 POST /wsprrypi/api/network-safety
 ```
 
-`GET` is read-only and reports whether configured and active state are known,
-their values when known, and the exact status text. `POST` is protected and
-accepts one explicit mode:
+`GET` is read-only and reports whether configured and active state are known, their values when known, and the exact status text. `POST` is protected and accepts one explicit mode:
 
 ```json
 {"mode":"enforced"}
@@ -172,10 +123,7 @@ or:
 {"mode":"insecure-disabled"}
 ```
 
-The apply response distinguishes whether the request was applied and reports
-configured and active state. When disabled, status is exactly `NETWORK SAFETY
-OFF`. A failed validation, publish, Apache reload, confirmation, or rollback
-must be treated as failure; do not infer active state from the requested value.
+The apply response distinguishes whether the request was applied and reports configured and active state. When disabled, status is exactly `NETWORK SAFETY OFF`. A failed validation, publish, Apache reload, confirmation, or rollback must be treated as failure; do not infer active state from the requested value.
 
 ## Version Endpoint
 
@@ -216,39 +164,21 @@ This endpoint is used for:
 
 ## Pi endpoint and Fleet resources
 
-Paths below are backend paths; browser requests prepend `/wsprrypi`. Existing
-peer, Host, Origin, request-intent, authority, and revision checks remain required.
-WTP execution listeners and all generic `/api/control/v1/jobs` routes are retired.
+Paths below are backend paths; browser requests prepend `/wsprrypi`. Existing peer, Host, Origin, request-intent, authority, and revision checks remain required. WTP execution listeners and all generic `/api/control/v1/jobs` routes are retired.
 
-- `GET /api/control/v1/host/fleet` and `GET /api/control/v1/host/fleet/operations`
-  read held legacy assignments and durable duties. They do not reconnect or
-  dispatch. Assignment mutations refuse with `migration_required`.
-- `GET /api/control/v1/host/devices` and discovery resources supply management
-  profiles and hints. **Use this device** backend selection is unavailable.
-- `/api/control/v1/targets` and each verified target’s settings, status, stop,
-  enable, and migration resources retain the current Control/1 contract and
-  protected management/retirement purposes. Enable remains explicit.
-- `GET /api/control/v1/targets/<device-id>/pico/status` reads a selected Pico’s
-  validated native status through its bound management context.
-- `GET` and `POST /api/control/v1/targets/<device-id>/pico/schedules/stop` read
-  and stop the Pico’s native schedules. The POST requires the current target,
-  revision, capability, and accepted-operation bindings. It is not an abort-job API.
+- `GET /api/control/v1/host/fleet` and `GET /api/control/v1/host/fleet/operations` read held legacy assignments and durable duties. They do not reconnect or dispatch. Assignment mutations refuse with `migration_required`.
+- `GET /api/control/v1/host/devices` and discovery resources supply management profiles and hints. **Use this device** backend selection is unavailable.
+- `/api/control/v1/targets` and each verified target’s settings, status, stop, enable, and migration resources retain the current Control/1 contract and protected management/retirement purposes. Enable remains explicit.
+- `GET /api/control/v1/targets/<device-id>/pico/status` reads a selected Pico’s validated native status through its bound management context.
+- `GET` and `POST /api/control/v1/targets/<device-id>/pico/schedules/stop` read and stop the Pico’s native schedules. The POST requires the current target, revision, capability, and accepted-operation bindings. It is not an abort-job API.
 
-A native stop disables both schedules and confirms inactive, unowned output.
-Unknown mutation outcomes require authoritative readback, never automatic replay.
-Local native Pi enable and output reconciliation still enforce confirmed cleanup,
-protected journals, and existing authority rules. Preserve legacy records; perform
-[pre-upgrade remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
-with WTP-capable software before replacing affected deployments.
+A native stop disables both schedules and confirms inactive, unowned output. Unknown mutation outcomes require authoritative readback, never automatic replay. Local native Pi enable and output reconciliation still enforce confirmed cleanup, protected journals, and existing authority rules. Preserve legacy records; perform [pre-upgrade remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading) with WTP-capable software before replacing affected deployments.
 
-## Selected Pico application, station and hardware
+## Selected Pico application, station, and hardware
 
-The selected-member settings contract is `Wsprry-Control/1`. Keep Pi and Pico
-software compatible and verify advertised capabilities before saving settings.
+The selected-member settings contract is `Wsprry-Control/1`. Keep Pi and Pico software compatible and verify advertised capabilities before saving settings.
 
-These management resources belong to the selected member. They do not edit Pi
-host settings or prepared jobs, and are separate from standalone schedule saves.
-Use the normal Apache proxy:
+These management resources belong to the selected member. They do not edit Pi host settings or prepared jobs, and are separate from standalone schedule saves. Use the normal Apache proxy:
 
 ```text
 GET  /wsprrypi/api/control/v1/member/application
@@ -260,58 +190,24 @@ PUT  /wsprrypi/api/control/v1/member/hardware
 POST /wsprrypi/api/control/v1/member/pins/validate
 ```
 
-Each GET returns the same reconciled `member-resources` bundle:
-`target`, `carrier`, nullable `profile_generation`, `profile_owned_station`,
-complete `application`, advertised `pin_choices`, and opaque `member_context`.
-Application includes station, hardware, recurrence, capabilities, and restart
-observations. The adapter brackets resource reads with application readback and
-checks the common saved revision. Live recurrence/active observations may change
-independently. Preserve decimal uint64 strings as strings. Hardware
-`active_revision` is an observation digest, never the save ETag.
+Each GET returns the same reconciled `member-resources` bundle: `target`, `carrier`, nullable `profile_generation`, `profile_owned_station`, complete `application`, advertised `pin_choices`, and opaque `member_context`. Application includes station, hardware, recurrence, capabilities, and restart observations. The adapter brackets resource reads with application readback and checks the common saved revision. Live recurrence/active observations may change independently. Preserve decimal uint64 strings as strings. Hardware `active_revision` is an observation digest, never the save ETag.
 
 ### Current Pico station contract
 
-The Pi requires `Wsprry-Control/1` and validates the complete advertised
-resource, policy, and carrier descriptors before any mutation. Pico resources
-use `/api/control/v1/application`, `/station`, `/hardware`, `/pins`, `/config`
-and `/config/update` beneath that same namespace. Only the advertised application, station, and hardware resources are accepted.
-Unknown contracts, malformed descriptors, and unsupported station formats
-are refused before writes.
+The Pi requires `Wsprry-Control/1` and validates the complete advertised resource, policy, and carrier descriptors before any mutation. Pico resources use `/api/control/v1/application`, `/station`, `/hardware`, `/pins`, `/config` and `/config/update` beneath that same namespace. Only the advertised application, station, and hardware resources are accepted. Unknown contracts, malformed descriptors, and unsupported station formats are refused before writes.
 
-The current application includes `wspr_plan`: supported state, frame types
-and count, 120-second slot separation, rationale, and ambiguity/alternate call.
-A null station has a null plan. Plans describe encodability, not clock quality,
-readiness, enablement, live output, or transmission. See
-[Pico automatic planning](../User_Interface/Setup/Transmitter/index.md#pico-automatic-wspr-planning)
-for ordinary-six, compound, brackets, ambiguity, and pair behavior.
+The current application includes `wspr_plan`: supported state, frame types and count, 120-second slot separation, rationale, and ambiguity/alternate call. A null station has a null plan. Plans describe encodability, not clock quality, readiness, enablement, live output, or transmission. See [Pico automatic planning](../User_Interface/Setup/Transmitter/index.md#pico-automatic-wspr-planning) for ordinary-six, compound, brackets, ambiguity, and pair behavior.
 
-Use the loaded station schema unchanged in a complete scoped PUT. For example,
-a current station body uses `"contract": "Wsprry-Control/1"` and
-`"schema": "station"` with
-`"station": {"callsign": "W1A/AA0NT", "locator": "EM18IG", "power_dbm": 0}`
-and the exact loaded target. Zero is a valid reported-power value, not a request
-to disable RF. Profile-owned station identity still requires transactional setup.
-Current configuration omission/null/false/zero semantics,
-credentials, flags, schedules, pins, and consumed-slot watermark retain their
-existing meaning. Partial updates must produce a complete valid configuration;
-there is no per-field partial success or durable incomplete draft.
+Use the loaded station schema unchanged in a complete scoped PUT. For example, a current station body uses `"contract": "Wsprry-Control/1"` and `"schema": "station"` with `"station": {"callsign": "W1A/AA0NT", "locator": "EM18IG", "power_dbm": 0}` and the exact loaded target. Zero is a valid reported-power value, not a request to disable RF. Profile-owned station identity still requires transactional setup. Current configuration omission/null/false/zero semantics, credentials, flags, schedules, pins, and consumed-slot watermark retain their existing meaning. Partial updates must produce a complete valid configuration; there is no per-field partial success or durable incomplete draft.
 
-### Read, review and send one scoped operation
+### Read, review, and send one scoped operation
 
-1. Select/authenticate the management carrier and explicitly GET a member
-   resource. Keep its exact quoted ETag, target, and opaque `member_context`.
-2. Send that ETag unchanged in `If-Match`, and the context unchanged in
-   `X-WsprryPi-Member-Context`. Do not derive either from a device ID or generation.
-3. All mutations also require matching `Origin`, `Content-Type: application/json`
-   and `X-WsprryPico-Request: 1`. `Sec-Fetch-Site` must be absent, `same-origin`
-   or `none`. Existing peer/Host/proxy guards still apply; no CORS grant is added.
-4. Send one complete station or supported hardware object. Read back explicitly
-   before another save. Changing carrier or attempting a save invalidates other
-   resource/editor contexts. Preview and field edits never autosave.
+1. Select/authenticate the management carrier and explicitly GET a member resource. Keep its exact quoted ETag, target, and opaque `member_context`.
+2. Send that ETag unchanged in `If-Match`, and the context unchanged in `X-WsprryPi-Member-Context`. Do not derive either from a device ID or generation.
+3. All mutations also require matching `Origin`, `Content-Type: application/json` and `X-WsprryPico-Request: 1`. `Sec-Fetch-Site` must be absent, `same-origin` or `none`. Existing peer/Host/proxy guards still apply; no CORS grant is added.
+4. Send one complete station or supported hardware object. Read back explicitly before another save. Changing carrier or attempting a save invalidates other resource/editor contexts. Preview and field edits never autosave.
 
-This example illustrates the closed current station body. Replace the target
-with the exact loaded target and review every station field together. These
-IDs and values are synthetic, not a device to contact.
+This example illustrates the closed current station body. Replace the target with the exact loaded target and review every station field together. These IDs and values are synthetic, not a device to contact.
 
 ```json
 {
@@ -346,44 +242,17 @@ A complete supported hardware body has the same target and a complete pin plan:
 }
 ```
 
-Select actual GP choices from the authenticated response and check role
-conflicts. The nonpersistent preview takes only the complete `pins` object
-above plus the root `"contract":"Wsprry-Control/1"` member, with the same
-host revision/context/intent headers.
-The adapter does not forward `If-Match` to Pico's preview, preserving its
-nonpersistent semantics. Preview distinguishes validity, conflicts, and operational support and verifies unchanged configuration on readback. A valid
-structural I2C plan is not necessarily operationally supported.
+Select actual GP choices from the authenticated response and check role conflicts. The nonpersistent preview takes only the complete `pins` object above plus the root `"contract":"Wsprry-Control/1"` member, with the same host revision/context/intent headers. The adapter does not forward `If-Match` to Pico's preview, preserving its nonpersistent semantics. Preview distinguishes validity, conflicts, and operational support and verifies unchanged configuration on readback. A valid structural I2C plan is not necessarily operationally supported.
 
-Scoped PUT bodies are limited to 1,024 UTF-8 bytes; preview to 2,048. Unknown
-fields, duplicate keys, wrong targets, and unsupported schemas are refused.
-Application is read-only; station/hardware PUT are complete scoped replacements,
-not arbitrary merge patches. A successful PUT is confirmed by authoritative
-application readback. Profile-owned station fields remain read-only. Match the
-loaded station schema and negotiated format support; dBm is WSPR metadata,
-separate from measured RF output, drive, and calibration.
+Scoped PUT bodies are limited to 1,024 UTF-8 bytes; preview to 2,048. Unknown fields, duplicate keys, wrong targets, and unsupported schemas are refused. Application is read-only; station/hardware PUT are complete scoped replacements, not arbitrary merge patches. A successful PUT is confirmed by authoritative application readback. Profile-owned station fields remain read-only. Match the loaded station schema and negotiated format support; dBm is WSPR metadata, separate from measured RF output, drive, and calibration.
 
-### Conflicts, uncertainty and ownership
+### Conflicts, uncertainty, and ownership
 
-Missing revisions return 428; stale remote revisions return 412. Changed or
-invalidated member context/selection can return 409 `member_read_required`.
-Other 409 refusals include busy/unresolved runtime or unsupported resources.
-Keep the actual error code: a lost/malformed reply after dispatch can be
-unconfirmed even if persistence succeeded. Preserve the draft, explicitly read
-saved/active state, and review before a new deliberate save. Never automatically
-retry a mutation, substitute an endpoint, or switch save strategy after failure.
+Missing revisions return 428; stale remote revisions return 412. Changed or invalidated member context/selection can return 409 `member_read_required`. Other 409 refusals include busy/unresolved runtime or unsupported resources. Keep the actual error code: a lost/malformed reply after dispatch can be unconfirmed even if persistence succeeded. Preserve the draft, explicitly read saved/active state, and review before a new deliberate save. Never automatically retry a mutation, substitute an endpoint, or switch save strategy after failure.
 
-Saved hardware, active-at-boot hardware, and null/unknown active state remain
-distinct. Changed pins latch restart/output inhibition for this boot; saving the
-old plan or station does not clear it. Storage faults differ from application
-faults. `output_disable_failed` can accompany a saved change with unconfirmed
-shutdown. No save restarts, reconnects WTP, enables recurrence, claims or transmits.
+Saved hardware, active-at-boot hardware, and null/unknown active state remain distinct. Changed pins latch restart/output inhibition for this boot; saving the old plan or station does not clear it. Storage faults differ from application faults. `output_disable_failed` can accompany a saved change with unconfirmed shutdown. No save restarts, reconnects WTP, enables recurrence, claims, or transmits.
 
-Engineering mTLS and explicitly supported consumer station/AP management use
-the host's existing idle admission. Built-in route flags do not prove remote
-support. Missing, malformed, or unsupported shared-resource discovery refuses control
-without selecting an older editor or resource view.
-See [management and member controls](../User_Interface/Setup/Transmitter/index.md#management-connection-and-login)
-for login expiry and supported GP/adapters.
+Engineering mTLS and explicitly supported consumer station/AP management use the host's existing idle admission. Built-in route flags do not prove remote support. Missing, malformed, or unsupported shared-resource discovery refuses control without selecting an older editor or resource view. See [management and member controls](../User_Interface/Setup/Transmitter/index.md#management-connection-and-login) for login expiry and supported GP/adapters.
 
 ### Similarly named configuration resources
 
@@ -394,73 +263,26 @@ for login expiry and supported GP/adapters.
 | `/wsprrypi/api/control/v1/member/configuration` | Coordinated selected-Pico atomic editor; GET context then POST changed known fields with exact member target/revision. |
 | `/wsprrypi/api/control/v1/config` | Read-only current selected-Pico configuration projection; ordinary saves use the coordinated merge editor. |
 
-The coordinated editor uses the current merge update strategy.
-It preserves Pico-owned settings outside the form and safely refuses unknown
-configuration fields before mutation.
-Null password means preserve; arrays replace atomically; explicit false/zero
-retain their meaning. Ordinary edits are not whole-configuration resets.
-Schedules-only saves preserve unrelated drafts. None of these resources gives
-the browser independent WTP CLAIM/LOAD/ARM authority: job submission stays with
-the host application. See the [compatibility contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-configuration-compatibility.md).
+The coordinated editor uses the current merge update strategy. It preserves Pico-owned settings outside the form and safely refuses unknown configuration fields before mutation. Null password means preserve; arrays replace atomically; explicit false/zero retain their meaning. Ordinary edits are not whole-configuration resets. Schedules-only saves preserve unrelated drafts. None of these resources gives the browser independent WTP CLAIM/LOAD/ARM authority: job submission stays with the host application. See the [compatibility contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-configuration-compatibility.md).
 
 ### Local Pi device-owned scheduling
 
-The local target's `/api/control/v1/targets/{device_id}/context` advertises
-`pi-scheduling` with `activation: next_occurrence`. Read current settings, then
-save the complete candidate through `PUT .../settings`, retaining its scheduling
-enable value. Use the returned binding, capability revision, strong `If-Match`,
-fresh operation ID, and protected browser session. Solar policy may be saved
-for a safely staged or native target. Local routes do not provide remote Pi
-pairing or remote administration.
+The local target's `/api/control/v1/targets/{device_id}/context` advertises `pi-scheduling` with `activation: next_occurrence`. Read current settings, then save the complete candidate through `PUT .../settings`, retaining its scheduling enable value. Use the returned binding, capability revision, strong `If-Match`, fresh operation ID, and protected browser session. Solar policy may be saved for a safely staged or native target. Local routes do not provide remote Pi pairing or remote administration.
 
 Enable and disable are separate protected transactions:
 
-- `POST .../enable` uses `target-enable`, the current revision, and the server's
-  complete saved `candidate_digest`. It enables that saved candidate after
-  authority and storage validation and preserves Transmit and boot.
-- `POST .../disable` uses `target-action` and the current revision. It persists
-  scheduling off. Accepted complete work can drain, and output ownership remains.
-- `GET .../status` reports saved enable flags, active revision, selected tones,
-  hold reason, observation age, and a next-start forecast or unknown. Use the
-  current target context.
+- `POST .../enable` uses `target-enable`, the current revision, and the server's complete saved `candidate_digest`. It enables that saved candidate after authority and storage validation and preserves Transmit and boot.
+- `POST .../disable` uses `target-action` and the current revision. It persists scheduling off. Accepted complete work can drain, and output ownership remains.
+- `GET .../status` reports saved enable flags, active revision, selected tones, hold reason, observation age, and a next-start forecast or unknown. Use the current target context.
 
-Every mutation also includes the current `contract`, `binding`,
-`capability_revision`, and a fresh `operation_id`, and requires strong `If-Match`.
-The enable body's schema is `target-enable`; disable uses `target-action`.
-Enable never applies an unsaved draft. Read settings after the save, review the
-candidate digest, and then enable that exact saved revision. A separate Stop
-operation uses a fresh output observation and does not clear scheduling enable.
-After a lost reply, look up the original operation and read settings before
-submitting a new action; replaying an older enable cannot undo a later disable.
+Every mutation also includes the current `contract`, `binding`, `capability_revision`, and a fresh `operation_id`, and requires strong `If-Match`. The enable body's schema is `target-enable`; disable uses `target-action`. Enable never applies an unsaved draft. Read settings after the save, review the candidate digest, and then enable that exact saved revision. A separate Stop operation uses a fresh output observation and does not clear scheduling enable. After a lost reply, look up the original operation and read settings before submitting a new action; replaying an older enable cannot undo a later disable.
 
-Scheduling on can still be held by Transmit off, ownership, recovery, frequency,
-time, or site readiness. A forecast is a prediction, not proof that output ran.
-See [device-owned scheduling configuration](ini_configuration.md#device-owned-scheduling-configuration)
-and [time and recurrence holds](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
+Scheduling on can still be held by Transmit off, ownership, recovery, frequency, time, or site readiness. A forecast is a prediction, not proof that output ran. See [device-owned scheduling configuration](ini_configuration.md#device-owned-scheduling-configuration) and [time and recurrence holds](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
 
 ### Local scheduling ownership
 
-`GET /api/control/v1/targets/{device_id}/migration` reads this Pi's scheduling
-authority. Local migration is supported by the current retirement build and
-does not require WTP-capable software. It saves native scheduling disabled;
-explicit enable activates native authority. See the
-[local migration procedure](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule).
-Explicit migration uses `POST .../migration`; rollback uses
-`POST .../migration/rollback`. These operations require the current target
-binding, capability revision, authority generation, strong `If-Match`, and a
-protected browser session. Save the original operation ID and request before
-submission. Recover an interrupted result through authoritative receipt and
-state readback before considering another action. Pending work cannot establish
-disabled staging. Native enable remains refused until reconciliation and retirement are complete.
+`GET /api/control/v1/targets/{device_id}/migration` reads this Pi's scheduling authority. The trusted startup owner performs mandatory local migration before recurring admission when local ownership and output are verified. It uses the same current migration contract and durable transaction as the protected API. It saves native scheduling disabled; explicit enable activates native authority. An unresolved handover remains held. WTP-capable software is not required. See the [local migration procedure](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule). Explicit migration uses `POST .../migration`; rollback uses `POST .../migration/rollback`. These operations require the current target binding, capability revision, authority generation, strong `If-Match`, and a protected browser session. Save the original operation ID and request before submission. Recover an interrupted result through authoritative receipt and state readback before considering another action. Pending work cannot establish disabled staging. Native enable remains refused until reconciliation and retirement are complete.
 
-`GET /api/control/v1/host/retirements` reads the local controller's saved
-assignment identities and retirement states. `POST` records an explicitly
-reviewed retirement under that document's strong revision. The server assigns
-assignment IDs; callers cannot supply retirement proof. Accepted or unknown
-work keeps retirement pending. An exact retained request can recover its result
-after restart; it does not authorize another retirement or resume the assignment.
+`GET /api/control/v1/host/retirements` reads the local controller's saved assignment identities and retirement states. `POST` records an explicitly reviewed retirement under that document's strong revision. The server assigns assignment IDs; callers cannot supply retirement proof. Accepted or unknown work keeps retirement pending. An exact retained request can recover its result after restart; it does not authorize another retirement or resume the assignment.
 
-These Control/1 operations preserve WTP's separate transmission contract.
-Local retirement is not authenticated cross-controller handover. See the
-[browser API contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-browser-api.md)
-for the closed request documents and error handling.
+These Control/1 operations preserve WTP's separate transmission contract. Local retirement is not authenticated cross-controller handover. See the [browser API contract](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-browser-api.md) for the closed request documents and error handling.

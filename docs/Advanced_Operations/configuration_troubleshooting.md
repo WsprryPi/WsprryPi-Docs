@@ -38,47 +38,19 @@ Do not repeatedly restart the service without correcting the reported cause. If 
 
 ## Pi 5 RP1 Route Is Unavailable or Mismatched
 
-Leave transmission disabled when the route panel reports **Unavailable**,
-**Mismatch**, **Restoration failed**, or **Recovery required**. Do not edit
-provider files, unload modules, or try to select a route manually.
+Leave transmission disabled when the route panel reports **Unavailable**, **Mismatch**, **Restoration failed**, or **Recovery required**. Do not edit provider files, unload modules, or try to select a route manually.
 
-The normal installer supplies and validates the RP1 provider and route manager
-on Pi 5-family systems. Re-run the
-[WsprryPi installer](../Install/index.md#install-wsprrypi) first. It can
-recover and update an exact installer-owned runtime, but it refuses foreign,
-modified, mixed, or unproven provider state rather than overwriting it.
+The normal installer supplies and validates the RP1 provider and route manager on Pi 5-family systems. Re-run the [WsprryPi installer](../Install/index.md#install-wsprrypi) first. It can recover and update an exact installer-owned runtime, but it refuses foreign, modified, mixed, or unproven provider state rather than overwriting it.
 
-After installation, `/dev/rp1-gpclk` is normally absent until a route is
-selected. Route switching and removal happen in the current boot. For a
-selected route, requested, persisted, configured, and active routes must all be
-GPIO4 or all be GPIO20. For a removed route, configured and active must both be
-None, and the transmission consumer endpoint must be absent. Eligibility and
-cleanup must also be accepted; WsprryPi does not fall back to another route or
-backend.
+After installation, `/dev/rp1-gpclk` is normally absent until a route is selected. Route switching and removal happen in the current boot. For a selected route, requested, persisted, configured, and active routes must all be GPIO4 or all be GPIO20. For a removed route, configured and active must both be None, and the transmission consumer endpoint must be absent. Eligibility and cleanup must also be accepted; WsprryPi does not fall back to another route or backend.
 
-For **Restoration failed**, correct the reported service error and follow the
-command shown in the route panel. For **Mismatch** or **Recovery required**,
-preserve the displayed state and collect a support bundle before making manual
-changes. The exceptional **Recover to no route** action intentionally leaves
-WsprryPi stopped and inhibited; use **Remove route** for normal removal. The
-RP1 diagnostics include endpoint, route-manager socket, persisted-route, and
-journal-inventory observations when readable. If the installer reports an
-ownership, identity, or recovery refusal, preserve that state and the retained
-installer failure details; do not unload modules, delete journals, or edit
-provider files manually.
+For **Restoration failed**, correct the reported service error and follow the command shown in the route panel. For **Mismatch** or **Recovery required**, preserve the displayed state and collect a support bundle before making manual changes. The exceptional **Recover to no route** action intentionally leaves WsprryPi stopped and inhibited; use **Remove route** for normal removal. The RP1 diagnostics include endpoint, route-manager socket, persisted-route, and journal-inventory observations when readable. If the installer reports an ownership, identity, or recovery refusal, preserve that state and the retained installer failure details; do not unload modules, delete journals, or edit provider files manually.
 
 ## Pico hostname or restart is unconfirmed
 
-Use [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname)
-for the device-side save, restart, and sign-in procedure. WsprryPi's settings
-form does not rename the Pico; renaming a Fleet profile changes only its label.
-If a Pico save or restart reply is lost, read the saved and active state before
-repeating it. A timeout does not prove the change failed or output stopped.
+Use [Change the hostname in the Pico manual](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname) for the device-side save, restart, and sign-in procedure. WsprryPi's settings form does not rename the Pico; renaming a Fleet profile changes only its label. If a Pico save or restart reply is lost, read the saved and active state before repeating it. A timeout does not prove the change failed or output stopped.
 
-Keep Pi transmission and the affected Fleet assignment paused while reviewing
-the destination. Resolve pending, owned, or uncertain jobs through
-[Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery).
-Disabling Pi transmission alone does not disable Pico's autonomous schedule.
+Keep Pi transmission and the affected Fleet assignment paused while reviewing the destination. Resolve pending, owned, or uncertain jobs through [Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery). Disabling Pi transmission alone does not disable Pico's autonomous schedule.
 
 | What you see | What to do |
 | --- | --- |
@@ -89,17 +61,11 @@ Disabling Pi transmission alone does not disable Pico's autonomous schedule.
 | Certificate or hostname-certificate error | Check the expected TLS identity and provisioned credentials. Keep verification enabled and preserve the chosen transport. |
 | Pico restart remains unconfirmed | Follow the Pico manual's readback/reconnect procedure. A returning page or countdown alone does not establish a new boot or readiness. |
 
-[After a Pico hostname change](ini_configuration/transmitter_backends.md#after-a-pico-hostname-change)
-explains which Pi settings to update. Keep
-[Privileged network safety](../User_Interface/Maintenance/network_safety.md#pico-hostname-and-management-access)
-enforced; disabling the Pi's LAN policy does not repair discovery or Pico
-credentials. Device-side reset and access recovery belong to the
-[Pico maintenance guide](https://wsprrypico.readthedocs.io/en/devel/maintain.html)
-and [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troubleshoot.html).
+[After a Pico hostname change](ini_configuration/transmitter_backends.md#after-a-pico-hostname-change) explains which Pi settings to update. Keep [Privileged network safety](../User_Interface/Maintenance/network_safety.md#pico-hostname-and-management-access) enforced; disabling the Pi's LAN policy does not repair discovery or Pico credentials. Device-side reset and access recovery belong to the [Pico maintenance guide](https://wsprrypico.readthedocs.io/en/devel/maintain.html) and [Pico troubleshooting](https://wsprrypico.readthedocs.io/en/devel/troubleshoot.html).
 
 ## Fleet Operations remains unavailable or unconfirmed
 
-If Fleet initialization fails, Fleet status is unavailable and reports the initialization error. Resolve the reported configuration, storage or identity problem through maintenance before retrying. A successful Fleet initialization establishes a new controller context; earlier unknown action results remain unconfirmed. Controller unavailability does not establish device output-off.
+If Fleet initialization fails, Fleet status is unavailable and reports the initialization error. Resolve the reported configuration, storage, or identity problem through maintenance before retrying. A successful Fleet initialization establishes a new controller context; earlier unknown action results remain unconfirmed. Controller unavailability does not establish device output-off.
 
 Check the selected Device and its full identity before acting. A stale observation is not renewed by an HTTP refresh alone. A failed connection requires explicit Reconcile; a healthy foreign job must finish or be managed by its actual owner. Pause can confirm this controller's schedule while foreign output remains active or device output is unknown.
 
@@ -111,67 +77,28 @@ A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and e
 
 ### Local Pi scheduling migration
 
-Use the current software for [local migration](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule).
-WTP support is not required. A previous local schedule retains legacy authority
-until explicitly migrated. A confirmed migration leaves native scheduling
-disabled; enable the saved schedule separately after review.
+The current software performs [local migration](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule) automatically at first startup when local ownership and output are verified. WTP support is not required. A previous local schedule retains a held legacy record until migration completes; it cannot admit new recurring work. A confirmed migration leaves native scheduling disabled. Review and enable the saved schedule separately.
 
-Use **Check saved result** after an interrupted reply. Follow the explicit
-reconciliation offered after a restart. Only verified disabled staging offers
-**Review previous schedule**; restoring that schedule may transmit under its
-saved settings. Missing or damaged established history requires recovery, not
-initial setup. Preserve the reported storage error and existing state when
-seeking help.
+Use **Check saved result** after an interrupted reply. Follow the explicit reconciliation offered after a restart. Only verified disabled staging offers **Review previous schedule**; restoring that schedule may transmit under its saved settings. Missing or damaged established history requires recovery, not initial setup. Preserve the reported storage error and existing state when seeking help.
 
 ### Remote WTP retirement before upgrading
 
-An offline device, unknown output, or unresolved accepted job keeps WTP retirement
-pending. Do not delete scheduling history, restore an older enabled assignment,
-or reset configuration to bypass it. Accepted work finishes before retirement
-can be confirmed; a returning browser or restarted controller does not prove
-that output is inactive.
+An offline device, unknown output, or unresolved accepted job keeps WTP retirement pending. Do not delete scheduling history, restore an older enabled assignment, or reset configuration to bypass it. Accepted work finishes before retirement can be confirmed; a returning browser or restarted controller does not prove that output is inactive.
 
-Use **Check saved result** beside the original action after an interrupted reply.
-It reviews the retained request rather than starting another retirement. A
-confirmed retirement prevents that saved controller assignment from resuming.
-It does not create a replacement schedule or disable another controller's work.
+Use **Check saved result** beside the original action after an interrupted reply. It reviews the retained request rather than starting another retirement. A confirmed retirement prevents that saved controller assignment from resuming. It does not create a replacement schedule or disable another controller's work.
 
-Complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading)
-with matching older WTP-capable software before replacing the affected deployment.
-The current retirement build cannot dispatch or finish WTP jobs. If replacement
-already occurred, retain the records and seek compatible recovery guidance. See
-[existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
+Complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading) with matching older WTP-capable software before replacing the affected deployment. The current retirement build cannot dispatch or finish WTP jobs. If replacement already occurred, retain the records and seek compatible recovery guidance. See [existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
 
 ## Native scheduling is held or a solar save is rejected
 
-Read the target's current settings and status separately. A saved policy does
-not establish active output. Enable scheduling must be on, Transmit must permit
-output, and legacy retirement or initial transmitter setup must be complete.
-Scheduling off and solar waits do not release output ownership. After a lost
-reply, recover the original receipt and read authoritative settings before
-another action.
+Read the target's current settings and status separately. A saved policy does not establish active output. Enable scheduling must be on, Transmit must permit output, and legacy retirement or initial transmitter setup must be complete. Scheduling off and solar waits do not release output ownership. After a lost reply, recover the original receipt and read authoritative settings before another action.
 
-For a time hold, check Linux OS synchronization and leap/clock alarms, the
-2025–2099 date range, and the 250 ms uncertainty limit. Holdover requires a
-healthy sample during this boot and expires within one hour. Without the approved
-clock-health provider, solar recurrence stays held. Check the transmitter's
-saved locator for a location hold. A backward clock step waits beyond the
-consumed watermark; a forward step does not queue missed transmissions.
+For a time hold, check Linux OS synchronization and leap/clock alarms, the 2025–2099 date range, and the 250 ms uncertainty limit. Holdover requires a healthy sample during this boot and expires within one hour. Without the approved clock-health provider, solar recurrence stays held. Check the transmitter's saved locator for a location hold. A backward clock step waits beyond the consumed watermark; a forward step does not queue missed transmissions.
 
-For a storage or recovery hold, preserve the progress and transaction records.
-An interrupted reservation is not proof of RF output. Confirm output is safely
-reconciled before resuming; missing or corrupt established history cannot be
-repaired by deleting files or repeating initial setup. See
-[native recurrence and time readiness](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
+For a storage or recovery hold, preserve the progress and transaction records. An interrupted reservation is not proof of RF output. Confirm output is safely reconciled before resuming; missing or corrupt established history cannot be repaired by deleting files or repeating initial setup. See [native recurrence and time readiness](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
 
-Check the uppercase site locator, ordered millidegree window bounds, decimal CW
-base, and every WSPR list entry, including overrides for disabled periods. A
-changed frequency must satisfy the selected Pi backend and current frequency
-policy. An offline WTP peer cannot qualify a new frequency override. Repair a
-rejected draft through a fresh validated save; do not remove managed history or
-edit the private sidecar. Preserve the reported storage or recovery error when
-seeking help.
+Check the uppercase site locator, ordered millidegree window bounds, decimal CW base, and every WSPR list entry, including overrides for disabled periods. A changed frequency must satisfy the selected Pi backend and current frequency policy. An offline WTP peer cannot qualify a new frequency override. Repair a rejected draft through a fresh validated save; do not remove managed history or edit the private sidecar. Preserve the reported storage or recovery error when seeking help.
 
 ## Scheduling remains disabled or held
 
-In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distinguish the editable draft from **Saved scheduling** and active application. Save the disabled policy and confirm readback before explicitly enabling it. Complete Maintenance initialization or takeover when ownership is pending. For solar holds, check the target’s saved locator and clock observation; browser location and timezone cannot repair a target prerequisite. After a lost reply, check the original operation rather than repeat a save. Keep the draft during a conflict, disconnect or busy response.
+In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distinguish the editable draft from **Saved scheduling** and active application. Save the disabled policy and confirm readback before explicitly enabling it. Complete Maintenance initialization or takeover when ownership is pending. For solar holds, check the target’s saved locator and clock observation; browser location and timezone cannot repair a target prerequisite. After a lost reply, check the original operation rather than repeat a save. Keep the draft during a conflict, disconnect, or busy response.

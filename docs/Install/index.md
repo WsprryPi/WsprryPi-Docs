@@ -1,11 +1,8 @@
 # Installing WsprryPi
 
-For the pinned RC.1 prerelease, see [RC.1 installation](rc1.md).
-For the development channel, see [Development installation](beta7.md).
-The normal installation commands below retain the stable channel.
+For the pinned RC.1 prerelease, see [RC.1 installation](rc1.md). For the development channel, see [Development installation](beta7.md). The normal installation commands below retain the stable channel.
 
-Before installing, check [What you need](../requirements.md). After installation,
-continue with [Your first WSPR transmission](../first_transmission.md).
+Before installing, check [What you need](../requirements.md). After installation, continue with [Your first WSPR transmission](../first_transmission.md).
 
 ## Gather Hardware
 
@@ -15,28 +12,21 @@ For installation on a Raspberry Pi, you need the following:
 - An SD card for the OS image
 - A power supply for the Pi.  Pay attention to potentially noisy power supplies here.  Use a well-regulated supply with sufficient ripple suppression.  You may see supply ripple as mixing products centered around the transmit carrier, typically at 120Hz (60Hz mains frequency) and 100Hz (50Hz mains frequency).
 
-To use a Pico 2 W as an external output, follow [Add a WsprryPico](pico.md).
-It covers connection and Fleet setup on an installed Pi and links to the
-Pico's firmware and hardware instructions.
+To use a Pico 2 W as an external output, follow [Add a WsprryPico](pico.md). It covers connection and Fleet setup on an installed Pi and links to the Pico's firmware and hardware instructions.
 
-If you choose the Si5351 backend, you also need an Si5351 clock
-generator. While I have provided a KiCad design for a Pi HAT with a
-purpose-built circuit surrounding the Si5351, you may also use one of the
-common breakout boards:
+If you choose the Si5351 backend, you also need an Si5351 clock generator. While I have provided a KiCad design for a Pi HAT with a purpose-built circuit surrounding the Si5351, you may also use one of the common breakout boards:
 
 - [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal. WsprryPi has not qualified a 25 MHz reference for 2 m WSPR.
 - [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations. WsprryPi's qualified 2 m configuration uses a 27 MHz reference.
 
-The Pi header I2C connection uses GPIO2 and GPIO3. For a USB-connected Si5351,
-follow the host-specific guide:
+The Pi header I2C connection uses GPIO2 and GPIO3. For a USB-connected Si5351, follow the host-specific guide:
 
 - [Linux USB I2C setup](linux_si5351.md): kernel driver, stable adapter identity, permissions, and qualification limits.
 - [macOS USB I2C setup](macos_si5351.md): native MCP2221A transport, source build, CLI/INI configuration, and qualification limits.
 
 ## Prerequisites
 
-The remaining steps on this page configure a Raspberry Pi. Other hosts use
-their respective USB I2C setup guides above.
+The remaining steps on this page configure a Raspberry Pi. Other hosts use their respective USB I2C setup guides above.
 
 This section may be the most challenging part of the whole installation.  *You must have a working Raspberry Pi with Internet access.* It can be hard-wired or on Wi-Fi.  There is no better place to learn how to set up your new Pi than from the people who make it themselves.  [Go here](https://www.raspberrypi.com/documentation/computers/getting-started.html) and learn how to install the operating system with the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).  To enable SSH access, pre-configure your image with your local/time zone, Wi-Fi credentials, and a unique hostname.
 
@@ -56,22 +46,13 @@ Aside from the obvious, installing WsprryPi, the install script makes these chan
   - `http://127.0.0.1:31415/config` to `/wsprrypi/config` for getting/setting the configuration
   - `http://127.0.0.1:31415/version` to `/wsprrypi/version` to retrieve the running version.
   - `ws://127.0.0.1:31416/socket` to `/wsprrypi/socket` for WebSocket communications.
-  - A managed privileged-network-safety policy that restricts protected HTTP
-    operations and the entire browser-facing WebSocket endpoint to directly
-    connected Ethernet/Wi-Fi networks by default. The installer validates the
-    complete Apache configuration before reloading it.
+  - A managed privileged-network-safety policy that restricts protected HTTP operations and the entire browser-facing WebSocket endpoint to directly connected Ethernet/Wi-Fi networks by default. The installer validates the complete Apache configuration before reloading it.
 - **Install Chrony**, [a replacement for ntpd](https://chrony-project.org/).
 - **Install PHP**, a popular, general-purpose scripting language that is especially suited for web development.  The [PHP Group](https://www.php.net/) maintains PHP.  I wrote the web pages in PHP.
 - **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
 - **Supply Pico USB firmware tools with the [development installer](beta7.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
-- **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.**
-  The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its
-  source and installed artifacts, and first establishes route-neutral
-  administration. Fresh setup has no selected route. An explicitly saved RP1
-  GPIO4/GPIO20 selection can then be restored, with transmission disabled.
-  Package installation, neutral activation, and route restoration are separate;
-  none grants output authorization.
+- **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.** The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its source and installed artifacts, and first establishes route-neutral administration. Fresh setup has no selected route. An explicitly saved RP1 GPIO4/GPIO20 selection can then be restored, with transmission disabled. Package installation, neutral activation, and route restoration are separate; none grants output authorization.
 - **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission interfere with the WSPR transmission.
 
 (install-wspr)=
@@ -93,32 +74,11 @@ If that happens, this longer form should work:
 curl -fsSL https://raw.githubusercontent.com/WsprryPi/WsprryPi/refs/heads/main/scripts/install.sh | sudo bash
 ```
 
-This install command is idempotent; running it again updates the application
-without requiring you to remove an exact installer-owned RP1 provider first.
-On Pi 5-family systems, the installer safely returns any exact owned route to a
-neutral, inhibited state before replacing provider or application files. It
-refuses foreign, modified, mixed, or otherwise unproven provider state instead
-of adopting or removing it. If an update is released, re-run the installer to
-take advantage of the new release.
+This install command is idempotent; running it again updates the application without requiring you to remove an exact installer-owned RP1 provider first. On Pi 5-family systems, the installer safely returns any exact owned route to a neutral, inhibited state before replacing provider or application files. It refuses foreign, modified, mixed, or otherwise unproven provider state instead of adopting or removing it. If an update is released, re-run the installer to take advantage of the new release.
 
-The current installer delegates provider lifecycle operations to RP1-GPIO-CLK-DKMS.
-With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select
-the installer-selected published provider. Explicit `release` selection chooses the latest eligible
-published release, including prereleases, without a development fallback. The
-provider reports its version and verifies interface compatibility, exact native
-ownership, recovery inputs, and predecessor absence. Repeated identical inputs
-retain the owned installation; changed inputs at the same version replace it;
-a compatible higher version upgrades it. Unexpected changes to installed code
-are preserved and stop replacement. See
-[RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership)
-for source selection, version ordering, and recovery.
+The current installer delegates provider lifecycle operations to RP1-GPIO-CLK-DKMS. With the default `RP1_GPCLK_DKMS_SOURCE=auto`, all application branches select the installer-selected published provider. Explicit `release` selection chooses the latest eligible published release, including prereleases, without a development fallback. The provider reports its version and verifies interface compatibility, exact native ownership, recovery inputs, and predecessor absence. Repeated identical inputs retain the owned installation; changed inputs at the same version replace it; a compatible higher version upgrades it. Unexpected changes to installed code are preserved and stop replacement. See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership) for source selection, version ordering, and recovery.
 
-The installer installs its
-pinned qualification evidence locally, including updates that skip an unchanged provider. No separate
-qualification-release download or cache refresh is needed. The evidence cannot
-authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status).
-Missing or corrupt evidence is an installation-integrity problem, rather than
-a new band-unavailability result.
+The installer installs its pinned qualification evidence locally, including updates that skip an unchanged provider. No separate qualification-release download or cache refresh is needed. The evidence cannot authorize transmission. See [installed evidence and status](../Advanced_Operations/rp1_gpclk.md#installed-evidence-and-status). Missing or corrupt evidence is an installation-integrity problem, rather than a new band-unavailability result.
 
 ### Pico USB firmware tools
 
@@ -163,8 +123,7 @@ If no compatible published executable exists, the development installer builds f
 
 Source builds can take longer on older or low-memory Pis. When compilation is needed, the installer reports available resources and planned parallelism before starting its progress steps.
 
-The installer reports progress for each operation. The following excerpt shows
-executable replacement during an update; other installation steps are omitted:
+The installer reports progress for each operation. The following excerpt shows executable replacement during an update; other installation steps are omitted:
 
 ```text
 [  ✔  ] Complete: Stage executable for /usr/local/bin/wsprrypi.
@@ -173,12 +132,7 @@ executable replacement during an update; other installation steps are omitted:
 [  ✔  ] Complete: Install executable at /usr/local/bin/wsprrypi.
 ```
 
-The backup message appears only when an executable already exists at the
-destination. The service-stop message appears only when the service is running.
-Other messages vary with your Pi, installed packages, and installation options.
-Each `Complete:` message confirms that an operation succeeded; executable
-replacement alone does not mean the entire installation has finished. If an
-operation fails, the installer reports `Failed:` for that operation.
+The backup message appears only when an executable already exists at the destination. The service-stop message appears only when the service is running. Other messages vary with your Pi, installed packages, and installation options. Each `Complete:` message confirms that an operation succeeded; executable replacement alone does not mean the entire installation has finished. If an operation fails, the installer reports `Failed:` for that operation.
 
 You may see:
 
@@ -228,34 +182,15 @@ Run the normal installer in uninstall mode:
 curl -fsSL installwspr.aa0nt.net | sudo env ACTION=uninstall bash
 ```
 
-Uninstall removes unchanged WsprryPi-owned application, service, configuration,
-and web files while retaining operator data and shared operating-system packages.
-By default, on Pi 5-family
-systems, it also removes the RP1 provider and runtime administration when the
-installer can prove that the installed identity is still the one WsprryPi
-owns. Foreign, modified, mixed, or unproven provider state is preserved, and
-the uninstall reports a failure instead of deleting it.
+Uninstall removes unchanged WsprryPi-owned application, service, configuration, and web files while retaining operator data and shared operating-system packages. By default, on Pi 5-family systems, it also removes the RP1 provider and runtime administration when the installer can prove that the installed identity is still the one WsprryPi owns. Foreign, modified, mixed, or unproven provider state is preserved, and the uninstall reports a failure instead of deleting it.
 
-RP1-GPIO-CLK-DKMS owns the provider installation receipt and absence checks. WsprryPi
-maintains separate application file ownership. Uninstall removes unchanged owned
-files and generated defaults while preserving existing or modified operator
-data, configured fleet records, shared packages, and `picotool`. Failed required
-cleanup stops the uninstall; it does not report provider removal without proof.
-See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership).
+RP1-GPIO-CLK-DKMS owns the provider installation receipt and absence checks. WsprryPi maintains separate application file ownership. Uninstall removes unchanged owned files and generated defaults while preserving existing or modified operator data, configured fleet records, shared packages, and `picotool`. Failed required cleanup stops the uninstall; it does not report provider removal without proof. See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership).
 
 ## Additional Hardware
 
 While the TAPR Hat is optional, an antenna is not. Choosing an antenna is beyond the scope of this documentation. The direct GPIO backend can use GPIO4 (header pin 7) or GPIO20 (header pin 38), but its square-wave output requires the filtering, DC blocking, and protection described in the [RF and Electrical Reference](../Advanced_Operations/rf_electrical.md). Do not connect an antenna directly to an unfiltered GPIO pin.
 
-On Raspberry Pi 5-family systems, the WsprryPi installer installs and validates
-the compatible [RP1 GPCLK provider](../Advanced_Operations/rp1_gpclk.md) and
-route-management service. Fresh installation leaves both GPIO routes unselected and output disabled;
-an update may restore an explicitly saved `rp1-gpclk` route while staying idle.
-For a new selection, choose and apply GPIO4 or GPIO20 from **Setup > Transmitter**
-after installation. A route change
-is complete only after WsprryPi confirms the same requested, persisted,
-configured, and active route after startup. You may instead use Si5351 without
-selecting an RP1 route.
+On Raspberry Pi 5-family systems, the WsprryPi installer installs and validates the compatible [RP1 GPCLK provider](../Advanced_Operations/rp1_gpclk.md) and route-management service. Fresh installation leaves both GPIO routes unselected and output disabled; an update may restore an explicitly saved `rp1-gpclk` route while staying idle. For a new selection, choose and apply GPIO4 or GPIO20 from **Setup > Transmitter** after installation. A route change is complete only after WsprryPi confirms the same requested, persisted, configured, and active route after startup. You may instead use Si5351 without selecting an RP1 route.
 
 ## Optional network diagnostic logging
 

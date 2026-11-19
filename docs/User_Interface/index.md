@@ -19,8 +19,7 @@ Maintenance <Maintenance/index>
 
 ![WsprryPi UI](overview.jpg)
 
-For a new station, follow [Your first WSPR transmission](../first_transmission.md).
-For everyday operation:
+For a new station, follow [Your first WSPR transmission](../first_transmission.md). For everyday operation:
 
 1. Confirm the header indicators show a connection to the backend.
 2. Review the transmitter, station, and schedule settings under **Setup**.
@@ -30,17 +29,9 @@ For everyday operation:
 
 ## Browser requirements
 
-Use a current Chrome, Edge, Firefox, or Safari browser with JavaScript enabled.
-The interface is validated in Chromium; compatibility with every browser
-or embedded web view has not been verified. Internet Explorer and EdgeHTML
-are not supported.
+Use a current Chrome, Edge, Firefox, or Safari browser with JavaScript enabled. The interface is validated in Chromium; compatibility with every browser or embedded web view has not been verified. Internet Explorer and EdgeHTML are not supported.
 
-An open page continues using its loaded interface until you refresh it. Before
-choosing **Refresh** in the **UI refresh required** dialog or reloading the page,
-check the save status and resolve any unsaved changes. Wait for valid changes to
-show **Saved**, and correct errors or copy drafts you want to keep. Choose
-**Cancel** if you are not ready to refresh. A reload may discard transient
-drafts; it does not reset saved settings.
+An open page continues using its loaded interface until you refresh it. Before choosing **Refresh** in the **UI refresh required** dialog or reloading the page, check the save status and resolve any unsaved changes. Wait for valid changes to show **Saved**, and correct errors or copy drafts you want to keep. Choose **Cancel** if you are not ready to refresh. A reload may discard transient drafts; it does not reset saved settings.
 
 ## Navbar
 
@@ -131,22 +122,10 @@ Information related to each page follows.
 
 ## Local control and remote ownership
 
-Each transmitter runs its own schedule. **Enable** controls the selected Pi’s
-native recurrence. Fleet management, pairing, and browsing do not select a
-transmitter backend or dispatch occurrences. Existing ownership, time readiness,
-and confirmed output cleanup still govern local admission.
+Each transmitter runs its own schedule. **Enable** controls the selected Pi’s native recurrence. Fleet management, pairing, and browsing do not select a transmitter backend or dispatch occurrences. Existing ownership, time readiness, and confirmed output cleanup still govern local admission.
 
-For a selected Pico, **Native schedule safety** provides **Read device status**,
-**Stop native schedules**, and **Read stop status**. A confirmed stop disables
-both saved WSPR and keyed-message schedules and confirms inactive, unowned output.
-Read saved settings before explicitly enabling a schedule again. Console STOP
-remains a separate local safety control.
+For a selected Pico, **Native schedule safety** provides **Read device status**, **Stop native schedules**, and **Read stop status**. A confirmed stop disables both saved WSPR and keyed-message schedules and confirms inactive, unowned output. Read saved settings before explicitly enabling a schedule again. Console STOP remains a separate local safety control.
 
-If stop is refused or its reply is lost, output is unknown. Read stop status;
-do not replay the mutation. If management is unavailable, use the Pico’s local
-USB Console recovery procedure. Draft settings remain separate from stop.
+If stop is refused or its reply is lost, output is unknown. Read stop status; do not replay the mutation. If management is unavailable, use the Pico’s local USB Console recovery procedure. Draft settings remain separate from stop.
 
-See [Fleet setup](Setup/index.md#pi-and-pico-fleet-setup) and
-[local Pi scheduling migration](Maintenance/index.md#migrate-a-local-pi-schedule).
-Older deployments with remote WTP duties require
-[retirement before upgrading](Maintenance/index.md#retire-remote-wtp-work-before-upgrading).
+See [Fleet setup](Setup/index.md#pi-and-pico-fleet-setup) and [local Pi scheduling migration](Maintenance/index.md#migrate-a-local-pi-schedule). Older deployments with remote WTP duties require [retirement before upgrading](Maintenance/index.md#retire-remote-wtp-work-before-upgrading).

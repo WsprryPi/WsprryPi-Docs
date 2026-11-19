@@ -4,26 +4,13 @@ Use the Maintenance page to repair or reset configuration, check the RF path wit
 
 ## Set up this transmitter
 
-On a new installation, open **Maintenance** and use **Set up this transmitter**.
-Review the **Station** and **Operation** sections, including your call sign,
-locator, and output selection. Other settings are available in the expandable
-sections. Select **Save initial settings** when the configuration is ready.
+On a new installation, open **Maintenance** and use **Set up this transmitter**. Review the **Station** and **Operation** sections, including your call sign, locator, and output selection. Other settings are available in the expandable sections. Select **Save initial settings** when the configuration is ready.
 
-Reviewing or editing the form does not save it. If validation fails, the form
-retains your entries. If the connection is interrupted during a save, use
-**Check saved result** before attempting another change.
+Reviewing or editing the form does not save it. If validation fails, the form retains your entries. If the connection is interrupted during a save, use **Check saved result** before attempting another change.
 
-Setup saves transmission and scheduling disabled. It does not start a tone,
-transmit a message, or enable a schedule. After the saved configuration and
-startup are verified, the ordinary Maintenance controls become available.
+Setup saves transmission and scheduling disabled. It does not start a tone, transmit a message, or enable a schedule. After the saved configuration and startup are verified, the ordinary Maintenance controls become available.
 
-Updates and configuration resets retain the installation's scheduling history.
-If established history is missing or damaged, the page opens read-only recovery;
-it cannot use initial setup or Reset to bypass that condition. An existing
-installation with a previous local schedule uses
-[local scheduling migration](#migrate-a-local-pi-schedule) rather than initial
-setup. Outstanding remote WTP duties require
-[retirement before upgrading](#retire-remote-wtp-work-before-upgrading).
+Updates and configuration resets retain the installation's scheduling history. If established history is missing or damaged, the page opens read-only recovery; it cannot use initial setup or Reset to bypass that condition. An existing installation with a previous local schedule uses [local scheduling migration](#migrate-a-local-pi-schedule) rather than initial setup. Outstanding remote WTP duties require [retirement before upgrading](#retire-remote-wtp-work-before-upgrading).
 
 ## Controller access
 
@@ -41,39 +28,21 @@ If a controller-access change is unconfirmed, use **Check saved result**. Refres
 
 ## Scheduling ownership
 
-Installing an update preserves established scheduling ownership. Moving a Pi's
-previous local schedule to native scheduling is a separate, explicit action in
-the current software. Retiring remote WTP work is a different procedure that
-must finish before replacing WTP-capable software.
+The first startup with the native scheduling policy performs the local handover automatically when ownership and output are verified. It saves native scheduling disabled for review. Retiring remote WTP work is a separate procedure that must finish before replacing WTP-capable software.
 
 ### Migrate a local Pi schedule
 
-Use this procedure when the selected Pi produces its own signal through GPIO or
-Si5351. It works in the current software and does not require WTP support. The
-Pi retires its previous local scheduling authority, reconciles accepted work,
-and retains the saved configuration with native scheduling disabled. The
-previous local schedule remains available for controlled restoration.
+This policy applies when the selected Pi produces its own signal through GPIO or Si5351. The previous local scheduler cannot admit new recurring work while migration is pending. Once native output quiescence and local ownership are verified, the Pi retires the previous scheduling authority and saves the existing configuration with native scheduling disabled. It does not require WTP support or an open browser.
 
-1. Open **Maintenance → Scheduling ownership** and choose the Pi under **Device**.
-2. Select **Review migration**, verify the identified device, acknowledge the
-   change, and select **Confirm migration**. Reviewing alone changes nothing.
-3. Wait for confirmation that the device-owned schedule is saved and disabled.
-   Accepted or uncertain work keeps the handover pending.
-4. Open [Setup → Scheduling](../Setup/Scheduling/index.md) for the same Pi. Read
-   the disabled policy and review its mode, frequency settings, and any solar
-   policy. Save and verify any changes with **Save disabled policy**.
-5. Select **Enable saved schedule** when ready. Transmit permission and boot
-   behavior remain separate; enabling scheduling does not turn on Transmit.
+1. After installation, open **Maintenance → Scheduling ownership** and choose the Pi under **Device**.
+2. Check for **Migration completed; schedule disabled pending review.** This confirms that local handover finished and the native policy is saved disabled.
+3. If migration is held, resolve the reported output or ownership recovery condition. Preserve scheduling history. Once resolved, restart through the normal maintenance procedure to retry automatic migration, or use **Review migration**, verify the identified device, acknowledge the change, and select **Confirm migration** when offered. Reviewing alone changes nothing.
+4. Open [Setup → Scheduling](../Setup/Scheduling/index.md) for the same Pi. Read the disabled policy and review its mode, frequency settings, and any solar policy. Save and verify any changes with **Save disabled policy**.
+5. Select **Enable saved schedule** when ready. Transmit permission and boot behavior remain separate; enabling scheduling does not turn on Transmit.
 
-The authority states distinguish progress: **legacy** retains the previous
-scheduler, **staged** confirms migration with native scheduling disabled, and
-**native** follows explicit enable of the saved native schedule. Ordinary
-scheduling can leave solar selection off.
+The authority states distinguish progress: **legacy** means the required handover remains held, **staged** confirms migration with native scheduling disabled, and **native** follows explicit enable of the saved native schedule. Ordinary scheduling can leave solar selection off.
 
-Postpone migration while accepted work, uncertain output, or damaged history
-needs reconciliation. A previous local scheduler can also be retained while
-evaluating a known configuration. Native recurring scheduling requires the
-handover; installing the software alone does not perform it.
+Installing this policy makes the local handover mandatory. Unknown output, incomplete scheduling authority, or unresolved work keeps recurrence held rather than reopening the previous scheduler. Reinstalling or restarting preserves the enable state of a verified native schedule. The previous local schedule remains available only through the separate, explicit restoration workflow below.
 
 Use **Check saved result** when a reply is interrupted. Pending or unknown work keeps migration pending; closing the browser or restarting the Pi does not prove completion. Checking a result does not resend the request. After a restart during handover, review current output and explicitly confirm reconciliation when offered.
 
@@ -83,30 +52,14 @@ If preparation or restoration is unconfirmed, stop and use **Check saved result*
 
 ### Retire remote WTP work before upgrading
 
-This procedure applies to an older deployment where a controller sends WTP jobs
-to another transmitter. Current software has no WTP dispatch or listener and
-cannot finish those jobs. A controller's remote output cannot be converted into
-a native local schedule on that controller.
+This procedure applies to an older deployment where a controller sends WTP jobs to another transmitter. Current software has no WTP dispatch or listener and cannot finish those jobs. A controller's remote output cannot be converted into a native local schedule on that controller.
 
-1. Before replacing the affected binaries or firmware, keep the compatible
-   WTP-capable controller and transmitter software available. Back up settings
-   and preserve ownership, assignment, and recovery records.
-2. Stop new controller dispatch using that software's controls. Let accepted
-   work finish or use its explicit stop procedure, then verify inactive, unowned
-   output and reconcile any uncertain cleanup. Losing contact is not completion.
-3. Complete the authenticated retirement for every recorded controller
-   assignment and verify the saved result. Offline controllers or transmitters
-   and unresolved work keep retirement pending; postpone replacement.
-4. Once those duties are resolved, update the affected devices as a compatible
-   pair. Select the device that produces the signal under **Setup → Device**,
-   configure its native schedule, save it disabled, and review it before enable.
+1. Before replacing the affected binaries or firmware, keep the compatible WTP-capable controller and transmitter software available. Back up settings and preserve ownership, assignment, and recovery records.
+2. Stop new controller dispatch using that software's controls. Let accepted work finish or use its explicit stop procedure, then verify inactive, unowned output and reconcile any uncertain cleanup. Losing contact is not completion.
+3. Complete the authenticated retirement for every recorded controller assignment and verify the saved result. Offline controllers or transmitters and unresolved work keep retirement pending; postpone replacement.
+4. Once those duties are resolved, update the affected devices as a compatible pair. Select the device that produces the signal under **Setup → Device**, configure its native schedule, save it disabled, and review it before enable.
 
-If already upgraded with unresolved WTP records, preserve them and obtain
-recovery guidance for the matching earlier controller and target software.
-Current read-only records do not establish cleanup. Do not delete history,
-reset configuration, or enable an old controller against a retirement image.
-**Review migration** remains unavailable for a Pi configured with remote WTP
-output. Local Pi migration above does not require returning to older software.
+If already upgraded with unresolved WTP records, preserve them and obtain recovery guidance for the matching earlier controller and target software. Current read-only records do not establish cleanup. Do not delete history, reset configuration, or enable an old controller against a retirement image. **Review migration** remains unavailable for a Pi configured with remote WTP output. Local Pi migration above does not require returning to older software.
 
 ## Repair Configuration
 
@@ -132,11 +85,7 @@ You need to reconfigure all of your preferences before continuing to transmit.
 
 ## Privileged Network Safety
 
-**Privileged network safety** limits configuration changes, device controls,
-support-bundle operations, and the browser WebSocket connection to clients on
-the Raspberry Pi's directly connected Ethernet or Wi-Fi networks. It is
-network-location access control, not authentication: it does not distinguish
-between users already on an allowed LAN and does not encrypt traffic.
+**Privileged network safety** limits configuration changes, device controls, support-bundle operations, and the browser WebSocket connection to clients on the Raspberry Pi's directly connected Ethernet or Wi-Fi networks. It is network-location access control, not authentication: it does not distinguish between users already on an allowed LAN and does not encrypt traffic.
 
 The Maintenance page reports three values separately:
 
@@ -144,43 +93,21 @@ The Maintenance page reports three values separately:
 - **Configured** is the value stored in `wsprrypi.ini`.
 - **Active** is the policy confirmed in the backend and Apache.
 
-Keep **Enforced** selected for normal operation. Browser operation uses the
-normal port-80 Apache site; the UI does not fall back to the direct backend
-ports for this control. When enforcement is active, Apache also restricts the
-entire browser-facing WebSocket endpoint. Off-LAN clients therefore cannot use
-read-only WebSocket commands or receive its broadcasts.
+Keep **Enforced** selected for normal operation. Browser operation uses the normal port-80 Apache site; the UI does not fall back to the direct backend ports for this control. When enforcement is active, Apache also restricts the entire browser-facing WebSocket endpoint. Off-LAN clients therefore cannot use read-only WebSocket commands or receive its broadcasts.
 
-The insecure override is intended only for deliberate administrator recovery
-or an explicitly accepted network design. Select **Insecure disabled**, type
-`DISABLE LOCAL-LAN SAFETY` exactly, and then select **Apply requested state**.
-The setting is not part of Setup autosave. When the insecure override is
-active, the page displays **NETWORK SAFETY OFF**.
+The insecure override is intended only for deliberate administrator recovery or an explicitly accepted network design. Select **Insecure disabled**, type `DISABLE LOCAL-LAN SAFETY` exactly, and then select **Apply requested state**. The setting is not part of Setup autosave. When the insecure override is active, the page displays **NETWORK SAFETY OFF**.
 
-Applying either value validates the candidate WsprryPi and Apache
-configuration, reloads Apache without rebooting, and confirms the active
-policy. If validation, reload, or confirmation fails, the page preserves your
-requested choice and reports that the requested, configured, and active values
-may differ. Resolve the reported problem and verify the displayed state before
-trying again.
+Applying either value validates the candidate WsprryPi and Apache configuration, reloads Apache without rebooting, and confirms the active policy. If validation, reload, or confirmation fails, the page preserves your requested choice and reports that the requested, configured, and active values may differ. Resolve the reported problem and verify the displayed state before trying again.
 
-Disabling this LAN check does not disable Host, Origin, CORS, malformed-request,
-HTTP method, command, forwarded-header, or ordinary configuration validation.
-See [Privileged Network Safety](network_safety.md) for protected operations,
-direct-backend behavior, network-change handling, and recovery guidance.
+Disabling this LAN check does not disable Host, Origin, CORS, malformed-request, HTTP method, command, forwarded-header, or ordinary configuration validation. See [Privileged Network Safety](network_safety.md) for protected operations, direct-backend behavior, network-change handling, and recovery guidance.
 
 ## Test Tone
 
-A test tone is useful for checking the transmit path, calibration, and tuning.
-Connect the transmitter to a suitable dummy load or attenuated test path before
-starting. Keep the test brief, and select **End** as soon as the check is
-complete.
+A test tone is useful for checking the transmit path, calibration, and tuning. Connect the transmitter to a suitable dummy load or attenuated test path before starting. Keep the test brief, and select **End** as soon as the check is complete.
 
-An accepted Test Tone request can still be waiting for runtime confirmation.
-Read the execution status before treating the tone as active. Status feedback
-is not a measurement of RF output.
+An accepted Test Tone request can still be waiting for runtime confirmation. Read the execution status before treating the tone as active. Status feedback is not a measurement of RF output.
 
-Select **Test tone** to open the manual tone controls. This does not change the
-frequency saved in Setup.
+Select **Test tone** to open the manual tone controls. This does not change the frequency saved in Setup.
 
 ### Choose the frequency source
 
@@ -194,80 +121,40 @@ Neither source applies random placement. A preview is an unsaved selection; the 
 
 When the controller is disconnected, **Start** and **End** are unavailable.
 
-Test Tone targets the RF carrier shown in the preview. On the legacy GPIO
-backend, a frequency that crosses a hardware clock-divider boundary is rejected
-rather than replaced with a nearby carrier. Choose another valid frequency if
-this happens. The reported frequency is the controller's synthesis target;
-actual RF accuracy still depends on clock calibration and the measurement path.
-See [Transmission Timing and Calibration](../../Advanced_Operations/timing_calibration.md#interpreting-test-tone-measurements)
-when using a tone to measure frequency error.
+Test Tone targets the RF carrier shown in the preview. On the legacy GPIO backend, a frequency that crosses a hardware clock-divider boundary is rejected rather than replaced with a nearby carrier. Choose another valid frequency if this happens. The reported frequency is the controller's synthesis target; actual RF accuracy still depends on clock calibration and the measurement path. See [Transmission Timing and Calibration](../../Advanced_Operations/timing_calibration.md#interpreting-test-tone-measurements) when using a tone to measure frequency error.
 
-The WSPR band list is controller-authorized rather than a fixed list in the
-browser. **Start** remains unavailable until the controller is connected, its
-catalog is available, a valid frequency source is selected, and normal
-transmission interlocks permit a test tone. A disabled button is visually
-muted and cannot be selected.
+The WSPR band list is controller-authorized rather than a fixed list in the browser. **Start** remains unavailable until the controller is connected, its catalog is available, a valid frequency source is selected, and normal transmission interlocks permit a test tone. A disabled button is visually muted and cannot be selected.
 
-See [Canonical Bands and WSPR Frequency Presets](../../Advanced_Operations/canonical_bands.md)
-for the effective preset rules and the distinction between a WSPR dial preset
-and the exact RF carrier used by **Custom RF frequency**.
+See [Canonical Bands and WSPR Frequency Presets](../../Advanced_Operations/canonical_bands.md) for the effective preset rules and the distinction between a WSPR dial preset and the exact RF carrier used by **Custom RF frequency**.
 
-If scheduled WSPR or CW-family transmission is enabled, the page prompts you
-to stop and disable it before starting a test tone.
+If scheduled WSPR or CW-family transmission is enabled, the page prompts you to stop and disable it before starting a test tone.
 
 You must re-enable normal transmissions on the Operations page after testing.
 
 ### Read the result
 
-Before **Start**, the frequency summary is a preview of the request. After the
-controller replies, the execution status reports what the controller actually
-committed. When the committed frequency matches the preview, the status does
-not repeat the full dial-frequency, offset, and RF-frequency calculation.
+Before **Start**, the frequency summary is a preview of the request. After the controller replies, the execution status reports what the controller actually committed. When the committed frequency matches the preview, the status does not repeat the full dial-frequency, offset, and RF-frequency calculation.
 
-The execution status calls out information that changes what you should do,
-including:
+The execution status calls out information that changes what you should do, including:
 
 - a committed frequency that differs from the request;
 - controller selector details or warnings;
 - a rejected or failed start; and
 - whether **End** remains available for recovery.
 
-**Accepted** means asynchronous startup was requested. **Active** means the
-controller observed runtime activity; it is not an RF measurement. Startup or
-execution can fail after acceptance. Read the failure and cleanup status before
-another Start; failed startup does not automatically resume prior work.
+**Accepted** means asynchronous startup was requested. **Active** means the controller observed runtime activity; it is not an RF measurement. Startup or execution can fail after acceptance. Read the failure and cleanup status before another Start; failed startup does not automatically resume prior work.
 
-**End** feedback names cleanup and restoration separately. A successful Test
-A retired or held recurring schedule remains disabled when Test Tone ends.
-The manual tone does not clear retirement or resume old occurrences. The existing
-requirement to disable transmission before starting a tone still applies.
+**End** feedback names cleanup and restoration separately. A successful Test A retired or held recurring schedule remains disabled when Test Tone ends. The manual tone does not clear retirement or resume old occurrences. The existing requirement to disable transmission before starting a tone still applies.
 
-Tone end can restore scheduler configuration, return to managed idle, or restore
-an earlier CLI direct tone. Ending this transaction therefore does not always
-mean all output is off. If restoration fails, the status retains that failure
-even when Test Tone cleanup succeeded. An ordinary **Stop** disables work and
-prevents later tone restoration from restarting it.
+Tone end can restore scheduler configuration, return to managed idle, or restore an earlier CLI direct tone. Ending this transaction therefore does not always mean all output is off. If restoration fails, the status retains that failure even when Test Tone cleanup succeeded. An ordinary **Stop** disables work and prevents later tone restoration from restarting it.
 
-Saved Setup edits and **Repair current configuration** / **Reset to defaults**
-can be stored while the tone owns runtime, but application is deferred until
-cleanup. They do not replace the running backend, mode, frequency, or selectors.
-Review the resulting configuration and restoration feedback before re-enabling
-normal transmission.
+Saved Setup edits and **Repair current configuration** / **Reset to defaults** can be stored while the tone owns runtime, but application is deferred until cleanup. They do not replace the running backend, mode, frequency, or selectors. Review the resulting configuration and restoration feedback before re-enabling normal transmission.
 
 ### Recover from an uncertain result
 
-If Start or End times out, or connection drops before a confirmed result, the
-outcome is uncertain. Reconnect and read current status; a lost connection does
-not establish output-off. While connected, **End** remains available whenever
-an active or uncertain state requires recovery, even without the WSPR catalog.
-During a pending End, it stays disabled to prevent duplicate requests.
+If Start or End times out, or connection drops before a confirmed result, the outcome is uncertain. Reconnect and read current status; a lost connection does not establish output-off. While connected, **End** remains available whenever an active or uncertain state requires recovery, even without the WSPR catalog. During a pending End, it stays disabled to prevent duplicate requests.
 
-Request End once and inspect its result before another Start. Cleanup uncertainty
-inhibits further output. A recovery End can confirm cleanup without restoring
-prior work; a repeated inactive End need not report a new stop. If uncertainty
-persists, keep transmission disabled and use the reported local/backend recovery
-procedure. Conservative feedback from an older controller may lack correlation
-or restoration evidence; do not infer a fresh success from an unattributed reply.
+Request End once and inspect its result before another Start. Cleanup uncertainty inhibits further output. A recovery End can confirm cleanup without restoring prior work; a repeated inactive End need not report a new stop. If uncertainty persists, keep transmission disabled and use the reported local/backend recovery procedure. Conservative feedback from an older controller may lack correlation or restoration evidence; do not infer a fresh success from an unattributed reply.
 
 ## Update Checker
 

@@ -12,40 +12,15 @@
   Load configuration from an INI file. When used, CLI transmission options are
   disabled or restricted, and the program runs in daemon-style mode.
 
-- `--controller-only -i <file>`<br />
-  Start the controller service without a local transmitter. Setup opens Fleet,
-  and Operations shows the controller separately from assigned remote outputs.
-  The process does not require a local callsign or locator,
-  select an output backend, initialize transmitter GPIO, or start a local WTP
-  execution listener. Transmitter CLI options are rejected in this role.
+- `--controller-only -i <file>`<br /> Start the controller service without a local transmitter. Setup opens Fleet, and Operations shows the controller separately from assigned remote outputs. The process does not require a local callsign or locator, select an output backend, initialize transmitter GPIO, or start a local WTP execution listener. Transmitter CLI options are rejected in this role.
 
-  The existing regular INI file locates the controller's adjacent device catalog,
-  Fleet assignments, and recovery journal. Only its `[Operation]` listener ports
-  and `[Security]` network-safety setting are read; local station and output
-  values are left unchanged. Missing listener ports use 31415 and 31416. The
-  controller identity is assigned automatically on Linux and macOS. Startup
-  fails if that identity or its saved controller state cannot be validated.
+  The existing regular INI file locates the controller's adjacent device catalog, Fleet assignments, and recovery journal. Only its `[Operation]` listener ports and `[Security]` network-safety setting are read; local station and output values are left unchanged. Missing listener ports use 31415 and 31416. The controller identity is assigned automatically on Linux and macOS. Startup fails if that identity or its saved controller state cannot be validated.
 
-  `--web-port`, `--socket-port`, `--socket-loopback-only`, `--no-web`,
-  `--no-http`, and the logging options below are supported. Listener ports must
-  be distinct integers from 1024 through 49151 when both listeners are enabled.
-  Port and role changes require an explicit process restart. Stop this process
-  with Ctrl-C or SIGTERM; it does not turn into a transmitter after a reload or
-  failed initialization.
+  `--web-port`, `--socket-port`, `--socket-loopback-only`, `--no-web`, `--no-http`, and the logging options below are supported. Listener ports must be distinct integers from 1024 through 49151 when both listeners are enabled. Port and role changes require an explicit process restart. Stop this process with Ctrl-C or SIGTERM; it does not turn into a transmitter after a reload or failed initialization.
 
-  Managing another Pi's settings from this
-  controller, pairing a Pi, and transferring management access are unavailable.
-  Open that Pi's own web interface to manage its local settings. Adding a Pi as
-  a WTP output does not grant access to its settings.
+  Managing another Pi's settings from this controller, pairing a Pi, and transferring management access are unavailable. Open that Pi's own web interface to manage its local settings. Adding a Pi as a WTP output does not grant access to its settings.
 
-  `GET /status` reports controller readiness separately from target availability,
-  with `local_output: null`. Existing Fleet and device-catalog interfaces remain
-  available behind the normal network and browser-request checks. Local
-  configuration, output-selection, transmission, and machine-power commands are
-  refused, and their browser controls are unavailable. Existing assignments
-  remain separate from local output selection.
-  Enrolled Picos can be configured through Fleet's Manage action without selecting
-  them as the controller's output.
+  `GET /status` reports controller readiness separately from target availability, with `local_output: null`. Existing Fleet and device-catalog interfaces remain available behind the normal network and browser-request checks. Local configuration, output-selection, transmission, and machine-power commands are refused, and their browser controls are unavailable. Existing assignments remain separate from local output selection. Enrolled Picos can be configured through Fleet's Manage action without selecting them as the controller's output.
 
 - `-r`, `--repeat`  
   Repeat transmissions indefinitely in direct CLI mode.
@@ -79,17 +54,10 @@
 
 ### WSPR Message Types
 
-The CLI supports WSPR message planning. Direct
-CLI WSPR input is passed through the same WSPR planning path used by the rest
-of the application.
+The CLI supports WSPR message planning. Direct CLI WSPR input is passed through the same WSPR planning path used by the rest of the application.
 
-- **Type 1** is the normal single-frame WSPR message form for standard
-  callsign, grid, and power combinations.
-- **Type 2** supports compound or extended identity cases by transmitting a
-  callsign-hash-oriented frame as part of a paired strategy.
-- **Type 3** supports the complementary extended identity information needed
-  for paired decoding.
+- **Type 1** is the normal single-frame WSPR message form for standard callsign, grid, and power combinations.
+- **Type 2** supports compound or extended identity cases by transmitting a callsign-hash-oriented frame as part of a paired strategy.
+- **Type 3** supports the complementary extended identity information needed for paired decoding.
 
-For ordinary callsigns and four-character grid squares, no special option is
-usually needed. For identities that require Type 2/Type 3 handling, use
-`--planner-preference` when you want to prefer or require paired planning.
+For ordinary callsigns and four-character grid squares, no special option is usually needed. For identities that require Type 2/Type 3 handling, use `--planner-preference` when you want to prefer or require paired planning.

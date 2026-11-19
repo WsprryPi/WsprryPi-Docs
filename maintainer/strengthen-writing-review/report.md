@@ -2,31 +2,13 @@
 
 ## Scope and result
 
-Completed the previously unfinished Strengthen writing review for the selected
-extract: About WSPR's opening two paragraphs, Operations' Current Plan and plan
-descriptions, and Configure WSPR's Planning Mode section. This does not rescore
-whole pages or the handbook. The exact prior and final submissions are saved as
-[original.txt](original.txt) and [final.txt](final.txt).
+Completed the previously unfinished Strengthen writing review for the selected extract: About WSPR's opening two paragraphs, Operations' Current Plan and plan descriptions, and Configure WSPR's Planning Mode section. This does not rescore whole pages or the handbook. The exact prior and final submissions are saved as [original.txt](original.txt) and [final.txt](final.txt).
 
-Baseline: clean `devel` at `2cdb762`. The existing authenticated Grammarly page
-showed proofreading 100 and AI Detector 10% before changes. The expected account
-was confirmed before editing.
+Baseline: clean `devel` at `2cdb762`. The existing authenticated Grammarly page showed proofreading 100 and AI Detector 10% before changes. The expected account was confirmed before editing.
 
-The original three groups displayed counts of 6, 4, and 5. Every available card
-was inspected individually: 13 cards, including overlapping category entries.
-After changes, Update suggestions produced another set with counts 4, 4, and 1;
-all seven available cards were inspected. Each queue ended with all three groups
-checked and disabled. Category totals are not asserted to be unique card counts.
-No Accept all, Humanizer, or automatic wholesale rewrite was used. Selected useful
-parts were transferred to source while protected markup and identifiers remained
-intact.
+The original three groups displayed counts of 6, 4, and 5. Every available card was inspected individually: 13 cards, including overlapping category entries. After changes, Update suggestions produced another set with counts 4, 4, and 1; all seven available cards were inspected. Each queue ended with all three groups checked and disabled. Category totals are not asserted to be unique card counts. No Accept all, Humanizer, or automatic wholesale rewrite was used. Selected useful parts were transferred to source while protected markup and identifiers remained intact.
 
-An in-place Grammarly editor replacement later duplicated content. That result
-was discarded. A clean new page was populated with the intended final extract;
-its rendered editor text matched the saved extract after whitespace normalization.
-Final results below come only from that clean page:
-[final Grammarly review](https://coda.grammarly.com/d/_dl_YUU_yd--/Untitled-page_sueKvWRp).
-The prior working page is an intermediate review surface, not the final evidence.
+An in-place Grammarly editor replacement later duplicated content. That result was discarded. A clean new page was populated with the intended final extract; its rendered editor text matched the saved extract after whitespace normalization. Final results below come only from that clean page: [final Grammarly review](https://coda.grammarly.com/d/_dl_YUU_yd--/Untitled-page_sueKvWRp). The prior working page is an intermediate review surface, not the final evidence.
 
 | Check | Original selected scope | Final clean selected scope |
 | --- | --- | --- |
@@ -35,28 +17,19 @@ The prior working page is an intermediate review surface, not the final evidence
 | AI Detector resemblance | 10% | 10% |
 | AI flags | One strong | One strong |
 
-**Grammarly-validated** for the saved selected prose. The detector is an advisory
-pattern assessment, not an authorship verdict. No text was changed solely to
-reduce its percentage.
+**Grammarly-validated** for the saved selected prose. The detector is an advisory pattern assessment, not an authorship verdict. No text was changed solely to reduce its percentage.
 
 ## Applied improvements
 
-- Current Plan uses present-tense “shows,” moves the pause-mode condition after
-  the current plan, and uses “WSPR frame type being transmitted.” It still
-  distinguishes a plan to be transmitted from an active frame. Callsign, locator,
-  CW message, and character-cursor details remain.
+- Current Plan uses present-tense “shows,” moves the pause-mode condition after the current plan, and uses “WSPR frame type being transmitted.” It still distinguishes a plan to be transmitted from an active frame. Callsign, locator, CW message, and character-cursor details remain.
 - Planning Mode capitalization matches the control name.
-- Prefer paired when available now says “If the planner can generate…” and
-  “it does so in alternating windows.” Both message types and the condition
-  remain explicit.
+- Prefer paired when available now says “If the planner can generate…” and “it does so in alternating windows.” Both message types and the condition remain explicit.
 
-About WSPR, all exact plan identifiers, the previously approved hash explanation,
-paired-plan descriptions, and Require paired's requirements remain unchanged.
+About WSPR, all exact plan identifiers, the previously approved hash explanation, paired-plan descriptions, and Require paired's requirements remain unchanged.
 
 ## Complete card dispositions
 
-Prior item numbers are retained; new findings start at 113. Item 112's incomplete
-coverage is now closed by this review. Earlier reports remain historical.
+Prior item numbers are retained; new findings start at 113. Item 112's incomplete coverage is now closed by this review. Earlier reports remain historical.
 
 | Item | Card / location | Proposal and final disposition |
 | --- | --- | --- |
@@ -88,29 +61,18 @@ Strong AI patterns: heading **About WSPR** and this entire paragraph:
 
 > WSPR stands for Weak Signal Propagation Reporter. It’s a digital protocol that amateur radio operators use to study how low-power signals travel over long distances, even when propagation conditions are poor.
 
-Captured by matching visible highlight rectangles to rendered text spans, then
-checking the boundary in a screenshot. The complete final submission was verified
-again after capture. No hidden application state or service API was used.
+Captured by matching visible highlight rectangles to rendered text spans, then checking the boundary in a screenshot. The complete final submission was verified again after capture. No hidden application state or service API was used.
 
 ## Adversarial review and validation
 
-Reviewed the final source diff for changed planner conditions, requirement strength,
-message types, temporal meaning, hash recovery promises, and identifier spelling.
-No actionable issue remains. The review caught an initial source replacement
-that missed Current Plan's Markdown emphasis; the final source and submitted
-extract were compared after correcting it.
+Reviewed the final source diff for changed planner conditions, requirement strength, message types, temporal meaning, hash recovery promises, and identifier spelling. No actionable issue remains. The review caught an initial source replacement that missed Current Plan's Markdown emphasis; the final source and submitted extract were compared after correcting it.
 
-- Headings, exact emphasized labels, plan identifiers, message-type counts,
-  F1/2 and F2/2 counts, link/image destinations, inline literals, and fenced
-  markers match the prior committed sources.
-- Fresh complete warnings-as-errors HTML build passed:
-  `source docs/.venv/bin/activate` then
-  `python -m sphinx -E -a -b html -n -W --keep-going docs docs/_build/html`.
+- Headings, exact emphasized labels, plan identifiers, message-type counts, F1/2 and F2/2 counts, link/image destinations, inline literals, and fenced markers match the prior committed sources.
+- Fresh complete warnings-as-errors HTML build passed: `source docs/.venv/bin/activate` then `python -m sphinx -E -a -b html -n -W --keep-going docs docs/_build/html`.
 - Extension unittest passed (one test).
 - Generated HTML contains all three changed paragraphs intact.
 - `git diff --check` passed. No code, CSS, navigation, or hardware change.
-- Commit, push, and exact-commit remote build results are reported in the final
-  completion message after this report is committed.
+- Commit, push, and exact-commit remote build results are reported in the final completion message after this report is committed.
 
 ## Suggestions not applied
 

@@ -52,9 +52,7 @@ RF and Electrical Reference <rf_electrical>
 (test-tone-state)=
 - [WebSocket Interface](websocket.md) documents commands, runtime broadcasts, transmission lifecycle events, and browser synchronization.
 
-- [Raspberry Pi 5 RP1 GPCLK](rp1_gpclk.md) explains installer-managed provider
-  lifecycle, route identities, reboot transactions, recovery, and diagnostic
-  evidence.
+- [Raspberry Pi 5 RP1 GPCLK](rp1_gpclk.md) explains installer-managed provider lifecycle, route identities, reboot transactions, recovery, and diagnostic evidence.
 
 (pwm-peripheral)=
 (rf-and-electrical-considerations)=

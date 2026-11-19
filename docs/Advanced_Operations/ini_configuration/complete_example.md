@@ -10,6 +10,4 @@ This is the complete default configuration maintained by this documentation repo
 
 ## Existing development settings
 
-Do not add an inbound WTP listener or select `backend=wtp`. These execution
-paths are retired. Existing inactive sections can remain stored, but an active
-legacy configuration requires [migration](runtime.md#retired-wtp-configuration) before replacement.
+Do not add an inbound WTP listener or select `backend=wtp`. These execution paths are retired. Existing inactive sections can remain stored, but an active legacy configuration requires [migration](runtime.md#retired-wtp-configuration) before replacement.

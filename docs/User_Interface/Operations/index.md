@@ -2,12 +2,7 @@
 
 The **Operation** page is the main view for monitoring transmissions.
 
-Native device-owned scheduling has an independent enable state, managed through
-the [protected target API](../../Advanced_Operations/rest_api.md#local-pi-device-owned-scheduling).
-Turning that state off allows an accepted complete occurrence to drain and keeps
-output ownership. The existing Transmit and Stop controls retain their separate
-permission and cancellation behavior. A solar wait is normal waiting; a forecast
-or countdown alone does not establish execution.
+Native device-owned scheduling has an independent enable state, managed through the [protected target API](../../Advanced_Operations/rest_api.md#local-pi-device-owned-scheduling). Turning that state off allows an accepted complete occurrence to drain and keeps output ownership. The existing Transmit and Stop controls retain their separate permission and cancellation behavior. A solar wait is normal waiting; a forecast or countdown alone does not establish execution.
 
 ## Select a Fleet output
 
@@ -21,18 +16,13 @@ Use **Resume schedule** only after reviewing fresh, inactive, unowned status and
 
 Acceptance and completion are separate. Read the action feedback beside the controls. After a timeout or an unconfirmed outcome, use **Read status**, review the current state, and reconcile outstanding work before another start. **Review current state** acknowledges the current readback without rewriting an earlier unknown action as successful. Once the controller has finished handling a request, review can release its browser tracking entry even if the device still needs reconciliation; the recovery block remains in place. Wait for an in-flight request before reviewing it. Changing Device preserves pending action tracking. A replaced or removed assignment remains visibly removed until acknowledged; it never silently selects another target.
 
-Controller reboot, shutdown and reboot-behavior controls are hidden while a remote output is selected. The connection indicator and header clocks still describe the controller. With **This Pi** selected, the existing local controls apply; when its backend is WTP, those controls operate the configured endpoint rather than physical output on the controller.
+Controller reboot, shutdown, and reboot-behavior controls are hidden while a remote output is selected. The connection indicator and header clocks still describe the controller. With **This Pi** selected, the existing local controls apply; when its backend is WTP, those controls operate the configured endpoint rather than physical output on the controller.
 
 ## Initial Operations
 
 When you open the user interface at `http://{servername}.local`, the Apache configuration redirects to `http://{servername}.local/wsprrypi/`.  This configuration is in place to avoid a conflict with any other websites you may have on your system.  If the installer detects another website in the root, the redirect is disabled, and you need to append the `/wsprrypi/` manually.
 
-Before enabling transmission, complete [the first-transmission checklist](../../first_transmission.md).
-On Raspberry Pi 5-family systems, a fresh installation leaves both GPIO routes
-unselected and output disabled. Choose and apply GPIO4 or GPIO20 under
-**Setup → Transmitter**, or configure the Si5351 backend. Follow
-[Transmitter Configuration](../Setup/Transmitter/index.md) and confirm the
-requested and active hardware agree before proceeding.
+Before enabling transmission, complete [the first-transmission checklist](../../first_transmission.md). On Raspberry Pi 5-family systems, a fresh installation leaves both GPIO routes unselected and output disabled. Choose and apply GPIO4 or GPIO20 under **Setup → Transmitter**, or configure the Si5351 backend. Follow [Transmitter Configuration](../Setup/Transmitter/index.md) and confirm the requested and active hardware agree before proceeding.
 
 The card shows the current state and transmission plan, with controls to enable, disable, or stop transmissions.
 

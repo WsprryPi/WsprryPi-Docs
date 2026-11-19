@@ -41,15 +41,9 @@
   1,500 Hz, without random placement. For example, `--test-tone 20m` targets
   14,097,100 Hz with the standard preset.
 
-An explicit numeric Test Tone frequency is the requested RF carrier; no WSPR
-audio offset is added. For example, `--test-tone 14097100` targets 14,097,100 Hz.
-On the legacy GPIO backend, an unsafe clock-divider boundary causes the request
-to fail instead of moving the carrier. Choose a nearby valid frequency and
-review the new request before trying again. A successful start reports the
-synthesis target, not a measured RF frequency.
+An explicit numeric Test Tone frequency is the requested RF carrier; no WSPR audio offset is added. For example, `--test-tone 14097100` targets 14,097,100 Hz. On the legacy GPIO backend, an unsafe clock-divider boundary causes the request to fail instead of moving the carrier. Choose a nearby valid frequency and review the new request before trying again. A successful start reports the synthesis target, not a measured RF frequency.
 
-For clock-error measurements, see
-[Interpreting Test Tone Measurements](../Advanced_Operations/timing_calibration.md#interpreting-test-tone-measurements).
+For clock-error measurements, see [Interpreting Test Tone Measurements](../Advanced_Operations/timing_calibration.md#interpreting-test-tone-measurements).
 
 ---
 
@@ -61,13 +55,6 @@ For clock-error measurements, see
 
 ## Managed WTP listener port
 
-- `--wtp-server-port <port>` overrides the managed Pi WTP listener's port for
-  this process. Valid values are `1` through `65535`; the saved default is
-  `31417` in `[WTP Server]`.
+- `--wtp-server-port <port>` overrides the managed Pi WTP listener's port for this process. Valid values are `1` through `65535`; the saved default is `31417` in `[WTP Server]`.
 
-The override does not rewrite the INI. DNS-SD advertises the actual listening
-port, including an override. This option does not enable local RF, create a
-remote assignment, or make a direct one-shot command start the managed server.
-See [WTP Server configuration](../Advanced_Operations/ini_configuration/runtime.md#retired-wtp-configuration)
-for admission and interface selection. The Pi endpoint's finite remote TONE
-job is separate from the continuous local `--test-tone` control above.
+The override does not rewrite the INI. DNS-SD advertises the actual listening port, including an override. This option does not enable local RF, create a remote assignment, or make a direct one-shot command start the managed server. See [WTP Server configuration](../Advanced_Operations/ini_configuration/runtime.md#retired-wtp-configuration) for admission and interface selection. The Pi endpoint's finite remote TONE job is separate from the continuous local `--test-tone` control above.

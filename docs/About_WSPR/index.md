@@ -4,32 +4,19 @@ WSPR stands for Weak Signal Propagation Reporter. It’s a digital protocol that
 
 WSPR sends information as a sequence of tones in short, controlled bursts. Receiving software can recover the message from noise even when the signal is too weak to hear.
 
-Each WSPR transmission carries one message frame. WsprryPi supports three
-message types:
+Each WSPR transmission carries one message frame. WsprryPi supports three message types:
 
-- **Type 1** carries a standard callsign, a four-character Maidenhead locator,
-  and reported power.
-- **Type 2** carries a supported compound callsign and reported power, without
-  a locator.
-- **Type 3** carries a callsign hash, a six-character locator, and reported power.
-  The hash alone cannot reconstruct the callsign; the receiver needs matching
-  callsign context from another decoded message.
+- **Type 1** carries a standard callsign, a four-character Maidenhead locator, and reported power.
+- **Type 2** carries a supported compound callsign and reported power, without a locator.
+- **Type 3** carries a callsign hash, a six-character locator, and reported power. The hash alone cannot reconstruct the callsign; the receiver needs matching callsign context from another decoded message.
 
-WsprryPi can pair Type 1 or Type 2 with Type 3 in separate transmission windows
-to send station identity and the extended locator. A message type is a frame
-format; a paired plan schedules two frames. See
-[WSPR transmission planning](../User_Interface/Setup/Signal_Setup/wspr.md#wspr-transmission-type-selection-examples)
-for WsprryPi's choices and the
-[WSJT-X protocol reference](https://wsjtx.github.io/wsjtx/guide-full.html)
-for the message formats.
+WsprryPi can pair Type 1 or Type 2 with Type 3 in separate transmission windows to send station identity and the extended locator. A message type is a frame format; a paired plan schedules two frames. See [WSPR transmission planning](../User_Interface/Setup/Signal_Setup/wspr.md#wspr-transmission-type-selection-examples) for WsprryPi's choices and the [WSJT-X protocol reference](https://wsjtx.github.io/wsjtx/guide-full.html) for the message formats.
 
 WSPR is transmitted on a schedule, allowing multiple stations to share a single frequency. This makes WSPR suitable for various applications, including monitoring and analyzing radio propagation conditions, testing equipment and antennas, and conducting experiments in low-power, long-range communication.
 
 WSPR can operate at very low signal-to-noise ratios. This makes it useful for studying paths that ordinary listening may miss.
 
-WSPR encodes compact messages with forward error correction and a
-pseudo-random synchronization sequence. Four-frequency shift keying carries
-the encoded symbols in a transmission lasting about two minutes.
+WSPR encodes compact messages with forward error correction and a pseudo-random synchronization sequence. Four-frequency shift keying carries the encoded symbols in a transmission lasting about two minutes.
 
 Transmissions carry a station's callsign, [Maidenhead grid locator](https://en.wikipedia.org/wiki/Maidenhead\_Locator\_System), and transmitter power indicated in dBm. Receiving stations can decode signals with a signal-to-noise ratio [as low as -28 dB in a 2500 Hz bandwidth](https://physics.princeton.edu//pulsar/K1JT/wsprrypi.html). Stations with internet access can automatically upload their reception reports to a central database called [WSPRnet](https://wsprnet.org), which includes a mapping facility.
 

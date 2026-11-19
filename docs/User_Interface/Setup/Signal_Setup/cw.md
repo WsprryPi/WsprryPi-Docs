@@ -60,7 +60,7 @@ Changing **Modulation** displays the corresponding spacing triplet; it does not 
 
 Enter a positive whole-number shift in Hz. FSKCW mark = space + shift; DFCW dash = dot + shift. This control is disabled in QRSS. FSKCW retains its space carrier between elements; QRSS and DFCW gaps have RF off. Timing and gap controls remain independent of the frequency reference.
 
-### Carrier, space or dot frequency
+### Carrier, space, or dot frequency
 
 The label follows the selected mode: **Carrier frequency** for QRSS, **Space frequency** for FSKCW, and **Dot frequency** for DFCW. Enter whole-number Hz, such as `14096900`, or use Hz, kHz, MHz, or GHz units, such as `14.0969MHz`. WSPR band aliases are rejected. Changing the mode changes the reference label while preserving the entered frequency. Band correlation remains in use for filter selection, frequency policy, and output limits.
 

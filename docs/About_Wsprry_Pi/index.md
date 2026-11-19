@@ -8,8 +8,7 @@ Connect the generated output through a [Low-Pass Filter to remove harmonics](htt
 Do not use WsprryPi without an appropriate low-pass filter. Unfiltered output can create harmonic interference on other bands.
 :::
 
-Before choosing hardware, read [What you need](../requirements.md). The tables
-below distinguish model compatibility from band and mode qualification.
+Before choosing hardware, read [What you need](../requirements.md). The tables below distinguish model compatibility from band and mode qualification.
 
 ## Raspberry Pi model compatibility
 
@@ -44,14 +43,7 @@ Compute Modules retain the GPIO and I2C capabilities of their corresponding Rasp
 
 ## Raspberry Pi Pico incompatibility
 
-Raspberry Pi Pico boards are microcontrollers and cannot run the Linux
-WsprryPi application or its GPIO and Si5351 backends. A Pico 2 W running
-WsprryPico firmware schedules and executes its own transmissions. WsprryPi
-can manage its settings and native schedules through USB or a supported network
-management connection. Fleet can manage several devices. See
-[Add a WsprryPico](../Install/pico.md) for preparation and Pi setup. Standalone
-Pico use, hardware limits, and firmware details are in the companion
-[WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).
+Raspberry Pi Pico boards are microcontrollers and cannot run the Linux WsprryPi application or its GPIO and Si5351 backends. A Pico 2 W running WsprryPico firmware schedules and executes its own transmissions. WsprryPi can manage its settings and native schedules through USB or a supported network management connection. Fleet can manage several devices. See [Add a WsprryPico](../Install/pico.md) for preparation and Pi setup. Standalone Pico use, hardware limits, and firmware details are in the companion [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).
 
 ## Transmitter qualification
 
