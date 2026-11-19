@@ -1,6 +1,6 @@
 # Setup Card
 
-Use **Device** beside the Setup tabs to choose whose settings you are editing. On a phone, the selector appears on its own row. **This Pi** opens the local settings. A saved Pico or a verified paired Pi opens its independent settings without selecting it as this controller’s output. Confirm the name, device identity, connection, and status below the selector before editing.
+Use **Device** beside the Setup tabs to choose whose settings you are editing. On a phone, the selector appears on its own row. **This Pi · local settings** opens the local settings. A saved Pico or a verified paired Pi opens its independent settings without selecting it as this controller’s output. When managing another device, confirm its name, full identity, connection, and status below the selector before editing. Local save feedback appears beside the Setup title; loading and retained-draft messages appear when needed.
 
 The five tabs are:
 
@@ -13,6 +13,12 @@ The five tabs are:
 ## Choose and edit a device
 
 Selection alone never saves, enrolls, claims ownership, enables transmission, changes the backend, or changes accepted work. A nearby or unverified choice opens Fleet for identification and profile review; it grants no settings access. A controller-only installation has no local transmitter settings, but can manage supported saved Picos, paired Pis, and supported Picos attached to those Pis through the same tabs. Establish a Pi connection through [Controller access](../Maintenance/index.md#controller-access) first. Attached Picos use that existing connection automatically.
+
+The selector lists saved Pico profiles, paired Pis, supported Picos managed through paired Pis, and supported nearby Picos. Nearby choices require a current WsprryPico Wi-Fi management advertisement or USB management discovery. Unrelated, invalid, and offline advertisements are excluded from nearby choices; saved profiles and retained drafts can remain listed when unavailable. Discovery is a connection hint, not authenticated identity or enrollment.
+
+Connection labels distinguish **Wi-Fi**, **USB**, **Network (TLS)**, and **Network (unencrypted)**. A paired Pi is labeled **Network · paired Pi**, and a Pico attached through it is labeled **USB · through paired Pi**. Repeated observations of the same nearby endpoint appear once, and an endpoint already represented by a saved profile is omitted from nearby choices. Distinct saved profiles and retained drafts remain separate. Nearby devices sharing a name include their hostname or USB serial to distinguish them; confirm the full identity before saving or changing settings.
+
+Use [Operations → Device](../Operations/index.md#manage-another-transmitter) for the selected device’s live status and supported operating controls. **Edit device settings** there opens that same device in Setup. Unlike Setup’s selector, the Operations selector is hidden on a transmitter installation when its only choice is the local Pi.
 
 ### Edit a paired Pi
 

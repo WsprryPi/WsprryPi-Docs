@@ -6,7 +6,39 @@ Native device-owned scheduling has an independent enable state, managed under [S
 
 ## Manage another transmitter
 
-Use **Device** under [Setup](../Setup/index.md) to manage a paired Pi or supported Pico. Review that device’s saved settings and native schedule there. Closing the controller’s browser does not stop another device’s schedule. Operations and the header clocks describe this controller; a saved management profile does not select its local transmitter backend.
+Use **Device** beside the Operations heading to select a paired WsprryPi, a supported saved WsprryPico, or a supported Pico attached to a paired Pi. **This Pi (controller)** is the initial selection on a transmitter installation. Selecting another device reads its status without changing settings, enabling transmission, or changing this Pi’s transmitter backend.
+
+On a transmitter installation, **Device** is hidden when **This Pi (controller)** is the only choice. Pair another Pi through [Maintenance → Controller access](../Maintenance/index.md#controller-access), or enroll a Pico under [Setup → Fleet](../Setup/index.md#pi-and-pico-fleet-setup), to make it available. Nearby advertisements alone do not provide Operations controls. A controller-only installation shows **Controller (no local output)** instead of local transmitter controls.
+
+Confirm the selected device’s name and full identity above its status. The page shows that device’s reported state, output or Transmit permission, schedule observations, and last-read time. These are software observations, not measurements of RF output. Header clocks still belong to the controller, and its local transmitter and power controls are unavailable while another device is selected.
+
+Use **Edit device settings** to open the same device under [Setup → Device](../Setup/index.md#choose-and-edit-a-device). Its settings and schedule remain independent of this Pi. Closing the controller’s browser does not stop a device-owned schedule.
+
+### Paired Pi controls
+
+Available controls depend on the selected Pi’s supported capabilities and a verified read:
+
+- **Read status** reads current settings and status from the selected Pi.
+- **Enable transmission** turns on that Pi’s saved Transmit permission. Recurring transmissions also require its saved schedule to be enabled.
+- **Enable saved schedule** enables the saved schedule without changing Transmit permission.
+- **Pause schedule** prevents new scheduled occurrences while accepted work may finish.
+- **Stop transmission** stops output and turns off that Pi’s saved Transmit permission. Schedule enablement remains separate; read the resulting status before operating again.
+
+Each change asks for confirmation naming the device it will affect. A Pi without supported transmitter settings remains a status-only view; select its supported attached Picos separately to operate them.
+
+While a change remains unconfirmed, further changes are disabled. Use **Check earlier request** to check the earlier result without repeating the write. If the outcome remains unknown, select **Read current values for review**, compare the displayed values with the intended change, and then select **I reviewed these values**. Review allows a later deliberate action; it does not turn an unknown earlier outcome into success. Switching devices keeps an unfinished request associated with its original device.
+
+### Pico controls
+
+Use **Read status** to read the selected Pico’s output and native schedule observations. **Stop native schedules** disables both WSPR and keyed-message schedules and requires readback confirming inactive, unowned output. If Stop is refused or unconfirmed, use **Read stop status** before another action. An ordinary status read does not clear the hold, and a different boot cannot confirm the earlier stop. Use the Pico’s local recovery controls if it cannot be reached.
+
+Enable or edit WSPR scheduling under [Setup → Scheduling](../Setup/Scheduling/index.md). Keyed-message schedule enablement uses the Pico’s own controls.
+
+### Unavailable devices and legacy history
+
+If the selected device disappears or its profile changes, its output state becomes unknown and controls remain unavailable. Return to **This Pi (controller)** or **Controller (no local output)** and choose a current device explicitly. A failed connection does not confirm that output stopped.
+
+Entries labeled **legacy history** show retained controller-assignment and migration records. They do not operate the device’s current native schedule. Use the current managed-device entry for status and supported controls.
 
 ## Initial Operations
 
@@ -14,7 +46,7 @@ When you open the user interface at `http://{servername}.local`, the Apache conf
 
 Before enabling transmission, complete [the first-transmission checklist](../../first_transmission.md). On Raspberry Pi 5-family systems, a fresh installation leaves both GPIO routes unselected and output disabled. Choose and apply GPIO4 or GPIO20 under **Setup → Transmitter**, or configure the Si5351 backend. Follow [Transmitter Configuration](../Setup/Transmitter/index.md) and confirm the requested and active hardware agree before proceeding.
 
-The card shows the current state and transmission plan, with controls to enable, disable, or stop transmissions.
+With **This Pi (controller)** selected, the card shows this Pi’s current state and transmission plan, with controls to enable, disable, or stop transmissions.
 
 ![Initial Operations](operation.jpg)
 
