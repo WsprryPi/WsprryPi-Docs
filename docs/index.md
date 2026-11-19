@@ -1,42 +1,22 @@
 # WsprryPi
 
-WsprryPi turns a Raspberry Pi into a low-power amateur radio transmitter for
-WSPR propagation experiments and slow Morse-code modes. Configure a station
-and transmission schedule in its web interface, then use reception reports to
-see where the signal was heard.
+WsprryPi turns a Raspberry Pi into a low-power amateur radio transmitter for WSPR propagation experiments and slow Morse-code modes. Configure a station and transmission schedule in its web interface, then use reception reports to see where the signal was heard.
 
-The Pi can generate RF through a GPIO clock output or use an external Si5351
-clock generator. It can also control remote Pi and WsprryPico outputs through
-Fleet. Each output needs suitable RF filtering and a band and mode supported
-by that hardware.
+The Pi can generate RF through a GPIO clock output or use an external Si5351 clock generator. Fleet manages the settings and native schedules of other Pi and WsprryPico devices. Each device schedules and executes its own transmissions. Each output needs suitable RF filtering and a band and mode supported by that hardware.
 
 ## Start with one station
 
-1. Read [About WsprryPi](About_Wsprry_Pi/index.md) for the project overview and
-   hardware compatibility. [About WSPR](About_WSPR/index.md) explains the protocol.
+1. Read [About WsprryPi](About_Wsprry_Pi/index.md) for the project overview and hardware compatibility. [About WSPR](About_WSPR/index.md) explains the protocol.
 2. Check [What you need](requirements.md) before choosing hardware or installing.
 3. [Install WsprryPi](Install/index.md) on the Pi.
-4. Follow [Your first WSPR transmission](first_transmission.md) to configure,
-   start, monitor, and stop one local station.
-5. Use the [User Interface guide](User_Interface/index.md) for everyday settings
-   and controls. Turn to [FAQ and Known Errors](FAQ/index.md) or
-   [Support](Support/index.md) when something needs attention.
+4. Follow [Your first WSPR transmission](first_transmission.md) to configure, start, monitor, and stop one local station.
+5. Use the [User Interface guide](User_Interface/index.md) for everyday settings and controls. Turn to [FAQ and Known Errors](FAQ/index.md) or [Support](Support/index.md) when something needs attention.
 
 ## Other operating paths
 
-For shell-based operation, use [Command-Line Quick Start](Command_Line_Operations/quick_start.md).
-To add an external Pico 2 W after installing the Pi, use
-[Add a WsprryPico](Install/pico.md). We strongly recommend
-{ref}`starting with standalone operation <start-with-standalone-operation>`
-to learn the Pico's local capabilities before using Fleet. Its companion
-[manual](https://wsprrypico.readthedocs.io/en/devel/) covers device setup and recovery.
+For shell-based operation, use [Command-Line Quick Start](Command_Line_Operations/quick_start.md). To add an external Pico 2 W after installing the Pi, use [Add a WsprryPico](Install/pico.md). We strongly recommend {ref}`starting with standalone operation <start-with-standalone-operation>` to learn the Pico's local capabilities before using Fleet. Its companion [manual](https://wsprrypico.readthedocs.io/en/devel/) covers device setup and recovery.
 
-Qualification depends on the backend, Raspberry Pi clock profile, band, and
-transmission mode. Check the
-[Band qualification](About_Wsprry_Pi/index.md#band-qualification) table before
-choosing hardware or a mode for a band. See
-[GPIO Band Capabilities and Signal Quality](FAQ/why_12m_looks_noisy.md) for the
-measured GPIO findings.
+Qualification depends on the backend, Raspberry Pi clock profile, band, and transmission mode. Check the [Band qualification](About_Wsprry_Pi/index.md#band-qualification) table before choosing hardware or a mode for a band. See [GPIO Band Capabilities and Signal Quality](FAQ/why_12m_looks_noisy.md) for the measured GPIO findings.
 
 ## Slow Morse-code modes
 

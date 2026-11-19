@@ -13,18 +13,13 @@ The project officially supports Raspberry Pi 5. GPIO RF transmission on Raspberr
 
 ## Build Environment
 
-Build the application for the target operating system and architecture. Runtime
-libraries must satisfy the executable's dependencies. See the source repository
-for the compiler and build requirements.
+Build the application for the target operating system and architecture. Runtime libraries must satisfy the executable's dependencies. See the source repository for the compiler and build requirements.
 
 The backend is developed in modern C++.
 
 ## Repository Layout
 
-The top-level `WsprryPi` repository contains the main application source,
-configuration defaults, install scripts, documentation support, web UI, and
-reusable supporting components. A normal clone contains the complete source
-tree; no submodule initialization is required.
+The top-level `WsprryPi` repository contains the main application source, configuration defaults, install scripts, documentation support, web UI, and reusable supporting components. A normal clone contains the complete source tree; no submodule initialization is required.
 
 The web UI is kept as a top-level component:
 
@@ -40,9 +35,7 @@ src/
 
 ## Components
 
-The component directories are ordinary files tracked by the central WsprryPi
-repository. Their named roots, public interfaces, standalone build or test
-entry points, and reuse boundaries are maintained in the central repository.
+The component directories are ordinary files tracked by the central WsprryPi repository. Their named roots, public interfaces, standalone build or test entry points, and reuse boundaries are maintained in the central repository.
 
 ### Web UI
 
@@ -96,11 +89,7 @@ The component boundaries isolate reusable pieces such as:
 - WSPR reference behavior
 - RF transmission backends
 
-This modular layout keeps lower-level components independently diagnosable and
-allows components such as LCBLog and WSPR-Reference to be extracted for reuse
-through a separately reviewed process. Original repository URLs, imported
-revisions, licensing disposition, and extraction guidance are recorded in
-`docs/components/provenance.md` in the WsprryPi source repository.
+This modular layout keeps lower-level components independently diagnosable and allows components such as LCBLog and WSPR-Reference to be extracted for reuse through a separately reviewed process. Original repository URLs, imported revisions, licensing disposition, and extraction guidance are recorded in `docs/components/provenance.md` in the WsprryPi source repository.
 
 ## Raspberry Pi 5 Support
 
@@ -110,9 +99,7 @@ Pi 5 GPIO output uses the managed RP1 GPCLK provider. Si5351 is a separate exter
 
 ## Web UI Development
 
-The web UI lives in the `WsprryPi-UI` component. It provides the browser-based
-setup, operation, logging, and maintenance interface. Its source, tests, and
-deployment data are versioned with the parent application.
+The web UI lives in the `WsprryPi-UI` component. It provides the browser-based setup, operation, logging, and maintenance interface. Its source, tests, and deployment data are versioned with the parent application.
 
 The main backend exposes REST and WebSocket interfaces used by the UI for:
 
@@ -148,10 +135,7 @@ make -j$(nproc)
 make -j$(nproc) release
 ```
 
-Source development requires the C++ build toolchain, CMake, Python 3, Node.js,
-npm, and PHP CLI. Chromium is also required for the hardware-free UI browser
-integration suite. On Debian or Raspberry Pi OS, install the development
-packages with:
+Source development requires the C++ build toolchain, CMake, Python 3, Node.js, npm, and PHP CLI. Chromium is also required for the hardware-free UI browser integration suite. On Debian or Raspberry Pi OS, install the development packages with:
 
 ```bash
 sudo apt update
@@ -161,16 +145,14 @@ sudo apt install -y \
     nodejs npm php-cli chromium
 ```
 
-Node.js is required for the complete runtime semantics validation target. Run
-it from the Raspberry Pi checkout:
+Node.js is required for the complete runtime semantics validation target. Run it from the Raspberry Pi checkout:
 
 ```bash
 cd ~/WsprryPi/src
 make semantics-test
 ```
 
-The UI has tracked private npm manifests. Install their exact development
-dependency set and run the UI suites with:
+The UI has tracked private npm manifests. Install their exact development dependency set and run the UI suites with:
 
 ```bash
 cd ~/WsprryPi/WsprryPi-UI
@@ -179,10 +161,7 @@ npm test
 npm run test:browser
 ```
 
-The pinned `ws` package is used only by mocked WebSocket tests. It is not a
-production or browser-runtime dependency. Chromium is used only by the
-hardware-free browser integration tests. Do not commit the generated
-`node_modules/` directory.
+The pinned `ws` package is used only by mocked WebSocket tests. It is not a production or browser-runtime dependency. Chromium is used only by the hardware-free browser integration tests. Do not commit the generated `node_modules/` directory.
 
 Targeted regression tests are also built and run from `src`.
 

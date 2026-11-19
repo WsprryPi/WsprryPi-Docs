@@ -2,30 +2,17 @@
 
 The **Operation** page is the main view for monitoring transmissions.
 
-## Select a Fleet output
+Native device-owned scheduling has an independent enable state, managed under [Setup → Scheduling](../Setup/Scheduling/index.md). Turning that state off allows an accepted complete occurrence to drain and keeps output ownership. The existing Transmit and Stop controls retain their separate permission and cancellation behavior. A solar wait is normal waiting; a forecast or countdown alone does not establish execution.
 
-When an assigned Pi or Pico exists, the **Device** selector appears beside the Operations heading. It also includes removed outputs whose cleanup remains unresolved. A saved device profile alone does not add an output. **This Pi (controller)** is selected whenever the page opens. Selecting another output changes this view only; it does not change configuration, ownership, the single selected WTP backend or any schedule.
+## Manage another transmitter
 
-The selected device's name and full identity stay beside its status. **Schedule enabled** and **Schedule paused** describe its assigned schedule. **Running** requires matching device job evidence; a countdown reaching zero does not establish execution. Intentional output-off intervals can occur inside a running job. Device observations and requested/realized frequency values are software reports, not measured RF or frequency qualification. Plain LAN's expected identity match is not authentication.
-
-Device observations become stale at 15 seconds. Their age continues increasing if refresh fails; a refreshed page does not make an old observation current. A healthy new context receives one read-only inspection. A failed connection requires explicit **Reconcile**; opening Operations or changing Device does not reconnect, claim output, set a clock or start a transmission. **Other job on device** identifies work outside this assignment and never offers takeover. A previous completed or canceled job remains historical when another owner is present; it does not establish that the device is idle.
-
-Use **Resume schedule** only after reviewing fresh, inactive, unowned status and the saved schedule. Resume schedules future eligible occurrences and does not replay an interrupted slot. **Pause and stop** confirms the selected device and disables this controller's schedule while stopping its owned work. A confirmed schedule pause alone does not mean the device stopped: another job can remain active, or its output can be unknown. **Reconcile** reports its own result and leaves the schedule paused. **Edit schedule** opens the existing Fleet editor with the selected assignment; unsaved entries retain their original target and revision.
-
-Acceptance and completion are separate. Read the action feedback beside the controls. After a timeout or an unconfirmed outcome, use **Read status**, review the current state, and reconcile outstanding work before another start. **Review current state** acknowledges the current readback without rewriting an earlier unknown action as successful. Once the controller has finished handling a request, review can release its browser tracking entry even if the device still needs reconciliation; the recovery block remains in place. Wait for an in-flight request before reviewing it. Changing Device preserves pending action tracking. A replaced or removed assignment remains visibly removed until acknowledged; it never silently selects another target.
-
-Controller reboot, shutdown and reboot-behavior controls are hidden while a remote output is selected. The connection indicator and header clocks still describe the controller. With **This Pi** selected, the existing local controls apply; when its backend is WTP, those controls operate the configured endpoint rather than physical output on the controller.
+Use **Device** under [Setup](../Setup/index.md) to manage a paired Pi or supported Pico. Review that device’s saved settings and native schedule there. Closing the controller’s browser does not stop another device’s schedule. Operations and the header clocks describe this controller; a saved management profile does not select its local transmitter backend.
 
 ## Initial Operations
 
 When you open the user interface at `http://{servername}.local`, the Apache configuration redirects to `http://{servername}.local/wsprrypi/`.  This configuration is in place to avoid a conflict with any other websites you may have on your system.  If the installer detects another website in the root, the redirect is disabled, and you need to append the `/wsprrypi/` manually.
 
-Before enabling transmission, complete [the first-transmission checklist](../../first_transmission.md).
-On Raspberry Pi 5-family systems, a fresh installation leaves both GPIO routes
-unselected and output disabled. Choose and apply GPIO4 or GPIO20 under
-**Setup → Transmitter**, or configure the Si5351 backend. Follow
-[Transmitter Configuration](../Setup/Transmitter/index.md) and confirm the
-requested and active hardware agree before proceeding.
+Before enabling transmission, complete [the first-transmission checklist](../../first_transmission.md). On Raspberry Pi 5-family systems, a fresh installation leaves both GPIO routes unselected and output disabled. Choose and apply GPIO4 or GPIO20 under **Setup → Transmitter**, or configure the Si5351 backend. Follow [Transmitter Configuration](../Setup/Transmitter/index.md) and confirm the requested and active hardware agree before proceeding.
 
 The card shows the current state and transmission plan, with controls to enable, disable, or stop transmissions.
 
@@ -50,7 +37,7 @@ The card shows the current state and transmission plan, with controls to enable,
 
 - **Transmission Controls:** This panel contains a switch to enable or disable transmissions as well as an emergency stop.
 
-  - *Transmit Enabled* switch enables or disables the transmission scheduler.  When enabled, the transmitter operates on the schedule you have configured.  If you disable it, the configuration saves immediately; any in-progress transmission finishes.
+  - *Transmit Enabled* permits or prevents output. The saved schedule must also be enabled under **Setup → Scheduling** before recurring transmissions can run.  If you disable it, the configuration saves immediately; any in-progress transmission finishes.
   - *Stop transmission* halts an ongoing transmission immediately and disables future transmissions. It is only enabled during a transmission.
 
 - **USB dial / Next USB dial:** The WSPR panel displays the current or next USB dial frequency. RF center = dial + 1500 Hz + optional random placement. The standard 20m dial is 14,095,600 Hz, and its RF center without random placement is 14,097,100 Hz. **Random placement** shows the signed WSPR offset in Hz, separately from the fixed 1,500 Hz placement. CW labels identify **Carrier** for QRSS, **Space** for FSKCW, and **Dot** for DFCW; **Positive shift** gives the mark or dash offset. These values describe requested frequencies, not measured RF.
@@ -66,3 +53,7 @@ The card shows the current state and transmission plan, with controls to enable,
   - *Type2Type3Paired* alternates between Type 2 (shown as F1/2) and Type 3 (shown as F2/2) messages. Together, the two frames let the receiver associate a complex or long callsign with a long locator.
   - *Next Message At* is displayed when in one of the three CW modes and the scheduler is waiting for a transmission window.  The time is displayed in the local time.
   - *Message Progression* is displayed in CW mode during a transmission. It shows a cursor on the current character.
+
+## Device-owned scheduling
+
+Use [Setup → Scheduling](../Setup/Scheduling/index.md) for the selected Pi’s schedule permission and solar policy. Verify the execution owner and output destination there. Disabling scheduling prevents new admissions while accepted work may finish. Transmit and immediate Stop remain separate controls; a disconnected observation cannot establish that output stopped.

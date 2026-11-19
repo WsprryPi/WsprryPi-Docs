@@ -1,10 +1,10 @@
 # Signal Setup Tab
 
-Use the Signal Setup tab to configure the signal type and message content.
+Choose **Device** beside the tabs first. With **This Pi**, Signal Setup configures the local signal type and message content and keeps validated autosave.
 
-![Signal Setup Panel](../setup.jpg)
+With a saved Pico, this tab shows station progress and complete station saves. Its existing WSPR recurrence, gray-line, and standalone combined-settings editors are in [Scheduling](../Scheduling/index.md). Read saved values before an explicit save. Applying saved station progress is a separate action; saving a draft does not make an incomplete station ready or enable output. Existing standalone schedules retain their own explicit save and enable semantics. Pi CW profiles are not mapped onto Pico settings. Unsupported controls are unavailable rather than sent to the local Pi. See [Pico station resources](../Transmitter/index.md#shared-pico-member-resources).
 
-This tab has two main modes, WSPR and CW.
+The local Pi view has two main modes, WSPR and CW.
 
 Select your preferred mode to show its settings.
 
@@ -52,4 +52,8 @@ Configure CW Modes <cw>
 
 - [Configure CW Modes](cw.md) for QRSS, FSKCW, and DFCW modulation, timing, spacing, scheduling, frequency, and message validation.
 
-If your task concerns the RF output path or Raspberry Pi pins rather than signal content, use [Configure Transmitter](../Transmitter/index.md) or [Configure Raspberry Pi I/O](../Pi_IO/index.md).
+If your task concerns the RF output path or Raspberry Pi pins rather than signal content, use [Configure Transmitter](../Transmitter/index.md) or [Configure Device I/O](../Pi_IO/index.md).
+
+## Scheduling frequency inheritance
+
+Blank solar-period overrides in [Scheduling](../Scheduling/index.md) inherit the selected Pi’s saved WSPR list and metadata or saved CW base and shift. An explicit override belongs to that period. Saving Signal Setup does not enable scheduling; review and enable its confirmed policy separately.

@@ -1,13 +1,11 @@
 # Calibration and Transmitter Backends
 
-Use these sections for frequency calibration and RF output-path settings. See [Configure Transmitter](../../User_Interface/Setup/Transmitter/index.md), [Configure Raspberry Pi I/O](../../User_Interface/Setup/Pi_IO/index.md), [Transmission Timing and Calibration](../timing_calibration.md), [Transmitter Backend Options](../../Command_Line_Operations/transmitter_backends.md), and [RF and Electrical Reference](../rf_electrical.md) for the corresponding workflows.
+Use these sections for frequency calibration and RF output-path settings. See [Configure Transmitter](../../User_Interface/Setup/Transmitter/index.md), [Configure Device I/O](../../User_Interface/Setup/Pi_IO/index.md), [Transmission Timing and Calibration](../timing_calibration.md), [Transmitter Backend Options](../../Command_Line_Operations/transmitter_backends.md), and [RF and Electrical Reference](../rf_electrical.md) for the corresponding workflows.
 
 (calibration-section)=
 ## Calibration
 
-The `[Calibration]` section supplies **Reference calibration (PPM)** for the Si5351 backend. GPIO calibration uses the separate values in `[GPIO]`.
-Si5351 models `reference_hz * (1 - PPM / 1000000)`; do not copy GPIO's
-correction sign or intrinsic/estimate terms into this setting.
+The `[Calibration]` section supplies **Reference calibration (PPM)** for the Si5351 backend. GPIO calibration uses the separate values in `[GPIO]`. Si5351 models `reference_hz * (1 - PPM / 1000000)`; do not copy GPIO's correction sign or intrinsic/estimate terms into this setting.
 
 ```{literalinclude} default_wsprrypi.ini
 :language: ini
@@ -20,35 +18,13 @@ correction sign or intrinsic/estimate terms into this setting.
 
 The `[GPIO]` section configures the supported direct RF pin, GPIO-backend power level, provider-derived system clock estimate, conducted residual, and fixed/manual fallback. When `Operation.Transmit Backend = gpio`, the configured transmit pin is reserved even if `Operation.Transmit = false`. The other supported transmit pin remains available to ordinary GPIO roles. When the Si5351 backend is selected, a retained GPIO transmit-pin value reserves nothing.
 
-GPIO qualification depends on the Raspberry Pi clock profile, band, and
-transmission mode. Requests for unqualified combinations are blocked by default,
-while combinations the backend cannot construct remain unavailable. Check the
-[Band qualification](../../About_Wsprry_Pi/index.md#band-qualification) table
-and its numbered notes for the current mode-specific status. See
-[GPIO Band Capabilities and Signal Quality](../../FAQ/why_12m_looks_noisy.md)
-for the measured signal-quality findings.
+GPIO qualification depends on the Raspberry Pi clock profile, band, and transmission mode. Requests for unqualified combinations are blocked by default, while combinations the backend cannot construct remain unavailable. Check the [Band qualification](../../About_Wsprry_Pi/index.md#band-qualification) table and its numbered notes for the current mode-specific status. See [GPIO Band Capabilities and Signal Quality](../../FAQ/why_12m_looks_noisy.md) for the measured signal-quality findings.
 
-The estimate/residual/manual values describe additional correction. The backend
-adds its intrinsic chipset compensation once, including when additional PPM is
-zero. A usable estimate selects estimate plus residual; otherwise manual applies.
-A prior-qualified host estimate can remain usable within its bounded 900-second age
-window even when current qualification is unavailable. Saved inputs do not change
-already committed work. See [calibration accounting](../timing_calibration.md).
+The estimate/residual/manual values describe additional correction. The backend adds its intrinsic chipset compensation once, including when additional PPM is zero. A usable estimate selects estimate plus residual; otherwise manual applies. A prior-qualified host estimate can remain usable within its bounded 900-second age window even when current qualification is unavailable. Saved inputs do not change already committed work. See [calibration accounting](../timing_calibration.md).
 
-On Pi 1–4, `Use System Clock Frequency Estimate = True` applies Chrony's
-host-frequency estimate to GPIO RF output. GPS/PPS is optional and belongs
-to the OS time-source configuration; WsprryPi has no direct PPS capture or
-PPS-input GPIO setting for these hosts. Chrony can also use network time
-sources. See {ref}`Pi 1–4 host-frequency calibration <pi1-4-host-frequency-calibration>`.
+On Pi 1–4, `Use System Clock Frequency Estimate = True` applies Chrony's host-frequency estimate to GPIO RF output. GPS/PPS is optional and belongs to the OS time-source configuration; WsprryPi has no direct PPS capture or PPS-input GPIO setting for these hosts. Chrony can also use network time sources. See {ref}`Pi 1–4 host-frequency calibration <pi1-4-host-frequency-calibration>`.
 
-`Use Direct PPS Calibration = True` selects the optional Pi 5/RP1 measurement
-against an existing `pps0` input on GPIO17. It defaults to `False`. It replaces
-the host frequency estimate for RP1 while retaining that separate saved
-preference. Direct measurements need three stable ten-second observations,
-expire after 30 seconds, and do not use the host estimate's 900-second
-holdover. Unavailable acquisition selects `Manual PPM`. Qualify the reference
-and review any existing residual before enabling it; see
-{ref}`direct PPS prerequisites and operation <direct-pps-calibration-on-pi-5>`.
+`Use Direct PPS Calibration = True` selects the optional Pi 5/RP1 measurement against an existing `pps0` input on GPIO17. It defaults to `False`. It replaces the host frequency estimate for RP1 while retaining that separate saved preference. Direct measurements need three stable ten-second observations, expire after 30 seconds, and do not use the host estimate's 900-second holdover. Unavailable acquisition selects `Manual PPM`. Qualify the reference and review any existing residual before enabling it; see {ref}`direct PPS prerequisites and operation <direct-pps-calibration-on-pi-5>`.
 
 ```{literalinclude} default_wsprrypi.ini
 :language: ini
@@ -61,16 +37,9 @@ and review any existing residual before enabling it; see
 
 The `[Si5351]` section configures the I2C device, reference frequency, reference hardware, transmit output, and drive strength. `Reference Source = external_tcxo` is the compatibility default for an active clock or TCXO. Select `crystal` only when a passive crystal is connected across XA/XB.
 
-`I2C Address` accepts decimal or `0x`-prefixed hexadecimal values from `0x60`
-through `0x6F` inclusive. The web interface further limits its address menu to
-register-compatible devices detected on the selected, host-present I2C bus.
-Direct CLI and INI configuration still undergo range and transmission-readiness
-validation.
+`I2C Address` accepts decimal or `0x`-prefixed hexadecimal values from `0x60` through `0x6F` inclusive. The web interface further limits its address menu to register-compatible devices detected on the selected, host-present I2C bus. Direct CLI and INI configuration still undergo range and transmission-readiness validation.
 
-Cached or failed discovery can retain a saved unconfirmed address. A fresh scan
-is explicit and bounded; see the [I2C address workflow](../../User_Interface/Setup/Transmitter/index.md#i2c-address).
-Drive levels 1–4 retain 2/4/6/8 mA, not calibrated RF power. CW fades are
-full-drive duty-cycle chopping with event deadlines, not analog amplitude control.
+Cached or failed discovery can retain a saved unconfirmed address. A fresh scan is explicit and bounded; see the [I2C address workflow](../../User_Interface/Setup/Transmitter/index.md#i2c-address). Drive levels 1–4 retain 2/4/6/8 mA, not calibrated RF power. CW fades are full-drive duty-cycle chopping with event deadlines, not analog amplitude control.
 
 For a passive crystal, `Crystal Load Capacitance` accepts only `6`, `8`, or `10` pF and defaults to `10`. WsprryPi programs this value only in crystal mode. It retains the setting without applying it in `external_tcxo` mode, so TCXO users should not treat it as a calibration control.
 
@@ -82,123 +51,21 @@ For a passive crystal, `Crystal Load Capacitance` accepts only `6`, `8`, or `10`
 
 
 (wtp-section)=
-## Pico WTP
+(pico-wtp)=
+## Pico management
 
-Set `[Operation] Transmit Backend = wtp` to select a Pico on Linux. Keep
-`Transmit = false` and `Enable on Boot = Never` while configuring and checking
-the endpoint. The active `[WTP]` section remains the runtime's endpoint
-authority. A missing `Transport` value means USB, preserving a valid legacy
-configuration.
+A Pico runs its own saved schedules. Save its management profile in **Setup → Fleet**, then choose it under **Device**. USB management uses interface 4, with Console on 0 and Logging on 6. Interfaces 2/3 are reserved and inert in application images. The optional RFBench image uses them for its bench commands.
 
-| Setting in `[WTP]` | Value and purpose |
-| --- | --- |
-| `Transport` | `usb` (default), `network_plain` (Plain LAN), or `network` (TLS). There is no automatic fallback between them. |
-| `Endpoint` | For USB, the dedicated WTP device path under `/dev/`. Do not use the Console interface. |
-| `USB Serial` | Exact USB serial string, including leading zeros. |
-| `USB Vendor ID` / `USB Product ID` | Decimal USB identifiers, each from 1 through 65535 when USB is selected. |
-| `Hostname` / `TCP Port` | For either network binding, the connection name or address and its actual port. DNS-SD uses the SRV port, which may differ from 31417. |
-| `TLS Server Identity` | For TLS, the expected certificate name. Direct connections may use the configured hostname; a discovered TLS profile requires an explicit expected identity. |
-| `TLS CA File` / `TLS Client Certificate` / `TLS Client Key` | Absolute paths to provisioned files on the WsprryPi host for TLS. The INI and catalog retain file references, not key contents. |
-| `Device ID` | Expected 32-character lowercase hexadecimal WTP identity from HELLO. TLS requires it. USB or a direct Plain LAN endpoint may leave it blank and learn an identity for the current session; a supplied ID is checked. A saved profile requires a confirmed full ID. Plain LAN HELLO is not cryptographic authentication. |
-| `Start Uncertainty ns` | Stored profile value. First-party submissions use the Pico's advertised ceiling; this field does not veto a transmission. UTC uncertainty is displayed for operator judgment. |
-| `Allow Frequency Adjustment` | Default: `false`. Permits reported realizable frequency rounding; it does not establish RF accuracy. |
-
-Obtain identities from the intended device rather than copying another
-board's values. USB identity, WTP device identity, TLS certificate identity,
-and current boot identity serve different checks. A hostname, DNS-SD instance
-label, or Plain LAN HELLO alone does not establish trusted identity.
-
-The host requires synchronized UTC without kernel clock-error flags. The Pico separately needs a valid time source under its source-age, leap, and ownership rules. UTC uncertainty is reported for operator judgment; it is not another first-party transmission budget. External WTP callers can still explicitly request a smaller protocol limit. The independently versioned USB time-observation exchange retains its own validity and format checks; accepting an observation is not RF calibration or proof of start accuracy.
-
-The WTP backend sets effective host PPM to zero automatically. Retain saved
-GPIO and Si5351 calibration values for their local backends. Before selecting
-WTP, disable TX LED, amplifier, shutdown-button, and band-selector GPIO controls,
-including per-frequency `@` selectors. Host CW envelope fades are not carried
-by WTP and are omitted automatically; retain their saved settings for local
-backends. See the [host-output prerequisites](../../User_Interface/Setup/Transmitter/index.md#before-selecting-the-host-output).
-Settings for inactive GPIO and Si5351 backends are retained.
-Unresolved WTP work blocks endpoint or backend replacement until its state is
-resolved.
+Use encrypted Consumer Wi-Fi management with the Pico’s password, or explicitly configured Engineering HTTPS with certificate and hostname verification. There is no WTP execution carrier or automatic security fallback. Preserve explicit hostnames, ports, USB serials, device IDs, and credential references when editing profiles. A display name is not identity.
 
 ### Saved devices and the active endpoint
 
-The **Setup → Fleet** tab keeps a
-private, versioned catalog at `<INI-path>.wtp-devices.json`. The catalog holds
-named USB, manual-network, and DNS-SD profiles with host-side TLS file
-references. First access imports the currently selected valid `[WTP]` settings
-without changing them. A saved profile may remain listed while its discovery
-advertisement is absent.
-
-Independent Fleet schedules use separate assignments; see
-[Output schedules](../../User_Interface/Setup/index.md#assign-an-output-schedule).
-A catalog profile is a connection record, not a schedule.
-
-Adding, renaming, editing, or removing a profile does not change `[WTP]`.
-**Use this device** is the explicit action that applies a saved profile through
-the normal host configuration path. It requires transmission to be disabled
-and the current runtime to be safely replaceable. If writing the INI fails,
-the old active endpoint remains selected. If the write succeeds but runtime
-application cannot be confirmed, read the current configuration and Pico
-status before any further operation. The catalog does not create a second
-active endpoint setting.
-
-A DNS-SD profile keeps its saved binding, target, and SRV port. A changed
-advertisement requires explicit profile review and a fresh device identity
-check before another selection. TLS must still validate its expected server
-identity, credentials, and full WTP device ID. Plain LAN requires renewed
-operator consent and never silently retargets. Configured manual endpoints
-retain their normal direct connection behavior; failed discovery does not
-disable them.
+Saved profiles select management connections. They never choose this Pi’s RF output or grant transmission ownership. Use each device’s native schedule controls.
 
 ### After a Pico hostname change
 
-Change the Pico's saved hostname through its own
-[hostname editor](https://wsprrypico.readthedocs.io/en/devel/maintain.html#change-the-hostname),
-then restart and verify the applied name. Editing `[WTP] Hostname` changes
-only the destination used by this Pi; it does not rename the Pico. Renaming
-a Fleet profile changes only the profile label. Ordinary supported Pico
-settings saves from WsprryPi preserve the Pico's saved hostname.
-
-With transmission disabled and outstanding WTP work resolved, review the saved
-network profile and active endpoint separately:
-
-| Value | After a Pico rename |
-| --- | --- |
-| `Hostname` / `TCP Port` | Use the new reachable name, or a verified current IP, and the actual listener port. The browser's HTTP address is not the WTP port. |
-| `TLS Server Identity` | For Network (TLS), use the expected name in the new server certificate. An IP destination does not remove this identity check. |
-| `TLS CA File` / `TLS Client Certificate` / `TLS Client Key` | A supported consumer rename preserves the existing CA and retained client trust. Engineering name changes require matching replacement credentials through provisioning. |
-| `Device ID` | Keep the intended Pico's full 32-character ID; a rename does not change it. A changed observed ID requires investigation. |
-
-Edit and freshly identify a changed saved profile before **Use this device**.
-That action applies it to the active endpoint; editing the catalog alone does
-not. Review any schedule assignment that also uses the old destination. A
-changed advertisement is not consent to follow another name, device or
-transport. Keep TLS verification and explicit Plain LAN selection intact.
+Read the saved and active names. A saved name may require a deliberate restart. Update the connection destination only after checking the full device ID. Engineering HTTPS must still match its provisioned certificate identity; a DNS hint or new hostname does not replace certificate verification.
 
 ### Pico standalone configuration
 
-The `[WTP]` INI settings select how this Pi connects to a device; Pico's saved
-standalone station, Wi-Fi, and schedule settings are managed separately. When
-Fleet is open, **Pico standalone settings and Wi-Fi**
-uses the paired USB management channel automatically for USB, or the explicitly
-selected network management carrier, while the host and Pico are idle.
-Engineering HTTPS retains the selected Network (TLS) certificate policy;
-supported consumer station/AP management uses a separate volatile login. USB
-and Plain LAN WTP do not themselves provide JSON administration. No persistent
-management secret, new WTP authority, or hardware-activation setting is added.
-
-An ordinary settings save preserves supported settings outside the form,
-including pins and advanced frequency-policy settings. A save proceeds only when the firmware
-and its saved settings can be handled safely; incompatible settings cause refusal. Standalone settings may be saved before all changes are active,
-and the reported restart requirement determines the next step.
-Unknown fields refuse safely rather than being discarded. Explicit scoped
-station/hardware saves use complete resources under the selected member's
-revision/context, separately from the legacy atomic editor. They do not reset
-unrelated settings, restart, claim, reconnect WTP, or transmit.
-
-See [Pico standalone settings and Wi-Fi](../../User_Interface/Setup/Transmitter/index.md#pico-standalone-settings-and-wi-fi)
-for loading, password preservation, schedule-only saves, and recovery after a
-conflicting or unconfirmed result. See
-[Pico connections and fleet outputs](../../User_Interface/Setup/Transmitter/index.md#add-a-pico-and-manage-outputs)
-for the Fleet workflow and job recovery. Keep transmission disabled until the
-configuration, clock evidence, and intended RF path have been checked.
+Read current settings, review the device and boot, save the replacement schedule disabled, and read it back. Enable it explicitly only after reviewing target readiness and authority. Preserve drafts after a refused or unknown save. See [Add a Pico](../../Install/pico.md) and [native stop](../../User_Interface/index.md#local-control-and-remote-ownership).

@@ -4,6 +4,8 @@
 - Before running Sphinx commands, use `source docs/.venv/bin/activate`.
 - Prefer `python -m sphinx -b html docs docs/_build/html`.
 - Do not use `/usr/bin/python3` for docs builds.
+- Keep each prose paragraph on a single physical source line; do not hard-wrap prose to a fixed column width. Keep each list item's prose on one line where possible. Preserve code blocks, tables, directives, and intentional Markdown line breaks.
+- Use direct, impersonal operator prose, exact UI labels and configuration keys, and Oxford commas. Distinguish installed behavior, saved settings, active operation, and validation limits.
 
 ## Cross-repo UI CSS reference
 

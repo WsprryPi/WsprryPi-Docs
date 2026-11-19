@@ -1,225 +1,58 @@
 # Add a WsprryPico
 
-A **Pico 2 W / RP2350** running WsprryPico can provide an external RF output
-for WsprryPi. The Pi prepares and schedules complete jobs; the Pico executes
-them locally. USB and network delivery do not set individual symbol timing.
-
-This guide covers adding the Pico to an existing WsprryPi installation.
-WsprryPi's Fleet controls, host schedules, CLI/INI settings, and job recovery
-are documented in this manual. The companion
-[WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/) owns firmware
-installation, the Pico's own browser controls, standalone operation, and
-device recovery. Keep Pi and Pico software compatible and use documentation
-that matches the installed software.
+A **Pico 2 W / RP2350** running WsprryPico schedules and executes its own transmissions. WsprryPi manages the Pico’s settings and native schedules through USB or supported network management. The Pi does not dispatch occurrences.
 
 (start-with-standalone-operation)=
-```{admonition} Start with standalone operation
-:class: important
+## Start with standalone operation
 
-We strongly recommend using WsprryPico in standalone mode before adding it to
-WsprryPi's Fleet. Use the Pico's own browser controls to learn its local
-capabilities: station settings, time and frequency configuration, individual
-messages, automatic schedules, and stop controls. This gives you a familiar
-baseline before adding the Pi's connection, ownership, and scheduling controls.
-
-Follow the [standalone setup sequence](https://wsprrypico.readthedocs.io/en/devel/)
-and [first WSPR transmission walkthrough](https://wsprrypico.readthedocs.io/en/devel/operate.html#your-first-wspr-transmission),
-including its RF preparation and end-of-trial shutdown steps. Before switching
-to Fleet, disable the Pico's standalone schedules, save and apply the change,
-and confirm inactive output and released control. See the
-[handoff to WsprryPi](https://wsprrypico.readthedocs.io/en/devel/wsprrypi.html#ownership-and-schedules).
-
-Standalone use is a learning recommendation, not a connection requirement.
-USB Fleet control still works without configuring the Pico's Wi-Fi.
-```
+Use the Pico’s own browser to learn station settings, time readiness, native WSPR and keyed-message schedules, and stop controls. Follow the [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/) for hardware, RF filtering, supported bands and modes, firmware installation, and local recovery. Management does not require the Pico’s Wi-Fi when it is attached by USB.
 
 ## Compatible software
 
-Use the [current WsprryPi installation instructions](rc1.md) and supported
-WsprryPico firmware. Install the Pi executable and its supporting files together.
-For a Pico already running firmware, the [Fleet USB update procedure](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb)
-identifies the current firmware choice. An update is not required merely to add
-an already-supported Pico.
+Use matching Pi and Pico management contracts. A device that lacks the required native schedule or management capability needs a compatible firmware version. Confirm the supported source pair before updating, and retain configuration backups and the installer’s recovery assets.
 
 ## Prepare the hardware and firmware
 
-Use a Pico 2 W, a USB data cable, and a suitable filtered, loaded RF path.
-Other Pico models are not supported WsprryPico targets. Normal firmware supports direct GPIO output and a qualified external Si5351 profile; the Pico's pins are **GP** numbers, separate from the Pi's
-BCM numbers and physical header pins. Confirm the active Pico pin assignment
-before wiring. Its reported WSPR dBm is message content, not measured power.
-Check the Pico manual's
-[wiring preparation](https://wsprrypico.readthedocs.io/en/devel/start.html) and
-[output and band limits](https://wsprrypico.readthedocs.io/en/devel/reference/output.html).
-Pi GPIO and Si5351 qualification tables do not qualify Pico output.
-
-For a blank board, follow
-[first firmware installation](https://wsprrypico.readthedocs.io/en/devel/install.html#first-installation)
-in the Pico manual, then return here. Select the normal **WsprryPico** image;
-**WsprryPico-Inhibited** simulates jobs without RF. The installer defaults to
-**main**, independently of the Pi's branch; choose **devel** deliberately if
-needed. Existing USB members can use
-[Pico firmware over USB in Fleet](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb)
-for settings-preserving updates.
+Follow the Pico manual’s installation and hardware checks before enabling a schedule. Compilation or a successful management read does not qualify the RF output, filter, antenna path, or frequency accuracy. Firmware installation and physical checks are separate operator actions.
 
 ## Choose a connection
 
-| Connection | Preparation |
-| --- | --- |
-| USB | Connect the data cable to the Pi running WsprryPi. Fleet discovers the dedicated WTP and paired management interfaces. USB provides configuration, controller time, and jobs without Wi-Fi. |
-| Plain LAN | Complete the Pico's Wi-Fi setup, then use a reachable hostname/IP and its actual WTP port. Normal consumer firmware listens on TCP `31417` after station Wi-Fi and accepted network time. |
-| Network (TLS) | Use an explicitly provisioned engineering deployment with the expected certificate identity and host-side CA, client certificate, and key. There is no automatic downgrade. |
-
-USB does not require standalone Wi-Fi commissioning. For network preparation,
-follow [Connect to your Pico](https://wsprrypico.readthedocs.io/en/devel/connect.html).
-Plain LAN WTP accepts reachable clients; the Pico browser's Wi-Fi password
-does not protect that port. Use a trusted LAN. The browser HTTP address and
-WTP TCP port are different services.
+- **USB**: attach the Pico to the Pi running WsprryPi. Management and time use interface 4; Console remains on 0 and Logging on 6. Interfaces 2/3 are reserved and inert in application firmware. RFBench uses that allocation only for its independent bench commands.
+- **Consumer Wi-Fi (encrypted)**: use the Pico’s reachable hostname or address, its full device ID, and its password. Management uses HTTP port 80 with the existing encrypted Consumer-Radio channel.
+- **Engineering HTTPS**: use explicitly provisioned certificates, server identity, and management port. Certificate and hostname verification remain mandatory. There is no WTP port, WTP ALPN, or automatic carrier fallback.
 
 ## Pico browser controls
 
-The Pico's own browser page has **Station Control** and **Wi-Fi/Host** links in its header. Selecting a view returns to the page top and preserves the current tab's drafts. Station Control starts with transmitter status, then station identity, **WSPR Configuration**, **Radio pins**, and **CW Modes**. Saved-settings recovery and diagnostics are at the bottom. Wi-Fi/Host contains network, password, hostname, and **Logging** controls.
-
-Status, accepted job/message details, schedules, frequencies, and redacted saved settings load without a Pico browser login. Locked fields are dimmed and cannot be edited; passwords, keys, and certificates are excluded. Use the hostname lock to authorize changes or job controls. **Save WSPR configuration** and **Apply WSPR configuration** affect WSPR schedule settings only. **Save radio pins** is independent, preserves WSPR drafts, and needs an explicit **Reset Pico** in Station Control's transmitter status to activate changed pins. Keep output inactive and confirm the physical wiring before a pin change.
-
-These Pico controls are separate from WsprryPi's selected-member Fleet controls and the Pi's own schedules. For the complete workflow, use the [Pico configuration manual](https://wsprrypico.readthedocs.io/en/devel/configure.html). USB and UDP logging are under **Wi-Fi/Host → Logging**; see [Pico logging](../User_Interface/Logs/index.md#collect-a-picos-usb-logs). Reading a setting or selecting a log source does not take transmitter control.
+The Pico’s own browser configures its native schedules and provides native stop. Closing it does not cancel an accepted occurrence. Continued execution still requires qualified time under the device’s existing clock policy.
 
 (identify-the-pico-in-fleet)=
 ## Add the Pico in Fleet
 
-Keep Pi transmission disabled during setup. Open **Setup → Fleet → Known and
-nearby devices**. Choose the connection path below; saving a profile does not
-select the Pi's output or start transmission.
-
 ### Attached USB Pico
 
-1. Connect the running Pico to the Pi with a USB data cable. Under **Device**,
-   select its entry in **Attached USB Picos**, then choose **Add device**.
-2. Wait for **USB Pico identified**. The identity read starts automatically.
-   Review **Expected WTP device ID** and the supplied USB connection against the
-   intended board. If reading fails, keep the draft and use **Read USB Pico
-   identity** to retry. If the board is missing, check its cable and that it is
-   running normally rather than in BOOTSEL, then choose **Refresh list** and
-   select the intended entry again. Do not guess the connection identifiers.
-3. Enter a **Display name**, choose **Save device**, and confirm. Then select the
-   new profile under **Saved devices** before choosing how to use it below.
-
-The USB serial identifies the USB connection; the full 32-character WTP device
-ID identifies the Pico. Its boot ID identifies the current boot, and the display
-name is your profile label. These values are not interchangeable. Pico Wi-Fi
-setup is not required for USB enrollment.
+Open **Setup → Fleet**, select the attached Pico, read its identity, and compare the full device ID and USB serial. Save the named profile. Direct management discovery does not require a WTP sibling interface.
 
 ### Nearby network Pico
 
-Select the intended entry under **Nearby advertisements (unverified)**, then
-choose **Add device**. Enter a **Display name** and finish reviewing the
-connection fields. For a normal consumer Pico, review **Connection → Plain LAN**,
-the hostname and port, and select **I choose Plain LAN on this network**.
-Choose **Identify selected nearby device**. Compare the reported full ID with
-**About this Pico / Diagnostics** on the Pico's own page, then confirm using it
-as the expected ID. Choose **Save device** and confirm. If you change the draft
-after identification, identify and confirm it again before saving.
-Select the new profile under **Saved devices** afterward.
-
-Plain LAN is neither encrypted nor client-authenticated; its reported ID alone
-is not cryptographic authentication. Use a trusted LAN. An explicitly provisioned
-**Network (TLS)** connection needs its expected full device ID, certificate
-identity, and host trust files before identification. See
-[Known and nearby devices](../User_Interface/Setup/Transmitter/index.md#known-and-nearby-devices).
+Discovery supplies connection hints, not authentication. Duplicate names can represent different devices. Verify the full ID through a trusted local or USB observation before saving a Consumer Wi-Fi profile. Engineering HTTPS additionally checks its configured certificate identity.
 
 ### Manual network profile
 
-Use this path when network discovery is unavailable or the Pico is not advertised.
-
-1. Choose **Add device**. Set **Connection method → Manual** and **Connection →
-   Plain LAN** for a normal consumer Pico. A fresh manual editor starts with
-   USB selected, so change the connection explicitly.
-2. Enter a **Display name**, **Hostname or IP address**, and **SRV or manual TCP
-   port**. Use the Pico's actual WTP port, normally `31417`, rather than its
-   browser HTTP port.
-3. Copy the intended Pico's full ID from **About this Pico / Diagnostics** on its
-   own page into **Expected WTP device ID**. See
-   [opening and identifying the Pico](https://wsprrypico.readthedocs.io/en/devel/connect.html#open-the-control-page).
-   **Identify selected nearby device** is unavailable for a manual profile;
-   do not substitute a USB serial, hostname, or another board's ID.
-4. Select **I choose Plain LAN on this network**, choose **Save device**, and
-   confirm. Then select the new profile under **Saved devices**.
-
-Use **Network (TLS)** only for a provisioned TLS deployment, with the trust
-settings described in the [connection reference](../User_Interface/Setup/Transmitter/index.md#known-and-nearby-devices).
+Enter the explicit management destination, connection type, and full expected device ID. Keep custom hostnames, ports, and certificate references when editing an existing profile. A display name or profile handle is not device identity.
 
 ### Choose how the Pi uses the saved profile
 
-- **Use this device** applies the selected saved profile as this Pi's active WTP
-  output. First complete the [host-output prerequisites](../User_Interface/Setup/Transmitter/index.md#before-selecting-the-host-output).
-  Resolve invalid Setup drafts and wait for pending host changes to save, then
-  choose **Use this device** and confirm the named target. Check **Pico status →
-  Device / boot** and the connection before continuing. Switching does not enable
-  transmission or resume an old job.
-- [**Assign a schedule**](../User_Interface/Setup/index.md#assign-an-output-schedule)
-  creates an independent Fleet output assignment. It does not replace this Pi's
-  active endpoint. Review the assignment's saved output and start option before
-  saving; leave its schedule paused until ready.
-
-Highlighting a catalog row, saving its profile, choosing the active host output,
-and assigning a schedule are separate actions. For direct command-line use,
-see [WTP INI settings](../Advanced_Operations/ini_configuration/transmitter_backends.md#pico-wtp)
-and [Pico WTP backend options](../Command_Line_Operations/transmitter_backends.md#pico-wtp-backend).
+Choose the saved Pico under **Setup → Device**, connect using its management carrier, and read current settings. Saving or selecting a profile never changes this Pi’s RF backend, claims output, or enables a schedule.
 
 ## Review settings and start deliberately
 
-The [Pico standalone settings and Wi-Fi](../User_Interface/Setup/Transmitter/index.md#pico-standalone-settings-and-wi-fi)
-and [member resources](../User_Interface/Setup/Transmitter/index.md#shared-pico-member-resources)
-panels manage this Pi's active Pico endpoint, not a highlighted catalog row or
-an independent assignment's destination. Confirm **Pico status → Device / boot**
-before reading or changing member settings. If you only added an independent
-assignment, use the intended Pico's [own browser controls](https://wsprrypico.readthedocs.io/en/devel/configure.html)
-for its settings; do not switch the Pi's active output just to follow this guide.
-Keep its autonomous schedule disabled while using host scheduling. Turning off Pi transmission or
-pausing an assignment does not disable the Pico's saved standalone schedule.
-The Pico’s standalone WSPR frequency is a whole-Hz USB dial. Its four tones
-surround a center 1,500 Hz above that dial, without random placement. Fleet
-WSPR assignments instead take absolute RF centers: standalone dial `3568600`
-and Fleet center `3570100 Hz` describe the same nominal placement. See the
-[Pico manual](https://wsprrypico.readthedocs.io/en/devel/configure.html) for
-standalone configuration.
-
-Pico station defaults and Pi job parameters have separate authority; changing
-one does not rewrite an already prepared job.
-
-Before enabling a Pi transmission or resuming a Fleet assignment:
-
-- Confirm the intended full device ID, idle ownership, and inactive output.
-- Read saved and active Pico settings; resolve restart, STOP and fault states.
-- Verify station, mode, frequency, filter/load and the target's reported limits.
-- Confirm synchronized Pi UTC and a valid Pico time source. Read its reported UTC uncertainty; first-party submissions do not impose an additional uncertainty veto.
-- Review the controller's
-  [experimental frequency permissions](../Command_Line_Operations/transmitter_backends.md#experimental-frequency-policy).
-  WTP combinations remain untested in host policy and require explicit
-  unqualified-frequency permission. The Pico's separate policy must also allow
-  the job. Consent does not expand physical limits or qualify RF output.
-
-Pico RF correction uses its own manual PPM or supported, explicitly configured
-GPS/PPS correction with residual trim. Direct GPIO and Si5351 corrections are
-independent; host GPIO clock calibration does not calibrate the Pico. See
-[Pico time and frequency correction](https://wsprrypico.readthedocs.io/en/devel/reference/time.html).
-Continuous **Test Tone** is unavailable through the Pico WTP backend.
+Read the exact device and boot, edit its native schedule, save it disabled, and read it back. Resolve unsupported mappings explicitly; do not seed a replacement from controller defaults. Enable the reviewed schedule deliberately after checking its time, frequency, hardware, and authority readiness. WSPR dial frequencies remain dial frequencies; keyed-message base and shift retain their documented units. No Fleet RF-center conversion is applied.
 
 ## Recover or maintain the member
 
-For busy, disconnected, or uncertain jobs, use
-[Pico status and recovery](../User_Interface/Setup/Transmitter/index.md#pico-status-and-recovery),
-or the selected assignment's **Reconcile** control. Closing a connection or
-restarting the Pi does not prove Pico RF has stopped. Confirm current state
-before another job; unresolved output blocks further work.
+Use **Read device status** for a current observation. **Stop native schedules** disables saved WSPR and keyed-message schedules and confirms inactive, unowned output when successful. An unknown or refused result requires **Read stop status**; do not repeat an unconfirmed mutation. If the Pico cannot be reached, use its local USB Console recovery. Console STOP remains a separate local control.
 
-Use [Fleet USB updates](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb)
-for Pi-managed firmware work. If running the separate Pico installer on the
-same Pi, follow its
-[exclusive-USB-access procedure](https://wsprrypico.readthedocs.io/en/devel/wsprrypi.html#standalone-installer-on-a-wsprrypi-host)
-first. For Pico browser setup, hostname changes, resets, and private backup
-handling, use [Maintain and recover](https://wsprrypico.readthedocs.io/en/devel/maintain.html)
-in the Pico manual. After a rename, update the
-[Pi connection profile and schedule destinations](../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).
+Settings drafts survive connection changes in the open browser. Reconnect and read before reviewing an unknown save; do not infer success from a lost ACK, restart, or disconnect. Firmware maintenance uses the independent [Pico installer](https://wsprrypico.readthedocs.io/en/devel/install.html). Resolve active work and legacy duties first, confirm the exact device, and release conflicting Console or management users as the installer directs. The former selected-output firmware panel is unavailable.
 
 ## UDP diagnostic logging
 
@@ -243,7 +76,7 @@ In Fleet, open the selected Pico's member hardware controls and **LPF / band sel
 
 **Release before selection (ms)** and **Settle after selection (ms)** each default to 20 ms and accept 0–250 whole milliseconds. The selected filter settles before amplifier enable and stays selected through keyed gaps and amplifier tail. It releases after amplifier disable. These intervals are independent of amplifier lead and tail; a job submitted too late for preparation is refused.
 
-Save while the Pico is idle and unowned, explicitly restart it, then read back saved and active settings. Every selector change requires restart. Reads and errors retain entries; after an uncertain save, read and review before another deliberate save. No configuration save tests GPIO or transmits. Unsupported firmware shows the controls as unavailable. The same settings are available on the Pico's own Radio pins page; see [Configure the Pico selector](https://wsprrypico.readthedocs.io/en/devel/configure.html#lpf-and-band-selector).
+Save while the Pico is idle and unowned, explicitly restart it, then read back saved and active settings. Every selector change requires restart. Reads and errors retain entries; after an uncertain save, read, and review before another deliberate save. No configuration save tests GPIO or transmits. Unsupported firmware shows the controls as unavailable. The same settings are available on the Pico's own Radio pins page; see [Configure the Pico selector](https://wsprrypico.readthedocs.io/en/devel/configure.html#lpf-and-band-selector).
 
 Use suitable 3.3 V logic drivers and external bias that keeps the bank inactive during reset and loss of Pico power. Never connect relay coils directly to GPIO. Declared ranges and GPIO readback do not measure filter response, relay position, power handling, or emissions.
 
@@ -259,6 +92,6 @@ Ordinary firmware supports the documented **QRP Labs Rev. 6 module with a 25 MHz
 
 ## Pico standalone gray-line scheduling
 
-The selected Pico's **Gray-line scheduling** controls read and save independent morning and evening windows and frequency overrides for its standalone schedule. The controls preserve edits during readback and require fresh saved-state review after an unconfirmed save or a change of Pico. Saving does not enable a schedule, transfer recurrence ownership, or change Pi-owned Fleet or native Pi scheduling.
+The selected Pico's **Gray-line scheduling** controls read and save independent morning and evening windows and frequency overrides for its standalone schedule. The controls preserve edits during readback and require fresh saved-state review after an unconfirmed save or a change of Pico. Saving does not enable a schedule, transfer recurrence ownership, or change another device’s native scheduling.
 
 Stop or relinquish a Pi-controlled schedule before using the Pico as a standalone beacon. Existing ownership and output checks still govern configuration changes. See the [Pico gray-line instructions](https://wsprrypico.readthedocs.io/en/devel/configure.html#gray-line-scheduling) for window boundaries, location requirements, precedence, paired-frame behavior, and propagation limits. Both applications must implement the current shared control descriptor to manage these settings over network or USB.

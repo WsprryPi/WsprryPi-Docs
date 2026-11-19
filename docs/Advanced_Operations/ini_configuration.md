@@ -35,11 +35,12 @@ Complete Default INI File <ini_configuration/complete_example>
 - [CW and Band GPIO Settings](ini_configuration/cw_and_band_gpio.md) covers QRSS, FSKCW, DFCW, scheduling, fades, and band switching.
 - [Complete Default INI File](ini_configuration/complete_example.md) provides the full copyable example and downloadable source.
 
-## Development WTP configuration
+## Device-owned scheduling configuration
 
-Development builds also support `[WTP]` for the selected outbound endpoint and
-`[WTP Server]` for this Pi's inbound listener. See the
-[endpoint settings](ini_configuration/transmitter_backends.md#pico-wtp) and
-[listener settings](ini_configuration/runtime.md#wtp-server). Independent Fleet
-assignments are saved separately from the INI and from the device catalog.
-Local Enable, listener admission, and remote assignment Enable are independent.
+The local Pi management API stores scheduling separately from the INI. Its `pi-scheduling` capability reports `next_occurrence`. Complete **Set up this transmitter** when required, then review the saved policy before explicitly enabling native recurrence. Saving solar settings does not enable scheduling, Transmit, or Enable on Boot. Use [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md) or the [protected target API](rest_api.md#local-pi-device-owned-scheduling) to edit the policy.
+
+Scheduling settings are stored in `<active-INI-path>.managed-settings.json`. The daemon publishes settings and operation receipts in a recoverable transaction; ordinary INI saves and reloads retain the policy. Bounded recurrence progress is stored in `<active-INI-path>.recurrence-progress.json`. Keep established settings, authority, progress, and recovery files together. Do not hand-edit or delete them to repair an error. Solar fields are not INI keys.
+
+A draft has independent day and night permissions and optional morning and evening windows. Windows use integer millidegrees from −90000 to 90000, with a lower bound strictly below the upper bound. Defaults are −6000 and +6000. The lower bound is included and the upper bound excluded. The evaluator treats day as solar-center elevation at least −0.833°; a qualifying morning or evening window takes precedence over day/night policy. Null frequency overrides inherit the saved mode settings. WSPR overrides retain their list, skip entries, frequency profile, band preferences, and per-entry selector metadata. CW bases are positive decimal hertz with at most nine fractional digits; trailing fractional zeroes are omitted. FSKCW and DFCW use the saved positive CW shift, with both derived tones validated. Changed overrides are validated even when their period is disabled. Unchanged, well-formed values that a backend no longer supports can be retained for repair; retention does not qualify them for transmission.
+
+The site is the center of the saved uppercase 4-, 6-, or 8-character Maidenhead locator. Native Pi GPS is unavailable. Saving a draft does not require time synchronization; actual solar admission requires healthy target-local UTC in 2025–2099. Geometry uses UTC without timezone or daylight-saving rules. See [native recurrence and time readiness](ini_configuration/runtime.md#native-recurrence-and-time-readiness) for the supported provider, uncertainty, holdover, and recovery behavior.

@@ -4,9 +4,7 @@ Use this page to stop the managed service safely, understand the command-line fo
 
 ## `systemd` Service
 
-The `wsprrypi` executable is managed by Linux `systemd`. It runs in the
-background after boot, and only one instance is allowed at a time. Stop the
-daemon before running manual CLI commands.
+The `wsprrypi` executable is managed by Linux `systemd`. It runs in the background after boot, and only one instance is allowed at a time. Stop the daemon before running manual CLI commands.
 
 Useful commands:
 
@@ -56,14 +54,7 @@ The CLI supports two primary modes:
 - `wsprrypi --help`  
   Display help text.
 
-- `sudo wsprrypi --test-tone 780kHz`
-  Transmit a constant RF tone at 780 kHz. Frequency inputs use whole-number
-  hertz, or a value with an `Hz`, `kHz`, `MHz`, or `GHz` suffix that resolves
-  to whole-number hertz. Scientific notation and fractional-hertz results are
-  rejected. Band aliases resolve to their WSPR dial frequencies; use an
-  explicit frequency when the test carrier should differ from the dial. See
-  [Canonical Bands and WSPR Frequency Presets](../Advanced_Operations/canonical_bands.md)
-  for qualified 60 m presets and country/locality selection.
+- `sudo wsprrypi --test-tone 780kHz` Transmit a constant RF tone at 780 kHz. Frequency inputs use whole-number hertz, or a value with an `Hz`, `kHz`, `MHz`, or `GHz` suffix that resolves to whole-number hertz. Scientific notation and fractional-hertz results are rejected. Band aliases resolve to their WSPR dial frequencies; use an explicit frequency when the test carrier should differ from the dial. See [Canonical Bands and WSPR Frequency Presets](../Advanced_Operations/canonical_bands.md) for qualified 60 m presets and country/locality selection.
 
 - `sudo wsprrypi N9NNN EM10 33 20m`  
   Transmit a single WSPR message.

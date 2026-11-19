@@ -2,102 +2,39 @@
 
 ## Scope and execution
 
-Requested execution prompt: [documentation-review-prompt.md](documentation-review-prompt.md).
-Work started on clean `devel` at `59a16d4`. The original Sphinx corpus contained
-55 Markdown pages. The review followed the original depth-first toctree order,
-then the unlisted historical experimental page. Fenced code blocks and configuration
-examples were excluded from proofreading. Inline technical terms were retained
-for context and protected when interpreting suggestions. Headings, paragraphs, list prose,
-table prose, and admonition prose were included. Git retains exact originals.
+Requested execution prompt: [documentation-review-prompt.md](documentation-review-prompt.md). Work started on clean `devel` at `59a16d4`. The original Sphinx corpus contained 55 Markdown pages. The review followed the original depth-first toctree order, then the unlisted historical experimental page. Fenced code blocks and configuration examples were excluded from proofreading. Inline technical terms were retained for context and protected when interpreting suggestions. Headings, paragraphs, list prose, table prose, and admonition prose were included. Git retains exact originals.
 
-**Grammarly-validated: original prose coverage on all 55 pages.** The authenticated
-Grammarly web editor was used, with individual editorial decisions applied to
-Markdown source. Suggestions were not accepted in bulk. The new requirements
-and first-transmission pages, and substantially revised pages, receive a separate
-final-pass entry below. A page needing no change still appears in the ledger.
-No review of companion-repository files, hardware, or on-air behavior is claimed.
+**Grammarly-validated: original prose coverage on all 55 pages.** The authenticated Grammarly web editor was used, with individual editorial decisions applied to Markdown source. Suggestions were not accepted in bulk. The new requirements and first-transmission pages, and substantially revised pages, receive a separate final-pass entry below. A page needing no change still appears in the ledger. No review of companion-repository files, hardware, or on-air behavior is claimed.
 
-The temporary review document remains in the user's Grammarly account:
-[WsprryPi handbook review](https://coda.grammarly.com/d/_dU0MkgfkPWt).
-Its numbered batches retain source-page markers. Proofreading scores below are
-observed original-batch scores, not final scores or measures of technical accuracy.
-Markup fragments and merged inline-code boundaries in the extracts were treated
-as extraction artifacts and never copied back to source. Some suggestions changed
-as analysis settled. Counts are observations, not a
-claimed sum of independent errors.
+The temporary review document remains in the user's Grammarly account: [WsprryPi handbook review](https://coda.grammarly.com/d/_dU0MkgfkPWt). Its numbered batches retain source-page markers. Proofreading scores below are observed original-batch scores, not final scores or measures of technical accuracy. Markup fragments and merged inline-code boundaries in the extracts were treated as extraction artifacts and never copied back to source. Some suggestions changed as analysis settled. Counts are observations, not a claimed sum of independent errors.
 
-AI Detector initially ran on the landing-page prose alone (12%, one weak part).
-Automatic approval review then blocked further detector processing as outside
-explicit proofreading consent. The user subsequently authorized detector checks;
-the complete original corpus was then checked in the batches below. Results
-are advisory resemblance signals, not authorship findings. Batch scores are not
-per-page scores. Source markers, headings, and table prose can affect them.
-Passage-level highlights were not reliably readable in the narrow editor view;
-no invented highlighted excerpts or authorship conclusion is reported.
+AI Detector initially ran on the landing-page prose alone (12%, one weak part). Automatic approval review then blocked further detector processing as outside explicit proofreading consent. The user subsequently authorized detector checks; the complete original corpus was then checked in the batches below. Results are advisory resemblance signals, not authorship findings. Batch scores are not per-page scores. Source markers, headings, and table prose can affect them. Passage-level highlights were not reliably readable in the narrow editor view; no invented highlighted excerpts or authorship conclusion is reported.
 
 ## Changes
 
-- Replaced the landing page's version-led introduction with a direct explanation
-  of the transmitter, output choices, and a numbered beginner path.
-- Added **What you need** and **Your first WSPR transmission**, covering hardware,
-  RF preparation, the browser and Pi, configuration, starting, reception reports,
-  and deliberate shutdown.
-- Put project information, requirements, installation, and first operation in
-  Start Here. Protocol background remains linked from the introduction and in
-  reference navigation. Optional beta, USB-host, and Pico guides have their own
-  navigation group. Troubleshooting and support precede advanced references.
-- Put transmitter and signal setup before operation in the UI navigation, followed
-  by reception reports, logs, and maintenance. Kept existing source URLs and
-  anchors; retained historical experimental material outside normal navigation.
-- Moved attribution below compatibility and qualification information without
-  removing it. Kept qualification tables and RF warnings.
-- Applied Oxford commas, spelling and agreement fixes, a sentence-fragment repair,
-  and targeted wording improvements. Preserved identifiers, UI labels, technical
-  quantities, requirement strength, and code examples.
+- Replaced the landing page's version-led introduction with a direct explanation of the transmitter, output choices, and a numbered beginner path.
+- Added **What you need** and **Your first WSPR transmission**, covering hardware, RF preparation, the browser and Pi, configuration, starting, reception reports, and deliberate shutdown.
+- Put project information, requirements, installation, and first operation in Start Here. Protocol background remains linked from the introduction and in reference navigation. Optional beta, USB-host, and Pico guides have their own navigation group. Troubleshooting and support precede advanced references.
+- Put transmitter and signal setup before operation in the UI navigation, followed by reception reports, logs, and maintenance. Kept existing source URLs and anchors; retained historical experimental material outside normal navigation.
+- Moved attribution below compatibility and qualification information without removing it. Kept qualification tables and RF warnings.
+- Applied Oxford commas, spelling and agreement fixes, a sentence-fragment repair, and targeted wording improvements. Preserved identifiers, UI labels, technical quantities, requirement strength, and code examples.
 
 ## Adversarial assessments
 
 ### Round 1: findings and repairs
 
-1. **Pi 5 GPIO contradiction:** Operations still said GPIO was unsupported and
-   automatically selected Si5351. Replaced that obsolete path with the existing
-   installer-managed RP1 route-selection workflow. Development's dedicated-hardware
-   wording and the undefined Compute Module 5 restriction were reconciled with
-   the current backend guidance, without changing untested model status.
-2. **Protocol error:** About WSPR described Type 3 as inherently two-frame and
-   Operations assigned hashing to Type 2 while calling Type 3 reversible. Checked
-   the [official WSJT-X protocol reference](https://wsjtx.github.io/wsjtx/guide-full.html)
-   and corrected frame formats separately from WsprryPi's paired scheduling.
-3. **Band-scope contradiction:** The GPIO FAQ applied legacy PLLD restrictions
-   to all GPIO hardware, including qualified Pi 5 12 m output. Scoped those
-   findings to the tested legacy profiles and linked the authoritative table.
-4. **Beginner navigation gaps:** Optional installation branches interrupted the
-   main path; operation preceded setup; no consolidated prerequisites or first
-   transmission procedure existed. Added the two guides and reordered toctrees.
-5. **Landing-page overload:** The complete nested TOC repeated navigation below
-   the introductory prose. Hidden root toctrees now retain the sidebar while
-   the page provides a concise guided path.
-6. **Editorial defects:** Fixed the four-links/three-pages mismatch, WSPRnet typo,
-   `wil`, `frane`, `ay`, `dlownloader`, redundant transmission-control wording,
-   and the configuration-repair sentence fragment.
+1. **Pi 5 GPIO contradiction:** Operations still said GPIO was unsupported and automatically selected Si5351. Replaced that obsolete path with the existing installer-managed RP1 route-selection workflow. Development's dedicated-hardware wording and the undefined Compute Module 5 restriction were reconciled with the current backend guidance, without changing untested model status.
+2. **Protocol error:** About WSPR described Type 3 as inherently two-frame and Operations assigned hashing to Type 2 while calling Type 3 reversible. Checked the [official WSJT-X protocol reference](https://wsjtx.github.io/wsjtx/guide-full.html) and corrected frame formats separately from WsprryPi's paired scheduling.
+3. **Band-scope contradiction:** The GPIO FAQ applied legacy PLLD restrictions to all GPIO hardware, including qualified Pi 5 12 m output. Scoped those findings to the tested legacy profiles and linked the authoritative table.
+4. **Beginner navigation gaps:** Optional installation branches interrupted the main path; operation preceded setup; no consolidated prerequisites or first transmission procedure existed. Added the two guides and reordered toctrees.
+5. **Landing-page overload:** The complete nested TOC repeated navigation below the introductory prose. Hidden root toctrees now retain the sidebar while the page provides a concise guided path.
+6. **Editorial defects:** Fixed the four-links/three-pages mismatch, WSPRnet typo, `wil`, `frane`, `ay`, `dlownloader`, redundant transmission-control wording, and the configuration-repair sentence fragment.
 
 ### Round 2: verification
 
-Rechecked the corrected text and the complete rendered handbook. All 57 sources
-are discovered by Sphinx; the historical experimental page remains intentionally
-outside normal navigation. Root and UI toctrees follow the operator path.
-The complete internal file/fragment audit reports zero missing targets.
-Protected code examples and qualification tables retain their values; the
-removed obsolete inline redirect is accounted for above. `git diff --check`
-passes. The fresh warnings-as-errors build and extension test pass.
+Rechecked the corrected text and the complete rendered handbook. All 57 sources are discovered by Sphinx; the historical experimental page remains intentionally outside normal navigation. Root and UI toctrees follow the operator path. The complete internal file/fragment audit reports zero missing targets. Protected code examples and qualification tables retain their values; the removed obsolete inline redirect is accounted for above. `git diff --check` passes. The fresh warnings-as-errors build and extension test pass.
 
-No actionable issue remains in the changed content, navigation, or local build
-within this review's scope. This is documentation verification, not a new
-hardware qualification or an exhaustive revalidation of all historical claims.
-A rendered-page check also caught an overlong optional-setup sidebar caption;
-it was shortened to **Optional Setups** without changing theme behavior.
-The final Grammarly pass prompted shorter Operations prose and another detector
-check of that revised scope.
+No actionable issue remains in the changed content, navigation, or local build within this review's scope. This is documentation verification, not a new hardware qualification or an exhaustive revalidation of all historical claims. A rendered-page check also caught an overlong optional-setup sidebar caption; it was shortened to **Optional Setups** without changing theme behavior. The final Grammarly pass prompted shorter Operations prose and another detector check of that revised scope.
 
 ## Page coverage in original reading order
 
@@ -183,12 +120,7 @@ check of that revised scope.
 
 ## Final prose pass
 
-Final batches review the substantially revised pages and the two new pages.
-The new `docs/requirements.md` was reviewed in batch 18, and
-`docs/first_transmission.md` in batch 19. This brings coverage to all 57 final
-Sphinx sources. They have different scopes from the original batches, so the percentages are
-not presented as directly comparable before/after improvements. Minor
-punctuation corrections after a check do not constitute a whole-document rescore.
+Final batches review the substantially revised pages and the two new pages. The new `docs/requirements.md` was reviewed in batch 18, and `docs/first_transmission.md` in batch 19. This brings coverage to all 57 final Sphinx sources. They have different scopes from the original batches, so the percentages are not presented as directly comparable before/after improvements. Minor punctuation corrections after a check do not constitute a whole-document rescore.
 
 | Final batch | Scope | Writing score | Suggestions observed | AI resemblance | Flagged parts |
 | --- | --- | --- | --- | --- | --- |
@@ -201,41 +133,20 @@ punctuation corrections after a check do not constitute a whole-document rescore
 ## Validation and delivery
 
 - Baseline and revised fresh HTML builds passed with warnings treated as errors.
-- Command: `source docs/.venv/bin/activate` followed by
-  `python -m sphinx -E -a -b html -n -W --keep-going docs docs/_build/html`.
-- Extension tests: `python -m unittest discover -s tests -p 'test_*.py' -v`;
-  one test passed.
-- Rendered internal file and fragment references were checked across the entire
-  HTML output; zero missing targets were found.
-- Protected fenced code/configuration examples were compared with Git originals.
-  The sole removed inline literal was the obsolete Pi 5 automatic-Si5351 redirect
-  URL, replaced with the current transmitter guide.
-- Rendered desktop navigation and the beginner entry path were inspected in the
-  browser. No theme, CSS, sidebar-search implementation, or mobile-script changes
-  were made. Mobile behavior is not claimed as independently qualified.
-- Delivery targets `origin/devel`. The existing **Handbook validation** workflow
-  builds the documentation on each devel push; Read the Docs publication is a
-  separate service. Exact pushed commit and observed remote-build results are
-  reported in the completion message, since they are only known after this report
-  is committed.
+- Command: `source docs/.venv/bin/activate` followed by `python -m sphinx -E -a -b html -n -W --keep-going docs docs/_build/html`.
+- Extension tests: `python -m unittest discover -s tests -p 'test_*.py' -v`; one test passed.
+- Rendered internal file and fragment references were checked across the entire HTML output; zero missing targets were found.
+- Protected fenced code/configuration examples were compared with Git originals. The sole removed inline literal was the obsolete Pi 5 automatic-Si5351 redirect URL, replaced with the current transmitter guide.
+- Rendered desktop navigation and the beginner entry path were inspected in the browser. No theme, CSS, sidebar-search implementation, or mobile-script changes were made. Mobile behavior is not claimed as independently qualified.
+- Delivery targets `origin/devel`. The existing **Handbook validation** workflow builds the documentation on each devel push; Read the Docs publication is a separate service. Exact pushed commit and observed remote-build results are reported in the completion message, since they are only known after this report is committed.
 
 ## Wording follow-up
 
-The subsequent [focused wording review](wording-follow-up/report.md) tightened
-the passages identified in prior items 5, 89, and 94. Its exact original/final
-inputs and captured AI highlights are saved beside that report. Proofreading
-rose from 95 to 100; AI resemblance rose from 22% to 29% for the same selected
-sections. These observations supplement rather than replace the historical
-whole-handbook batch scores above. New disposition numbers continue at 103.
+The subsequent [focused wording review](wording-follow-up/report.md) tightened the passages identified in prior items 5, 89, and 94. Its exact original/final inputs and captured AI highlights are saved beside that report. Proofreading rose from 95 to 100; AI resemblance rose from 22% to 29% for the same selected sections. These observations supplement rather than replace the historical whole-handbook batch scores above. New disposition numbers continue at 103.
 
 ## Suggestions not applied
 
-The following numbered dispositions cover rejected recommendations. Repeated
-optional style suggestions are grouped with their count and affected wording;
-source-page ranges refer to the coverage ledger. Labels, commands, protocol
-fields, cited titles, and fragmentary table entries are not ordinary sentences.
-A retained sentence is a deliberate editorial decision, not an unresolved request
-for user approval. Detector findings are listed separately from proofreading.
+The following numbered dispositions cover rejected recommendations. Repeated optional style suggestions are grouped with their count and affected wording; source-page ranges refer to the coverage ledger. Labels, commands, protocol fields, cited titles, and fragmentary table entries are not ordinary sentences. A retained sentence is a deliberate editorial decision, not an unresolved request for user approval. Detector findings are listed separately from proofreading.
 
 | Item | Location | Grammarly recommendation or finding | Reason not applied / disposition |
 | --- | --- | --- | --- |

@@ -1,8 +1,12 @@
-# Pi I/O Configuration Tab
+# Device I/O Configuration Tab
 
-The Pi I/O page contains settings for Raspberry Pi pin usage, including status indicators and hardware control lines exposed through the web interface.
+Choose **This Pi** in the shared **Device** selector for Raspberry Pi pin usage, status indicators, and control lines. These local settings retain autosave.
 
-![Raspberry Pi I/O Configuration](pi-io.jpg)
+With a saved Pico, **Device I/O** shows its supported USB/Wi-Fi connection, management login, UDP logging, network radio control, and complete **RF output, GPS, and pins** plan. Pico GP numbers are distinct from Pi BCM/header numbers. Read saved values, validate the complete hardware plan, then explicitly save it. The plan stays together so engine, pins, GPS, and I²C conflicts are checked in one transaction. A saved pin change can require a Pico restart; it does not restart automatically. The separate Transmitter tab holds independent drive, Si5351, amplifier-timing, and filter controls. See [Pico hardware resources](../Transmitter/index.md#shared-pico-member-resources).
+
+For a paired Pi, this tab uses that target’s independent settings draft. Confirm its identity, read saved settings, then select **Save this Pi’s settings** explicitly. Reading or selecting it does not change this controller’s pins or output.
+
+The sections below describe the local Pi view.
 
 ## Transmit LED & LED Pin
 
@@ -36,11 +40,6 @@ A small PC817 Optocoupler Isolation Board, such as [this one available on Amazon
 
 This section allows you to set pins to drive relays per band, to use a device such as the [QRP Labs Ultimate Relay-Switched LPF Kit](https://qrp-labs.com/ultimatelpf.html).
 
-Whether you use a WSPR preset such as `20m` or a specific frequency, the system
-correlates the resulting frequency to one canonical band. To energize a relay
-for that band, check the **Enabled** box, select the GPIO pin, and choose whether
-it is **Active High** (checked) or **Active Low** (unchecked). The worldwide
-correlation envelopes are broader than any one country's allocation; see
-[Canonical Bands and WSPR Frequency Presets](../../../Advanced_Operations/canonical_bands.md).
+Whether you use a WSPR preset such as `20m` or a specific frequency, the system correlates the resulting frequency to one canonical band. To energize a relay for that band, check the **Enabled** box, select the GPIO pin, and choose whether it is **Active High** (checked) or **Active Low** (unchecked). The worldwide correlation envelopes are broader than any one country's allocation; see [Canonical Bands and WSPR Frequency Presets](../../../Advanced_Operations/canonical_bands.md).
 
 The selected GPIO RF output cannot also be used by an enabled Band GPIO, Transmit LED, Shutdown Button, or Amp Control. Disabled roles may retain a pin without reserving it. The same pin can still be shared by multiple enabled bands when every assignment uses the same **Active High** setting; conflicting polarity is rejected.
