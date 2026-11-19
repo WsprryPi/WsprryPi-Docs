@@ -3,6 +3,11 @@
 This prerelease provides Fleet controls on Operations and supports the published
 WsprryPico `1.0.0-rc.3` firmware. The latest stable release remains `v3.2.1`.
 
+This page describes the earlier WTP-capable RC.1 source pair. Its companion
+selection does not apply to retirement software. Use matching WTP-capable
+software and documentation for outstanding legacy cleanup and retirement;
+then use the current coordinated development sources for native scheduling.
+
 ## Install or update
 
 Run this command on the Raspberry Pi through SSH or a local console:

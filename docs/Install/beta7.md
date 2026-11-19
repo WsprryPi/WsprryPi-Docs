@@ -10,11 +10,13 @@ The installer chooses a published executable matching the selected branch, Raspb
 
 Review [hardware and band limits](../About_Wsprry_Pi/index.md#band-qualification) before enabling output.
 
-Current development builds support the **WsprryPico 1.0.0-rc.3** prerelease.
-Use the [compatibility and upgrade guidance](pico.md#compatible-software) before
-selecting firmware. This development command follows current `devel` supporting
-files and its available executable; an older published executable may predate
-RC.3 support.
+Development source uses one coordinated Pi/Pico control schema. A previously
+published Pico release is not automatically compatible with a later development
+schema. Use the [compatibility and upgrade guidance](pico.md#compatible-software)
+for the selected source pair. Complete legacy retirement with matching
+WTP-capable software before replacement. This development command follows
+`devel` supporting files and its available executable. A published executable
+can predate the current control schema; confirm the matched sources before use.
 For the matched RC.1 executable, use the [pinned RC.1 installation command](rc1.md).
 A source build remains an explicit choice through `--binary-source build`; it
 builds current `devel` under the documented build-resource policy. Installation
@@ -22,7 +24,12 @@ and firmware programming are separate operator actions.
 
 ## Pico USB firmware tools
 
-The installer supplies the Pico USB maintenance tools. Under **Setup → Fleet → Pico firmware over USB**, review the selected image and its source before choosing **Install checked image**. Downloading and checking an image does not program the Pico. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for settings retention and recovery.
+The installer supplies the independent Pico USB maintenance tools. The former
+selected-output browser firmware panel is unavailable in retirement software.
+Use the [standalone Pico installation workflow](https://wsprrypico.readthedocs.io/en/devel/install.html)
+with its exclusive-access and recovery procedure. Firmware programming remains
+a separate deliberate action. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb).
+
 
 Pi 5-family GPIO driver preparation and kernel compatibility are separate from the application executable download.
 

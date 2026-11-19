@@ -131,31 +131,20 @@ Information related to each page follows.
 
 ## Local control and remote ownership
 
-From **Setup → Fleet**, this Pi can run its own schedule while
-controlling other Pi or Pico outputs. Local **Enable**, this Pi's inbound WTP
-listener, and each remote output's schedule are independent controls.
+Each transmitter runs its own schedule. **Enable** controls the selected Pi’s
+native recurrence. Fleet management, pairing, and browsing do not select a
+transmitter backend or dispatch occurrences. Existing ownership, time readiness,
+and confirmed output cleanup still govern local admission.
 
-To reclaim a remotely owned Pi, open **that Pi's** web interface and select
-**Enable**. Confirm removal of remote ownership and future schedule assignments.
-For an armed or running remote job, choose:
+For a selected Pico, **Native schedule safety** provides **Read device status**,
+**Stop native schedules**, and **Read stop status**. A confirmed stop disables
+both saved WSPR and keyed-message schedules and confirms inactive, unowned output.
+Read saved settings before explicitly enabling a schedule again. Console STOP
+remains a separate local safety control.
 
-- **End now** to stop the job immediately.
-- **Let it finish** to allow the current job to finish before local output starts.
-- **Cancel** to keep the existing ownership and saved Enable setting.
+If stop is refused or its reply is lost, output is unknown. Read stop status;
+do not replay the mutation. If management is unavailable, use the Pico’s local
+USB Console recovery procedure. Draft settings remain separate from stop.
 
-Both accepted choices prevent replacement remote jobs immediately. The central
-controller cannot approve, delay, or veto this local action. Saved assignments
-on the controller are removed when it next observes the takeover, including
-when it was offline during the takeover.
-
-With **Let it finish**, Enable is saved immediately, but effective local output
-stays inhibited until the current job ends, and output-off is confirmed. If
-output state remains unknown, local transmission and new remote claims stay
-inhibited. Review the status beside the control and use **Reconcile local
-output** to request a local stop/reset; successful recovery requires confirmed
-inactive output.
-
-A direct HTTP configuration write explicitly setting `Operation.Transmit=true`,
-or an external enabled INI transaction, is noninteractive and immediately
-cancels remote work. It does not offer the browser's finish-current choice.
-See [Fleet and listener setup](Setup/index.md#pi-and-pico-fleet-setup).
+See [Fleet setup](Setup/index.md#pi-and-pico-fleet-setup) and
+[pre-replacement migration](Maintenance/index.md#scheduling-ownership).

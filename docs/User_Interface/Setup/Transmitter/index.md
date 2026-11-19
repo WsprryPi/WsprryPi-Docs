@@ -22,9 +22,7 @@ stack without changing their order.
 - **GPIO** - Available on earlier Raspberry Pi models and on Pi 5 when the
   installer-managed RP1 GPCLK provider and selected route are eligible.
 - **Si5351** - If detected, the Si5351 may be used on any supported Raspberry Pi.
-- **Pico via WTP** - Fleet supports USB, Plain LAN, and
-  authenticated network connections on Linux. Open **Setup → Fleet** to add
-  and manage a Pico output.
+
 
 ## Recover saved settings
 
@@ -251,205 +249,43 @@ measured host-estimate and direct PPS errors in both Hz and PPM.
 
 ## Add a Pico and manage outputs
 
-For hardware and firmware preparation and a first-connection checklist, start
-with [Add a WsprryPico](../../../Install/pico.md). This section describes the
-controls in WsprryPi. Pico browser and standalone procedures live in the
-[WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).
+Open **Setup → Fleet** to save a management profile, then choose that device
+under **Device**. Profiles never select this Pi’s RF backend or dispatch work.
+See [Fleet setup](../index.md#pi-and-pico-fleet-setup) for read-only legacy
+records and [Add a Pico](../../../Install/pico.md) for USB and network connection
+requirements.
 
-```{important}
-New to WsprryPico? We strongly recommend using its standalone browser controls
-first to understand local configuration, messages, schedules, and stop controls
-before trying Fleet control. Follow
-{ref}`Start with standalone operation <start-with-standalone-operation>`
-for the learning path and schedule handoff checks. This is a recommendation;
-USB Fleet control does not require Pico Wi-Fi setup.
-```
-
-Open **Setup → Fleet** to add a Pico to WsprryPi, select it for jobs from this
-Pi, or review existing independent schedules on several outputs. Fleet is available on
-every page load. Opening the tab and browsing devices do not select an output,
-save settings, or start transmission.
-
-Use a Pico 2 W running WsprryPico firmware. Connect its USB cable to the Pi
-that runs WsprryPi, or connect both devices to a reachable network. Start with
-the [device list](#known-and-nearby-devices). **Use this device** selects the Pi’s single output. To review an existing independent Fleet assignment, use [Output schedules](../index.md#manage-existing-output-schedules). These are separate choices; adding a new output schedule is unavailable.
-
-**Use Pico** selects the WTP backend in the saved host configuration. It is
-separate from highlighting a device in the catalog or managing an existing independent
-schedule. **Use this device** applies the chosen saved profile and selects that
-backend; it does not enable transmission. The **Connection** choice supports
-USB, Plain LAN, and Network (TLS). See the
-[WTP INI reference](../../../Advanced_Operations/ini_configuration/transmitter_backends.md#pico-wtp)
-for individual connection settings.
-
+(before-selecting-the-host-output)=
 ### Before selecting the host output
 
-These prerequisites apply when selecting **Use Pico** or **Use this device**
-for this Pi's active output. They are not required merely to save a catalog
-profile or review an existing independent assignment.
+Choose a native Pi backend only for RF produced by this Pi. A Pico produces RF
+under its own native schedule, configured through its independent management
+connection. Complete legacy migration before replacing WTP-capable software.
 
-1. Keep Pi transmission disabled and resolve pending, owned, active, or unresolved
-   Pico work before switching endpoints.
-2. In **Setup → Device I/O → Pi Controls**, turn off **Transmit LED**, **Enable
-   Shutdown**, and **Activate Amp**. In **Band GPIO**, clear enabled
-   band outputs. In **Setup → Signal Setup → WSPR Transmission Plan →
-   Frequencies**, remove any per-frequency `@GPIO`, `@GPIOH`, or `@GPIOL`
-   selectors while preserving the intended frequencies.
-3. Host calibration is not applied to Pico jobs: WTP uses effective host PPM zero
-   automatically. Keep the saved **Fallback PPM**, **Residual PPM**, and
-   **Reference calibration (PPM)** for their local backends; do not zero them
-   merely to select a Pico.
-4. Host CW envelope fades are not sent to the Pico. WTP omits them automatically
-   and retains the saved fade settings for local backends. Fleet has no fade
-   control, and no INI edit is needed merely to select or enroll a Pico. See the
-   [CW settings reference](../../../Advanced_Operations/ini_configuration/cw_and_band_gpio.md#cw)
-   for local-backend fade settings. Enrollment requires no test transmission.
-5. Resolve invalid Setup drafts and wait for host changes to finish saving before
-   choosing **Use this device**. A pending or in-flight autosave can temporarily
-   block the switch. If Fleet says **Save or resolve your other setup edits before
-   switching devices**, correct the retained draft and read the save status;
-   do not reload away edits or force the switch.
-
-After applying a saved output profile, check **Pico status → Device / boot**
-and its connection. Output status and firmware maintenance use this active
-endpoint. Settings instead follow the shared **Device** selector.
-
-UTC uncertainty is displayed for operator judgment. First-party submissions use the Pico's advertised ceiling; no uncertainty control is needed. The host needs synchronized UTC and the Pico needs a valid time source.
-**Allow device frequency rounding** accepts reported realizable frequencies;
-it does not qualify RF accuracy. Continuous **Test Tone** is unavailable with
-Pico; complete finite jobs use its local timing.
-
+(known-and-nearby-devices)=
 ### Known and nearby devices
 
-The Fleet **Saved output or nearby device** selector includes saved devices,
-attached USB Picos, and nearby network
-advertisements. A saved device stays listed when its advertisement disappears.
-An advertisement
-is a connection hint, not proof of device identity, an active listener, or RF
-readiness. If Avahi discovery is unavailable or no service appears, use
-**Add device** for a manual network profile. USB discovery is independent of
-Avahi: a connected Pico running supported firmware appears automatically and
-does not require entering a USB path, serial, or vendor/product IDs. Its Console
-and Management ports are not listed as separate transmitters. A board in BOOTSEL
-mode does not expose the normal application connection. Merely opening the selector
-or highlighting an entry does not connect, identify, save, or switch devices.
-
-For USB, follow the short [attached-Pico enrollment sequence](../../../Install/pico.md#attached-usb-pico).
-**Add device** reads the selected USB Pico's identity automatically. Wait for
-**USB Pico identified**, review the supplied connection, then name and save the
-profile. **Read USB Pico identity** retries a failed read; **Refresh list**
-refreshes attached-device discovery. A full stable WTP device ID, USB serial,
-boot ID, and display name serve different purposes.
-
-For a nearby network Pi or Pico, select its advertisement and choose **Add
-device**. Enter a **Display name**, then finish reviewing its connection type
-and advertised SRV target and port before identification. For Plain LAN, select **I choose Plain LAN on this network**, then use
-**Identify selected nearby device** to read HELLO, STATUS, and CAPS. Compare the
-observed full device ID with the intended Pico's
-[About this Pico / Diagnostics](https://wsprrypico.readthedocs.io/en/devel/connect.html#open-the-control-page)
-and confirm using it as **Expected WTP device ID**, then save. If the draft is
-changed after identification, identify and confirm it again before saving.
-Plain LAN's reported ID is unauthenticated;
-the connection is neither encrypted nor client-authenticated. Identification
-does not claim, arm, or recover a job.
-
-For **Network (TLS)**, provision the device-specific trust files on the host
-and enter the expected full device ID and certificate identity before identifying
-or saving. For a network endpoint without discovery, follow
-[Manual network profile](../../../Install/pico.md#manual-network-profile): choose
-**Manual** and the intended connection type explicitly. The nearby identification
-button is unavailable for a manual profile, so obtain the full expected ID from
-the intended Pico before saving.
-
-**Save device** asks for confirmation and saves a profile only. It does not
-change the active `[WTP]` endpoint. To apply a saved profile, select it and
-choose **Use this device**. This separate action asks for confirmation and is
-refused while transmission is enabled or the current Pico has pending, owned,
-active, or unresolved work. Resolve that work and review Pico status before
-trying again. Other invalid, pending, or in-flight Setup edits also block a
-switch; follow [Before selecting the host output](#before-selecting-the-host-output).
-Selection never enables transmission or resumes an old job.
-Renaming, editing, or removing a saved profile also leaves the active endpoint
-unchanged.
-
-A DNS-SD profile keeps its saved endpoint. If the advertisement's target,
-port, or binding changes, Fleet shows the difference and blocks a new use of
-that profile until you edit it and a fresh identity check succeeds. Plain LAN
-requires explicit review and consent again; neither binding silently follows
-a changed advertisement or falls back to another binding. Manual profiles
-keep their configured connection behavior.
-
-For existing independent remote schedules alongside this Pi's local schedule, use
-[Output schedules](../index.md#manage-existing-output-schedules). The Pi server uses
-Plain LAN and derives its supported modes and frequency limits from the
-selected backend. Native GPIO, RP1, and Si5351 support finite WSPR, TONE, QRSS, FSKCW, and DFCW jobs under their existing backend policies. See
-[Pi WTP server capability](../../../Command_Line_Operations/transmitter_backends.md#pi-wtp-server-capability)
-for RP1's exact-operation development confirmation. The single-endpoint selection
-and Pico status controls below
-remain separate from those assignments.
+Names and discovery hints are not identity. Confirm the full device ID and
+explicit connection before saving a profile. Management-only USB discovery uses
+interface 4 directly. Consumer Wi-Fi uses encrypted password authentication;
+Engineering HTTPS retains certificate/name verification.
 
 ### Install or update Pico firmware over USB
 
-Use this workflow for a USB Pico already running WsprryPico and applied as this
-Pi's active endpoint through **Use this device**. Highlighting an attached Pico
-or saving a profile alone does not select the firmware target. Confirm its full
-ID under **Pico status → Device / boot** and its USB connection first. A blank
-board needs [first firmware installation](https://wsprrypico.readthedocs.io/en/devel/install.html#first-installation),
-not these controls. An already-supported Pico does not need an update merely
-to enroll it. Updates retain its saved settings. Keep the Pico connected to the Pi throughout
-programming and verification.
-
-On first use, **Download and check image** obtains a compatible verified maintenance tool from WsprryPico as well as the selected firmware. Starting a full erase also obtains the tool when needed. A newer Pico commit awaiting verification does not prevent using an earlier compatible verified tool. WsprryPi installation, startup, and status reads do not require this download. Later maintenance retains the cached verified tool if an update check fails, and interrupted firmware work uses its exact retained tool for offline recovery. If no compatible verified tool can be obtained on first use, the requested maintenance operation stops and can be retried later. Firmware branch selection remains the separate choice described below.
-
-1. Disable transmission on the Pi, resolve any pending or owned Pico job, and
-   apply the intended saved USB profile with **Use this device** if it is not
-   already active. Check its identity, then open **Pico firmware over USB** in Fleet.
-2. Choose **Image selection** explicitly; no firmware version is preselected. For the supported RC.3 prerelease, choose **Specific version** and enter `1.0.0-rc.3` (a leading `v` is also accepted). **Stable release** does not select RC.3. **Firmware branch** defaults to **main**, independently of the Pi's branch, and applies when you choose **Latest verified CI image**. An unavailable image is refused without substituting another branch; compatible stable firmware remains a separate explicit selection.
-3. Choose **Read firmware status**, then **Download and check image**. The shared installer verifies public image provenance, checksums, and its embedded settings contract. A mismatch stops the check without substituting another image. Review
-   the reported version and image-check result before choosing **Install checked
-   image** and confirming the selected USB Pico.
-4. Follow any BOOTSEL preparation instructions shown by the tool. When this
-   preparation is required, the standalone schedule must be disabled or
-   unconfigured. When prompted, unplug that Pico, hold BOOTSEL while reconnecting
-   it to the same Pi USB port, release BOOTSEL, then choose **Continue after
-   BOOTSEL**. Preparation writes no firmware; continuation backs up and checks
-   the saved state before completing the update.
-5. Wait for **Verified** with confirmation that settings were preserved and
-   the Pi reconnected. Check the current Pico status before enabling a Pi job
-   or resuming its fleet schedule.
-
-During firmware work or unresolved maintenance, settings, device selection,
-transmission, reboot and shutdown controls are unavailable. **Read firmware
-status** remains available and shows when its read completes; an unchanged
-status can still be a successful read. Reading status never repeats the update.
-
-If firmware is verified but the Pi connection remains unconfirmed, keep the
-Pico connected and choose **Recover this update**. That state retries only the
-Pi connection without reflashing. Other failed or interrupted updates retain
-their recovery record and backup. Read the result before another attempt;
-follow a requested BOOTSEL reconnect or seek administrator help rather than
-clearing maintenance or choosing a different device.
+Use the independent [Pico installation workflow](https://wsprrypico.readthedocs.io/en/devel/install.html)
+for the exact attached device. The former selected-WTP-output firmware panel
+is unavailable. Resolve scheduled work and legacy retirement duties before an
+update, retain recovery assets, and follow the installer’s exclusive-access
+checks. A saved management profile alone does not authorize maintenance.
 
 ### Pico status and recovery
 
-**Pico status** shows **Output observed**, **Host UTC**, **Device / boot**, and
-**Last job**. These are recorded observations, not electrical measurements.
-Check their age and any reported failure. An unavailable status response means
-unknown; it does not establish that the Pico is stopped. A previous job failure
-remains in the history after cleanup.
-
-If a job or connection becomes unresolved, disable transmission and review
-the reported state. **Reconcile Pico** checks an idle device or reconnects the
-current session to resolve its owned job. Recovery may stop that job. It never
-resumes transmission, reloads an uncertain job, or takes another owner's job.
-After successful reconciliation, review the current observation and
-configuration before explicitly enabling transmission again.
-
-Status polling does not perform recovery. A changed device or boot identity,
-foreign ownership, or unresolved output blocks further work. Restarting the
-host creates a new session and does not adopt the old session's job. Closing
-USB or a network connection, or exiting the host application, is not proof of
-RF shutdown.
+In the selected Pico settings, use **Read device status** for a current native
+execution observation. **Stop native schedules** disables both saved schedules
+and confirms inactive, unowned output when successful. If stop is unconfirmed,
+use **Read stop status** before another deliberate action. A disconnect does not
+prove output-off. Use local USB Console recovery when management is unavailable.
+Settings drafts remain separate from stop and status.
 
 ### Pico standalone settings and Wi-Fi
 
@@ -457,15 +293,14 @@ Choose a saved Pico in the shared **Device** selector beside the Setup tabs.
 Fleet's **Manage settings** is a shortcut to that same selection. Open **Signal Setup** for station progress, **Scheduling** for WSPR recurrence, gray-line and combined standalone settings, or **Device I/O** for connections.
 The **Pico settings** section identifies the device being edited. Confirm its
 full device ID and the saved **Device / boot** observations before saving.
-**Use this device** remains the separate action for choosing this Pi's output
-connection. A controller without a local transmitter can also manage Pico settings.
+Management does not select this Pi’s output connection. A controller without a local transmitter can also manage Pico settings.
 These controls manage settings saved on the selected Pico for its own
 standalone application. They are separate from this Pi's settings, prepared
 jobs, output assignments, and saved connection profiles. A USB connection uses
 the Pico's paired USB management channel automatically. For network management,
 Engineering HTTPS uses the configured
 Network (TLS) credentials; supported consumer Wi-Fi or setup Wi-Fi uses an
-explicit login. A network WTP connection alone does not provide that login.
+explicit login. A saved profile alone does not provide that login.
 
 For direct field operation, the Pico’s **Wi-Fi/Host → Field access** setting keeps its protected AP available across restarts. Join that AP with the effective Pico control password, then authenticate in its browser page. With no usable higher-priority time source, the authenticated AP browser automatically supplies its device clock. **Using browser time** applies to a phone, tablet, or laptop. Keep the page active for refresh; holdover is limited to one hour, independently of NTP timeout settings. Estimated UTC uncertainty remains visible and does not impose an additional first-party transmission cutoff. Restart requires fresh time. These direct Pico controls do not transfer RF ownership to WsprryPi. See the [Pico field-access instructions](https://wsprrypico.readthedocs.io/en/devel/connect.html#field-access-without-internet).
 
@@ -599,7 +434,7 @@ management session; retiring a login never retries a settings save. Unsupported
 retirement requires that login's own logout or expiry.
 
 Management remains subject to idle admission and confirmed output state.
-A reachable WTP endpoint, public advertisement, or built-in host capability
+A reachable management endpoint, public advertisement, or built-in host capability
 flag does not establish authenticated management support. There is no automatic
 carrier, endpoint, or mutation fallback after failure.
 
@@ -706,7 +541,7 @@ When scoped station saving is unavailable, use **Save member station** under
 ### Pico automatic WSPR planning
 
 These rules describe the Pico station defaults you read or save through Signal Setup.
-Pi host **WSPR Transmission Plan** preferences and prepared WTP jobs have their
+Pi host **WSPR Transmission Plan** preferences and native occurrences have their
 own planning workflow; changing one does not select a Pico preference or
 re-encode a prepared job.
 
@@ -747,7 +582,7 @@ faults and hardware application faults are separate: `output_disable_failed`
 may mean new settings were stored while shutdown was unconfirmed. Resolve the
 fault and read back before another deliberate action.
 
-An explicit scoped save does not restart Pico, reconnect WTP, enable recurrence,
+An explicit scoped save does not restart Pico, reconnect a management carrier, enable recurrence,
 claim ownership, or transmit. A conflict, changed selection/context, timeout, or lost reply blocks further saves until explicit readback and review. Keep drafts,
 compare fresh saved/active observations, validate hardware again, and deliberately
 save only after resolving the uncertainty. Do not automatically repeat a write.

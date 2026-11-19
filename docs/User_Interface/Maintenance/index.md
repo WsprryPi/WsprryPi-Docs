@@ -39,11 +39,17 @@ If a controller-access change is unconfirmed, use **Check saved result**. Refres
 
 ## Scheduling ownership
 
+A Pi configured to send transmissions to another device cannot convert that
+remote output into a local device-owned schedule. Retire the controller's remote
+schedule and reconcile accepted work using WTP-capable software. Then choose the
+device that produces the signal under **Setup → Device** and configure its own
+schedule. Review migration remains unavailable for the Pi's remote output.
+
 Under **Scheduling ownership**, choose the Pi under **Device**, then use **Review migration**. Review the identified device, acknowledge the change, and select **Confirm migration**. The Pi retires recorded previous schedules, reconciles accepted work, and saves device-owned scheduling disabled. An unavailable previous controller keeps migration pending. Changing Device or reviewing a transition does not save settings or change output. After confirmed migration, open [Setup → Scheduling](../Setup/Scheduling/index.md), read the disabled policy, review its target-site and frequency values, save and verify any changes, then explicitly enable the saved schedule there. Maintenance does not enable a schedule.
 
 Use **Check saved result** when a reply is interrupted. Pending or unknown work keeps migration pending; closing the browser or restarting the Pi does not prove completion. Checking a result does not resend the request. After a restart during handover, review current output and explicitly confirm reconciliation when offered.
 
-When a previous schedule is available, choose it under **Previous schedule** and select **Review previous schedule**. Restoring it first requests Stop and disables device-owned recurrence, then verifies output is reconciled before granting restoration. The previous schedule may then transmit under its saved settings. A controller schedule can be restored only through its currently paired controller. The Pi keeps its own recurring schedules blocked until the selected controller confirms its result.
+When a previous local schedule is available, choose it under **Previous schedule** and select **Review previous schedule**. Restoring it first requests Stop and disables device-owned recurrence, then verifies output is reconciled before granting restoration. The previous local schedule may then transmit under its saved settings. Controller-owned WTP schedules cannot be restored by this software. Their records remain held for recovery with compatible WTP-capable controller and target software; do not enable an old controller against a retirement image.
 
 If preparation or restoration is unconfirmed, stop and use **Check saved result**. A confirmed preparation step does not automatically submit the next step; review restoration again. If management access changed and the old receipt is private, **Read current state for review** and **I reviewed this state** can resolve the controller’s block after an explicit review when offered. This does not repeat the earlier request or make its historical outcome known. Retained scheduling or output holds still apply.
 

@@ -33,7 +33,7 @@ can be established, protected non-loopback access fails closed.
 
 [Controller access](index.md#controller-access) establishes a separate authenticated TLS connection between the controller and managed Pi. The devices maintain that connection’s credentials automatically. It carries supported Pi settings and management of Picos attached through that Pi. Discovery alone does not grant access. Pairing and paired management are unavailable while privileged network safety is off or its active state is unknown.
 
-The browser still uses the configured web page and WebSocket transport. Pairing does not encrypt that browser hop, and it does not change WTP transport or claim rules. Use a trusted local network for the browser, including temporary pairing-code display and entry. Direct Pico network management retains the Pico’s existing login and transport requirements.
+The browser still uses the configured web page and WebSocket transport. Pairing does not encrypt that browser hop, and it grants no remote job interface. Use a trusted local network for the browser, including temporary pairing-code display and entry. Direct Pico network management retains the Pico’s existing login and transport requirements.
 
 ## Apply a state
 
@@ -114,20 +114,9 @@ endpoint, and do not treat a shared password as proof of unique device
 identity. A renamed page requires a fresh login; it does not transfer a login
 from the old address.
 
-The Pico's Plain LAN WTP port is separate from browser management and accepts
-reachable clients without that password. The Pi's Apache policy does not
-protect a listener on the Pico. See the Pico manual's
-[access and security boundaries](https://wsprrypico.readthedocs.io/en/devel/reference/security.html).
-
-Engineering HTTPS browser addresses require a certificate valid for the URL's
-hostname or IP address. Network (TLS) WTP separately checks its configured
-expected certificate identity, including when the connection destination is
-an IP address. A consumer rename preserves its existing
-CA and retained clients while replacing the server certificate for the new
-name. Engineering deployments instead require matching replacement
-credentials through their provisioning workflow. Do not accept a certificate
-error or silently change transport to make a renamed endpoint connect.
-
-Keep the connection destination, expected TLS identity, and full WTP device ID
-separate when updating a Pi connection profile. See
-[After a Pico hostname change](../../Advanced_Operations/ini_configuration/transmitter_backends.md#after-a-pico-hostname-change).
+The Pico has no Plain LAN or TLS WTP execution port. Consumer Wi-Fi management
+uses its existing encrypted, password-authenticated channel on HTTP port 80.
+Engineering HTTPS uses its provisioned certificates, verified server identity,
+and explicit management port. Do not substitute a discovery name for immutable
+device identity or relax verification after a hostname change. USB management
+remains independent of network readiness and transmitter backend selection.

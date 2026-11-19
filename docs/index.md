@@ -6,8 +6,8 @@ and transmission schedule in its web interface, then use reception reports to
 see where the signal was heard.
 
 The Pi can generate RF through a GPIO clock output or use an external Si5351
-clock generator. It can also control remote Pi and WsprryPico outputs through
-Fleet. Each output needs suitable RF filtering and a band and mode supported
+clock generator. Fleet manages the settings and native schedules of other Pi and WsprryPico
+devices. Each device schedules and executes its own transmissions. Each output needs suitable RF filtering and a band and mode supported
 by that hardware.
 
 ## Start with one station

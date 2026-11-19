@@ -46,9 +46,9 @@ Compute Modules retain the GPIO and I2C capabilities of their corresponding Rasp
 
 Raspberry Pi Pico boards are microcontrollers and cannot run the Linux
 WsprryPi application or its GPIO and Si5351 backends. A Pico 2 W running
-WsprryPico firmware can instead serve as an external output controlled by
-WsprryPi over USB or a network connection. The Pi remains the controller and
-can manage several outputs through Fleet. See
+WsprryPico firmware schedules and executes its own transmissions. WsprryPi
+can manage its settings and native schedules through USB or a supported network
+management connection. Fleet can manage several devices. See
 [Add a WsprryPico](../Install/pico.md) for preparation and Pi setup. Standalone
 Pico use, hardware limits, and firmware details are in the companion
 [WsprryPico manual](https://wsprrypico.readthedocs.io/en/devel/).

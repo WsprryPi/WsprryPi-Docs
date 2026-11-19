@@ -126,7 +126,7 @@ The [development installer](beta7.md) keeps an existing compatible USB-enabled p
 
 Picotool is never compiled on the Pi, including when you request a WsprryPi application source build. A missing or invalid picotool download stops installation without a compilation fallback. No separate picotool setup is needed with the development installation command. The web firmware page uses the installed tool; it does not install picotool on demand.
 
-The development installer installs the local Pico maintenance adapter without downloading its shared installer from WsprryPico. The first image check or full erase obtains a compatible verified installer when needed. Pending Pico CI does not block WsprryPi installation. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb) for maintenance and recovery.
+The development installer provisions the independent Pico maintenance tools. The former selected-output browser firmware panel is unavailable in retirement software. Use the standalone installer and its exclusive-access and recovery procedure; installing WsprryPi does not program the Pico. See [Pico firmware over USB](../User_Interface/Setup/Transmitter/index.md#install-or-update-pico-firmware-over-usb).
 
 ### Upgrading a customized web interface
 

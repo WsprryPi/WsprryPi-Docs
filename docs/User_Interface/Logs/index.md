@@ -35,7 +35,7 @@ In the Pico's own browser, USB and UDP export settings are under **Wi-Fi/Host �
 2. Open **Logs**, choose that Pico in **Source**, open **Log options**, and enable **Collect this Pico's USB logs**. Firmware export belongs to the Pico; collection belongs to this Pi. Both must be enabled to receive records.
 3. Use **Refresh sources** to read the saved collection policy and current status after an uncertain save. Read and review the saved state before sending another change.
 
-Collection continues when a browser closes or its view is paused. The Pi supports up to eight collected USB Picos. Default collection and Pico export are disabled. Collection uses the Pico’s dedicated Logging interface; Console, WTP jobs, and management retain their separate interfaces. Logging never enables schedules or grants transmitter ownership.
+Collection continues when a browser closes or its view is paused. The Pi supports up to eight collected USB Picos. Default collection and Pico export are disabled. Collection uses the Pico’s dedicated Logging interface; Console and management retain their separate interfaces; the reserved CDC allocation is inert in application firmware. Logging never enables schedules or grants transmitter ownership.
 
 Console remains available while logs are collected. Firmware maintenance releases the Logging interface and reacquires it after the matching device reconnects. A changed device identity is not enrolled automatically. A saved policy remains selectable so it can be disabled after removing its Fleet profile.
 

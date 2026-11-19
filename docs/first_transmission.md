@@ -56,7 +56,7 @@ Open **Setup → Signal Setup**, select **WSPR**, and use [Configure WSPR](User_
 
 WSPR frequency entries are USB dial frequencies. Their nominal RF center is
 1,500 Hz above the dial, plus optional random placement. The Operation page
-shows these separately. Fleet WSPR assignments use absolute RF centers instead;
+shows these separately. Legacy Fleet assignments used absolute RF centers;
 follow their separate workflow when adding remote outputs.
 
 ## Confirm schedule permission

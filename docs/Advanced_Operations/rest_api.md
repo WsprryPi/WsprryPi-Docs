@@ -216,87 +216,30 @@ This endpoint is used for:
 
 ## Pi endpoint and Fleet resources
 
-Pi/Pico Fleet controls use the resources below. Paths are shown as the
-backend receives them; browser requests prepend `/wsprrypi`, for example
-`/wsprrypi/api/control/v1/host/wtp-endpoint`. The existing peer, Host, Origin, and
-privileged-network guards apply. Browser writes use same-origin JSON intent
-headers. These are local host-management resources; WTP job control uses the
-separate TCP endpoint, default port `31417`.
+Paths below are backend paths; browser requests prepend `/wsprrypi`. Existing
+peer, Host, Origin, request-intent, authority, and revision checks remain required.
+WTP execution listeners and all generic `/api/control/v1/jobs` routes are retired.
 
-- `GET /api/control/v1/host/wtp-endpoint`
+- `GET /api/control/v1/host/fleet` and `GET /api/control/v1/host/fleet/operations`
+  read held legacy assignments and durable duties. They do not reconnect or
+  dispatch. Assignment mutations refuse with `migration_required`.
+- `GET /api/control/v1/host/devices` and discovery resources supply management
+  profiles and hints. **Use this device** backend selection is unavailable.
+- `/api/control/v1/targets` and each verified target’s settings, status, stop,
+  enable, and migration resources retain the current Control/1 contract and
+  protected management/retirement purposes. Enable remains explicit.
+- `GET /api/control/v1/targets/<device-id>/pico/status` reads a selected Pico’s
+  validated native status through its bound management context.
+- `GET` and `POST /api/control/v1/targets/<device-id>/pico/schedules/stop` read
+  and stop the Pico’s native schedules. The POST requires the current target,
+  revision, capability, and accepted-operation bindings. It is not an abort-job API.
 
-  Listener, requested/effective local Enable, remote owner/job, output uncertainty, takeover generation, and launch observation.
-
-- `POST /api/control/v1/host/wtp-endpoint/enable`
-
-  Confirm target-local takeover using the current configuration `If-Match` revision.
-
-- `POST /api/control/v1/host/wtp-endpoint/recover`
-
-  Request local output reconciliation with `{"confirmed":true}`. Success requires confirmed inactive output.
-
-- `GET /api/control/v1/host/fleet`
-
-  Read assignments, per-output runtime observations, and the assignment ETag.
-
-- `POST /api/control/v1/host/fleet`
-
-  Admit a correlated assignment action using its reviewed `If-Match` revision. Operations: `assign`, `enable`, `pause`, `schedule`, `recover`, `remove`. Acceptance can return 202 before verification, storage or cleanup completes; inspect the correlated result rather than treating acceptance as success.
-
-- `GET /api/control/v1/host/fleet/operations`
-
-  Read the bounded Operations projection without endpoint settings or credential-file paths. It carries controller incarnation, publication revision, per-assignment generation/control revision, observation age and eligibility.
-
-- `GET /api/control/v1/host/fleet/actions?ids=<action-id>[,<action-id>...]`
-
-  Read results for 1–32 distinct 32-character lowercase hex IDs. Only `ids` is allowed, with at most 2 KiB encoded query data and a 128 KiB response. An unknown/expired result does not establish the original action's outcome.
-
-- `GET /api/control/v1/host/discovery`
-
-  Read nearby DNS-SD observations without claiming a device.
-
-- `GET/POST /api/control/v1/host/devices`
-
-  Read or edit saved connection profiles; edits require the catalog `If-Match` revision.
-
-- `POST /api/control/v1/host/discovery/identify`
-
-  Perform explicit read-only identification of a selected candidate.
-
-- `POST /api/control/v1/host/devices/use`
-
-  Select a profile for the single `[WTP]` backend using the host config `If-Match` and body `catalog_revision`.
-
-Every Fleet mutation includes `action_id`, `controller_incarnation`, `assignment_generation`, `reviewed_control_revision`, `reviewed_boot_id`, and `accept_before_ms` in addition to its operation fields. Generate 16 cryptographically random bytes for the lowercase-hex action ID. Read and capture the selected context and ETag before confirmation. After confirmation, obtain a fresh full snapshot's monotonic `now_ms`, verify the reviewed context still matches, and use that decimal value plus 30,000 ms as the fixed acceptance deadline. For a new assignment, generation and reviewed control revision are null; its target still comes from the validated profile. Enable requires a current boot binding. Do not change the reviewed ETag or context silently to make an old request pass.
-
-The controller accepts a new request only before its fixed deadline and within 45 seconds of its current monotonic time. An exact retained replay returns its original record without repeating effects; reuse of an ID with another payload, binding, deadline or ETag conflicts. Do not automatically retry mutations. Records are volatile and bounded to 320, with at most 256 terminal history entries and up to 64 active/protected slots, each at most 2 KiB; terminal history lasts up to 15 minutes. Active work and an unexpired acceptance window prevent eviction. After expiry or restart, read current state, explicitly review it and use a new action ID for a new intentional action.
-
-Action states are `accepted`, `pending`, `confirmed`, `refused`, `superseded` and `outcome_unconfirmed`; inspect `work_pending` separately. A confirmed Pause establishes this controller's disabled schedule and required owned-work quiescence. It does not establish that foreign output stopped or that RF was measured off. Current device evidence becomes stale at 15 seconds; its conservative age includes request/negotiation and browser latency rather than HTTP receipt alone. Failed observation requires explicit reconciliation, while healthy foreign occupancy remains observable without takeover.
-
-The takeover request contains `choice` (`end_now` or `finish_current`),
-`confirmed`, `observed_owner`, and `observed_job`. Send the owner and job from
-fresh endpoint status. If ownership or the job changes before confirmation,
-the server requires renewed confirmation with fresh status. An unconfirmed
-request does not change remotely owned state. The central controller has no
-approval role. Both accepted choices revoke future assignments; finish-current
-keeps effective local output inhibited until confirmed completion and output-off.
-
-Direct `PUT` or `PATCH /config` writes explicitly setting
-`Operation.Transmit=true` are noninteractive: they immediately cancel remote
-work. An unrelated settings patch does not cancel a previously selected
-finish-current choice. Use the dedicated takeover resource for an interactive
-browser workflow.
-
-Pi assignments use a target status HTTP port (default `31415`) as well as the
-WTP port. A changed target takeover generation removes that assignment before
-further dispatch, including after controller downtime. Network loss alone does
-not remove an assignment or establish output-off. Failed or uncertain work
-pauses that output pending reconciliation; consumed slots are not retried.
-
-See [Fleet setup](../User_Interface/Setup/index.md#pi-and-pico-fleet-setup)
-for operator actions and the
-[application Fleet reference](https://github.com/WsprryPi/WsprryPi/blob/devel/docs/wtp-fleet.md)
-for persistence and request contracts.
+A native stop disables both schedules and confirms inactive, unowned output.
+Unknown mutation outcomes require authoritative readback, never automatic replay.
+Local native Pi enable and output reconciliation still enforce confirmed cleanup,
+protected journals, and existing authority rules. Preserve legacy records; perform
+[pre-replacement migration](../User_Interface/Maintenance/index.md#scheduling-ownership)
+with WTP-capable software before replacing affected deployments.
 
 ## Selected Pico application, station and hardware
 

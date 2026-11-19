@@ -99,62 +99,28 @@ replace that running snapshot or clear cleanup uncertainty. Read
 [Test Tone results and recovery](../../User_Interface/Maintenance/index.md#read-the-result)
 before treating saved settings as active.
 
-## WTP Server
+(wtp-server)=
+## Retired WTP configuration
 
-The managed Pi listener uses these defaults:
+`backend=wtp`, inbound WTP listeners, and `--wtp-server-port` are unsupported.
+An active legacy backend or enabled listener holds execution with a migration
+required message. There is no automatic local-backend fallback.
 
-```ini
-[WTP Server]
-Enabled = true
-Port = 31417
-Interface = auto
-```
-
-`Enabled` controls inbound WTP admission. It does not enable local RF or an
-outbound Fleet schedule. `Port` accepts `1` through `65535`.
-`--wtp-server-port` overrides it for one process without changing the saved INI.
-Direct one-shot CLI transmissions do not start the managed listener or Fleet.
-
-`Interface = auto` requires exactly one operational physical LAN IPv4 address.
-With multiple eligible addresses, specify an interface such as `eth0` or
-`wlan0`. Only private RFC1918 addresses on up/running physical interfaces are
-eligible; Wi-Fi must be in station mode. Loopback, bridges, tunnels, access-point
-interfaces, and public addresses are excluded. The listener retries after
-interface recovery. Address loss withdraws its DNS-SD advertisement. A settings
-or route change waits for current ownership/work to end and suspends admission
-of new remote jobs while pending.
-
-The listener defaults to active after confirmed startup quiescence. Local
-Enable off permits a claim only when output is safe and idle. Local Enable on
-reserves the local output even between jobs; the listener still permits
-inspection but refuses claims. `Enable on Boot` remains the local startup
-policy. Listener admission and each outbound assignment remain independent.
-
-An external INI transaction enabling local transmission immediately cancels
-remote-controlled work and revokes future assignments. The browser's confirmed
-**Let it finish** transaction is recognized on file reload and retains that
-choice. See [local takeover](../../User_Interface/index.md#local-control-and-remote-ownership)
-for the interactive choices and output-unknown recovery.
-
-Avahi publishes `_wtp._tcp.local.` with the actual port and `binding=plain`.
-Discovery failure does not remove the direct listener. Pi inbound WTP uses
-unencrypted Plain LAN with the shared `local-network` principal; TLS is not
-implemented for this listener. Outbound TLS profiles for compatible Pico
-servers remain available, with no automatic fallback to Plain LAN.
+Inactive `[WTP]` and `[WTP Server]` values may remain in an existing INI. Their
+presence alone does not block a valid native configuration, and unrelated saves
+preserve meaningful dormant values. They are private legacy state, not current
+settings controls. Use an explicit reviewed configuration change after migration.
 
 ### Persistent ownership and assignments
 
-The process user's private `~/.wsprrypi-wtp/revocation-v1` journal preserves
-local takeover history. Keep it across restarts and use a consistent service
-user. An unreadable or malformed journal inhibits admission; deleting it can
-erase takeover history.
+Preserve the process user’s private ownership/revocation journals, protected
+management and retirement records, `<active-INI-path>.wtp-assignments.json`,
+`.wtp-fleet-contexts.json`, and `.wtp-devices.json`. Assignment records retain
+consumed slots and uncertain work; device profiles retain connection settings.
+Read-only legacy records never authorize reconnect or replay. Deleting history
+cannot establish cleanup. Follow [migration and recovery](../../User_Interface/Maintenance/index.md#scheduling-ownership)
+with WTP-capable software before replacing a deployment that still has duties.
 
-`<active-INI-path>.wtp-assignments.json` stores independent remote schedules,
-consumed slots, and unresolved dispatch state. It is separate from
-`<active-INI-path>.wtp-devices.json`, which stores connection profiles, and from
-`[WTP]`, which selects the single-endpoint backend. Manage assignments through
-Fleet or its [HTTP resource](../rest_api.md#pi-endpoint-and-fleet-resources).
-After interrupted work, reconcile the affected output before resuming it.
 
 ## Native recurrence and time readiness
 
@@ -196,10 +162,8 @@ reserved progression can be consumed conservatively even if no RF occurred.
 Missing or damaged established progress holds admission. Preserve recovery files
 and investigate storage errors instead of deleting history.
 
-When a Pi uses WTP as its output, that Pi still owns recurrence and solar policy;
-the selected destination executes finite WTP jobs. Device selection and management
-connections do not transfer schedule ownership. Status names the execution owner
-and destination separately. Next-start forecasts are bounded to 48 hours and
+Management connections do not transfer schedule ownership. Each selected
+transmitter uses its own native recurrence and solar policy. Next-start forecasts are bounded to 48 hours and
 4,096 candidates and may be unknown. Neither a countdown nor a forecast proves
 that a transmission occurred.
 

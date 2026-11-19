@@ -35,14 +35,14 @@ Complete Default INI File <ini_configuration/complete_example>
 - [CW and Band GPIO Settings](ini_configuration/cw_and_band_gpio.md) covers QRSS, FSKCW, DFCW, scheduling, fades, and band switching.
 - [Complete Default INI File](ini_configuration/complete_example.md) provides the full copyable example and downloadable source.
 
-## Development WTP configuration
+## Existing WTP configuration
 
-Development builds also support `[WTP]` for the selected outbound endpoint and
-`[WTP Server]` for this Pi's inbound listener. See the
-[endpoint settings](ini_configuration/transmitter_backends.md#pico-wtp) and
-[listener settings](ini_configuration/runtime.md#wtp-server). Independent Fleet
-assignments are saved separately from the INI and from the device catalog.
-Local Enable, listener admission, and remote assignment Enable are independent.
+WTP transmission and inbound listener settings are retired. Review
+[legacy configuration and recovery](ini_configuration/runtime.md#retired-wtp-configuration)
+before replacing software on a deployment that used them. Current transmitter
+settings select a native Pi backend; Pico connections are management profiles.
+
+
 
 ## Device-owned scheduling configuration
 

@@ -2,6 +2,7 @@
 name: Handbook validation
 
 on:
+  workflow_dispatch:
   push:
     branches: [devel]
   pull_request:
