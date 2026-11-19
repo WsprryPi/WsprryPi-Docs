@@ -73,32 +73,22 @@ After an unconfirmed action, read authoritative current status and review it. Re
 
 A corrupt or unavailable pending-cleanup journal blocks new Fleet dispatch and edits. Safe Pause of an already verified live owner remains available, with its achieved and unconfirmed postconditions reported separately. Preserve the private `.wtp-fleet-contexts.json` file beside the active INI and the `.wtp-assignments.json` file. Resolve storage or binding conflicts through maintenance and restore verified state; do not delete a journal, guess a retired endpoint or edit away a barrier.
 
-## Scheduling migration or retirement remains pending
+## First scheduling setup remains held
 
-### Local Pi scheduling migration
+An upgrade from a version earlier than 4.x to version 4.x migrates the existing local schedule once and saves scheduling disabled after verifying ownership and inactive output. Fresh installations use **Set up this transmitter**; later 4.x updates do not repeat the upgrade migration. If setup cannot finish, scheduling remains held. Read the reported output, ownership, or storage error, preserve the established settings and history, and correct the cause before retrying normal startup. Do not delete recovery files or use Reset to bypass a hold.
 
-The current software performs [local migration](../User_Interface/Maintenance/index.md#migrate-a-local-pi-schedule) automatically at first startup when local ownership and output are verified. WTP support is not required. A previous local schedule retains a held legacy record until migration completes; it cannot admit new recurring work. A confirmed migration leaves native scheduling disabled. Review and enable the saved schedule separately.
-
-Use **Check saved result** after an interrupted reply. Follow the explicit reconciliation offered after a restart. Only verified disabled staging offers **Review previous schedule**; restoring that schedule may transmit under its saved settings. Missing or damaged established history requires recovery, not initial setup. Preserve the reported storage error and existing state when seeking help.
-
-### Remote WTP retirement before upgrading
-
-An offline device, unknown output, or unresolved accepted job keeps WTP retirement pending. Do not delete scheduling history, restore an older enabled assignment, or reset configuration to bypass it. Accepted work finishes before retirement can be confirmed; a returning browser or restarted controller does not prove that output is inactive.
-
-Use **Check saved result** beside the original action after an interrupted reply. It reviews the retained request rather than starting another retirement. A confirmed retirement prevents that saved controller assignment from resuming. It does not create a replacement schedule or disable another controller's work.
-
-Complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading) with matching older WTP-capable software before replacing the affected deployment. The current retirement build cannot dispatch or finish WTP jobs. If replacement already occurred, retain the records and seek compatible recovery guidance. See [existing output schedules](../User_Interface/Setup/index.md#manage-existing-output-schedules).
+After **Migration completed; schedule disabled pending review.**, review the saved policy under [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md) and enable it when ready. No separate migration action is required.
 
 ## Native scheduling is held or a solar save is rejected
 
-Read the target's current settings and status separately. A saved policy does not establish active output. Enable scheduling must be on, Transmit must permit output, and legacy retirement or initial transmitter setup must be complete. Scheduling off and solar waits do not release output ownership. After a lost reply, recover the original receipt and read authoritative settings before another action.
+Read the target's current settings and status separately. A saved policy does not establish active output. Enable scheduling must be on, Transmit must permit output, and initial scheduling and transmitter setup must be complete. Scheduling off and solar waits do not release output ownership. After a lost reply, recover the original receipt and read authoritative settings before another action.
 
 For a time hold, check Linux OS synchronization and leap/clock alarms, the 2025–2099 date range, and the 250 ms uncertainty limit. Holdover requires a healthy sample during this boot and expires within one hour. Without the approved clock-health provider, solar recurrence stays held. Check the transmitter's saved locator for a location hold. A backward clock step waits beyond the consumed watermark; a forward step does not queue missed transmissions.
 
 For a storage or recovery hold, preserve the progress and transaction records. An interrupted reservation is not proof of RF output. Confirm output is safely reconciled before resuming; missing or corrupt established history cannot be repaired by deleting files or repeating initial setup. See [native recurrence and time readiness](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
 
-Check the uppercase site locator, ordered millidegree window bounds, decimal CW base, and every WSPR list entry, including overrides for disabled periods. A changed frequency must satisfy the selected Pi backend and current frequency policy. An offline WTP peer cannot qualify a new frequency override. Repair a rejected draft through a fresh validated save; do not remove managed history or edit the private sidecar. Preserve the reported storage or recovery error when seeking help.
+Check the uppercase site locator, ordered millidegree window bounds, decimal CW base, and every WSPR list entry, including overrides for disabled periods. A changed frequency must satisfy the selected Pi backend and current frequency policy. Repair a rejected draft through a fresh validated save; do not remove managed history or edit the private sidecar. Preserve the reported storage or recovery error when seeking help.
 
 ## Scheduling remains disabled or held
 
-In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distinguish the editable draft from **Saved scheduling** and active application. Save the disabled policy and confirm readback before explicitly enabling it. Complete Maintenance initialization or takeover when ownership is pending. For solar holds, check the target’s saved locator and clock observation; browser location and timezone cannot repair a target prerequisite. After a lost reply, check the original operation rather than repeat a save. Keep the draft during a conflict, disconnect, or busy response.
+In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distinguish the editable draft from **Saved scheduling** and active application. Save the disabled policy and confirm readback before explicitly enabling it. Complete Maintenance initialization when required and resolve any reported ownership hold. For solar holds, check the target’s saved locator and clock observation; browser location and timezone cannot repair a target prerequisite. After a lost reply, check the original operation rather than repeat a save. Keep the draft during a conflict, disconnect, or busy response.

@@ -8,7 +8,7 @@ The five tabs are:
 - [Scheduling](Scheduling/index.md): the selected Pi’s device-owned schedule permission and solar policy, or the Pico’s supported independent recurrence controls.
 - [Transmitter](Transmitter/index.md): the selected device's supported output settings. Pico amplifier timing, drive, filters, and Si5351 have explicit actions.
 - [Device I/O](Pi_IO/index.md): local Pi pins, or Pico connections, logging, and the complete RF-engine, pin, and GPS plan.
-- **Fleet**: discovery, saved management connection profiles, and read-only legacy scheduling and retirement records.
+- **Fleet**: device discovery and saved management connection profiles.
 
 ## Choose and edit a device
 
@@ -37,12 +37,6 @@ Switching between Picos retains each browser draft. A write already accepted on 
 ## Pi and Pico Fleet setup
 
 Open **Setup → Fleet** to discover devices and save their management connection profiles. Confirm the full device ID; names may be duplicated. A saved profile and an authenticated connection are separate steps. Open the selected device’s settings through **Device**. Saving a connection never enables a schedule.
-
-### Manage existing output schedules
-
-**Legacy output schedules** displays saved controller assignments and unresolved recovery duties. These records do not dispatch work. **Migration required** means that WTP-capable software must resolve the old authority and accepted work before replacement. **Retired** means the recorded controller retirement completed; it does not establish that the target is online or stopped. View the saved identity and retirement status without deleting the recovery files.
-
-Complete the [pre-upgrade WTP retirement procedure](../Maintenance/index.md#retire-remote-wtp-work-before-upgrading) for every affected controller and transmitter. Offline targets, unknown output, and unresolved retirement keep the affected deployment on WTP-capable software. Other devices can still be managed independently.
 
 ### Review action results and unsaved entries
 

@@ -138,4 +138,4 @@ Levels 1–4 select retained 2/4/6/8 mA drive, not calibrated RF power. Discover
 (pi-wtp-server-capability)=
 ## Retired inbound execution
 
-The Pi exposes no WTP listener or `_wtp._tcp` advertisement. Complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading) using matching WTP-capable software before upgrading deployments with old assignments or accepted work. Local Pi scheduling migration uses the current software and does not require a WTP listener. Device-owned recurrence, local stop, management pairing, and recovery remain available under their existing authority and readiness rules.
+The Pi exposes no WTP listener or `_wtp._tcp` advertisement. Device-owned recurrence, local stop, management pairing, and recovery use the selected device’s native management controls.

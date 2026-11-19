@@ -35,15 +35,9 @@ Complete Default INI File <ini_configuration/complete_example>
 - [CW and Band GPIO Settings](ini_configuration/cw_and_band_gpio.md) covers QRSS, FSKCW, DFCW, scheduling, fades, and band switching.
 - [Complete Default INI File](ini_configuration/complete_example.md) provides the full copyable example and downloadable source.
 
-## Existing WTP configuration
-
-WTP transmission and inbound listener settings are retired. Review [legacy configuration and recovery](ini_configuration/runtime.md#retired-wtp-configuration) before replacing software on a deployment that used them. Current transmitter settings select a native Pi backend; Pico connections are management profiles.
-
-
-
 ## Device-owned scheduling configuration
 
-The local Pi management API stores scheduling separately from the INI. Its `pi-scheduling` capability reports `next_occurrence`. Complete legacy retirement or **Set up this transmitter** before explicitly enabling native recurrence. Saving solar settings does not enable scheduling, Transmit, or Enable on Boot. The web interface does not yet provide a solar scheduling editor; advanced clients use the [protected target API](rest_api.md#local-pi-device-owned-scheduling).
+The local Pi management API stores scheduling separately from the INI. Its `pi-scheduling` capability reports `next_occurrence`. Complete **Set up this transmitter** when required, then review the saved policy before explicitly enabling native recurrence. Saving solar settings does not enable scheduling, Transmit, or Enable on Boot. Use [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md) or the [protected target API](rest_api.md#local-pi-device-owned-scheduling) to edit the policy.
 
 Scheduling settings are stored in `<active-INI-path>.managed-settings.json`. The daemon publishes settings and operation receipts in a recoverable transaction; ordinary INI saves and reloads retain the policy. Bounded recurrence progress is stored in `<active-INI-path>.recurrence-progress.json`. Keep established settings, authority, progress, and recovery files together. Do not hand-edit or delete them to repair an error. Solar fields are not INI keys.
 

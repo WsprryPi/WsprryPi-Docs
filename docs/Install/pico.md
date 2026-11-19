@@ -9,7 +9,7 @@ Use the Pico’s own browser to learn station settings, time readiness, native W
 
 ## Compatible software
 
-Use matching Pi and Pico management contracts. A device that lacks the required native schedule or management capability must remain on compatible software or receive a separately planned update. Before replacing WTP-capable software, complete [remote WTP retirement](../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading) for every legacy controller and transmitter. Keep usable recovery binaries and configuration backups until their duties are resolved.
+Use matching Pi and Pico management contracts. A device that lacks the required native schedule or management capability needs a compatible firmware version. Confirm the supported source pair before updating, and retain configuration backups and the installer’s recovery assets.
 
 ## Prepare the hardware and firmware
 

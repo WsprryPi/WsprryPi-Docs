@@ -128,12 +128,12 @@ On Pi 5 with the RP1 GPIO backend, **Direct PPS calibration** can replace the ho
 
 ## Add a Pico and manage outputs
 
-Open **Setup → Fleet** to save a management profile, then choose that device under **Device**. Profiles never select this Pi’s RF backend or dispatch work. See [Fleet setup](../index.md#pi-and-pico-fleet-setup) for read-only legacy records and [Add a Pico](../../../Install/pico.md) for USB and network connection requirements.
+Open **Setup → Fleet** to save a management profile, then choose that device under **Device**. Profiles never select this Pi’s RF backend or dispatch work. See [Fleet setup](../index.md#pi-and-pico-fleet-setup) for management connections and [Add a Pico](../../../Install/pico.md) for USB and network connection requirements.
 
 (before-selecting-the-host-output)=
 ### Before selecting the host output
 
-Choose a native Pi backend only for RF produced by this Pi. A Pico produces RF under its own native schedule, configured through its independent management connection. Complete legacy migration before replacing WTP-capable software.
+Choose a native Pi backend only for RF produced by this Pi. A Pico produces RF under its own native schedule, configured through its independent management connection.
 
 (known-and-nearby-devices)=
 ### Known and nearby devices
@@ -142,7 +142,7 @@ Names and discovery hints are not identity. Confirm the full device ID and expli
 
 ### Install or update Pico firmware over USB
 
-Use the independent [Pico installation workflow](https://wsprrypico.readthedocs.io/en/devel/install.html) for the exact attached device. The former selected-WTP-output firmware panel is unavailable. Resolve scheduled work and legacy retirement duties before an update, retain recovery assets, and follow the installer’s exclusive-access checks. A saved management profile alone does not authorize maintenance.
+Use the independent [Pico installation workflow](https://wsprrypico.readthedocs.io/en/devel/install.html) for the exact attached device. Stop the device’s schedules before an update, retain recovery assets, and follow the installer’s exclusive-access checks. A saved management profile alone does not authorize maintenance.
 
 ### Pico status and recovery
 

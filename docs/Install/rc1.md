@@ -2,7 +2,7 @@
 
 This prerelease provides Fleet controls on Operations and supports the published WsprryPico `1.0.0-rc.3` firmware. The latest stable release remains `v3.2.1`.
 
-This page describes the earlier WTP-capable RC.1 source pair. Its companion selection does not apply to retirement software. Use matching WTP-capable software and documentation for outstanding legacy cleanup and retirement; then use the current coordinated development sources for native scheduling.
+This page describes the published RC.1 source pair. Its companion selection does not apply automatically to later development sources; use the [development installation guidance](beta7.md) for those builds.
 
 ## Install or update
 

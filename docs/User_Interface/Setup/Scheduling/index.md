@@ -1,8 +1,8 @@
 # Device-owned scheduling
 
-Choose the device beside the Setup tabs, then open **Scheduling**. The same controls manage **This Pi** and a verified paired Pi. Confirm the full identity, connection, execution owner, and output destination before editing. The selected transmitting device owns and runs its native schedule. A controller manages that device's settings; it does not dispatch WTP transmissions.
+Choose the device beside the Setup tabs, then open **Scheduling**. The same controls manage **This Pi** and a verified paired Pi. Confirm the full identity, connection, execution owner, and output destination before editing. The selected transmitting device owns and runs its native schedule. A controller manages that device’s settings.
 
-The first startup with this policy performs [local scheduling migration](../../Maintenance/index.md#migrate-a-local-pi-schedule) before the previous scheduler can admit new recurring work. Successful migration saves the native schedule disabled for review; explicit enable is a separate step. If ownership or output cannot be verified, recurrence stays held. Reinstalling or restarting preserves an already verified native schedule's enable state. Older remote WTP deployments require [retirement before upgrading](../../Maintenance/index.md#retire-remote-wtp-work-before-upgrading).
+When upgrading from a version earlier than 4.x to version 4.x, WsprryPi automatically migrates the existing local schedule once and leaves scheduling disabled for review. The page reports **Migration completed; schedule disabled pending review.** when the upgrade migration finishes. Review the saved mode, frequencies, and scheduling policy, then select **Enable saved schedule** when ready. Transmit permission remains separate. If output or ownership cannot be verified, scheduling stays held and the page reports the recovery condition. Fresh installations use **Set up this transmitter** instead. Later 4.x updates, reinstalls, and restarts preserve the saved schedule’s enable state.
 
 The selected Pi runs accepted schedules without an open browser or management controller. Closing the page does not stop a schedule. Reading, changing the selected device, and **Review draft** do not save or enable anything.
 
@@ -15,7 +15,7 @@ The selected Pi runs accepted schedules without an open browser or management co
 3. Select **Save disabled policy**. Wait for the confirmed saved-value readback. A failed or unconfirmed save retains the draft and does not enable it.
 4. Select **Enable saved schedule** only after reviewing the confirmed saved policy. Unsaved or invalid entries keep this action unavailable.
 
-Schedule permission, solar selection, **Transmit**, boot behavior, ownership, and immediate **Stop** are independent. Scheduling alone cannot grant ownership or turn on Transmit. Complete **Set up this transmitter** or the applicable takeover workflow on [Maintenance](../../Maintenance/index.md) when ownership is not ready. Review the target’s supported output and frequency policy before permitting transmission.
+Schedule permission, solar selection, **Transmit**, boot behavior, ownership, and immediate **Stop** are independent. Scheduling alone cannot grant ownership or turn on Transmit. Complete **Set up this transmitter** on [Maintenance](../../Maintenance/index.md) when required, and resolve any reported ownership hold. Review the target’s supported output and frequency policy before permitting transmission.
 
 ## Solar periods and frequency inheritance
 
@@ -29,7 +29,7 @@ Disabled periods keep their saved values, and those values must still validate. 
 
 ## Observe and recover
 
-**Target observations and forecasts** separates saved and active revisions, clock state, selected period, frequency, waiting reason and observation age. A forecast may be unknown and is not evidence that output occurred. Target clock uncertainty, missing location, unsupported output, or ownership can hold an occurrence. Native Pi solar-clock qualification is supported on Linux; Mac solar health remains unknown, while ordinary scheduling with solar selection off does not require solar prerequisites.
+**Target observations and forecasts** separates saved and active revisions, clock state, selected period, frequency, waiting reason, and observation age. A forecast may be unknown and is not evidence that output occurred. Target clock uncertainty, missing location, unsupported output, or ownership can hold an occurrence. Native Pi solar-clock qualification is supported on Linux; Mac solar health remains unknown, while ordinary scheduling with solar selection off does not require solar prerequisites.
 
 Switching devices retains each Pi’s valid or invalid draft in the open page. Changing identity, boot, pairing, or capability pauses editing until a fresh verified read. Unavailable Pis with scheduling drafts or earlier requests remain selectable for read-only review. Selecting such an entry does not reconnect or send settings. These browser drafts do not survive a reload. Scheduling and the other Pi settings editors retain separate drafts; after another editor saves, review a revision conflict instead of overwriting its changes.
 

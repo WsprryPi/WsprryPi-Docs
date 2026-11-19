@@ -128,4 +128,4 @@ For a selected Pico, **Native schedule safety** provides **Read device status**,
 
 If stop is refused or its reply is lost, output is unknown. Read stop status; do not replay the mutation. If management is unavailable, use the Pico’s local USB Console recovery procedure. Draft settings remain separate from stop.
 
-See [Fleet setup](Setup/index.md#pi-and-pico-fleet-setup) and [local Pi scheduling migration](Maintenance/index.md#migrate-a-local-pi-schedule). Older deployments with remote WTP duties require [retirement before upgrading](Maintenance/index.md#retire-remote-wtp-work-before-upgrading).
+See [Fleet setup](Setup/index.md#pi-and-pico-fleet-setup) for management connections and [Setup → Scheduling](Setup/Scheduling/index.md) to review and enable the selected device’s schedule.

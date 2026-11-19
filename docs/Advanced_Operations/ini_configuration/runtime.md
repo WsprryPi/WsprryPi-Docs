@@ -73,16 +73,16 @@ Saved edits and repair/reset can defer runtime application while a Test Tone own
 
 `backend=wtp`, inbound WTP listeners, and `--wtp-server-port` are unsupported. An active legacy backend or enabled listener holds execution with a migration required message. There is no automatic local-backend fallback.
 
-Inactive `[WTP]` and `[WTP Server]` values may remain in an existing INI. Their presence alone does not block a valid native configuration, and unrelated saves preserve meaningful dormant values. They are private legacy state, not current settings controls. Use an explicit reviewed configuration change after migration.
+Inactive `[WTP]` and `[WTP Server]` values may remain in an existing INI. Their presence alone does not block a valid native configuration, and unrelated saves preserve meaningful dormant values. They are private legacy state, not current settings controls.
 
 ### Persistent ownership and assignments
 
-Preserve the process user’s private ownership/revocation journals, protected management and retirement records, `<active-INI-path>.wtp-assignments.json`, `.wtp-fleet-contexts.json`, and `.wtp-devices.json`. Assignment records retain consumed slots and uncertain work; device profiles retain connection settings. Read-only legacy records never authorize reconnect or replay. Deleting history cannot establish cleanup. Follow [remote WTP retirement](../../User_Interface/Maintenance/index.md#retire-remote-wtp-work-before-upgrading) with WTP-capable software before replacing a deployment that still has duties.
+Preserve the process user’s private ownership/revocation journals, protected management and retirement records, `<active-INI-path>.wtp-assignments.json`, `.wtp-fleet-contexts.json`, and `.wtp-devices.json`. Assignment records retain consumed slots and uncertain work; device profiles retain connection settings. Read-only legacy records never authorize reconnect or replay. Deleting history cannot establish cleanup. Preserve reported storage or ownership errors when requesting support.
 
 
 ## Native recurrence and time readiness
 
-Enable scheduling, solar selection, Transmit, Enable on Boot, and output ownership are independent. Scheduling off prevents new occurrences and permits an accepted complete WSPR pair or message to finish. It does not release the output to a WTP client. A solar wait also retains the reservation established by Transmit. Immediate Stop remains separate from scheduling disable.
+Enable scheduling, solar selection, Transmit, Enable on Boot, and output ownership are independent. Scheduling off prevents new occurrences and permits an accepted complete WSPR pair or message to finish. It does not release output ownership. A solar wait also retains the reservation established by Transmit. Immediate Stop remains separate from scheduling disable.
 
 Enable on Boot applies to Transmit: Never starts with permission off, Follow uses the saved permission, and Always requests it on. These choices preserve the scheduling and solar flags. Always cannot restart a disabled schedule. Existing startup quiescence, takeover, and output-unknown safeguards still apply.
 

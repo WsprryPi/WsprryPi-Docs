@@ -10,7 +10,7 @@ Reviewing or editing the form does not save it. If validation fails, the form re
 
 Setup saves transmission and scheduling disabled. It does not start a tone, transmit a message, or enable a schedule. After the saved configuration and startup are verified, the ordinary Maintenance controls become available.
 
-Updates and configuration resets retain the installation's scheduling history. If established history is missing or damaged, the page opens read-only recovery; it cannot use initial setup or Reset to bypass that condition. An existing installation with a previous local schedule uses [local scheduling migration](#migrate-a-local-pi-schedule) rather than initial setup. Outstanding remote WTP duties require [retirement before upgrading](#retire-remote-wtp-work-before-upgrading).
+Updates and configuration resets retain the installation's scheduling history. If established history is missing or damaged, the page opens read-only recovery; it cannot use initial setup or Reset to bypass that condition. Review and enable the saved schedule under [Setup → Scheduling](../Setup/Scheduling/index.md).
 
 ## Controller access
 
@@ -25,41 +25,6 @@ The code expires after two minutes and appears only in the page that opened the 
 To change who manages a Pi, open that Pi’s own Maintenance page and select **Replace controller**. Pair from the new controller using the new temporary code. The old controller can be offline; its ordinary management access is revoked when replacement completes. **Remove controller…** offers an explicit confirmation to remove management access. Running work and saved schedules continue. **Pair again** is offered when access recovery is required.
 
 If a controller-access change is unconfirmed, use **Check saved result**. Refreshing status or checking the result does not repeat the change. Keep an unknown result pending and follow its recovery feedback before another action.
-
-## Scheduling ownership
-
-The first startup with the native scheduling policy performs the local handover automatically when ownership and output are verified. It saves native scheduling disabled for review. Retiring remote WTP work is a separate procedure that must finish before replacing WTP-capable software.
-
-### Migrate a local Pi schedule
-
-This policy applies when the selected Pi produces its own signal through GPIO or Si5351. The previous local scheduler cannot admit new recurring work while migration is pending. Once native output quiescence and local ownership are verified, the Pi retires the previous scheduling authority and saves the existing configuration with native scheduling disabled. It does not require WTP support or an open browser.
-
-1. After installation, open **Maintenance → Scheduling ownership** and choose the Pi under **Device**.
-2. Check for **Migration completed; schedule disabled pending review.** This confirms that local handover finished and the native policy is saved disabled.
-3. If migration is held, resolve the reported output or ownership recovery condition. Preserve scheduling history. Once resolved, restart through the normal maintenance procedure to retry automatic migration, or use **Review migration**, verify the identified device, acknowledge the change, and select **Confirm migration** when offered. Reviewing alone changes nothing.
-4. Open [Setup → Scheduling](../Setup/Scheduling/index.md) for the same Pi. Read the disabled policy and review its mode, frequency settings, and any solar policy. Save and verify any changes with **Save disabled policy**.
-5. Select **Enable saved schedule** when ready. Transmit permission and boot behavior remain separate; enabling scheduling does not turn on Transmit.
-
-The authority states distinguish progress: **legacy** means the required handover remains held, **staged** confirms migration with native scheduling disabled, and **native** follows explicit enable of the saved native schedule. Ordinary scheduling can leave solar selection off.
-
-Installing this policy makes the local handover mandatory. Unknown output, incomplete scheduling authority, or unresolved work keeps recurrence held rather than reopening the previous scheduler. Reinstalling or restarting preserves the enable state of a verified native schedule. The previous local schedule remains available only through the separate, explicit restoration workflow below.
-
-Use **Check saved result** when a reply is interrupted. Pending or unknown work keeps migration pending; closing the browser or restarting the Pi does not prove completion. Checking a result does not resend the request. After a restart during handover, review current output and explicitly confirm reconciliation when offered.
-
-When a previous local schedule is available, choose it under **Previous schedule** and select **Review previous schedule**. Restoring it first requests Stop and disables device-owned recurrence, then verifies output is reconciled before granting restoration. The previous local schedule may then transmit under its saved settings. This control cannot restore controller-owned WTP schedules.
-
-If preparation or restoration is unconfirmed, stop and use **Check saved result**. A confirmed preparation step does not automatically submit the next step; review restoration again. If management access changed and the old receipt is private, **Read current state for review** and **I reviewed this state** can resolve the controller’s block after an explicit review when offered. This does not repeat the earlier request or make its historical outcome known. Retained scheduling or output holds still apply.
-
-### Retire remote WTP work before upgrading
-
-This procedure applies to an older deployment where a controller sends WTP jobs to another transmitter. Current software has no WTP dispatch or listener and cannot finish those jobs. A controller's remote output cannot be converted into a native local schedule on that controller.
-
-1. Before replacing the affected binaries or firmware, keep the compatible WTP-capable controller and transmitter software available. Back up settings and preserve ownership, assignment, and recovery records.
-2. Stop new controller dispatch using that software's controls. Let accepted work finish or use its explicit stop procedure, then verify inactive, unowned output and reconcile any uncertain cleanup. Losing contact is not completion.
-3. Complete the authenticated retirement for every recorded controller assignment and verify the saved result. Offline controllers or transmitters and unresolved work keep retirement pending; postpone replacement.
-4. Once those duties are resolved, update the affected devices as a compatible pair. Select the device that produces the signal under **Setup → Device**, configure its native schedule, save it disabled, and review it before enable.
-
-If already upgraded with unresolved WTP records, preserve them and obtain recovery guidance for the matching earlier controller and target software. Current read-only records do not establish cleanup. Do not delete history, reset configuration, or enable an old controller against a retirement image. **Review migration** remains unavailable for a Pi configured with remote WTP output. Local Pi migration above does not require returning to older software.
 
 ## Repair Configuration
 
@@ -144,7 +109,7 @@ The execution status calls out information that changes what you should do, incl
 
 **Accepted** means asynchronous startup was requested. **Active** means the controller observed runtime activity; it is not an RF measurement. Startup or execution can fail after acceptance. Read the failure and cleanup status before another Start; failed startup does not automatically resume prior work.
 
-**End** feedback names cleanup and restoration separately. A successful Test A retired or held recurring schedule remains disabled when Test Tone ends. The manual tone does not clear retirement or resume old occurrences. The existing requirement to disable transmission before starting a tone still applies.
+**End** feedback names cleanup and restoration separately. A disabled or held schedule remains disabled when Test Tone ends. Review the cleanup and restoration result before enabling normal transmission.
 
 Tone end can restore scheduler configuration, return to managed idle, or restore an earlier CLI direct tone. Ending this transaction therefore does not always mean all output is off. If restoration fails, the status retains that failure even when Test Tone cleanup succeeded. An ordinary **Stop** disables work and prevents later tone restoration from restarting it.
 
