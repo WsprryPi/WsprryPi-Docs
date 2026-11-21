@@ -34,7 +34,7 @@ TAPR also offers a Raspberry Pi shield with filtering and amplification:
 
 - https://www.tapr.org/kits_20M-wsprrypi-pi.html
 
-The expected RF power output from the GPIO backend is configurable from the command line, INI file, or Web UI.
+The expected RF power output from the GPIO backend is configurable from the direct command line or saved settings through the Web UI.
 
 Even at low power levels, WSPR transmissions are commonly received over very long distances.
 

@@ -1,5 +1,7 @@
 # CW and Band GPIO Settings
 
+INI blocks on this page show the one-time import representation. After migration, use Setup or the [local settings command](../../Command_Line_Operations/saved_settings.md); see [Saved Settings and INI Migration](../ini_configuration.md).
+
 Use these sections for QRSS, FSKCW, and DFCW message construction, timing, frequency, fades, scheduling, and per-band switching outputs. For browser configuration, see [Configure CW Modes](../../User_Interface/Setup/Signal_Setup/cw.md). Related references include [CW Mode Options](../../Command_Line_Operations/cw_modes.md), [Configuration Troubleshooting](../configuration_troubleshooting.md), and [Configure Device I/O](../../User_Interface/Setup/Pi_IO/index.md).
 
 (cw-section)=

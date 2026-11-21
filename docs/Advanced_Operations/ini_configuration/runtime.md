@@ -1,5 +1,7 @@
 # Runtime and Service Settings
 
+INI blocks on this page show the one-time import representation. After migration, use Setup or the [local settings command](../../Command_Line_Operations/saved_settings.md); see [Saved Settings and INI Migration](../ini_configuration.md).
+
 Use these sections for process behavior, active transmission mode, service ports, transmission gating, and shared control GPIOs. For normal browser-based configuration, see [Setup Overview](../../User_Interface/Setup/index.md). Related operator references include [Configure Device I/O](../../User_Interface/Setup/Pi_IO/index.md), [REST API](../rest_api.md), [WebSocket Interface](../websocket.md), and [View Logs](../../User_Interface/Logs/index.md).
 
 (meta-section)=
@@ -42,7 +44,7 @@ The `[Operation]` section selects the active mode and backend, gates RF transmis
 (experimental-frequency-section)=
 ## Experimental frequency policy
 
-The `[Experimental]` section provides advanced CLI/INI-only controls for operators performing authorized experiments. These settings are intentionally absent from the Web UI and default to `false`.
+The `[Experimental]` section provides advanced local-settings and direct-CLI controls for operators performing authorized experiments. These settings are intentionally absent from the Web UI and default to `false`.
 
 ```{literalinclude} default_wsprrypi.ini
 :language: ini
@@ -54,7 +56,7 @@ The `[Experimental]` section provides advanced CLI/INI-only controls for operato
 
 These controls do not grant permission to transmit. The operator remains responsible for authorization, RF-path safety, filtering, and compliance with applicable rules.
 
-When the process starts with `--ini-file`, WsprryPi loads these INI values before processing the remaining CLI switches. A CLI `--allow-*` or `--no-*` switch overrides the corresponding INI value at startup and does not rewrite this file. Repeated switches are processed from left to right, so the last occurrence wins. If a later change to this monitored file is accepted, the reloaded INI values become the live settings for subsequent transmission decisions. See [Experimental Frequency Policy](../../Command_Line_Operations/transmitter_backends.md#experimental-frequency-policy) for concrete commands and the procedure for confirming the effective settings of a running process.
+Saved experimental permissions are managed through the local settings command. Direct CLI switches affect that invocation and do not persist settings. There is no INI reload after migration. See [Experimental Frequency Policy](../../Command_Line_Operations/transmitter_backends.md#experimental-frequency-policy) for readback and precedence.
 
 ### Startup transmitter safety
 
@@ -68,17 +70,9 @@ This protection begins when the daemon runs. Use a separate hardware inhibit whe
 
 Saved edits and repair/reset can defer runtime application while a Test Tone owns its committed backend, mode, frequency, and selectors. Saving does not replace that running snapshot or clear cleanup uncertainty. Read [Test Tone results and recovery](../../User_Interface/Maintenance/index.md#read-the-result) before treating saved settings as active.
 
-(wtp-server)=
-## Retired WTP configuration
+## Persistent ownership and assignments
 
-`backend=wtp`, inbound WTP listeners, and `--wtp-server-port` are unsupported. An active legacy backend or enabled listener holds execution with a migration required message. There is no automatic local-backend fallback.
-
-Inactive `[WTP]` and `[WTP Server]` values may remain in an existing INI. Their presence alone does not block a valid native configuration, and unrelated saves preserve meaningful dormant values. They are private legacy state, not current settings controls.
-
-### Persistent ownership and assignments
-
-Preserve the process user’s private ownership/revocation journals, protected management and retirement records, `<active-INI-path>.wtp-assignments.json`, `.wtp-fleet-contexts.json`, and `.wtp-devices.json`. Assignment records retain consumed slots and uncertain work; device profiles retain connection settings. Read-only legacy records never authorize reconnect or replay. Deleting history cannot establish cleanup. Preserve reported storage or ownership errors when requesting support.
-
+Preserve private ownership/revocation history, protected management and retirement records, Fleet definitions, receipts, and progress through the supported backup workflow. SQLite owns coordinated application state; some credential and per-target journal owners remain separate. Deleting history cannot establish cleanup or authorize reconnect or replay. Preserve reported storage or ownership errors when requesting support.
 
 ## Native recurrence and time readiness
 

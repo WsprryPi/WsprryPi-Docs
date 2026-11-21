@@ -3,7 +3,7 @@
 ## Service and GPIO Controls
 
 - `--no-web`  
-  Disable Web UI and WebSocket server.
+  Disable browser listener operation. With the installer’s `--no-web` option, Apache/PHP and the browser service are omitted; the backend and maintenance worker remain available. This does not disable device management transports.
 
 - `-w`, `--web-port <port>`  
   HTTP REST API port (default: 31415).
@@ -49,6 +49,6 @@ For clock-error measurements, see [Interpreting Test Tone Measurements](../Advan
 
 ## Notes
 
-- CLI options override INI values unless restricted.
+- Direct CLI options are transient. Saved service settings use SQLite; listener edits require backend restart. See [Saved Settings and Local Maintenance](saved_settings.md).
 - Some advanced features are CLI-only.
 - Root privileges (`sudo`) are required for RF output.

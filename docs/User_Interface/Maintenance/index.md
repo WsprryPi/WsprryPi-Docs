@@ -1,6 +1,6 @@
 # Maintenance Card
 
-Use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, and create a support bundle.
+Use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, create a support bundle, and download or restore an encrypted installation backup.
 
 ## Set up this transmitter
 
@@ -30,23 +30,15 @@ If a controller-access change is unconfirmed, use **Check saved result**. Refres
 
 ![Maintenance configuration repair and reset controls](recovery.jpg)
 
-In rare cases, you may find that your configuration is present and readable but has missing sections or is otherwise not fully functional. This can happen if you hand-edit your INI file and mistakenly delete sections or keys.
-
-When you press the "Repair current configuration" button, repair runs without a confirmation prompt. WsprryPi creates a stock configuration file and applies your valid configuration values on top. Missing or invalid data is restored from the stock configuration.
-
-After this action, you should review all your settings to ensure they are still correct.
+Use **Repair current configuration** to repair supported saved settings through the backend. It retains valid values and fills missing or invalid values from current defaults. Review all settings afterward. Repair does not replace a database file, erase established authority/history, or bypass a storage or recovery hold.
 
 ## Reset to Stock
 
-This process is helpful if your INI file is damaged on disk or completely missing.
+**Reset to defaults** asks for confirmation before replacing supported local configuration values with defaults through the owning backend. Reconfigure station and hardware preferences before transmitting. Reset retains established scheduling and ownership history; it cannot repair a missing or corrupt established database or clear output uncertainty.
 
-Unlike the Repair Configuration button, it does not preserve existing user values. It copies a new stock `wsprrypi.ini` file in place of your current one if it exists, and reloads the configuration shipped with the application.
+## Backup and restore
 
-When you press the "Reset to defaults" button, a confirmation modal warns that the action replaces your existing configuration.
-
-Confirm the action, and the process completes and returns its status.
-
-You need to reconfigure all of your preferences before continuing to transmit.
+Use **Backup and restore** to create and download a passphrase-encrypted backup, or upload and validate one for recovery or a computer move. Restore requires explicit preview confirmation and destination review before releasing persistent output/authority holds. See [Back Up or Restore an Installation](backup_restore.md) for the full workflow and [local maintenance commands](../../Command_Line_Operations/saved_settings.md#backup-and-restore-from-a-local-terminal) if browser access is unavailable.
 
 ## Privileged Network Safety
 
@@ -55,7 +47,7 @@ You need to reconfigure all of your preferences before continuing to transmit.
 The Maintenance page reports three values separately:
 
 - **Requested** is the unsaved choice currently selected in the browser.
-- **Configured** is the value stored in `wsprrypi.ini`.
+- **Configured** is the saved backend-owned policy.
 - **Active** is the policy confirmed in the backend and Apache.
 
 Keep **Enforced** selected for normal operation. Browser operation uses the normal port-80 Apache site; the UI does not fall back to the direct backend ports for this control. When enforcement is active, Apache also restricts the entire browser-facing WebSocket endpoint. Off-LAN clients therefore cannot use read-only WebSocket commands or receive its broadcasts.
@@ -147,6 +139,7 @@ Review the readable archive before encryption. See [Create and Share a Support B
 :maxdepth: 1
 :hidden:
 
+Back Up or Restore an Installation <backup_restore>
 Create and Share a Support Bundle <support_bundle>
 Privileged Network Safety <network_safety>
 ```

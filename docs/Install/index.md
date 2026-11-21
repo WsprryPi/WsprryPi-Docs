@@ -1,5 +1,9 @@
 # Installing WsprryPi
 
+:::{note}
+The saved-settings, separate browser service, and backup/restore procedures apply to builds that support SQLite state. Check the installed executable's help for these commands, and follow the installation instructions for that version.
+:::
+
 For the pinned RC.1 prerelease, see [RC.1 installation](rc1.md). For the development channel, see [Development installation](beta7.md). The normal installation commands below retain the stable channel.
 
 Before installing, check [What you need](../requirements.md). After installation, continue with [Your first WSPR transmission](../first_transmission.md).
@@ -22,7 +26,7 @@ If you choose the Si5351 backend, you also need an Si5351 clock generator. While
 The Pi header I2C connection uses GPIO2 and GPIO3. For a USB-connected Si5351, follow the host-specific guide:
 
 - [Linux USB I2C setup](linux_si5351.md): kernel driver, stable adapter identity, permissions, and qualification limits.
-- [macOS USB I2C setup](macos_si5351.md): native MCP2221A transport, source build, CLI/INI configuration, and qualification limits.
+- [macOS USB I2C setup](macos_si5351.md): native MCP2221A transport, source build, direct CLI and saved settings, and qualification limits.
 
 ## Prerequisites
 
@@ -52,7 +56,7 @@ Aside from the obvious, installing WsprryPi, the install script makes these chan
 - **Install required packages and tools**, including `git` and runtime libraries. Application source builds and RP1 GPIO driver preparation also require their respective development packages.
 - **Supply Pico USB firmware tools with the [development installer](beta7.md#pico-usb-firmware-tools).** It installs Python and libusb and supplies prebuilt picotool when a compatible copy is not already installed.
 - **Install and configure WsprryPi.** See [Release binary or source build](#release-binary-or-source-build) for executable selection and compilation options.
-- **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.** The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its source and installed artifacts, and first establishes route-neutral administration. Fresh setup has no selected route. An explicitly saved RP1 GPIO4/GPIO20 selection can then be restored, with transmission disabled. Package installation, neutral activation, and route restoration are separate; none grants output authorization. Automatic provider installation is independent of the selected transmit backend, including Si5351 and WTP. `INSTALL_RP1_GPCLK_DKMS=false` explicitly omits provider installation.
+- **Install and validate RP1 GPIO support on Raspberry Pi 5-family systems.** The installer resolves a compatible RP1-GPIO-CLK-DKMS provider, verifies its source and installed artifacts, and first establishes route-neutral administration. Fresh setup has no selected route. An explicitly saved RP1 GPIO4/GPIO20 selection can then be restored, with transmission disabled. Package installation, neutral activation, and route restoration are separate; none grants output authorization. Automatic provider installation is independent of the selected transmit backend, including Si5351. `INSTALL_RP1_GPCLK_DKMS=false` explicitly omits provider installation.
 - **Disable the Raspberry Pi's built-in sound card.** WsprryPi uses the RPi PWM peripheral to time the frequency transitions of the output clock.  The Pi's sound system also utilizes this peripheral; any sound events during a WSPR transmission interfere with the WSPR transmission.
 
 (install-wspr)=
@@ -195,3 +199,15 @@ On Raspberry Pi 5-family systems, the WsprryPi installer installs and validates 
 ## Optional network diagnostic logging
 
 The installer packages the separate unprivileged UDP logging worker with the application and UI. New installations leave export and listening disabled. Enabling it requires working journald access and enforceable memory/PID cgroup controllers. Read the local installation state in **Logs → Logging on this Pi** before configuring it. The [Logs guide](../User_Interface/Logs/index.md#receive-udp-logs-on-this-pi) covers explicit bind/peer setup, plaintext trust, forwarding, service removal, retained policies and journal storage pressure.
+
+## SQLite source installations
+
+The SQLite implementation installs `wsprrypi.service` (backend), `wsprrypi-web.service` (browser HTTP/WebSocket process), and independent `wsprrypi-maintenance.service` (backup/recovery worker). Apache/PHP continues to serve the existing UI and proxy URLs. The browser service is part of WsprryPi, not an Apache module. See [System Internals](../Internals/index.md) for paths and data flow.
+
+Runtime installation needs SQLite 3.31 or newer (`libsqlite3-0`); source builds also need `libsqlite3-dev`. Recovery packaging includes its fixed helper and Python modules; operators do not install Go at runtime. `--no-web` omits the browser/Apache/PHP installation while retaining backend and maintenance operation.
+
+The installer admits private application state, imports an existing INI once, and retains its original migration backup. Updates and uninstall preserve application generations, private identity/recovery assets, and backup jobs. An active maintenance job or an unavailable maintenance owner blocks replacement. Finish or recover the existing job before updating.
+
+If a state transition is established or incomplete, a failed update retains the compatible new executable and prior recovery assets and withholds automatic service restart. Correct the reported error before rerunning the installer. If first state admission was interrupted, [resume its original operation](../Command_Line_Operations/saved_settings.md#resume-interrupted-initial-state-admission) first; the installer does not automatically resume an incomplete existing root. Do not replace it with an older INI-writing executable or remove private state to force initialization. The older version-specific rollback instructions do not apply after this transition.
+
+These source instructions do not establish installed-service or Pi/RF qualification of an unpublished build. Use the intended release's installation instructions and qualification status when it is published.

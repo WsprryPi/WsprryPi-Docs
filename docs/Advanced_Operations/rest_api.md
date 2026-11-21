@@ -10,10 +10,10 @@ For normal browser and API use, access these interfaces through the Apache proxy
 http://{servername}.local/wsprrypi/
 ```
 
-The WsprryPi backend still listens on its service ports internally:
+The separate WsprryPi browser service listens on the internal service ports and forwards admitted operations to the backend through local IPC:
 
-- HTTP REST/UI backend: `31415`
-- WebSocket backend: `31416`
+- HTTP REST/browser service: `31415`
+- Browser WebSocket service: `31416`
 
 Those ports are implementation details behind the proxy. Most users and documentation examples should use the proxied `/wsprrypi/` paths.
 
@@ -41,7 +41,7 @@ Supported operations:
 - `PUT`: Replaces the configuration with a full JSON payload
 - `PATCH`: Updates selected configuration fields
 
-The backend service receives this request internally as:
+The browser service receives this request internally as:
 
 ```text
 http://127.0.0.1:31415/config
@@ -66,7 +66,7 @@ GET /wsprrypi/config/si5351-addresses?bus=N
 
 This read-only endpoint refreshes the compatible address list for a selected host-present bus. Its JSON response contains `I2C Bus`, `Addresses`, and `Discovery Error`. Address checks are limited to `0x60` through `0x6F` and do not program the clock generator or enable an output. The isolated worker has a two-second scan deadline and at most 25 ms of cleanup attempts, with one worker outstanding. A kernel-blocked worker can remain pending after termination is requested; further scans report busy until it exits. Busy, timeout/error, and confirmed no response are different outcomes. Failed inventory preserves a saved address as unconfirmed; it does not establish missing hardware. Retry explicitly after the worker/problem is resolved. Configuration updates independently perform fresh validation of a newly selected bus/address rather than trusting this list. A response establishes register compatibility, not definitive silicon identity.
 
-Configuration replacement and patch requests apply the same GPIO ownership validation as startup and INI reload. With the GPIO backend, the selected GPIO4 or GPIO20 RF output cannot also be used by an enabled Band GPIO, Transmit LED, Shutdown Button, or Amp Control, regardless of the `Operation.Transmit` value. A rejected request returns the conflict instead of clearing or moving either assignment.
+Configuration replacement and patch requests apply the same GPIO ownership validation as startup and validated settings application. With the GPIO backend, the selected GPIO4 or GPIO20 RF output cannot also be used by an enabled Band GPIO, Transmit LED, Shutdown Button, or Amp Control, regardless of the `Operation.Transmit` value. A rejected request returns the conflict instead of clearing or moving either assignment.
 
 With privileged network safety enforced, `PUT` and `PATCH` require a browser peer on the Pi's directly connected LAN. `GET /config` remains read-only and available where practical. Repair/reset, stop-and-disable, support-bundle operations, and `POST /api/network-safety` are also protected. An off-LAN request is rejected before the operation is proxied.
 
@@ -76,7 +76,7 @@ A minimal host patch disabling transmission is:
 {"Operation":{"Transmit":false}}
 ```
 
-Read `GET /wsprrypi/config` first and send its exact quoted ETag in `If-Match` with `PATCH /wsprrypi/config`. The browser autosave does this; legacy clients without a condition retain compatibility. A stale revision rejects the write; preserve the draft and explicitly reload saved settings before another attempt. Use the [INI reference](ini_configuration.md) for canonical keys. A saved edit can await runtime application while a Test Tone owns the committed configuration.
+Read `GET /wsprrypi/config` first and send its exact quoted ETag in `If-Match` with `PATCH /wsprrypi/config`. The browser autosave does this; legacy clients without a condition retain compatibility. A stale revision rejects the write; preserve the draft and explicitly reload saved settings before another attempt. Use the [saved settings reference](ini_configuration.md) for canonical keys. A saved edit can await runtime application while a Test Tone owns the committed configuration.
 
 ## RP1 GPCLK Route Endpoint
 
@@ -133,7 +133,7 @@ Version and update metadata are available through the proxied endpoint:
 http://{servername}.local/wsprrypi/version
 ```
 
-The backend service receives this request internally as:
+The browser service receives this request internally as:
 
 ```text
 http://127.0.0.1:31415/version

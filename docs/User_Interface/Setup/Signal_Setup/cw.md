@@ -1,6 +1,6 @@
 # Configure CW Modes
 
-Use this page to configure QRSS, FSKCW, or DFCW timing, frequency, scheduling, and message content. Return to the [Signal Setup overview](index.md) to choose WSPR. For direct shell operation, see [CW Mode Options](../../../Command_Line_Operations/cw_modes.md); for direct file editing, see [INI Configuration Reference](../../../Advanced_Operations/ini_configuration.md); for recoverable save failures, see [Configuration Troubleshooting](../../../Advanced_Operations/configuration_troubleshooting.md).
+Use this page to configure QRSS, FSKCW, or DFCW timing, frequency, scheduling, and message content. Return to the [Signal Setup overview](index.md) to choose WSPR. For direct shell operation, see [CW Mode Options](../../../Command_Line_Operations/cw_modes.md); for saved settings and one-time import, see [Saved Settings and INI Migration](../../../Advanced_Operations/ini_configuration.md); for recoverable save failures, see [Configuration Troubleshooting](../../../Advanced_Operations/configuration_troubleshooting.md).
 
 CW Mode provides QRSS, FSKCW, and DFCW for low-power Morse-code transmissions. The controls below describe **This Pi**, where valid edits use autosave. A paired Pi keeps its own draft until **Save this Pi’s settings**; Pico does not expose these Pi CW profiles.
 

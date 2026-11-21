@@ -15,7 +15,7 @@ For normal browser use, connect through the proxied WebSocket path:
 ws://{servername}.local/wsprrypi/socket
 ```
 
-The backend service receives this connection internally as:
+The separate WsprryPi browser service receives this connection internally as:
 
 ```text
 ws://127.0.0.1:31416/socket
@@ -24,6 +24,8 @@ ws://127.0.0.1:31416/socket
 When privileged network safety is enforced, Apache restricts the entire browser-facing `/wsprrypi/socket` endpoint to clients on the Pi's directly connected LAN. Apache cannot authorize individual commands after upgrade, so off-LAN clients also lose read-only commands, ping/pong, and server broadcasts. There is no separate off-LAN read-only socket.
 
 Port `31416` is not a browser fallback. Compatible direct non-browser clients must be on loopback or an eligible directly connected LAN, send a valid local `Host`, and either omit `Origin` or send an `Origin` matching `Host`. Forwarded client headers are ignored for authorization.
+
+The browser service uses authenticated local IPC for backend commands and events. It owns browser connections, while the backend retains scheduling, device management, and authoritative state. Restarting the browser service does not restart the backend. After a disconnect, read current authoritative status; an event is not a durable command acknowledgement.
 
 ## Available Commands
 

@@ -1,5 +1,7 @@
 # WSPR Settings
 
+INI blocks on this page show the one-time import representation. After migration, use Setup or the [local settings command](../../Command_Line_Operations/saved_settings.md); see [Saved Settings and INI Migration](../ini_configuration.md).
+
 Use this section for WSPR station identity, reported power, frequency, transmission planning, and random offset. For the complete message-type and pairing workflow, see [Configure WSPR](../../User_Interface/Setup/Signal_Setup/wspr.md). Direct command-line users should also see [General and WSPR Options](../../Command_Line_Operations/wspr_options.md); frequency accuracy is covered in [Transmission Timing and Calibration](../timing_calibration.md).
 
 The planning preferences on this page belong to the **Pi host**. Pico member station defaults use [Pico automatic planning](../../User_Interface/Setup/Transmitter/index.md#pico-automatic-wspr-planning), which selects Type 1 for an ordinary six-character locator, a Type 2/3 pair for a supported compound with six characters, and a single Type 3 for explicit brackets with six characters. No Pi preference selector changes that automatic member plan.
@@ -24,7 +26,7 @@ Band Preferences = {"8m":40680000,"5m":60000000}
 Band Preferences = {}
 ```
 
-The object must remain on one line. JSON strings and numbers retain their types when loaded and saved. Existing preset-only configurations require no migration.
+The object must remain on one line. JSON strings and numbers retain their types when loaded and saved. Existing preset-only values need no type conversion during one-time INI import.
 
 ```{literalinclude} default_wsprrypi.ini
 :language: ini

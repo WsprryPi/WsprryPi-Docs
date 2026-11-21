@@ -10,7 +10,7 @@ Start with [Transmission Timing and Calibration](timing_calibration.md) when a t
 
 Transmission Timing and Calibration <timing_calibration>
 Canonical Bands and WSPR Frequency Presets <canonical_bands>
-INI Configuration Reference <ini_configuration>
+Saved Settings and INI Migration <ini_configuration>
 Configuration Troubleshooting <configuration_troubleshooting>
 REST API <rest_api>
 WebSocket Interface <websocket>
@@ -31,7 +31,7 @@ RF and Electrical Reference <rf_electrical>
 - [Canonical Bands and WSPR Frequency Presets](canonical_bands.md) explains frequency-to-band correlation, built-in WSPR dial presets, profiles, per-band preferences, and country/locality selection.
 
 (ini-file)=
-- [INI Configuration Reference](ini_configuration.md) documents the complete daemon configuration file, including WSPR, CW, hardware, and scheduling values.
+- [Saved Settings and INI Migration](ini_configuration.md) explains backend-owned state, one-time import, and the canonical local settings reference.
 
 (troubleshooting-cw-configuration-saves)=
 - [Configuration Troubleshooting](configuration_troubleshooting.md) explains recoverable CW timing validation and configuration reload failures.

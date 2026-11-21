@@ -1,5 +1,9 @@
 # WsprryPi
 
+:::{note}
+The saved-settings, separate browser service, and backup/restore procedures apply to builds that support SQLite state. Check the installed executable's help for these commands, and follow the installation instructions for that version.
+:::
+
 WsprryPi turns a Raspberry Pi into a low-power amateur radio transmitter for WSPR propagation experiments and slow Morse-code modes. Configure a station and transmission schedule in its web interface, then use reception reports to see where the signal was heard.
 
 The Pi can generate RF through a GPIO clock output or use an external Si5351 clock generator. Fleet manages the settings and native schedules of other Pi and WsprryPico devices. Each device schedules and executes its own transmissions. Each output needs suitable RF filtering and a band and mode supported by that hardware.

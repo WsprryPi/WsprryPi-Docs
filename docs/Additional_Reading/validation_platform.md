@@ -32,7 +32,7 @@ The serial line supplies UTC information; PPS supplies the precise second bounda
 
 Configure Linux's existing GPS serial and GPIO PPS support for the connections above. The serial input is connected to GPIO15/RXD; the system's `serial0` alias identifies its UART. Linux's PPS GPIO assignment must match **GPIO18**. WsprryPi does not configure the UART, PPS overlay, GPIO mux, or Chrony.
 
-In **Setup > Transmitter > GPIO Output > Frequency calibration**, enable **System clock estimate**. The corresponding INI setting is:
+In **Setup > Transmitter > GPIO Output > Frequency calibration**, enable **System clock estimate**. The corresponding saved key is `GPIO.Use System Clock Frequency Estimate`. Its one-time INI import representation is:
 
 ```ini
 [GPIO]

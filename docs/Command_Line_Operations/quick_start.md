@@ -4,7 +4,7 @@ Use this page to stop the managed service safely, understand the command-line fo
 
 ## `systemd` Service
 
-The `wsprrypi` executable is managed by Linux `systemd`. It runs in the background after boot, and only one instance is allowed at a time. Stop the daemon before running manual CLI commands.
+The `wsprrypi` executable is managed by Linux `systemd`. It runs in the background after boot, with separate browser and maintenance processes. Stop the backend before running direct transmitter commands. Keep it running for `--settings`, `--diagnostic-export`, and maintenance operations that need destination validation; these contact the existing owners instead of starting another transmitter.
 
 Useful commands:
 
@@ -35,14 +35,14 @@ The CLI supports two primary modes:
 - **Direct CLI mode**  
   Run WSPR or CW-based transmissions directly.
 
-- **INI (daemon-style) mode**  
-  Use `-i` to load and monitor a configuration file.
+- **Saved-state service mode**
+  Use the backend-owned application state. The installed service supplies its state directory; the separate web process handles HTTP and browser WebSockets. See [System Internals](../Internals/index.md) and [local settings and maintenance commands](saved_settings.md).
 
 ### Usage
 
 ```text
 (sudo) wsprrypi [options] CALLSIGN GRID POWER FREQ [FREQ...]
-(sudo) wsprrypi -i /path/to/wsprrypi.ini
+(sudo) wsprrypi --state-directory /var/lib/wsprrypi/application-state
 (sudo) wsprrypi --test-tone RF_FREQ [backend/options]
 (sudo) wsprrypi --mode QRSS --cw-message TEXT --cw-base-frequency FREQ
 ```
@@ -69,7 +69,7 @@ The CLI supports two primary modes:
 
 ## Positional Arguments
 
-These are required for direct WSPR transmission unless provided via INI:
+These positional arguments are required for direct WSPR transmission:
 
 - **CALLSIGN**  
   Your callsign or supported WSPR identity form. Standard Type 1 WSPR

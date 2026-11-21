@@ -1,5 +1,7 @@
 # Calibration and Transmitter Backends
 
+INI blocks on this page show the one-time import representation. After migration, use Setup or the [local settings command](../../Command_Line_Operations/saved_settings.md); see [Saved Settings and INI Migration](../ini_configuration.md).
+
 Use these sections for frequency calibration and RF output-path settings. See [Configure Transmitter](../../User_Interface/Setup/Transmitter/index.md), [Configure Device I/O](../../User_Interface/Setup/Pi_IO/index.md), [Transmission Timing and Calibration](../timing_calibration.md), [Transmitter Backend Options](../../Command_Line_Operations/transmitter_backends.md), and [RF and Electrical Reference](../rf_electrical.md) for the corresponding workflows.
 
 (calibration-section)=
@@ -37,7 +39,7 @@ On Pi 1–4, `Use System Clock Frequency Estimate = True` applies Chrony's host-
 
 The `[Si5351]` section configures the I2C device, reference frequency, reference hardware, transmit output, and drive strength. `Reference Source = external_tcxo` is the compatibility default for an active clock or TCXO. Select `crystal` only when a passive crystal is connected across XA/XB.
 
-`I2C Address` accepts decimal or `0x`-prefixed hexadecimal values from `0x60` through `0x6F` inclusive. The web interface further limits its address menu to register-compatible devices detected on the selected, host-present I2C bus. Direct CLI and INI configuration still undergo range and transmission-readiness validation.
+`I2C Address` accepts decimal or `0x`-prefixed hexadecimal values from `0x60` through `0x6F` inclusive. The web interface further limits its address menu to register-compatible devices detected on the selected, host-present I2C bus. Direct CLI and migrated saved configuration still undergo range and transmission-readiness validation.
 
 Cached or failed discovery can retain a saved unconfirmed address. A fresh scan is explicit and bounded; see the [I2C address workflow](../../User_Interface/Setup/Transmitter/index.md#i2c-address). Drive levels 1–4 retain 2/4/6/8 mA, not calibrated RF power. CW fades are full-drive duty-cycle chopping with event deadlines, not analog amplitude control.
 
@@ -56,7 +58,7 @@ For a passive crystal, `Crystal Load Capacitance` accepts only `6`, `8`, or `10`
 
 A Pico runs its own saved schedules. Save its management profile in **Setup → Fleet**, then choose it under **Device**. USB management uses interface 4, with Console on 0 and Logging on 6. Interfaces 2/3 are reserved and inert in application images. The optional RFBench image uses them for its bench commands.
 
-Use encrypted Consumer Wi-Fi management with the Pico’s password, or explicitly configured Engineering HTTPS with certificate and hostname verification. There is no WTP execution carrier or automatic security fallback. Preserve explicit hostnames, ports, USB serials, device IDs, and credential references when editing profiles. A display name is not identity.
+Use encrypted Consumer Wi-Fi management with the Pico’s password, or explicitly configured Engineering HTTPS with certificate and hostname verification. There is no automatic security fallback. Preserve explicit hostnames, ports, USB serials, device IDs, and credential references when editing profiles. A display name is not identity.
 
 ### Saved devices and the active endpoint
 

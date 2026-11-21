@@ -202,7 +202,7 @@ Login input clears after an attempt. Consumer traffic keys remain only in RAM. W
 
 Page visibility and field editing do not count as Pico requests. Reauthenticate after expiry and explicitly load saved state before another save.
 
-No persistent management password is added to INI, device profiles, or browser storage. Consumer authentication uses a shared passphrase; it does not establish unique device identity. Protect the Pi browser session and use a trusted endpoint.
+No persistent management password is added to ordinary saved configuration, device profiles, or browser storage. Consumer authentication uses a shared passphrase; it does not establish unique device identity. Protect the Pi browser session and use a trusted endpoint.
 
 The advertised firmware capabilities determine consumer-session capacity. The interface reports occupied sessions and pending login state. Capacity, pending-login, and pacing refusals are distinct. Wait for a pending login or expiry, disconnect the owning client, or use the panel's explicit occupied-login inspection/retirement workflow when advertised. Read connection state after a lost reply. Pi tabs share the native management session; retiring a login never retries a settings save. Unsupported retirement requires that login's own logout or expiry.
 

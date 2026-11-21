@@ -8,19 +8,11 @@
 - `-v`, `--version`  
   Print version information and exit.
 
-- `-i`, `--ini-file <file>`  
-  Load configuration from an INI file. When used, CLI transmission options are
-  disabled or restricted, and the program runs in daemon-style mode.
+- `--state-directory <directory>` Start the backend using its admitted private application state. The installed Pi service uses `/var/lib/wsprrypi/application-state`. Do not point another process at a live installation's state or delete the directory to bypass recovery. `-i` / `--ini-file` is retired from normal startup; see [one-time migration](../Advanced_Operations/ini_configuration.md).
 
-- `--controller-only -i <file>`<br /> Start the controller service without a local transmitter. Setup opens Fleet, and Operations identifies the controller as having no local output. The process does not require a local callsign or locator, select an output backend, or initialize transmitter GPIO. Transmitter CLI options are rejected in this role.
+- `--controller-only --state-directory <directory>` Start the existing controller-only role without local output, local callsign/grid requirements, or transmitter GPIO initialization. Role and listener changes require explicit process restart. This is distinct from a normal Pi's hybrid operation: a transmitter Pi can run its local schedule and manage Fleet devices together without a hybrid flag.
 
-  The existing regular INI file locates the controller's adjacent device catalog, Fleet assignments, and recovery journal. Only its `[Operation]` listener ports and `[Security]` network-safety setting are read; local station and output values are left unchanged. Missing listener ports use 31415 and 31416. The controller identity is assigned automatically on Linux and macOS. Startup fails if that identity or its saved controller state cannot be validated.
-
-  `--web-port`, `--socket-port`, `--socket-loopback-only`, `--no-web`, `--no-http`, and the logging options below are supported. Listener ports must be distinct integers from 1024 through 49151 when both listeners are enabled. Port and role changes require an explicit process restart. Stop this process with Ctrl-C or SIGTERM; it does not turn into a transmitter after a reload or failed initialization.
-
-  Pair another Pi through [Maintenance → Controller access](../User_Interface/Maintenance/index.md#controller-access), then choose the verified device under Setup to manage its settings and native schedule. A saved Pico management profile provides access to that Pico’s supported settings.
-
-  `GET /status` reports controller readiness separately from target availability, with `local_output: null`. Existing Fleet and device-catalog interfaces remain available behind the normal network and browser-request checks. Local configuration, output-selection, transmission, and machine-power commands are refused, and their browser controls are unavailable. Choose the verified transmitter under Setup’s **Device** selector to manage it. Its native schedule remains independent of the controller’s output selection.
+  Pair another Pi through [Maintenance → Controller access](../User_Interface/Maintenance/index.md#controller-access), then select it under Setup's **Device** selector. Each target retains its own schedule and authority. Local transmitter and machine-power controls are unavailable in controller-only mode. A dedicated controller-only distribution and additional native platform service integrations remain separate work; this role does not establish their availability.
 
 - `-r`, `--repeat`  
   Repeat transmissions indefinitely in direct CLI mode.

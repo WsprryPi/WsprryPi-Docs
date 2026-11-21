@@ -98,7 +98,7 @@ Open **Band preferences** when a bare band name should differ from the selected 
 
 `Band Preferences` pins the meaning of a bare WSPR band preset without changing the selected profile. A value can select a built-in preset for the same band or assign a positive integral USB dial frequency. Only 60 m currently has multiple built-in presets; numeric preferences support local conventions on any correlated band.
 
-The INI value is a JSON object written on one line:
+The canonical `Band Preferences` value is a JSON object. This one-line form shows its one-time INI import representation; use the existing Band preferences editor after migration:
 
 ```ini
 Band Preferences = {"60m":"60m:legacy"}
@@ -211,9 +211,9 @@ Use an exact local USB dial frequency that has no built-in preset:
 
 The numeric example demonstrates input syntax only. Verify the actual local frequency and operating conditions before transmitting.
 
-## Direct INI configuration
+## One-time INI import representation
 
-The same controls are stored in the `[WSPR]` section:
+For an existing INI being migrated once, these controls appear in the `[WSPR]` section. Later edits use Setup; editing this file does not update SQLite:
 
 ```ini
 [WSPR]
@@ -229,6 +229,6 @@ Band Preferences = {"60m":"60m:wrc15"}
 - Existing configurations without `Frequency Profile` continue to use `existing_common`.
 - Missing or empty `Band Preferences` uses the default bare-band selection.
 - Existing preset-string preferences remain valid and keep their JSON type.
-- Numeric preferences are additive; no conversion of existing INI files is required.
+- Numeric preferences are additive; they retain their type during one-time SQLite migration.
 - Configure 60 m using the `60m` row in **Band preferences**. Clearing it removes only the `60m` entry.
 - `22m` remains rejected. `8m`, `5m`, `1.25m`, and `70cm` are canonical band names, but only `8m` and `5m` require custom dial preferences before they can be used as bare WSPR presets.

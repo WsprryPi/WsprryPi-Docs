@@ -9,6 +9,7 @@ Start with [Command-Line Quick Start](quick_start.md) before running a manual co
 :hidden:
 
 Command-Line Quick Start <quick_start>
+Saved Settings and Local Maintenance <saved_settings>
 General and WSPR Options <wspr_options>
 Transmitter Backend Options <transmitter_backends>
 CW Mode Options <cw_modes>

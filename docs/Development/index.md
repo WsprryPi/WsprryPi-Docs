@@ -101,7 +101,7 @@ Pi 5 GPIO output uses the managed RP1 GPCLK provider. Si5351 is a separate exter
 
 The web UI lives in the `WsprryPi-UI` component. It provides the browser-based setup, operation, logging, and maintenance interface. Its source, tests, and deployment data are versioned with the parent application.
 
-The main backend exposes REST and WebSocket interfaces used by the UI for:
+The separate WsprryPi browser process exposes the existing REST and browser WebSocket routes. It uses authenticated local IPC to reach backend owners for:
 
 - Reading and writing configuration
 - Starting and stopping runtime actions
@@ -115,15 +115,17 @@ The main backend exposes REST and WebSocket interfaces used by the UI for:
 The native backend is responsible for:
 
 - Command-line parsing
-- INI and JSON configuration translation
+- One-time INI migration and validated JSON settings backed by private SQLite
 - Runtime validation
 - Scheduling
 - RF backend selection
 - GPIO control orchestration
-- REST API service
-- WebSocket service
+- Authenticated local control and observational event IPC
+- Device-to-device network/TLS and USB management
 - Update/version metadata exposure
 - Integration with the web UI
+
+The independent maintenance worker coordinates encrypted backups, held generation replacement, and verified backend restart. The browser has no SQL, credential-store, or hardware access. See [System Internals](../Internals/index.md) for service boundaries and the current data-flow diagram.
 
 ## Build and Test Workflow
 
@@ -141,7 +143,7 @@ Source development requires the C++ build toolchain, CMake, Python 3, Node.js, n
 sudo apt update
 sudo apt install -y \
     git build-essential cmake pkg-config python3 \
-    libgpiod-dev libsystemd-dev libssl-dev \
+    libgpiod-dev libsystemd-dev libssl-dev libsqlite3-dev \
     nodejs npm php-cli chromium
 ```
 

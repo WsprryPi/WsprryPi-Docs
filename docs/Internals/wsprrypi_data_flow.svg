@@ -1,59 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="1350" height="750" viewBox="0 0 1350 750">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5"
-            markerWidth="10" markerHeight="10" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7a00"/>
-    </marker>
-    <style>
-      .oval { fill: #ffffff; stroke: #ff7a00; stroke-width: 4; }
-      .link { stroke: #ff7a00; stroke-width: 4; fill: none; marker-end: url(#arrow); }
-      .title { font-family: Arial, Helvetica, sans-serif; font-size: 28px; font-weight: 700; fill: #000000; }
-      .sub   { font-family: "Courier New", Courier, monospace; font-size: 20px; font-weight: 400; fill: #000000; }
-      .sub2  { font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 400; fill: #000000; }
-    </style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="1190" viewBox="0 0 640 1190" role="img" aria-labelledby="title desc">
+<!-- SPDX-License-Identifier: MIT -->
+<title id="title">WsprryPi data flow: separate browser, backend, and recovery owners</title>
+<desc id="desc">Browser traffic passes through Apache to the web service, which uses local IPC to reach the backend. Only the backend owns SQLite and local transmission and device management. A separate maintenance worker coordinates backup and held restore. INI is a one-time migration source, not live state.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#355774"/></marker>
+<style>text{font-family:"Source Sans 3","Segoe UI",sans-serif;fill:#243746;font-size:18px}.head{font-family:"Barlow Semi Condensed","Segoe UI",sans-serif;font-size:21px;font-weight:bold}.box{fill:#fdfeff;stroke:#5c6f80;stroke-width:1.5}.line{fill:none;stroke:#355774;stroke-width:1.7;marker-end:url(#arrow)}.both{marker-start:url(#arrow)}.label{font-size:17px}</style></defs>
+<rect width="640" height="1190" fill="white"/>
 
-  <!-- Background -->
-  <rect x="0" y="0" width="1350" height="750" fill="#ffffff"/>
-
-  <!-- Nodes -->
-  <!-- Executable (left) -->
-  <ellipse class="oval" cx="270" cy="275" rx="230" ry="120"/>
-  <text x="270" y="260" text-anchor="middle" class="title">WsprryPi Executable</text>
-  <text x="270" y="295" text-anchor="middle" class="sub">/usr/local/bin/wsprrypi</text>
-
-  <!-- Service config (top-right) -->
-  <ellipse class="oval" cx="930" cy="110" rx="310" ry="90"/>
-  <text x="930" y="100" text-anchor="middle" class="title">WsprryPi Service Configuration</text>
-  <text x="930" y="135" text-anchor="middle" class="sub">/lib/systemd/system/wsprrypi.service</text>
-
-  <!-- Web UI (mid-right) -->
-  <ellipse class="oval" cx="990" cy="335" rx="330" ry="95"/>
-  <text x="990" y="325" text-anchor="middle" class="title">WsprryPi Web UI</text>
-  <text x="990" y="360" text-anchor="middle" class="sub">http://{servername}.local/wsprrypi/</text>
-
-  <!-- Logs (bottom-left) -->
-  <ellipse class="oval" cx="350" cy="625" rx="260" ry="95"/>
-  <text x="350" y="615" text-anchor="middle" class="title">WsprryPi Logs</text>
-  <text x="350" y="650" text-anchor="middle" class="sub2">(systemd-journald)</text>
-
-  <!-- Configuration (bottom-mid/right) -->
-  <ellipse class="oval" cx="820" cy="625" rx="300" ry="95"/>
-  <text x="820" y="615" text-anchor="middle" class="title">WsprryPi Configuration</text>
-  <text x="820" y="650" text-anchor="middle" class="sub">/usr/local/etc/wsprrypi.ini</text>
-
-  <!-- Links -->
-  <!-- Service config -> Executable -->
-  <path class="link" d="M 700 165 C 610 210, 475 240, 405 255"/>
-
-  <!-- Web UI -> Executable -->
-  <path class="link" d="M 660 335 C 560 325, 465 305, 405 285"/>
-
-  <!-- Config -> Executable -->
-  <path class="link" d="M 560 585 C 490 545, 435 455, 380 350"/>
-
-  <!-- Executable -> Logs -->
-  <path class="link" d="M 235 380 C 215 450, 255 535, 305 580"/>
-</svg>
+<rect class="box" x="90" y="15" width="460" height="72" rx="5"/>
+<text class="head" x="320.0" y="44" text-anchor="middle">Operator browser</text>
+<text x="320.0" y="70" text-anchor="middle">Existing /wsprrypi/ URLs</text>
+<path class="line both" d="M320 87V127"/>
+<text class="label" x="335" y="113">HTTP / browser WebSocket</text>
+<rect class="box" x="90" y="127" width="460" height="76" rx="5"/>
+<text class="head" x="320.0" y="156" text-anchor="middle">Apache / PHP</text>
+<text x="320.0" y="182" text-anchor="middle">UI assets and existing proxy paths</text>
+<path class="line both" d="M320 203V243"/>
+<rect class="box" x="90" y="243" width="460" height="100" rx="5"/>
+<text class="head" x="320.0" y="272" text-anchor="middle">WsprryPi web service</text>
+<text x="320.0" y="298" text-anchor="middle">HTTP routes and browser WebSockets</text>
+<text x="320.0" y="322" text-anchor="middle">No database, key-store, or hardware access</text>
+<path class="line both" d="M320 343V393"/>
+<text class="label" x="335" y="369">Authenticated local Unix IPC</text>
+<rect class="box" x="90" y="393" width="460" height="126" rx="5"/>
+<text class="head" x="320.0" y="422" text-anchor="middle">WsprryPi backend</text>
+<text x="320.0" y="448" text-anchor="middle">Settings, receipts, scheduling, and authority</text>
+<text x="320.0" y="472" text-anchor="middle">Hybrid Pi: local transmitter + Fleet together</text>
+<text x="320.0" y="496" text-anchor="middle">Device TLS / USB management stays here</text>
+<path class="line both" d="M205 519V570"/>
+<path class="line both" d="M435 519V570"/>
+<rect class="box" x="15" y="570" width="295" height="126" rx="5"/>
+<text class="head" x="162.5" y="599" text-anchor="middle">Private persistent state</text>
+<text x="162.5" y="625" text-anchor="middle">Backend-owned SQLite</text>
+<text x="162.5" y="649" text-anchor="middle">Local settings + Fleet + receipts</text>
+<text x="162.5" y="673" text-anchor="middle">Separate credential/journal owners</text>
+<rect class="box" x="340" y="570" width="285" height="126" rx="5"/>
+<text class="head" x="482.5" y="599" text-anchor="middle">Transmitters</text>
+<text x="482.5" y="625" text-anchor="middle">Local Pi hardware</text>
+<text x="482.5" y="649" text-anchor="middle">Remote Pi / Pico devices</text>
+<text x="482.5" y="673" text-anchor="middle">Device-owned remote schedules</text>
+<text class="label" x="20" y="729">Commands use IPC; SQLite is not a command queue.</text>
+<rect class="box" x="90" y="774" width="460" height="124" rx="5"/>
+<text class="head" x="320.0" y="803" text-anchor="middle">Independent maintenance worker</text>
+<text x="320.0" y="829" text-anchor="middle">Admitted snapshot through backend IPC</text>
+<text x="320.0" y="853" text-anchor="middle">Confirmed restore: hold, stop, publish, restart</text>
+<text x="320.0" y="877" text-anchor="middle">Private durable jobs and encrypted archives</text>
+<path class="line both" d="M90 828H3V455H90"/>
+<path class="line both" d="M320 898V943"/>
+<text class="label" x="335" y="925">Encrypted upload / download</text>
+<rect class="box" x="90" y="943" width="460" height="76" rx="5"/>
+<text class="head" x="320.0" y="972" text-anchor="middle">Backup on operator computer</text>
+<text x="320.0" y="998" text-anchor="middle">Passphrase kept separately; review before restore</text>
+<text class="label" x="24" y="1060">Browser/CLI reach maintenance through fixed local interfaces.</text>
+<text class="label" x="24" y="1088">INI is imported once; later edits do not update saved state.</text>
+<text class="label" x="24" y="1116">Restore holds local output and remote authority for review.</text>
+<text class="label" x="24" y="1144">Controller-only role omits local output; Fleet remains available.</text>
+<text class="label" x="24" y="1172">Backend, browser, and maintenance log separately to journald.</text></svg>

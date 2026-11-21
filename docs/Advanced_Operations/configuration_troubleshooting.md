@@ -4,7 +4,7 @@
 
 When a QRSS, FSKCW, or DFCW message would take longer than its configured repeat interval, Setup marks the Message field invalid and displays **Save failed** with the calculated duration and repeat interval. The invalid draft remains in the browser so it can be corrected, but it is not applied to the running configuration. Autosave resumes automatically when the adjusted duration is less than or equal to the repeat interval.
 
-This inline state identifies a timing problem that can be corrected on the Setup page. Other configuration reload failures that cannot be tied safely to an editable field may still appear in the general reload-failure dialog and may require checking the application log or configuration file.
+This inline state identifies a timing problem that can be corrected on the Setup page. Other configuration reload failures that cannot be tied safely to an editable field may still appear in the general reload-failure dialog and may require checking the application log or saved settings.
 
 See {ref}`cw-message-too-long` for the duration inputs and correction steps.
 
@@ -24,7 +24,7 @@ Review the WsprryPi log for the startup-quiescence error, then check the hardwar
 - For **Si5351**, verify the configured I2C bus and address, device wiring and power, and that the device is visible to the operating system.
 - For **GPIO**, verify that the Raspberry Pi model supports direct GPIO-clock transmission, that the configured transmit pin is GPIO4 or GPIO20, and that the service has the permissions required to access the Pi peripherals.
 
-Also correct any configuration error identified in the log. The daemon deliberately does not clear this safety latch after an INI reload, mode change, or transmission-toggle change.
+Also correct any configuration error identified in the log. The daemon deliberately does not clear this safety latch after a validated settings application, mode change, or transmission-toggle change.
 
 After correcting the cause, restart the service:
 
@@ -32,7 +32,7 @@ After correcting the cause, restart the service:
 sudo systemctl restart wsprrypi.service
 ```
 
-Then confirm in the log that the configured backend was selected without a startup-inhibition error. After a successful restart, the saved **Enable on Boot** policy determines whether transmission scheduling is enabled.
+Then confirm in the log that the configured backend was selected without a startup-inhibition error. After a successful restart, the saved **Enable on Boot** policy requests Transmit permission subject to the independent scheduling setting, restore holds, and other admission checks.
 
 Do not repeatedly restart the service without correcting the reported cause. If the failure persists, leave transmission disabled and collect a support bundle from **Maintenance** before requesting help.
 
@@ -83,8 +83,25 @@ For a time hold, check Linux OS synchronization and leap/clock alarms, the 2025�
 
 For a storage or recovery hold, preserve the progress and transaction records. An interrupted reservation is not proof of RF output. Confirm output is safely reconciled before resuming; missing or corrupt established history cannot be repaired by deleting files or repeating initial setup. See [native recurrence and time readiness](ini_configuration/runtime.md#native-recurrence-and-time-readiness).
 
-Check the uppercase site locator, ordered millidegree window bounds, decimal CW base, and every WSPR list entry, including overrides for disabled periods. A changed frequency must satisfy the selected Pi backend and current frequency policy. Repair a rejected draft through a fresh validated save; do not remove managed history or edit the private sidecar. Preserve the reported storage or recovery error when seeking help.
+Check the uppercase site locator, ordered millidegree window bounds, decimal CW base, and every WSPR list entry, including overrides for disabled periods. A changed frequency must satisfy the selected Pi backend and current frequency policy. Repair a rejected draft through a fresh validated save; do not remove managed history or edit private state files. Preserve the reported storage or recovery error when seeking help.
 
 ## Scheduling remains disabled or held
 
 In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distinguish the editable draft from **Saved scheduling** and active application. Save the disabled policy and confirm readback before explicitly enabling it. Complete Maintenance initialization when required and resolve any reported ownership hold. For solar holds, check the target’s saved locator and clock observation; browser location and timezone cannot repair a target prerequisite. After a lost reply, check the original operation rather than repeat a save. Keep the draft during a conflict, disconnect, or busy response.
+
+## Browser unavailable or saved state cannot open
+
+In the SQLite implementation, check the three services separately before restarting anything:
+
+```sh
+systemctl status wsprrypi.service wsprrypi-web.service wsprrypi-maintenance.service
+journalctl -u wsprrypi.service -u wsprrypi-web.service -u wsprrypi-maintenance.service --since "10 minutes ago"
+```
+
+A browser-service failure does not stop the backend's schedule or a remote device's autonomous work. A backend failure makes ordinary browser operations unavailable; it does not authorize default settings or replay. Check Apache proxy configuration against the active listener ports after a manual port change. Use the [local settings read command](../Command_Line_Operations/saved_settings.md#read-and-change-advanced-settings) to distinguish saved ports from explicit startup overrides.
+
+If the established SQLite state is missing, corrupt, or held, preserve the application root, migration backup, credentials, and recovery records. Do not delete generations, reimport the INI, initialize replacement identity, or use Repair/Reset to bypass admission. Collect available diagnostics and follow the reported recovery requirement. The standalone support collector can gather service/log observations even when settings export is unavailable.
+
+For an interrupted restore, select the existing job under **Recent backup or restore** and use **Refresh results**. After correcting the reported condition, **Recover this restore** resumes a confirmed held job. The [local maintenance commands](../Command_Line_Operations/saved_settings.md#backup-and-restore-from-a-local-terminal) provide status and resume if browser access is unavailable. Do not cancel a confirmed job as an upload or repeat confirmation after a lost reply.
+
+For an installer interruption during first state admission, use [Resume interrupted initial state admission](../Command_Line_Operations/saved_settings.md#resume-interrupted-initial-state-admission). This resumes the original admitted migration or initialization while the backend is stopped; it does not replace corrupt established state or resume a restore job.

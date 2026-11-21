@@ -21,7 +21,7 @@
 
 ## Experimental Frequency Policy
 
-These advanced options are available from the command line and INI file. They are intentionally not exposed in the Web UI, and both default to disabled.
+These advanced options are available from the direct command line and saved local settings command. They are intentionally not exposed in the Web UI, and both default to disabled.
 
 - `--allow-unqualified-frequency`, `--no-allow-unqualified-frequency` Allow or deny a backend, hardware profile, band, and mode combination whose recorded state is **Untested** or **Unqualified**. This option cannot enable an **Unavailable** output that the selected backend cannot safely construct.
 
@@ -31,7 +31,7 @@ These options do not grant permission to transmit. The operator remains responsi
 
 ### Precedence
 
-When `--ini-file` is present, WsprryPi loads the INI file first and then applies these CLI switches to the current process. A CLI switch therefore overrides the corresponding `[Experimental]` INI value at startup without rewriting the INI file. Switches are processed from left to right; if a switch is repeated, its last occurrence wins. If the monitored INI file is later changed and its reload is accepted, the reloaded INI values become the live settings for subsequent transmission decisions.
+Saved experimental settings use the [local settings command](saved_settings.md). Direct CLI switches affect the current invocation without rewriting saved values; repeated switches are processed left to right, so the last occurrence wins. Active `--ini-file` startup and monitored reload are retired.
 
 With an authorized frequency and a suitable attenuated, filtered RF path or dummy load, this command permits an Untested or Unqualified combination on a recognized amateur band for the current process:
 
@@ -46,12 +46,7 @@ sudo wsprrypi --allow-unqualified-frequency --allow-non-amateur-frequency \
   --test-tone 30000000Hz --backend si5351
 ```
 
-The second command still fails if the selected backend cannot construct the requested output safely. To load an INI file that enables both settings but deny outside-band operation for this process, use the explicit negative form:
-
-```bash
-sudo wsprrypi --ini-file /usr/local/etc/wsprrypi.ini \
-  --no-allow-non-amateur-frequency
-```
+The second command still fails if the selected backend cannot construct the requested output safely. To deny outside-band operation for a direct invocation, use `--no-allow-non-amateur-frequency`.
 
 The last occurrence controls the effective value. This example leaves the unqualified-frequency override enabled and the non-amateur-frequency override disabled:
 
@@ -63,20 +58,7 @@ sudo wsprrypi --allow-unqualified-frequency \
 
 ### Confirm the active settings
 
-The Web UI and runtime status do not display these advanced settings. For a direct CLI run, inspect the command that started the process and apply the left-to-right, last-occurrence rule above. For the managed service, first show the running command and identify the file passed to `--ini-file`:
-
-```bash
-main_pid="$(systemctl show --property MainPID --value wsprrypi)"
-ps -ww -p "$main_pid" -o args=
-```
-
-Then inspect the `[Experimental]` section in that exact INI file. CLI switches shown in the running command take precedence at startup. After editing a monitored INI file, confirm that the journal reports `INI file changed, reloading.` and does not report that the reload was rejected. An accepted reload makes the file values effective for subsequent transmission decisions:
-
-```bash
-journalctl -u wsprrypi --since "10 minutes ago"
-```
-
-A support bundle includes the installed INI file, service definition, process details, and recent logs for the same review. It does not turn these controls into Web UI settings or establish operating authority.
+Use `sudo wsprrypi --settings read` for saved and active advanced values from the running backend, or `sudo wsprrypi --diagnostic-export` for the supported diagnostic view. For a direct CLI run, also inspect the launching command and its last-occurrence overrides. A support bundle uses validated settings export rather than copying the INI or live database. These controls are not ordinary Setup controls and do not establish operating authority.
 
 ---
 
@@ -100,7 +82,7 @@ A steady test tone is not sufficient evidence that WSPR modulation will decode. 
 
 - `--gpio-frequency-residual-ppm <value>` Set the conducted residual added only to a usable current or bounded prior-qualified estimate (`-200` through `200 ppm`).
 
-Explicitly selecting the host estimate also disables direct PPS for that invocation. Direct PPS is enabled through `GPIO.Use Direct PPS Calibration` in the INI file or the corresponding Setup control; these CLI choices do not rewrite its saved preference. See {ref}`direct PPS calibration <direct-pps-calibration-on-pi-5>`.
+Explicitly selecting the host estimate also disables direct PPS for that invocation. Direct PPS is enabled through `GPIO.Use Direct PPS Calibration` in saved configuration through the corresponding Setup control; these CLI choices do not rewrite its saved preference. See {ref}`direct PPS calibration <direct-pps-calibration-on-pi-5>`.
 
 Positive GPIO PPM models a fast source. Intrinsic chipset compensation remains applied once even with manual zero. Manual is a fallback, not an additional term on top of the estimate. See [calibration accounting](../Advanced_Operations/timing_calibration.md) when setting a correction.
 

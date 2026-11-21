@@ -60,7 +60,7 @@ Do not shorten, decode, or manufacture an identity, select the first matching ad
 
 ## Prepare the configuration
 
-Use **Setup → Transmitter** to select the Si5351 output path and the exact **USB I2C adapter** identity. CLI and INI configuration remain available. Discovery lists native MCP2221A identities without opening a HID session or selecting an arbitrary adapter. Missing or ambiguous saved identities remain visible and unavailable; reconnect the intended adapter or select a unique one.
+Use **Setup → Transmitter** to select the Si5351 output path and the exact **USB I2C adapter** identity. Direct CLI operation remains available; persistent configuration uses backend-owned state. Discovery lists native MCP2221A identities without opening a HID session or selecting an arbitrary adapter. Missing or ambiguous saved identities remain visible and unavailable; reconnect the intended adapter or select a unique one.
 
 Choose the fitted **I2C Address**. WsprryPi checks only that address on the selected adapter. An access error, timeout, or incompatible response keeps the address unconfirmed and preserves the draft. Correct the cause, then reload or select the adapter/address again. Valid selections save automatically; a failed check does not prove that settings were saved. A successful check establishes register compatibility, not physical output state or RF accuracy.
 
@@ -70,7 +70,7 @@ Status reads reuse that check only while the adapter's live registry binding, id
 
 Select `si5351` as the **Transmit Backend**, and enter the exact adapter identity. The retained **I2C Bus** setting is a Linux setting; it does not select a device on macOS and is not rewritten by native identity selection.
 
-The following is a fragment for an existing INI file, not a complete station configuration. Replace `<Identity>` with the exact inventory value. Keep the remaining station, scheduling, and hardware settings under review.
+The following fragment documents one-time import from an existing INI file, not an active file after SQLite migration or a complete station configuration. Replace `<Identity>` with the exact inventory value. Keep the remaining station, scheduling, and hardware settings under review.
 
 ```ini
 [Operation]
@@ -87,7 +87,7 @@ Reference Source = crystal
 
 Set **Crystal Load Capacitance** to the board's specified value: accepted values are 6, 8, or 10 pF. Choose the intended **TX Output** (`CLK0`, `CLK1`, or `CLK2`) and **Power Level** (1 through 4). The drive levels correspond to 2, 4, 6, and 8 mA, independently of the WSPR message's reported transmit power. Do not copy another board's reference, load, drive, or calibration values.
 
-Equivalent CLI options are `--backend si5351`, `--si5351-adapter-identity`, `--si5351-i2c-address`, `--si5351-reference-frequency`, `--si5351-reference-source`, `--si5351-crystal-load-capacitance`, `--si5351-tx-output`, and `--si5351-power-level`. Use `--no-web` for CLI-only operation. The `--ini-file` option loads and monitors an INI file.
+Equivalent CLI options are `--backend si5351`, `--si5351-adapter-identity`, `--si5351-i2c-address`, `--si5351-reference-frequency`, `--si5351-reference-source`, `--si5351-crystal-load-capacitance`, `--si5351-tx-output`, and `--si5351-power-level`. Use `--no-web` for CLI-only operation. The `--ini-file` startup workflow is retired in the SQLite implementation. Use Setup and the [local advanced-settings command](../Command_Line_Operations/saved_settings.md) after migration. Native macOS service and maintenance packaging are not established by the Linux service instructions.
 
 Loading an operating configuration can open the adapter, probe the configured address, and attempt startup output disable, even while transmission is off. Only the explicitly selected address is checked; discovery does not scan other adapters or substitute another address. Complete the physical setup review before starting the application with that configuration.
 

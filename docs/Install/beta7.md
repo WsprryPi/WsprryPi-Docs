@@ -1,5 +1,7 @@
 # Development installation
 
+The SQLite storage, separate services, and backup/restore procedures require an executable that supports them. Check the installed executable's help and the [SQLite installation guidance](index.md#sqlite-source-installations) before applying these procedures. Use the development command below to install or update from `devel`.
+
 Use the development channel to install the application and supporting files from `devel`:
 
 ```bash
@@ -23,11 +25,11 @@ Pi 5-family GPIO driver preparation and kernel compatibility are separate from t
 
 ## Startup and recovery after a failed update
 
-On supported Pi 5/CM5 systems, automatic RP1 provider installation is independent of the selected transmit backend. Selecting Si5351 or WTP keeps RP1 available for later use; `INSTALL_RP1_GPCLK_DKMS=false` explicitly omits its installation.
+On supported Pi 5/CM5 systems, automatic RP1 provider installation is independent of the selected transmit backend. Selecting Si5351 keeps RP1 available for later use; `INSTALL_RP1_GPCLK_DKMS=false` explicitly omits its installation.
 
 RP1 startup recovery applies only when the saved transmit backend is `rp1-gpclk`. Other backends start without requiring RP1 restoration support in the executable or consulting RP1 recovery records. RP1 recovery does not change their saved transmit or boot settings. When RP1 is selected, its recovery safeguards still apply. See [RP1 installation and ownership](../Advanced_Operations/rp1_gpclk.md#installation-and-ownership).
 
-If an installation step fails after executable replacement, the installer attempts to restore the previous executable and restart the service if it was previously running. Supporting files, including the startup hook, remain at the installed version. The hook accepts a restored non-RP1 executable without RP1 restoration support. An executable used for RP1 still requires that support.
+Before the SQLite transition, a failed installation after executable replacement can attempt to restore the previous executable and restart a previously running service. Once the SQLite transition is established or incomplete, the installer retains the compatible new executable and prior recovery assets, withholds automatic service restart, and requires correction and rerun. Interrupted initial admission first needs its [original operation resumed](../Command_Line_Operations/saved_settings.md#resume-interrupted-initial-state-admission); it does not restore an incompatible INI-writing executable. Supporting files, including the startup hook, remain at the installed version. The hook accepts a restored non-RP1 executable without RP1 restoration support. An executable used for RP1 still requires that support.
 
 Executable recovery does not reverse package or configuration changes. An older executable may be unable to read configuration changed during the attempted update. The installer reports failure even if recovery succeeds. Preserve the original error, subsequent recovery messages, installer log, and recovery files when reporting a failed update.
 
