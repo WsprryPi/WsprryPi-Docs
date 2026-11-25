@@ -272,3 +272,9 @@ Reported WSPR dBm is message metadata, not measured power or RF drive. Supportin
 **Saved** hardware is the persisted plan; **Active** is the boot's observed plan. Null active state means unknown, even if another pin-choice display has a value. Changed pins require a restart and latch output inhibition for the boot. Saving the old pins again or changing station does not clear that latch. Storage faults and hardware application faults are separate: `output_disable_failed` may mean new settings were stored while shutdown was unconfirmed. Resolve the fault and read back before another deliberate action.
 
 An explicit scoped save does not restart Pico, reconnect a management carrier, enable recurrence, claim ownership, or transmit. A conflict, changed selection/context, timeout, or lost reply blocks further saves until explicit readback and review. Keep drafts, compare fresh saved/active observations, validate hardware again, and deliberately save only after resolving the uncertainty. Do not automatically repeat a write.
+
+### Save Pico GPIO drive before station setup
+
+In **Device I/O → RF output, GPS, and pins**, choose **Read GPIO drive**, select the supported drive, and choose **Save GPIO drive**. A complete callsign, locator, or reported WSPR power is not required; WSPR may remain disabled. Saved drive and the current boot’s active drive are separate observations. Saving does not restart the Pico or transmit.
+
+Under **Saved drive progress**, **Save drive progress** stores a draft independently of station setup. **Apply saved drive** applies that saved draft separately. Read GPIO drive again, review the saved and active observations, then use the existing **Restart device** action explicitly to activate changed hardware. Reconnect and read back after restart. After a refused or unconfirmed save or apply, retain the draft, read the saved result, and review it before another deliberate action.
