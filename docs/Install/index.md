@@ -20,8 +20,8 @@ To use a Pico 2 W as an external output, follow [Add a WsprryPico](pico.md). It 
 
 If you choose the Si5351 backend, you also need an Si5351 clock generator. While I have provided a KiCad design for a Pi HAT with a purpose-built circuit surrounding the Si5351, you may also use one of the common breakout boards:
 
-- [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal. WsprryPi has not qualified a 25 MHz reference for 2 m WSPR.
-- [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations. WsprryPi's qualified 2 m configuration uses a 27 MHz reference.
+- [Adafruit Si5351 Clock Generator Breakout](https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/overview) - This board uses a 25 MHz crystal.
+- [QRP Labs Si5351A Synthesizer](https://www.qrp-labs.com/synth.html) - This kit is supplied with a 27 MHz crystal and supports optional TCXO configurations.
 
 The Pi header I2C connection uses GPIO2 and GPIO3. For a USB-connected Si5351, follow the host-specific guide:
 
