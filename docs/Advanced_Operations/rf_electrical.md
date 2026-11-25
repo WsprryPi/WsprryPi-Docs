@@ -75,9 +75,11 @@ Some form of isolation and protection is strongly recommended.
 
 ## Measured bare-GPIO power
 
-The graphs show a bare **Raspberry Pi Model A+ (BCM2835) GPIO20** sweep recorded on **25 November 2026 (UTC)** by Lee Bussy [AA0NT]. A coax adapter connected GPIO20 directly to an **HP 8482A power sensor** on an **HP 437B power meter**. The sweep covered ten carriers at eight nominal drive settings from **2 to 16 mA** in **2 mA** steps. The meter applied the sensor calibration factor for each carrier, and two readings were averaged per point.
-
 The graphs show **meter-indicated power at the sensor input**. Harmonics from the bare square-wave output can contribute to the readings. These measurements describe the tested board and load. Measure the filtered RF path for antenna-port power.
+
+### Raspberry Pi Model A+ (BCM2835) GPIO20
+
+The graphs show a bare **Raspberry Pi Model A+ (BCM2835) GPIO20** sweep recorded on **25 November 2026 (UTC)** by Lee Bussy [AA0NT]. A coax adapter connected GPIO20 directly to an **HP 8482A power sensor** on an **HP 437B power meter**. The sweep covered ten carriers at eight nominal drive settings from **2 to 16 mA** in **2 mA** steps. The meter applied the sensor calibration factor for each carrier, and two readings were averaged per point.
 
 | Band | Test Tone RF carrier (Hz) |
 | --- | ---: |
@@ -99,3 +101,33 @@ The graphs show **meter-indicated power at the sensor input**. Harmonics from th
 ![Meter-indicated bare Raspberry Pi Model A+ GPIO20 power versus nominal drive setting, with one curve per tested band from 630 m through 10 m.](../_static/images/output/pi1-gpio20-power-drive.png)
 
 *Power versus GPIO drive setting.* The indicated power rose at every tested carrier as nominal drive increased. Each additional 2 mA step produced a smaller power increase than the previous step.
+
+### Raspberry Pi 5 (RP1) GPIO4
+
+The graphs show a bare **Raspberry Pi 5 (RP1) GPIO4** sweep recorded on **25 November 2026 (UTC)** by Lee Bussy [AA0NT]. A coax adapter connected GPIO4 directly to an **HP 8482A power sensor** on an **HP 437B power meter**. The test used the **RP1-GPCLK-DKMS v1.1.0 candidate** (commit `7ba4d6e`) with WsprryPi 4.0.0-rc.1. Two passes covered 13 carriers at four nominal drive settings of **2, 4, 8, and 12 mA** for a total of 104 points. The meter applied the sensor calibration factor for each carrier, and two readings were averaged per point.
+
+| Band | Test RF carrier (Hz) |
+| --- | ---: |
+| 2200 m | 137,500 |
+| 630 m | 475,700 |
+| 160 m | 1,838,100 |
+| 80 m | 3,570,100 |
+| 60 m | 5,366,200 |
+| 40 m | 7,040,100 |
+| 30 m | 10,140,200 |
+| 22 m | 13,560,000 |
+| 20 m | 14,097,100 |
+| 17 m | 18,106,100 |
+| 15 m | 21,096,100 |
+| 12 m | 24,926,100 |
+| 10 m | 28,126,100 |
+
+The 22 m points used the candidate driver's finite-tone interface at 13.560 MHz. All other points used WsprryPi's bounded Test Tone.
+
+![Meter-indicated bare Raspberry Pi 5 RP1 GPIO4 power versus frequency for four nominal drive settings, with solid lines for the first pass and dashed lines for the second.](../_static/images/output/pi5-rp1-gpio4-power-frequency.png)
+
+*Power versus frequency setting.* The equally spaced band labels correspond to the carriers in the table. At 12 mA, the mean across both passes was **26.8 mW** on 630 m, **24.5 mW** on 20 m, and **22.4 mW** on 10 m.
+
+![Meter-indicated bare Raspberry Pi 5 RP1 GPIO4 power versus nominal drive for the 13 tested bands, with solid lines for the first pass and dashed lines for the second.](../_static/images/output/pi5-rp1-gpio4-power-drive.png)
+
+*Power versus GPIO drive setting.* The indicated power rose with each increase in nominal drive at all 13 carriers in both passes. The largest absolute difference between matching point means was **0.10 mW**.
