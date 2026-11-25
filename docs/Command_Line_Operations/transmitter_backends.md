@@ -9,12 +9,12 @@
   - `rp1-gpclk`: Explicit Pi 5 RP1 backend with a reconciled installed route and the existing operation-scoped development confirmation. It is never an automatic fallback from `gpio`; see the [RP1 guide](../Advanced_Operations/rp1_gpclk.md).
 
 - `--power-level <level>`  
-  Set transmit power for the active backend:  
+  Select a drive level for the active backend.
   - GPIO: 0–7  
   - Si5351: 1–4
 
 - `--gpio-power-level <0-7>`  
-  Explicitly set GPIO drive strength.
+  Select the GPIO drive level. See the [nominal drive mapping](../User_Interface/Setup/Transmitter/index.md#gpio-power-level) and [measured bare-GPIO power](../Advanced_Operations/rf_electrical.md#measured-bare-gpio-power).
 
 - `--si5351-power-level <1-4>`  
   Set Si5351 output drive strength.

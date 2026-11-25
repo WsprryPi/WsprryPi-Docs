@@ -34,7 +34,7 @@ TAPR also offers a Raspberry Pi shield with filtering and amplification:
 
 - https://www.tapr.org/kits_20M-wsprrypi-pi.html
 
-The expected RF power output from the GPIO backend is configurable from the direct command line or saved settings through the Web UI.
+Set GPIO drive strength from the command line or under [Setup → Transmitter → GPIO Power Level](../User_Interface/Setup/Transmitter/index.md#gpio-power-level).
 
 Even at low power levels, WSPR transmissions are commonly received over very long distances.
 
@@ -72,3 +72,30 @@ Antennas can also expose GPIO pins to:
 - Lightning transients
 
 Some form of isolation and protection is strongly recommended.
+
+## Measured bare-GPIO power
+
+The graphs show a bare **Raspberry Pi Model A+ (BCM2835) GPIO20** sweep recorded on **25 November 2026 (UTC)** by Lee Bussy [AA0NT]. A coax adapter connected GPIO20 directly to an **HP 8482A power sensor** on an **HP 437B power meter**. The sweep covered ten carriers at eight nominal drive settings from **2 to 16 mA** in **2 mA** steps. The meter applied the sensor calibration factor for each carrier, and two readings were averaged per point.
+
+The graphs show **meter-indicated power at the sensor input**. Harmonics from the bare square-wave output can contribute to the readings. These measurements describe the tested board and load. Measure the filtered RF path for antenna-port power.
+
+| Band | Test Tone RF carrier (Hz) |
+| --- | ---: |
+| 630 m | 475,700 |
+| 160 m | 1,838,100 |
+| 80 m | 3,570,100 |
+| 60 m | 5,366,200 |
+| 40 m | 7,040,100 |
+| 30 m | 10,140,200 |
+| 20 m | 14,097,100 |
+| 17 m | 18,106,100 |
+| 15 m | 21,096,100 |
+| 10 m | 28,126,100 |
+
+![Meter-indicated bare Raspberry Pi Model A+ GPIO20 power versus frequency, with one curve for each of the eight nominal drive settings from 2 to 16 mA.](../_static/images/output/pi1-gpio20-power-frequency.png)
+
+*Power versus frequency setting.* The equally spaced band labels correspond to the Test Tone carriers in the table. At 16 mA, the mean indication was **29.1 mW** on 630 m, **26.6 mW** on 20 m, and **24.9 mW** on 10 m.
+
+![Meter-indicated bare Raspberry Pi Model A+ GPIO20 power versus nominal drive setting, with one curve per tested band from 630 m through 10 m.](../_static/images/output/pi1-gpio20-power-drive.png)
+
+*Power versus GPIO drive setting.* The indicated power rose at every tested carrier as nominal drive increased. Each additional 2 mA step produced a smaller power increase than the previous step.

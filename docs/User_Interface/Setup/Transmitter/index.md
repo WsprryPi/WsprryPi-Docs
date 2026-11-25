@@ -56,18 +56,20 @@ If an existing configuration assigns the selected RF pin to an enabled ordinary 
 
 ### GPIO Power Level
 
-These are output driver strength levels mapped within the Pi's GPIO registers.  You may adjust the output from 0-7 with the slider.  The values roughly align to power levels at the pin before any amplification or filtering:
+Use the **GPIO Power Level** slider to select the output driver strength. On the Raspberry Pi Model A+ (BCM2835), the legacy GPIO backend uses this nominal drive mapping.
 
-1. 2 mA: ~-7.0 dBm
-2. 4 mA - ~-1.0 dBm
-3. 6 mA - ~2.6 dBm
-4. 8 mA - ~5.1 dBm
-5. 10 mA - ~7.0 dBm
-6. 12 mA - ~8.6 dBm
-7. 14 mA - ~9.9 dBm
-8. 16 mA - ~11.1 dBm
+| Level | Nominal GPIO drive |
+| ---: | ---: |
+| 0 | 2 mA |
+| 1 | 4 mA |
+| 2 | 6 mA |
+| 3 | 8 mA |
+| 4 | 10 mA |
+| 5 | 12 mA |
+| 6 | 14 mA |
+| 7 | 16 mA |
 
-Actual output should be measured with the entire circuit and antenna.
+See [Measured bare-GPIO power](../../../Advanced_Operations/rf_electrical.md#measured-bare-gpio-power) for the conducted GPIO20 sweep. Measure RF power in the complete filtered and loaded RF path.
 
 ## Si5351
 
