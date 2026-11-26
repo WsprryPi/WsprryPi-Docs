@@ -54,7 +54,7 @@ The CLI supports two primary modes:
 - `wsprrypi --help`  
   Display help text.
 
-- `sudo wsprrypi --test-tone 780kHz` Transmit a constant RF tone at 780 kHz. Frequency inputs use whole-number hertz, or a value with an `Hz`, `kHz`, `MHz`, or `GHz` suffix that resolves to whole-number hertz. Scientific notation and fractional-hertz results are rejected. Band aliases resolve to their WSPR dial frequencies; use an explicit frequency when the test carrier should differ from the dial. See [Canonical Bands and WSPR Frequency Presets](../Advanced_Operations/canonical_bands.md) for qualified 60 m presets and country/locality selection.
+- `sudo wsprrypi --test-tone 14.0956MHz` Request a steady carrier at exactly 14,095,600 Hz. A band alias or qualified WSPR preset selects its USB dial plus 1,500 Hz. For example, the standard `20m` preset targets 14,097,100 Hz. See [Test Tone](service_test_controls.md#test-tone) for input formats and selector options.
 
 - `sudo wsprrypi N9NNN EM10 33 20m`  
   Transmit a single WSPR message.

@@ -27,6 +27,8 @@ These advanced options are available from the direct command line and saved loca
 
 - `--allow-non-amateur-frequency`, `--no-allow-non-amateur-frequency` Allow or deny a frequency outside WsprryPi's recognized US and international amateur-band ranges. Outside-band transmission requires both allow options.
 
+For a numeric direct Test Tone outside those ranges, the backend evaluates the exact requested carrier. On BCM2711 GPIO, 13,560,000 Hz requires both allow options and remains subject to the backend's output checks. A direct tone at that frequency uses a band selector only when the request includes an [explicit GPIO suffix](service_test_controls.md#test-tone). Verify that the connected RF path provides the filtering required for the chosen frequency.
+
 These options do not grant permission to transmit. The operator remains responsible for authorization, RF-path safety, filtering, and compliance with applicable rules.
 
 ### Precedence
