@@ -1,6 +1,6 @@
 # Saved Settings and Local Maintenance
 
-These commands apply to the SQLite and separate web service source implementation. Use the installed executable's `--help` to check availability; older published releases use their version-specific instructions.
+These commands apply to the SQLite and separate web service source implementation. Use the installed executable's `--help` to check availability; older published releases use their version-specific instructions. For controller-only installations, see [find the installed executable](../Install/controller.md#local-command-and-service-paths) for the platform-specific command path.
 
 ## Read and change advanced settings
 
@@ -11,7 +11,7 @@ sudo wsprrypi --settings --help
 sudo wsprrypi --settings read
 ```
 
-Read the returned revision, then use that exact revision in a change. In this example, replace `7` with the revision just read:
+Read the returned revision, then use that exact revision in a change. The following example applies to a local transmitter. Replace `7` with the revision just read.
 
 ```sh
 sudo wsprrypi --settings write --expected-revision 7 \

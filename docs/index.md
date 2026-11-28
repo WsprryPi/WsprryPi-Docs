@@ -66,6 +66,7 @@ Support/index
 :caption: Optional Setups
 :hidden:
 
+Install/controller
 Install/pico
 Install/rc1
 Install/beta7

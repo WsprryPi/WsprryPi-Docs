@@ -1,6 +1,8 @@
 # Setup Card
 
-Use **Device** beside the Setup tabs to choose whose settings you are editing. On a phone, the selector appears on its own row. **This Pi · local settings** opens the local settings. A saved Pico or a verified paired Pi opens its independent settings without selecting it as this controller’s output. When managing another device, confirm its name, full identity, connection, and status below the selector before editing. Local save feedback appears beside the Setup title; loading and retained-draft messages appear when needed.
+Use **Device** beside the Setup tabs to choose whose settings you are editing. On a phone, the selector appears on its own row.
+
+On a transmitter installation, **This Pi · local settings** opens the local settings. A [controller-only host](../../Install/controller.md) opens Fleet when no managed device is selected. A saved Pico or a verified paired Pi opens its independent settings without selecting it as this controller’s output. When managing another device, confirm its name, full identity, connection, and status below the selector before editing. Local save feedback appears beside the Setup title; loading and retained-draft messages appear when needed.
 
 The five tabs are:
 
@@ -38,7 +40,7 @@ Pico settings use explicit resource-specific reads, validation, saves, and, wher
 
 Switching between Picos retains each browser draft. A write already accepted on the old device remains in **Target request outcomes**. A lost reply requires saved-value readback and explicit review before a new deliberate save. Profile replacement, changed boot, or lost capability pauses the editor; **Reconnect selected device** negotiates a fresh context. Replaced-profile drafts remain available for read-only inspection. Reconnecting the same profile can retain its entries, but a fresh resource read and deliberate review are required before saving through the new context. These browser drafts do not survive a page reload; resolve or copy needed non-secret entries before leaving. Passwords are excluded from retained-draft inspection.
 
-**Controller time and power** belongs to this Pi. Pico settings and native schedules belong to the device selected under **Device**. Selecting a Pico does not change this Pi’s RF backend.
+**Controller time and power** is available when configuring the local transmitter Pi. Pico settings and native schedules belong to the device selected under **Device**. Selecting a Pico does not change this Pi’s RF backend.
 
 ## Pi and Pico Fleet setup
 
