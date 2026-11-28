@@ -1,6 +1,8 @@
 # Maintenance Card
 
-Use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, create a support bundle, and download or restore an encrypted installation backup.
+On a transmitter installation, use the Maintenance page to repair or reset configuration, check the RF path with Test Tone, check for updates, create a support bundle, and download or restore an encrypted installation backup.
+
+On a [controller-only installation](../../Install/controller.md), Maintenance provides encrypted backup and restore, controller access, and scheduling ownership review for supported paired Pis. Local transmitter setup, repair, reset, Test Tone, privileged network settings, and Pi support bundles are unavailable on the controller.
 
 ## Set up this transmitter
 
@@ -14,7 +16,7 @@ Updates and configuration resets retain the installation's scheduling history. I
 
 ## Controller access
 
-Use **Controller access** to connect one Pi to another for settings management. Keep **Privileged network safety** enforced on both devices. A transmitter Pi and a controller-only Pi can each manage another Pi.
+Use **Controller access** to pair a controller-only installation or a transmitter Pi with the Pi it will manage. Keep the target Pi’s **Privileged network safety** policy enforced. The controller-only host applies its installer-managed browser access policy.
 
 1. On the Pi you want to manage, open **Maintenance** and select **Pair this Pi**. Keep that page open to view its temporary code.
 2. On the controller’s **Maintenance** page, find **Manage another Pi**. Select **Refresh devices**, choose the Pi displaying the code, enter its eight characters, and select **Connect to Pi**.

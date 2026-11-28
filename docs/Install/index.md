@@ -6,6 +6,8 @@ The saved-settings, separate browser service, and backup/restore procedures appl
 
 For the pinned RC.1 prerelease, see [RC.1 installation](rc1.md). For the development channel, see [Development installation](beta7.md). The normal installation commands below retain the stable channel.
 
+For a host that manages remote Pi and Pico transmitters without local output, use the [controller-only installation guide](controller.md).
+
 Before installing, check [What you need](../requirements.md). After installation, continue with [Your first WSPR transmission](../first_transmission.md).
 
 ## Gather Hardware
@@ -30,7 +32,7 @@ The Pi header I2C connection uses GPIO2 and GPIO3. For a USB-connected Si5351, f
 
 ## Prerequisites
 
-The remaining steps on this page configure a Raspberry Pi. Other hosts use their respective USB I2C setup guides above.
+The remaining steps on this page configure a Raspberry Pi. For other roles or hosts, use the controller-only or USB I2C guides above.
 
 This section may be the most challenging part of the whole installation.  *You must have a working Raspberry Pi with Internet access.* It can be hard-wired or on Wi-Fi.  There is no better place to learn how to set up your new Pi than from the people who make it themselves.  [Go here](https://www.raspberrypi.com/documentation/computers/getting-started.html) and learn how to install the operating system with the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).  To enable SSH access, pre-configure your image with your local/time zone, Wi-Fi credentials, and a unique hostname.
 

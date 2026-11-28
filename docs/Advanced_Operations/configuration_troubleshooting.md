@@ -91,7 +91,9 @@ In [Setup → Scheduling](../User_Interface/Setup/Scheduling/index.md), distingu
 
 ## Browser unavailable or saved state cannot open
 
-In the SQLite implementation, check the three services separately before restarting anything:
+For a controller-only host, start with the [platform service and log checks](../Install/controller.md#local-command-and-service-paths).
+
+For a Raspberry Pi transmitter with the SQLite implementation, check the three services separately before restarting anything:
 
 ```sh
 systemctl status wsprrypi.service wsprrypi-web.service wsprrypi-maintenance.service

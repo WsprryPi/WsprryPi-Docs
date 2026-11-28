@@ -27,6 +27,8 @@ The UI entry point is:
 http://{servername}.local/wsprrypi/
 ```
 
+On a [controller-only installation](../Install/controller.md), use the same proxy path on the host’s browser port. Read `GET /version` to identify the host role. The controller accepts admitted operations against managed devices. Local transmitter configuration and stop routes are unavailable on that host.
+
 ## Configuration Endpoint
 
 The primary proxied configuration endpoint is:
