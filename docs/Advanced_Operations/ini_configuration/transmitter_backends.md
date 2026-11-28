@@ -20,6 +20,8 @@ The `[Calibration]` section supplies **Reference calibration (PPM)** for the Si5
 
 The `[GPIO]` section configures the supported direct RF pin, GPIO-backend power level, provider-derived system clock estimate, conducted residual, and fixed/manual fallback. When `Operation.Transmit Backend = gpio`, the configured transmit pin is reserved even if `Operation.Transmit = false`. The other supported transmit pin remains available to ordinary GPIO roles. When the Si5351 backend is selected, a retained GPIO transmit-pin value reserves nothing.
 
+`Power Level` stores a legacy pad code from 0 through 7. The codes represent 2–16 mA in steps of 2 mA on Pi 1, Pi 2, Pi 3, Zero, and Zero 2 W, and 1–8 mA in steps of 1 mA on Pi 4, Pi 400, and Compute Module 4. `RP1 Drive mA` stores a nominal current of 2, 4, 8, or 12 mA on a supported RP1 route. [Legacy and RP1 drive controls](../../User_Interface/Setup/Transmitter/index.md#gpio-power-level)
+
 GPIO qualification depends on the Raspberry Pi clock profile, band, and transmission mode. Requests for unqualified combinations are blocked by default, while combinations the backend cannot construct remain unavailable. Check the [Band qualification](../../About_Wsprry_Pi/index.md#band-qualification) table and its numbered notes for the current mode-specific status. See [GPIO Band Capabilities and Signal Quality](../../FAQ/why_12m_looks_noisy.md) for the measured signal-quality findings.
 
 The estimate/residual/manual values describe additional correction. The backend adds its intrinsic chipset compensation once, including when additional PPM is zero. A usable estimate selects estimate plus residual; otherwise manual applies. A prior-qualified host estimate can remain usable within its bounded 900-second age window even when current qualification is unavailable. Saved inputs do not change already committed work. See [calibration accounting](../timing_calibration.md).
@@ -41,7 +43,7 @@ The `[Si5351]` section configures the I2C device, reference frequency, reference
 
 `I2C Address` accepts decimal or `0x`-prefixed hexadecimal values from `0x60` through `0x6F` inclusive. The web interface further limits its address menu to register-compatible devices detected on the selected, host-present I2C bus. Direct CLI and migrated saved configuration still undergo range and transmission-readiness validation.
 
-Cached or failed discovery can retain a saved unconfirmed address. A fresh scan is explicit and bounded; see the [I2C address workflow](../../User_Interface/Setup/Transmitter/index.md#i2c-address). Drive levels 1–4 retain 2/4/6/8 mA, not calibrated RF power. CW fades are full-drive duty-cycle chopping with event deadlines, not analog amplitude control.
+Cached or failed discovery can retain a saved unconfirmed address. A fresh scan is explicit and bounded. `Power Level` stores levels 1, 2, 3, and 4 for 2, 4, 6, and 8 mA nominal drive on `TX Output`. CW fades use duty-cycle chopping at the selected drive with event deadlines. [I2C address workflow](../../User_Interface/Setup/Transmitter/index.md#i2c-address)
 
 For a passive crystal, `Crystal Load Capacitance` accepts only `6`, `8`, or `10` pF and defaults to `10`. WsprryPi programs this value only in crystal mode. It retains the setting without applying it in `external_tcxo` mode, so TCXO users should not treat it as a calibration control.
 

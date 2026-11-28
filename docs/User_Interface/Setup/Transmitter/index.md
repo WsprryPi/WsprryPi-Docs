@@ -56,18 +56,20 @@ If an existing configuration assigns the selected RF pin to an enabled ordinary 
 
 ### GPIO Power Level
 
-Use the **GPIO Power Level** slider to select the output driver strength. On the Raspberry Pi Model A+ (BCM2835), the legacy GPIO backend uses this nominal drive mapping.
+Use the **Legacy GPIO power level** slider to select a pad drive code. The dashboard displays its nominal current for the detected Raspberry Pi. When the Pi identity is unavailable, the slider shows the code and reports that nominal drive is unavailable.
 
-| Level | Nominal GPIO drive |
-| ---: | ---: |
-| 0 | 2 mA |
-| 1 | 4 mA |
-| 2 | 6 mA |
-| 3 | 8 mA |
-| 4 | 10 mA |
-| 5 | 12 mA |
-| 6 | 14 mA |
-| 7 | 16 mA |
+| <span class="no-break">Code</span> | Pi 1, Pi 2, Pi 3, Zero, and Zero 2 W | Pi 4, Pi 400, and Compute Module 4 |
+| ---: | ---: | ---: |
+| 0 | 2 mA | 1 mA |
+| 1 | 4 mA | 2 mA |
+| 2 | 6 mA | 3 mA |
+| 3 | 8 mA | 4 mA |
+| 4 | 10 mA | 5 mA |
+| 5 | 12 mA | 6 mA |
+| 6 | 14 mA | 7 mA |
+| 7 | 16 mA | 8 mA |
+
+The code keeps its stored value on every legacy Pi. Supported RP1 routes use a separate **RP1 GPIO drive strength** control with nominal settings of **2, 4, 8, or 12 mA**. Reported WSPR dBm is set independently. [Raspberry Pi GPIO pad drive settings](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio-pads-control)
 
 See [Measured bare-GPIO power](../../../Advanced_Operations/rf_electrical.md#measured-bare-gpio-power) for the conducted GPIO20 sweep. Measure RF power in the complete filtered and loaded RF path.
 
@@ -103,7 +105,7 @@ When **Passive crystal** is selected, the **Crystal Load Capacitance** menu appe
 
 ### Si 5351 Power Level
 
-Levels **1, 2, 3, 4** retain **2, 4, 6, 8 mA** output drive, respectively. These are drive settings, not calibrated RF power. Measure the complete filtered and loaded RF path independently; WSPR reported dBm does not set this drive.
+**Power Level** selects nominal drive on the configured **TX Output**. The saved levels **1, 2, 3, and 4** correspond to **2, 4, 6, and 8 mA**, respectively. Measure RF power in the complete filtered and loaded path. WSPR reported dBm is set independently.
 
 ### Readiness and recovery
 

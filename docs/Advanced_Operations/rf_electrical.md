@@ -34,7 +34,7 @@ TAPR also offers a Raspberry Pi shield with filtering and amplification:
 
 - https://www.tapr.org/kits_20M-wsprrypi-pi.html
 
-Set GPIO drive strength from the command line or under [Setup → Transmitter → GPIO Power Level](../User_Interface/Setup/Transmitter/index.md#gpio-power-level).
+Set GPIO drive strength from the command line or under [Setup → Transmitter → Legacy GPIO power level](../User_Interface/Setup/Transmitter/index.md#gpio-power-level). Supported RP1 routes use the separate **RP1 GPIO drive strength** selector.
 
 Even at low power levels, WSPR transmissions are commonly received over very long distances.
 
@@ -44,7 +44,7 @@ Supply ripple can appear as mixing products centered around the transmit carrier
 
 Do not expose GPIO pins to voltages or currents above the Raspberry Pi absolute maximum ratings.
 
-The selected GPIO RF pin outputs a 3.3 V digital clock with a maximum current of approximately 16 mA.
+The selected GPIO RF pin outputs a 3.3 V digital clock. Nominal drive describes the setting used to meet the pad's voltage specification under load. Actual current and RF power depend on the pad, frequency, and load. Use the electrical specifications for the fitted board when choosing the load and RF interface. [Raspberry Pi GPIO voltage and drive specifications](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio)
 
 Do not:
 
